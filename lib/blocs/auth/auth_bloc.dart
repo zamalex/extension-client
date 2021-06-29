@@ -8,11 +8,13 @@ import 'package:salon/data/models/data_response_model.dart';
 import 'package:salon/data/models/user_model.dart';
 import 'package:salon/data/repositories/user_repository.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/loginmodel.dart';
 import 'package:salon/utils/app_cache_manager.dart';
 import 'package:salon/utils/app_preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:salon/data/models/payment_card_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -56,41 +58,45 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     ///Notify loading to UI
     yield ProcessInProgressAuthState();
 
-    getIt.get<AppGlobals>().user = await const UserRepository().getProfile();
+    //getIt.get<AppGlobals>().user = await const UserRepository().getProfile();
 
-    try {
-      add(UserSavedAuthEvent(getIt.get<AppGlobals>().user));
+     final result = await UserRepository().register(name: event.fullName,email: event.email,password: event.password);
 
-      yield LoginSuccessAuthState();
-    } catch (error) {
-      yield RegistrationFailureAuthState(error.toString());
-    }
+     if(result['status']as bool){
+       yield LoginSuccessAuthState();
+
+     }else{
+       yield RegistrationFailureAuthState(result['message'].toString());
+     }
+
+
   }
 
   Stream<AuthState> _mapLoginAuthEventToState(LoginRequestedAuthEvent event) async* {
     ///Notify loading to UI
     yield ProcessInProgressAuthState();
 
-    final DataResponseModel user = await const UserRepository().login(
+    final LoginModel user = await const UserRepository().login(
       email: event.email,
       password: event.password,
     );
 
-    if (user.errors.isNotEmpty) {
-      yield LoginFailureAuthState(apiError(user.errors));
+    if (user==null||user.user==null) {
+      yield LoginFailureAuthState('invalid user data');
     } else {
-      getIt.get<AppGlobals>().user = UserModel.fromJson(user.data);
-      AppCacheManager().emptyCache();
+     // getIt.get<AppGlobals>().user = UserModel.fromJson(user.data);
+     // AppCacheManager().emptyCache();
 
       try {
-        add(UserSavedAuthEvent(getIt.get<AppGlobals>().user));
+     //   add(UserSavedAuthEvent(getIt.get<AppGlobals>().user));
 
-        yield LoginSuccessAuthState();
+        yield LoginSuccessAuthState(loginModel: user);
       } catch (error) {
         yield LoginFailureAuthState(error.toString());
       }
     }
   }
+
 
   Stream<AuthState> _mapSaveUserAuthEventToState(UserSavedAuthEvent event) async* {
     AppCacheManager().emptyCache();
@@ -120,6 +126,8 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   Stream<AuthState> _mapLogoutAuthEventToState() async* {
     yield ProcessInProgressAuthState();
 
+       SharedPreferences prefs = await SharedPreferences.getInstance();
+       prefs.setBool("logged", false);getIt.get<AppGlobals>().isUser=false;
     try {
       add(UserClearedAuthEvent());
 
@@ -133,7 +141,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     final bool deletePreferences = await getIt.get<AppPreferences>().remove(PreferenceKey.user);
 
     if (deletePreferences) {
-      getIt.get<AppGlobals>().user = null;
+     // getIt.get<AppGlobals>().user = null;
       yield AuthenticationFailureAuthState();
     }
   }

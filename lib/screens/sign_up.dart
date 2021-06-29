@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/screens/verify.dart';
 import 'package:salon/utils/async.dart';
 import 'package:salon/utils/form_utils.dart';
 import 'package:salon/utils/form_validator.dart';
@@ -49,11 +50,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
 
     if (keyNameInput.currentState.validate() && keyEmailInput.currentState.validate() && keyPasswordInput.currentState.validate()) {
+
       BlocProvider.of<AuthBloc>(context).add(UserRegisteredAuthEvent(
         fullName: _textNameController.text,
         email: _textEmailController.text,
         password: _textPassController.text,
       ));
+      /*LoginModel().registerUser( _textNameController.text, _textEmailController.text, _textPassController.text).then((value){
+        print(value.toString());
+      });*/
     }
   }
 
@@ -80,7 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ThemeTextInput(
                   key: keyNameInput,
                   hintText: L10n.of(context).signUpHintFullName,
-                  icon: const Icon(Icons.clear),
+                  icon: const Icon(Icons.clear,color: kPrimaryColor,),
                   controller: _textNameController,
                   focusNode: _focusName,
                   textInputAction: TextInputAction.next,
@@ -91,22 +96,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   },
                   validator: FormValidator.isRequired(L10n.of(context).formValidatorRequired),
                 ),
-                FormLabel(text: L10n.of(context).signupLabelEmail),
+                FormLabel(text: 'Phone number'),
                 ThemeTextInput(
                   key: keyEmailInput,
-                  hintText: L10n.of(context).signupHintLabelEmail,
+                  hintText: 'enter phone number',
                   focusNode: _focusEmail,
                   onTapIcon: () async {
                     await Future<dynamic>.delayed(const Duration(milliseconds: 100));
                     _textEmailController.clear();
                   },
                   onSubmitted: (String text) => FormUtils.fieldFocusChange(context, _focusEmail, _focusPass),
-                  icon: const Icon(Icons.clear),
+                  icon: const Icon(Icons.clear,color: kPrimaryColor,),
                   controller: _textEmailController,
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.phone,
                   validator: FormValidator.validators(<FormFieldValidator<String>>[
                     FormValidator.isRequired(L10n.of(context).formValidatorRequired),
-                    FormValidator.isEmail(L10n.of(context).formValidatorEmail),
+                  //  FormValidator.isEmail(L10n.of(context).formValidatorEmail),
                   ]),
                 ),
                 FormLabel(text: L10n.of(context).signUpLabelPassword),
@@ -120,7 +125,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     setState(() => _showPassword = !_showPassword);
                   },
                   obscureText: !_showPassword,
-                  icon: Icon(_showPassword ? Icons.visibility : Icons.visibility_off),
+                  icon: Icon(_showPassword ? Icons.visibility : Icons.visibility_off,color: kPrimaryColor,),
                   controller: _textPassController,
                   focusNode: _focusPass,
                   validator: FormValidator.validators(<FormFieldValidator<String>>[
@@ -134,9 +139,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const Padding(padding: EdgeInsets.only(top: kPaddingM)),
                 Padding(
                   padding: const EdgeInsets.only(bottom: kPaddingM),
-                  child: CheckboxListTile(
+                  child: Theme(
+                    data: ThemeData(unselectedWidgetColor: Colors.black),
+
+                    child: CheckboxListTile(
                     contentPadding: EdgeInsets.zero,
-                    activeColor: Theme.of(context).accentColor,
+
+                    activeColor: kPrimaryColor,
                     title: Text(L10n.of(context).signUpLabelConsent),
                     value: _consentGiven,
                     onChanged: (bool value) {
@@ -144,7 +153,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                     dense: true,
                     controlAffinity: ListTileControlAffinity.leading,
-                  ),
+                  ),)
                 ),
                 BlocBuilder<AuthBloc, AuthState>(
                   builder: (BuildContext context, AuthState authState) {
@@ -155,6 +164,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             context,
                             message: authState.message,
                           );
+                        }else if(authState is LoginSuccessAuthState){
+                          Navigator.push(context, MaterialPageRoute(builder: (c)=>VerifyCode()));
                         }
                       },
                       child: ThemeButton(
@@ -166,17 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     );
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: kPaddingM),
-                  child: LinkButton(
-                    trailing: Icon(
-                      Icons.open_in_browser,
-                      color: Theme.of(context).hintColor,
-                    ),
-                    label: L10n.of(context).signUpReadMore,
-                    onPressed: () => Async.launchUrl(kTermsOfServiceURL),
-                  ),
-                ),
+
               ],
             ),
           ),

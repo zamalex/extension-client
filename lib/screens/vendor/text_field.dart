@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/utils/string.dart';
-import 'package:salon/widgets/strut_text.dart';
 
 /// General purpose text input field using [CupertinoTextField].
 class ThemeTextInput extends StatefulWidget {
@@ -53,8 +49,8 @@ class ThemeTextInput extends StatefulWidget {
 
 class ThemeTextInputState extends State<ThemeTextInput> {
   String _errorText = '';
-  final grey = Color.fromRGBO(118 ,123 ,128, 1);
-  final greyLight = Color.fromRGBO(235, 235 ,235, 1);
+final grey = Color.fromRGBO(118 ,123 ,128, 1);
+final greyLight = Color.fromRGBO(235, 235 ,235, 1);
   /// The current validation error returned by the [ThemeTextInput.validator]
   /// callback, or null if no errors have been triggered. This only updates when
   /// [validate] is called.
@@ -74,21 +70,6 @@ class ThemeTextInputState extends State<ThemeTextInput> {
     return !hasError;
   }
 
-  Widget _showErrorLabel() {
-    if (_errorText.isNullOrEmpty) {
-      return Container();
-    }
-
-    return Container(
-      padding: const EdgeInsets.only(top: kPaddingS / 2),
-      child: StrutText(
-        _errorText,
-        style: Theme.of(context).textTheme.caption.fs14.copyWith(color: Theme.of(context).errorColor),
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-      ),
-    );
-  }
 
   Widget _showHelpText() {
     if (widget.helpText == null) {
@@ -96,12 +77,12 @@ class ThemeTextInputState extends State<ThemeTextInput> {
     }
 
     return Container(
-      padding: const EdgeInsets.only(top: kPaddingS / 2),
-      child: StrutText(
+      padding: const EdgeInsets.only(top: 10 / 2),
+      child: Text(
         widget.helpText,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: kPrimaryColor,fontFamily: 'Raleway'),
+        style: TextStyle(color: Colors.red),
       ),
     );
   }
@@ -110,7 +91,7 @@ class ThemeTextInputState extends State<ThemeTextInput> {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).dividerColor,
-        borderRadius: BorderRadius.circular(kBoxDecorationRadius),
+        borderRadius: BorderRadius.circular(5),
       ),
       child: Stack(
         children: <Widget>[
@@ -136,21 +117,18 @@ class ThemeTextInputState extends State<ThemeTextInput> {
             cursorColor: grey,
             style: TextStyle(color: grey),
             decoration: BoxDecoration(
-
               color: greyLight,
-              borderRadius: BorderRadius.circular(kFormFieldsRadius),
-              border: Border.all(
-                width: 2,
-                color: _errorText.isNotNullOrEmpty ? Theme.of(context).errorColor : greyLight,
-              ),
+              borderRadius: BorderRadius.circular(5),
+
             ),
             clearButtonMode: widget.clearButtonMode,
             readOnly: widget.readOnly,
             suffix: widget.icon != null
                 ? IconButton(
-                    icon: widget.icon,
-                    onPressed: widget.onTapIcon,
-                  )
+              icon: widget.icon,
+              color: grey,
+              onPressed: widget.onTapIcon,
+            )
                 : null,
             placeholder: widget.hintText,
             placeholderStyle: TextStyle(
@@ -174,7 +152,6 @@ class ThemeTextInputState extends State<ThemeTextInput> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _showTextField(),
-          _showErrorLabel(),
           _showHelpText(),
         ],
       ),

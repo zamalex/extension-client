@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
@@ -16,6 +17,7 @@ import 'package:salon/widgets/list_item.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/list_title.dart';
 import 'package:salon/widgets/strut_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key key}) : super(key: key);
@@ -25,6 +27,16 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  AuthBloc block;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    block = BlocProvider.of<AuthBloc>(context);
+
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
@@ -48,17 +60,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: ListView(
                         children: <Widget>[
                           ListItem(
+                            titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
                             title: L10n.of(context).profileListAppointments,
-                            leading: const Icon(Icons.calendar_today),
+                            leading: const Icon(Icons.calendar_today,color: kPrimaryColor),
                             trailing: Row(
                               children: <Widget>[
-                                if (getIt.get<AppGlobals>().user.upcomingAppointments > 0)
+                               /* if (getIt.get<AppGlobals>().user.upcomingAppointments > 0)
                                   Badge(
                                     text: getIt.get<AppGlobals>().user.upcomingAppointments.toString(),
                                     color: kWhite,
                                     backgroundColor: kPrimaryColor,
                                   )
-                                else
+                                else*/
                                   Container(),
                                 const ArrowRightIcon(),
                               ],
@@ -69,9 +82,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   .onTap(getIt.get<BottomBarItems>().getBottomBarItem('appointments'));
                             },
                           ),
+
                           ListItem(
-                            title: L10n.of(context).profileListVouchers,
-                            leading: const Icon(Icons.redeem),
+                            titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                            title: 'My orders',//L10n.of(context).profileListVouchers,
+                            leading: const Icon(Icons.shopping_cart_outlined,color: kPrimaryColor),
                             trailing: Row(
                               children: <Widget>[
                                 if (getIt.get<AppGlobals>().user.activeVouchers > 0)
@@ -88,64 +103,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onPressed: () => Navigator.pushNamed(context, Routes.vouchers),
                           ),
                           ListItem(
+                                                        titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+
                             title: L10n.of(context).profileListFavorites,
-                            leading: const Icon(Icons.favorite_border),
+                            leading: const Icon(Icons.favorite_border,color: kPrimaryColor),
                             trailing: const ArrowRightIcon(),
                             onPressed: () => Navigator.pushNamed(context, Routes.favorites),
                           ),
                           ListItem(
+                                                        titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+
+
                             title: L10n.of(context).profileListReviews,
-                            leading: const Icon(Icons.star_border),
+                            leading: const Icon(Icons.star_border,color: kPrimaryColor),
                             trailing: const ArrowRightIcon(),
                             onPressed: () => Navigator.pushNamed(context, Routes.ratings),
                           ),
+
                           ListItem(
-                            title: L10n.of(context).profileListInvite,
-                            leading: const Icon(Icons.people),
-                            trailing: const ArrowRightIcon(),
-                            onPressed: () => Navigator.pushNamed(context, Routes.invite),
-                          ),
-                          ListItem(
+                                                        titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+
+
                             title: L10n.of(context).profileListEdit,
-                            leading: const Icon(Icons.person_outline),
+                            leading: const Icon(Icons.person_outline,color: kPrimaryColor),
                             trailing: const ArrowRightIcon(),
                             onPressed: () => Navigator.pushNamed(context, Routes.editProfile),
                           ),
-                          ListTitle(title: L10n.of(context).profileListTitleSettings),
+
                           ListItem(
-                            title: L10n.of(context).profileListPaymentCard,
-                            leading: const Icon(Icons.payment),
-                            trailing: const ArrowRightIcon(),
-                            onPressed: () => Navigator.pushNamed(context, Routes.paymentCard),
-                          ),
-                          ListItem(
+                                                        titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+
+
                             title: L10n.of(context).profileListSettings,
-                            leading: const Icon(Icons.settings),
+                            leading: const Icon(Icons.settings,color: kPrimaryColor),
                             trailing: const ArrowRightIcon(),
                             onPressed: () => Navigator.pushNamed(context, Routes.settings),
                           ),
-                          Container(height: kPaddingM),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: kPaddingL),
-                            child: BlocBuilder<AuthBloc, AuthState>(builder: (BuildContext context, AuthState logoutState) {
-                              return BlocListener<AuthBloc, AuthState>(
-                                listener: (BuildContext context, AuthState logoutListener) {
-                                  if (logoutListener is LogoutFailureAuthState) {
-                                    UI.showErrorDialog(context, message: logoutListener.message);
-                                  }
-                                },
-                                child: Center(
-                                  child: InkWell(
-                                    onTap: () => BlocProvider.of<AuthBloc>(context).add(UserLoggedOutAuthEvent()),
-                                    child: StrutText(
-                                      L10n.of(context).profileListLogout,
-                                      style: Theme.of(context).textTheme.subtitle1.w400.copyWith(color: Theme.of(context).hintColor),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
+                          ListItem(
+                            titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+
+
+                            title: L10n.of(context).profileListLogout,
+                            leading: const Icon(Icons.logout,color: kPrimaryColor),
+                            trailing: const ArrowRightIcon(),
+                            onPressed: ()async{
+                             SharedPreferences prefs = await SharedPreferences.getInstance();
+                             prefs.setBool("logged", false);
+                              getIt.get<AppGlobals>().isUser=false;
+                              Phoenix.rebirth(context);
+
+                            // block.add(UserLoggedOutAuthEvent());
+
+                            //  BlocProvider.of<AuthBloc>(context).close();
+
+                            //  state.done=false;
+
+
+                            },
                           ),
+
                         ],
                       ),
                     ),

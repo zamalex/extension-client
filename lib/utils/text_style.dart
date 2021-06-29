@@ -19,5 +19,6 @@ extension TextStyleExtension on TextStyle {
   TextStyle get fs28 => copyWith(fontSize: 28);
 
   TextStyle get white => copyWith(color: kWhite);
+  TextStyle get black => copyWith(color: Colors.black);
   TextStyle get primaryColor => copyWith(color: kPrimaryColor);
 }

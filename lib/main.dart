@@ -14,6 +14,7 @@ import 'package:salon/configs/constants.dart';
 import 'package:salon/main_app.dart';
 import 'package:salon/utils/app_preferences.dart';
 import 'package:salon/utils/bottom_bar_items.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -21,6 +22,8 @@ Future<void> main() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
   // can be called before `runApp()`
   WidgetsFlutterBinding.ensureInitialized();
+
+
 
   // Init service locator singletons.
   initServiceLocator();
@@ -30,7 +33,8 @@ Future<void> main() async {
 
   /// Running on emulator or real device?
   getIt.get<AppGlobals>().isEmulator = await FlutterIsEmulator.isDeviceAnEmulatorOrASimulator;
-
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  getIt.get<AppGlobals>().isUser = prefs.getBool('logged')??false;
   // Obtain a list of the available cameras on the device.
   initCameras();
 

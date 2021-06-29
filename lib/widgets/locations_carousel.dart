@@ -32,6 +32,7 @@ class _LocationsCarouselState extends State<LocationsCarousel> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           BoldTitle(
+
             title: widget.title,
             onNavigate: widget.onNavigate,
           ),

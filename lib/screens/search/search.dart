@@ -51,7 +51,7 @@ class SearchScreenState extends State<SearchScreen> {
   SearchBloc _searchBloc;
 
   /// Search sort types.
-  List<ToolbarOptionModel> searchSortTypes;
+  // List<ToolbarOptionModel> searchSortTypes;
 
   /// Search list types.
   List<ToolbarOptionModel> searchListTypes;
@@ -71,28 +71,28 @@ class SearchScreenState extends State<SearchScreen> {
 
   /// Init globals that require access to BuildContext for translation.
   void _initGlobals() {
-    searchSortTypes = <dynamic>[
-      <String, dynamic>{
-        'code': 'distance',
-        'label': L10n.current.commonSearchSortTypeDistance,
-        'icon': Icons.directions_car,
-      },
-      <String, dynamic>{
-        'code': 'rating',
-        'label': L10n.current.commonSearchSortTypeRating,
-        'icon': Icons.star,
-      },
-      <String, dynamic>{
-        'code': 'popularity',
-        'label': L10n.current.commonSearchSortTypePopularity,
-        'icon': Icons.remove_red_eye,
-      },
-      <String, dynamic>{
-        'code': 'price',
-        'label': L10n.current.commonSearchSortTypePrice,
-        'icon': Icons.attach_money,
-      },
-    ].map((dynamic item) => ToolbarOptionModel.fromJson(item as Map<String, dynamic>)).toList();
+    // searchSortTypes = <dynamic>[
+    //   <String, dynamic>{
+    //     'code': 'distance',
+    //     'label': L10n.current.commonSearchSortTypeDistance,
+    //     'icon': Icons.directions_car,
+    //   },
+    //   <String, dynamic>{
+    //     'code': 'rating',
+    //     'label': L10n.current.commonSearchSortTypeRating,
+    //     'icon': Icons.star,
+    //   },
+    //   <String, dynamic>{
+    //     'code': 'popularity',
+    //     'label': L10n.current.commonSearchSortTypePopularity,
+    //     'icon': Icons.remove_red_eye,
+    //   },
+    //   <String, dynamic>{
+    //     'code': 'price',
+    //     'label': L10n.current.commonSearchSortTypePrice,
+    //     'icon': Icons.attach_money,
+    //   },
+    // ].map((dynamic item) => ToolbarOptionModel.fromJson(item as Map<String, dynamic>)).toList();
 
     searchListTypes = <dynamic>[
       <String, dynamic>{
@@ -114,20 +114,16 @@ class SearchScreenState extends State<SearchScreen> {
 
     searchGenderFilter = <dynamic>[
       <String, dynamic>{
-        'code': describeEnum(LocationGenderSpecification.unisex),
-        'label': L10n.current.commonGendersUnisex,
+        'code': describeEnum(LocationRatingSpecification.Highest),
+        'label': L10n.current.commonRating,
         'icon': Icons.view_list,
       },
       <String, dynamic>{
-        'code': describeEnum(LocationGenderSpecification.men),
-        'label': L10n.current.commonGendersMen,
+        'code': describeEnum(LocationRatingSpecification.Lowest),
+        'label': L10n.current.commonLowestRating,
         'icon': Icons.view_quilt,
       },
-      <String, dynamic>{
-        'code': describeEnum(LocationGenderSpecification.women),
-        'label': L10n.current.commonGendersWomen,
-        'icon': Icons.view_array,
-      },
+      
     ].map((dynamic item) => ToolbarOptionModel.fromJson(item as Map<String, dynamic>)).toList();
 
     /// First tab in the list is ALL (categories).
@@ -150,7 +146,7 @@ class SearchScreenState extends State<SearchScreen> {
     _searchBloc.add(SessionInitedSearchEvent(
       selectedCity: _myLocation,
       activeSearchTab: categoryTabs.first.id,
-      currentSort: searchSortTypes.first, // default is the first one
+      // currentSort: searchSortTypes.first, // default is the first one
       currentListType: searchListTypes.first, // default is the first one
       currentGenderFilter: searchGenderFilter.first, // default is the first one
     ));
@@ -229,7 +225,7 @@ class SearchScreenState extends State<SearchScreen> {
                           delegate: SliverChildListDelegate(<Widget>[
                             if (session.locations.isNotNullOrEmpty)
                               SearchListToolbar(
-                                searchSortTypes: searchSortTypes,
+                                // searchSortTypes: searchSortTypes,
                                 searchGenderTypes: searchGenderFilter,
                                 currentSort: session.currentSort,
                                 currentGenderFilter: session.currentGenderFilter,

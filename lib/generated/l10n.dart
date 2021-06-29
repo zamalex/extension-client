@@ -476,10 +476,10 @@ class L10n {
   }
 
   /// `Men only`
-  String get commonGendersMen {
+  String get commonLowestRating {
     return Intl.message(
-      'Men only',
-      name: 'commonGendersMen',
+      'Lowest Rating',
+      name: 'commonLowestRating',
       desc: '',
       args: [],
     );
@@ -496,10 +496,10 @@ class L10n {
   }
 
   /// `Unisex`
-  String get commonGendersUnisex {
+  String get commonRating {
     return Intl.message(
-      'Unisex',
-      name: 'commonGendersUnisex',
+      'Highest Rating',
+      name: 'commonRating',
       desc: '',
       args: [],
     );
@@ -873,7 +873,7 @@ class L10n {
   /// `Your email address`
   String get signInHintEmail {
     return Intl.message(
-      'Your email address',
+      'Your phone number',
       name: 'signInHintEmail',
       desc: '',
       args: [],
@@ -1283,7 +1283,7 @@ class L10n {
   /// `Email format invalid`
   String get formValidatorEmail {
     return Intl.message(
-      'Email format invalid',
+      'Phone format invalid',
       name: 'formValidatorEmail',
       desc: '',
       args: [],

@@ -25,6 +25,7 @@ class _SignInScreenState extends State<SignInScreen> {
           children: <Widget>[
             Container(
               decoration: const BoxDecoration(
+
                 image: DecorationImage(
                   image: AssetImage(AssetsImages.loginBackground),
                   fit: BoxFit.cover,
@@ -34,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
             Container(
               height: MediaQuery.of(context).size.height * 0.75,
               decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
+                color: Colors.white,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(kCardRadius),
                   topRight: Radius.circular(kCardRadius),

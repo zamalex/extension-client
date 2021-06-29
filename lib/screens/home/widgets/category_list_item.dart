@@ -24,7 +24,7 @@ class CategoryListItem extends StatelessWidget {
       margin: EdgeInsets.zero,
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
+          color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(kBoxDecorationRadius)),
         ),
         child: InkWell(
@@ -39,7 +39,7 @@ class CategoryListItem extends StatelessWidget {
                     topRight: Radius.circular(kBoxDecorationRadius),
                   ),
                   image: DecorationImage(
-                    image: AssetImage(category.image),
+                    image: AssetImage('assets/images/data/categories/barber-shop.jpg'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -49,7 +49,7 @@ class CategoryListItem extends StatelessWidget {
                 child: StrutText(
                   category.title,
                   maxLines: 1,
-                  style: Theme.of(context).textTheme.subtitle1.w600,
+                  style: TextStyle(color: Colors.black,fontSize: 18),
                 ),
               ),
             ],

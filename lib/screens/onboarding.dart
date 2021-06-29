@@ -69,11 +69,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
     );
 
     return Scaffold(
-      backgroundColor: kPrimaryColor,
+      backgroundColor: const Color(0xff20242b),
       body: Stack(
         children: <Widget>[
           IntroductionScreen(
-            globalBackgroundColor: kWhite,
+            globalBackgroundColor: kPrimaryColor,
             showSkipButton: true,
             skipFlex: 0,
             nextFlex: 0,
@@ -109,13 +109,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
               PageViewModel(
                 title: L10n.of(context).onboardingPage2Title,
                 body: L10n.of(context).onboardingPage2Body,
-                image: introImage(AssetsImages.onboardingFind),
+                image: introImage(AssetsImages.onboardingWelcome),
                 decoration: pageDecoration,
               ),
               PageViewModel(
                 title: L10n.of(context).onboardingPage3Title,
                 body: L10n.of(context).onboardingPage3Body,
-                image: introImage(AssetsImages.onboardingAppointment),
+                image: introImage(AssetsImages.onboardingWelcome),
                 decoration: pageDecoration,
               ),
             ],
@@ -138,10 +138,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
 
   /// Show the OnboardingScreen image widget.
   Widget introImage(String assetName) {
-    return Align(
-      child: Image.asset('$assetName', width: 240.0),
+    return Card(elevation:8,color:Theme.of(context).accentColor,child: Align(
+      child: Image.asset('$assetName', ),
       alignment: Alignment.bottomCenter,
-    );
+    ),);
   }
 
   Widget ripple(BuildContext context, {double radius}) {

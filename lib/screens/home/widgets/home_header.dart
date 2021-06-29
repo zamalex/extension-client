@@ -61,18 +61,19 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
             child: Padding(
               padding: const EdgeInsets.only(bottom: kPaddingL, left: kPaddingL, right: kPaddingL),
               child: Card(
-                color: getIt.get<AppGlobals>().isPlatformBrightnessDark ? Theme.of(context).accentColor : Theme.of(context).cardColor,
+                color:  Color.fromRGBO(248,248,248, 1) ,
                 margin: const EdgeInsets.all(0),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kBoxDecorationRadius)),
                 elevation: 2,
                 child: Container(
                   padding: const EdgeInsets.all(4),
                   child: FlatButton(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kBoxDecorationRadius / 2)),
+                    color: Color.fromRGBO(248,248,248, 1),
+                  //  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kBoxDecorationRadius),),
                     onPressed: () {
                       // Switch to Search Tab
                       (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
-                          .onTap(getIt.get<BottomBarItems>().getBottomBarItem('explore'));
+                          .onTap(1);
                     },
                     child: IntrinsicHeight(
                       child: Row(
@@ -80,13 +81,13 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
                         children: <Widget>[
                           Icon(
                             Icons.search,
-                            color: Theme.of(context).hintColor,
+                            color: kPrimaryColor,
                           ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: StrutText(
                               L10n.of(context).homePlaceholderSearch,
-                              style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).hintColor),
+                              style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),

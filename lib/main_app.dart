@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:salon/blocs/appointment/appointment_bloc.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
 import 'package:salon/blocs/booking/booking_bloc.dart';
@@ -14,8 +15,14 @@ import 'package:salon/blocs/theme/theme_bloc.dart';
 import 'package:salon/configs/app_theme.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/routes.dart';
+import 'package:salon/screens/cart/cart.dart';
 import 'package:salon/screens/onboarding.dart';
+import 'package:salon/screens/products/products_list.dart';
 import 'package:salon/screens/splash.dart';
+import 'package:salon/screens/vendor/appointment_details.dart';
+import 'package:salon/screens/vendor/order_details.dart';
+import 'package:salon/screens/vendor/vendor_login.dart';
+import 'package:salon/screens/verify.dart';
 import 'package:salon/utils/localization.dart';
 import 'package:salon/widgets/bottom_navigation.dart';
 import 'package:intl/intl.dart' as intl;
@@ -145,9 +152,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
           if (appState is SetupSuccessApplicationState ||
               appState is UpdateLanguageSuccessApplicationState ||
               appState is LifecycleChangeInProgressApplicationState) {
-            homeWidget = getIt.get<AppGlobals>().isUserOnboarded ? const BottomNavigation() : OnboardingScreen();
+            homeWidget = getIt.get<AppGlobals>().isUserOnboarded ?  Phoenix(child: BottomNavigation()) : Phoenix(child: OnboardingScreen());
           } else {
-            homeWidget = const SplashScreen();
+            homeWidget =   Phoenix(child: SplashScreen());
           }
 
           final Locale selectedLocale = getIt.get<AppGlobals>().selectedLocale;

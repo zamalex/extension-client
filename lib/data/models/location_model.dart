@@ -6,7 +6,7 @@ import 'package:salon/data/models/service_group_model.dart';
 import 'package:salon/data/models/staff_model.dart';
 import 'package:salon/utils/geo.dart';
 
-enum LocationGenderSpecification { men, women, unisex }
+enum LocationRatingSpecification { Highest, Lowest }
 
 class LocationModel {
   LocationModel(

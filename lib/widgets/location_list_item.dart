@@ -48,7 +48,7 @@ class LocationListItem extends StatelessWidget {
           child: Container(
             height: 290,
             decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+              color: kWhite,
               borderRadius: const BorderRadius.all(Radius.circular(kBoxDecorationRadius)),
             ),
             child: InkWell(
@@ -83,18 +83,18 @@ class LocationListItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: kPaddingS, right: kPaddingS, top: kPaddingS, bottom: kPaddingS / 2),
                     child: StrutText(
-                      location.name,
+                      'The Barbery',
                       maxLines: 1,
-                      style: Theme.of(context).textTheme.subtitle1.fs18.w600,
+                      style: Theme.of(context).textTheme.subtitle1.fs18.w600.black,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: kPaddingS, right: kPaddingS, bottom: kPaddingS / 2),
                     child: StrutText(
-                      sprintf('%s, %s', <String>[location.address, location.city]),
+                      'Askan Building 17, Al Olaya, Riyadh',
                       maxLines: 1,
-                      style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).hintColor),
+                      style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -115,13 +115,13 @@ class LocationListItem extends StatelessWidget {
                             child: Row(
                               children: <Widget>[
                                 StrutText(
-                                  location.rate.toString(),
-                                  style: Theme.of(context).textTheme.subtitle1.bold,
+                                  '4,9',
+                                  style: Theme.of(context).textTheme.subtitle1.bold.primaryColor,
                                 ),
                                 const Padding(padding: EdgeInsetsDirectional.only(end: kPaddingS / 2)),
                                 StrutText(
-                                  sprintf('(%s)', <String>[L10n.of(context).locationTotalReviews(location.ratings.toString())]),
-                                  style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).disabledColor),
+                                  '(98 reviews)',
+                                  style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
                                 ),
                               ],
                             ),

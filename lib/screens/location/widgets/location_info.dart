@@ -213,11 +213,11 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
               );
             },
           ),
-          LocationContactInfo(
-            icon: Icons.people,
-            label: L10n.of(context).locationLabelGenders,
-            text: widget.location.genders.genderI18n(context),
-          ),
+          // LocationContactInfo(
+          //   icon: Icons.people,
+          //   label: L10n.of(context).locationLabelGenders,
+          //   text: widget.location.genders.genderI18n(context),
+          // ),
         ],
       ),
     );

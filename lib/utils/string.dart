@@ -51,14 +51,12 @@ extension StringExtension on String {
 
   String genderI18n(BuildContext context) {
     switch (this) {
-      case 'men':
-        return L10n.of(context).commonGendersMen;
+      case 'Lowest':
+        return L10n.of(context).commonLowestRating;
         break;
-      case 'women':
-        return L10n.of(context).commonGendersWomen;
-        break;
+   
       default:
-        return L10n.of(context).commonGendersUnisex;
+        return L10n.of(context).commonRating;
         break;
     }
   }

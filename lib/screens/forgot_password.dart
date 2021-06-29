@@ -39,11 +39,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: kPaddingM),
-          alignment: Alignment.center,
+          //alignment: Alignment.center,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                SizedBox(height: 20,),
                 BoldTitle(
                   title: L10n.of(context).forgotPasswordTitle,
                   padding: const EdgeInsets.only(bottom: kPaddingM),
@@ -52,15 +53,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   padding: const EdgeInsets.only(bottom: kPaddingS),
                   child: StrutText(
                     L10n.of(context).forgotPasswordLabel,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.subtitle1.copyWith(color: Colors.black),
                   ),
                 ),
                 ThemeTextInput(
                   key: keyEmailInput,
                   controller: _textEmailController,
-                  hintText: L10n.of(context).signInHintEmail,
-                  keyboardType: TextInputType.emailAddress,
-                  icon: const Icon(Icons.clear),
+                  hintText: 'Your phone number',
+                  keyboardType: TextInputType.phone,
+                  icon: const Icon(Icons.clear,color: kPrimaryColor,),
                   textInputAction: TextInputAction.next,
                   onTapIcon: () async {
                     await Future<dynamic>.delayed(const Duration(milliseconds: 100));
@@ -68,7 +69,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   },
                   validator: FormValidator.validators(<FormFieldValidator<String>>[
                     FormValidator.isRequired(L10n.of(context).formValidatorRequired),
-                    FormValidator.isEmail(L10n.of(context).formValidatorEmail),
+                   // FormValidator.isEmail(L10n.of(context).formValidatorEmail),
                   ]),
                 ),
                 const Padding(padding: EdgeInsets.only(top: kPaddingM)),

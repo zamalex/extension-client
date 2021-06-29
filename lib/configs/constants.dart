@@ -14,6 +14,7 @@ const String kFontFamily = null;
 
 // Date/time formats
 const String kDateFormat = 'MMM d, y';
+
 const String kDateTimeFormat = 'MMM d, y HH:mm';
 const String kTimeFormat = 'HH:mm';
 
@@ -27,7 +28,7 @@ const double kBadgeRadius = 16.0;
 const double kTimelineDateSize = 88.0;
 
 // Colors
-const Color kPrimaryColor = Color(0xFFEE2A7B);
+const Color kPrimaryColor = Color.fromRGBO(118, 123, 128, 1);
 const Color kWhite = Color(0xFFFFFFFF);
 const Color kBlack = Color(0xFF000000);
 const Color kGold = Color(0xFFF3C952);
@@ -61,7 +62,7 @@ const int kReviewsPerPage = 10;
 const int kMinimalNameQueryLength = 3;
 
 /// Minimal password string length.
-const int kMinimalPasswordLength = 8;
+const int kMinimalPasswordLength = 6;
 
 /// SnackBar duration in miliseconds (short).
 const int kSnackBarDurationShort = 2500;
@@ -93,7 +94,7 @@ const String kHomepageURL = 'https://codecanyon.net/item/salon-appointment-booki
 /// - Require that at least one digit appear anywhere in the string
 /// - Require that at least one uppercase letter appear anywhere in the string
 /// - The password must be at least 8 characters long
-const String kPasswordRegex = r'^(?=.*[0-9])(?=.*[A-Z]).{8,}$';
+const String kPasswordRegex = r'^(?=.*[0-9])(?=.*[A-Z]).{6,}$';
 
 /// Demo account email address.
 const String kDemoEmail = 'admin@example.com';

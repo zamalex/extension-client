@@ -39,7 +39,7 @@ class BoldTitle extends StatelessWidget {
           Expanded(
             child: StrutText(
               title,
-              style: Theme.of(context).textTheme.headline5.w800,
+              style: TextStyle(color: Colors.black,fontWeight: FontWeight.w800,fontSize: 20),
               maxLines: maxLines,
               overflow: TextOverflow.ellipsis,
               textAlign: textAlign ?? TextAlign.start,

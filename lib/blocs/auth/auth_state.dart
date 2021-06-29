@@ -2,13 +2,17 @@ part of 'auth_bloc.dart';
 
 @immutable
 abstract class AuthState {
+  bool done = false;
   @override
   String toString() => '$runtimeType';
 }
 
 class InitialAuthState extends AuthState {}
 
-class LoginSuccessAuthState extends AuthState {}
+class LoginSuccessAuthState extends AuthState {
+  LoginModel loginModel;
+  LoginSuccessAuthState({this.loginModel});
+}
 
 class ProcessInProgressAuthState extends AuthState {}
 

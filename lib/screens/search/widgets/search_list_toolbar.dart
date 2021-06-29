@@ -10,7 +10,7 @@ import 'package:salon/widgets/modal_bottom_sheet_item.dart';
 class SearchListToolbar extends StatefulWidget {
   const SearchListToolbar({
     Key key,
-    @required this.searchSortTypes,
+    // @required this.searchSortTypes,
     @required this.searchGenderTypes,
     @required this.currentSort,
     @required this.currentGenderFilter,
@@ -19,7 +19,7 @@ class SearchListToolbar extends StatefulWidget {
     this.onFilterTap,
   }) : super(key: key);
 
-  final List<ToolbarOptionModel> searchSortTypes;
+  // final List<ToolbarOptionModel> searchSortTypes;
   final List<ToolbarOptionModel> searchGenderTypes;
   final ToolbarOptionModel currentSort;
   final ToolbarOptionModel currentGenderFilter;
@@ -49,16 +49,16 @@ class _SearchListToolbarState extends State<SearchListToolbar> {
             ),
             onSelection: (ToolbarOptionModel filterModel) => widget.onGenderFilterChange(filterModel),
           ),
-          FilterButton(
-            label: widget.currentSort.label,
-            modalTitle: L10n.of(context).searchTitleSortOrder,
-            modalItems: widget.searchSortTypes,
-            selectedItem: ModalBottomSheetItem<ToolbarOptionModel>(
-              text: widget.currentSort.label,
-              value: widget.currentSort,
-            ),
-            onSelection: (ToolbarOptionModel sortModel) => widget.onSortChange(sortModel),
-          ),
+          // FilterButton(
+          //   label: widget.currentSort.label,
+          //   modalTitle: L10n.of(context).searchTitleSortOrder,
+          //   modalItems: widget.searchSortTypes,
+          //   selectedItem: ModalBottomSheetItem<ToolbarOptionModel>(
+          //     text: widget.currentSort.label,
+          //     value: widget.currentSort,
+          //   ),
+          //   onSelection: (ToolbarOptionModel sortModel) => widget.onSortChange(sortModel),
+          // ),
           const Spacer(),
           IconButton(
             color: kPrimaryColor,

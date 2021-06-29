@@ -19,7 +19,7 @@ class ProfileInfo extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage(getIt.get<AppGlobals>().user.profilePhoto),
+                image: AssetImage('assets/images/data/categories/barber-shop.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -33,14 +33,14 @@ class ProfileInfo extends StatelessWidget {
                   StrutText(
                     getIt.get<AppGlobals>().user.fullName,
                     maxLines: 1,
-                    style: Theme.of(context).textTheme.headline5.bold,
+                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),
                     overflow: TextOverflow.ellipsis,
                   ),
                   const Padding(padding: EdgeInsets.only(top: 4)),
                   StrutText(
                     getIt.get<AppGlobals>().user.email,
                     maxLines: 1,
-                    style: Theme.of(context).textTheme.caption.fs14,
+                    style: TextStyle(color: kPrimaryColor,fontSize: 18),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],

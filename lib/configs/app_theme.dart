@@ -40,7 +40,7 @@ class AppTheme {
         hoverColor: Color(0x0a000000),
       ),
       appBarTheme: const AppBarTheme(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         color: kPrimaryColor,
       ),
       tabBarTheme: const TabBarTheme(
@@ -68,7 +68,7 @@ class AppTheme {
       brightness: Brightness.dark,
       accentColor: kPrimaryColor, // const Color(0xff18e68d)
       toggleableActiveColor: kPrimaryColor,
-      scaffoldBackgroundColor: const Color(0xff20242b),
+      scaffoldBackgroundColor: Color.fromRGBO(248 ,248 ,248, 1),
       cardColor: const Color(0xff2b2f38),
       bottomAppBarColor: const Color(0xff424242),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -96,8 +96,8 @@ class AppTheme {
         hoverColor: Color(0x0a000000),
       ),
       appBarTheme: AppBarTheme(
-        brightness: Brightness.dark,
-        color: Colors.grey[900],
+        brightness: Brightness.light,
+        color: kPrimaryColor,
       ),
       tabBarTheme: const TabBarTheme(
         labelColor: Colors.white,

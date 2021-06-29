@@ -40,8 +40,9 @@ class AppGlobals {
   List<CategoryModel> categories;
 
   /// Logged in user data.
-  UserModel user;
+  UserModel user=UserModel(0, 'Mohamed El-Katteb', 'profilePhoto', 'mkhatteb@badee.com', 'phone', 'city', 'zip', 'address', 0, 0);
 
+  bool isUser=false;
   /// Currently selected [Locale].
   Locale selectedLocale;
 

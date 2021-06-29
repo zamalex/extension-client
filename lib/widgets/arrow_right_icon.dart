@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salon/configs/app_globals.dart';
+import 'package:salon/configs/constants.dart';
 import 'package:salon/main.dart';
 
 /// [Icon] used in lists.
@@ -16,6 +17,7 @@ class ArrowRightIcon extends StatelessWidget {
     return Icon(
       getIt.get<AppGlobals>().isRTL ? Icons.keyboard_arrow_left : Icons.keyboard_arrow_right,
       size: size,
+        color: kPrimaryColor
     );
   }
 }

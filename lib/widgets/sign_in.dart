@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/loginmodel.dart';
 import 'package:salon/utils/form_utils.dart';
 import 'package:salon/utils/form_validator.dart';
 import 'package:salon/utils/ui.dart';
-import 'package:salon/widgets/link_button.dart';
 import 'package:salon/widgets/strut_text.dart';
 import 'package:salon/widgets/theme_button.dart';
 import 'package:salon/widgets/theme_text_input.dart';
-import 'package:salon/utils/text_style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 /// Signin widget to be used wherever we need user to log in before taking any
 /// action.
@@ -41,16 +45,20 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
 
   AuthBloc _loginBloc;
   bool _showPassword = false;
+  bool _done = false;
+  bool loading = false;
+
 
   String _title;
-
+  final grey = Color.fromRGBO(118 ,123 ,128, 1);
+  final greyLight = Color.fromRGBO(235, 235 ,235, 1);
   @override
   void initState() {
     _controller = AnimationController(vsync: this);
 
     _loginBloc = BlocProvider.of<AuthBloc>(context);
-    _textEmailController.text = kDemoEmail;
-    _textPassController.text = kDemoPassword;
+    _textEmailController.text = '';
+    _textPassController.text = '';
 
     _title = widget.title ?? '';
 
@@ -60,17 +68,50 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
   @override
   void dispose() {
     _controller.dispose();
+    _loginBloc.close();
     super.dispose();
   }
 
-  void _validateForm() {
+  void _validateForm() async{
     FormUtils.hideKeyboard(context);
 
     if (keyPasswordInput.currentState.validate() && keyEmailInput.currentState.validate()) {
+     /* SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('ctr', 1);
+      _done = false;
+      _loginBloc.state.done = false;
       _loginBloc.add(LoginRequestedAuthEvent(
         email: _textEmailController.text,
         password: _textPassController.text,
-      ));
+      ));*/
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      setState(() {
+        loading=true;
+      });
+      LoginModel().loginUser(_textEmailController.text, _textPassController.text).then((value) {
+        setState(() {
+          loading=false;
+        });
+        if(value==null){
+          UI.showErrorDialog(
+            context,
+            message: 'server error',
+          );
+        }
+          if(value.result)
+            {
+
+              prefs.setBool("logged", true);
+              getIt.get<AppGlobals>().isUser=true;
+              Phoenix.rebirth(context);
+            }
+          else
+            UI.showErrorDialog(
+              context,
+              message: value.message,
+            );
+      });
     }
   }
 
@@ -81,6 +122,14 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
       children: <Widget>[
         Expanded(
           child: Container(
+
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(kCardRadius),
+              topRight: Radius.circular(kCardRadius),
+            ),),
+
             padding: const EdgeInsets.symmetric(horizontal: kPaddingM),
             child: SingleChildScrollView(
               child: Column(
@@ -92,7 +141,7 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
                       padding: const EdgeInsets.only(top: kPaddingL, bottom: kPaddingM),
                       child: StrutText(
                         _title,
-                        style: Theme.of(context).textTheme.headline5.bold,
+                        style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),
                       ),
                     )
                   else
@@ -100,10 +149,10 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
                   ThemeTextInput(
                     key: keyEmailInput,
                     controller: _textEmailController,
-                    hintText: L10n.of(context).signInHintEmail,
+                    hintText: 'enter phone number',
                     focusNode: _focusEmail,
-                    keyboardType: TextInputType.emailAddress,
-                    icon: const Icon(Icons.clear),
+                    keyboardType: TextInputType.phone,
+                    icon: const Icon(Icons.clear,color: Colors.grey,),
                     textInputAction: TextInputAction.next,
                     onTapIcon: () async {
                       await Future<dynamic>.delayed(const Duration(milliseconds: 100));
@@ -112,7 +161,7 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
                     onSubmitted: (String text) => FormUtils.fieldFocusChange(context, _focusEmail, _focusPass),
                     validator: FormValidator.validators(<FormFieldValidator<String>>[
                       FormValidator.isRequired(L10n.of(context).formValidatorRequired),
-                      FormValidator.isEmail(L10n.of(context).formValidatorEmail),
+                     // FormValidator.isEmail(L10n.of(context).formValidatorEmail),
                     ]),
                   ),
                   const Padding(padding: EdgeInsets.only(top: kPaddingM)),
@@ -123,38 +172,25 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
                     onSubmitted: (String text) => _validateForm(),
                     onTapIcon: () => setState(() => _showPassword = !_showPassword),
                     obscureText: !_showPassword,
-                    icon: Icon(_showPassword ? Icons.visibility : Icons.visibility_off),
+                    icon: Icon(_showPassword ? Icons.visibility : Icons.visibility_off,color: Colors.grey,),
                     controller: _textPassController,
                     focusNode: _focusPass,
                     validator: FormValidator.validators(<FormFieldValidator<String>>[
                       FormValidator.isRequired(L10n.of(context).formValidatorRequired),
                       FormValidator.isMinLength(
-                        length: kMinimalPasswordLength,
+                        length: 6,
                         errorMessage: L10n.of(context).formValidatorMinLength(kMinimalPasswordLength),
                       ),
                     ]),
                   ),
                   const Padding(padding: EdgeInsets.only(top: kPaddingM)),
-                  BlocBuilder<AuthBloc, AuthState>(
-                    builder: (BuildContext context, AuthState login) {
-                      return BlocListener<AuthBloc, AuthState>(
-                        listener: (BuildContext context, AuthState loginListener) {
-                          if (loginListener is LoginFailureAuthState) {
-                            UI.showErrorDialog(
-                              context,
-                              message: loginListener.message,
-                            );
-                          }
-                        },
-                        child: ThemeButton(
+                 ThemeButton(
                           onPressed: _validateForm,
                           text: L10n.of(context).signInButtonLogin,
-                          showLoading: login is ProcessInProgressAuthState,
+                          showLoading: loading,
                           disableTouchWhenLoading: true,
                         ),
-                      );
-                    },
-                  ),
+
                   const Padding(padding: EdgeInsets.only(top: kPaddingS)),
                   FlatButton(
                     onPressed: () => Navigator.pushNamed(context, Routes.forgotPassword),
@@ -165,22 +201,31 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: kPaddingM, vertical: kPaddingS),
-          child: Row(
+
+
+           Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               StrutText(
                 L10n.of(context).signInRegisterLabel,
-                style: Theme.of(context).textTheme.subtitle1,
+                style:TextStyle(color: Colors.black,fontSize: 20),
               ),
-              const Spacer(),
-              LinkButton(
-                onPressed: () => Navigator.pushNamed(context, Routes.signUp),
-                label: L10n.of(context).signInButtonRegister,
-              ),
+             SizedBox(height: 5,),
+             GestureDetector(
+               onTap: () => Navigator.pushNamed(context, Routes.signUp),
+               child:  StrutText(
+                 L10n.of(context).signInButtonRegister,
+                 style: TextStyle(color: grey,fontSize: 20),
+               ),
+             ),
+              SizedBox(height: 20,),
+
+
+
+
             ],
           ),
-        ),
+
       ],
     );
   }

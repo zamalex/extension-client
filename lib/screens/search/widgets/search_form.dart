@@ -88,44 +88,44 @@ class _SearchFormState extends State<SearchForm> {
               ),
             ),
           ),
-          Expanded(
-            child: InkWell(
-              onTap: () => _showDatePicker(context),
-              child: Card(
-                margin: const EdgeInsets.all(0),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kBoxDecorationRadius)),
-                elevation: 0,
-                child: Container(
-                  padding: const EdgeInsetsDirectional.only(
-                    start: kPaddingS,
-                    end: kPaddingS,
-                    top: kPaddingS,
-                    bottom: kPaddingS,
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsetsDirectional.only(end: 4),
-                        child: Icon(
-                          Icons.calendar_today,
-                          size: 16,
-                          color: Theme.of(context).hintColor,
-                        ),
-                      ),
-                      Expanded(
-                        child: StrutText(
-                          _dateRangeToString(widget.selectedDateRange),
-                          style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).hintColor),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // Expanded(
+          //   child: InkWell(
+          //     onTap: () => _showDatePicker(context),
+          //     child: Card(
+          //       margin: const EdgeInsets.all(0),
+          //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kBoxDecorationRadius)),
+          //       elevation: 0,
+          //       child: Container(
+          //         padding: const EdgeInsetsDirectional.only(
+          //           start: kPaddingS,
+          //           end: kPaddingS,
+          //           top: kPaddingS,
+          //           bottom: kPaddingS,
+          //         ),
+          //         // child: Row(
+          //         //   children: <Widget>[
+          //         //     Padding(
+          //         //       padding: const EdgeInsetsDirectional.only(end: 4),
+          //         //       child: Icon(
+          //         //         Icons.calendar_today,
+          //         //         size: 16,
+          //         //         color: Theme.of(context).hintColor,
+          //         //       ),
+          //         //     ),
+          //         //     // Expanded(
+          //         //     //   // child: StrutText(
+          //         //     //   //   _dateRangeToString(widget.selectedDateRange),
+          //         //     //   //   style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).hintColor),
+          //         //     //   //   maxLines: 1,
+          //         //     //   //   overflow: TextOverflow.ellipsis,
+          //         //     //   // ),
+          //         //     // ),
+          //         //   ],
+          //         // ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

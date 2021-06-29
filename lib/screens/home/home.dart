@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Widget _showRecentlyViewed() {
     return LocationsCarousel(
       locations: _recentlyViewed,
-      title: L10n.of(context).homeTitleRecentlyViewed,
+      title: 'Top rated salons',
     );
   }
 
