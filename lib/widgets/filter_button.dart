@@ -73,7 +73,7 @@ class _FilterButtonState extends State<FilterButton> with SingleTickerProviderSt
         _showModal();
       },
       child: Card(
-        color: _isOpened ? kPrimaryColor : Theme.of(context).cardColor,
+        color:  kWhite,
         margin: const EdgeInsetsDirectional.only(end: kPaddingS / 2),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRoundedButtonRadius)),
         elevation: 0,
@@ -88,7 +88,7 @@ class _FilterButtonState extends State<FilterButton> with SingleTickerProviderSt
             children: <Widget>[
               StrutText(
                 widget.label,
-                style: Theme.of(context).textTheme.subtitle2.copyWith(color: _isOpened ? kWhite : Theme.of(context).textTheme.subtitle2.color),
+                style: Theme.of(context).textTheme.subtitle2.copyWith(color: kBlack),
               ),
               RotationTransition(
                 turns: Tween<double>(begin: 0, end: 0.5).animate(
@@ -100,7 +100,7 @@ class _FilterButtonState extends State<FilterButton> with SingleTickerProviderSt
                 child: Icon(
                   Icons.keyboard_arrow_up,
                   key: keyIcon,
-                  color: _isOpened ? kWhite : Theme.of(context).textTheme.subtitle2.color,
+                  color: kBlack,
                 ),
               ),
             ],

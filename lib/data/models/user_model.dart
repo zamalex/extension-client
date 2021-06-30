@@ -30,7 +30,7 @@ class UserModel {
   }
 
   final int id;
-  final String fullName;
+   String fullName;
   final String profilePhoto;
   final String email;
   final String phone;

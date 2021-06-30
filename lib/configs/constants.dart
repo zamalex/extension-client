@@ -32,6 +32,7 @@ const Color kPrimaryColor = Color.fromRGBO(118, 123, 128, 1);
 const Color kWhite = Color(0xFFFFFFFF);
 const Color kBlack = Color(0xFF000000);
 const Color kGold = Color(0xFFF3C952);
+const Color kScaffold =  Color.fromRGBO(248,248,248, 1);
 const Color kTransparent = Colors.transparent;
 
 // Padding
@@ -94,7 +95,7 @@ const String kHomepageURL = 'https://codecanyon.net/item/salon-appointment-booki
 /// - Require that at least one digit appear anywhere in the string
 /// - Require that at least one uppercase letter appear anywhere in the string
 /// - The password must be at least 8 characters long
-const String kPasswordRegex = r'^(?=.*[0-9])(?=.*[A-Z]).{6,}$';
+const String kPasswordRegex = r'^(?=.*[0-9]).{6,}$';
 
 /// Demo account email address.
 const String kDemoEmail = 'admin@example.com';

@@ -47,19 +47,19 @@ class LocationServices extends StatelessWidget {
             children: _services.map((ServiceModel service) {
               return ListItem(
                 title: service.name,
-                titleTextStyle: Theme.of(context).textTheme.subtitle1.fs18.w500,
+                titleTextStyle: Theme.of(context).textTheme.subtitle1.fs18.w500.black,
                 subtitle: service.description,
-                subtitleTextStyle: Theme.of(context).textTheme.bodyText1.w300.copyWith(color: Theme.of(context).hintColor),
+                subtitleTextStyle: Theme.of(context).textTheme.bodyText1.w300.copyWith(color: kPrimaryColor),
                 trailing: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     StrutText(
                       L10n.of(context).commonCurrencyFormat(sprintf('%.2f', <double>[service.price])),
-                      style: Theme.of(context).textTheme.subtitle1.fs18.w500,
+                      style: Theme.of(context).textTheme.subtitle1.fs18.w500.black,
                     ),
                     StrutText(
                       L10n.of(context).commonDurationFormat(service.duration.toString()),
-                      style: Theme.of(context).textTheme.bodyText1.w300.copyWith(color: Theme.of(context).hintColor),
+                      style: Theme.of(context).textTheme.bodyText1.w300.copyWith(color: kPrimaryColor),
                     ),
                   ],
                 ),

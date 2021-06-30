@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/loginmodel.dart';
+import 'package:salon/screens/verify.dart';
 import 'package:salon/utils/form_validator.dart';
 import 'package:salon/utils/ui.dart';
 import 'package:salon/widgets/bold_title.dart';
@@ -25,7 +27,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   Future<void> _resetPassword() async {
     if (keyEmailInput.currentState.validate()) {
-      BlocProvider.of<AuthBloc>(context).add(NewPasswordRequestedAuthEvent(_textEmailController.text));
+      //BlocProvider.of<AuthBloc>(context).add(NewPasswordRequestedAuthEvent(_textEmailController.text));
+
+      LoginModel().forgotPassword(_textEmailController.text).then((value){
+          if(value['status']as bool){
+              Navigator.push(context, MaterialPageRoute(builder: (b)=>VerifyCode()));
+          }else{
+            UI.showErrorDialog(
+              context,
+              title: L10n.of(context).forgotPasswordDialogTitle,
+              message: value['message']as String,
+              onPressed: () => Navigator.pop(context),
+            );
+          }
+      });
     }
   }
 

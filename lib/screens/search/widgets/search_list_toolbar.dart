@@ -36,11 +36,11 @@ class _SearchListToolbarState extends State<SearchListToolbar> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsetsDirectional.only(start: kPaddingM, top: kPaddingS, bottom: kPaddingS),
-      color: getIt.get<AppGlobals>().isPlatformBrightnessDark ? Theme.of(context).scaffoldBackgroundColor : Theme.of(context).appBarTheme.color.withAlpha(50),
+      color:  Theme.of(context).appBarTheme.color.withAlpha(50),
       child: Row(
         children: <Widget>[
           FilterButton(
-            label: widget.currentGenderFilter.label,
+            label: 'Rate',
             modalTitle: L10n.of(context).searchTitleFilter,
             modalItems: widget.searchGenderTypes,
             selectedItem: ModalBottomSheetItem<ToolbarOptionModel>(
@@ -59,14 +59,7 @@ class _SearchListToolbarState extends State<SearchListToolbar> {
           //   ),
           //   onSelection: (ToolbarOptionModel sortModel) => widget.onSortChange(sortModel),
           // ),
-          const Spacer(),
-          IconButton(
-            color: kPrimaryColor,
-            padding: const EdgeInsetsDirectional.only(end: kPaddingM),
-            onPressed: widget.onFilterTap,
-            icon: const Icon(Icons.filter_list),
-            tooltip: L10n.of(context).searchTooltipFilters,
-          ),
+
         ],
       ),
     );

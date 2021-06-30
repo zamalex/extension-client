@@ -37,6 +37,7 @@ class SearchHeader extends SliverPersistentHeaderDelegate {
               ),
               elevation: 0,
               child: FlatButton(
+                color: kScaffold,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(kFormFieldsRadius),
                 ),
@@ -53,13 +54,13 @@ class SearchHeader extends SliverPersistentHeaderDelegate {
                         padding: const EdgeInsetsDirectional.only(end: kPaddingS),
                         child: Icon(
                           Icons.search,
-                          color: Theme.of(context).hintColor,
+                          color: kPrimaryColor,
                         ),
                       ),
                       Expanded(
                         child: StrutText(
                           label == null || label.isEmpty ? L10n.of(context).searchLabelQuickSearch : label,
-                          style: Theme.of(context).textTheme.subtitle1.fs18.copyWith(color: Theme.of(context).hintColor),
+                          style: Theme.of(context).textTheme.subtitle1.fs18.copyWith(color: kPrimaryColor),
                         ),
                       ),
                       if (label.isNotNullOrEmpty)

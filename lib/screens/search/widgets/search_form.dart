@@ -58,6 +58,7 @@ class _SearchFormState extends State<SearchForm> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kBoxDecorationRadius)),
                 elevation: 0,
                 child: Container(
+                  color: kScaffold,
                   padding: const EdgeInsetsDirectional.only(
                     start: kPaddingS,
                     end: kPaddingS,
@@ -71,13 +72,13 @@ class _SearchFormState extends State<SearchForm> {
                         child: Icon(
                           Icons.near_me,
                           size: 16,
-                          color: Theme.of(context).hintColor,
+                          color: kPrimaryColor,
                         ),
                       ),
                       Expanded(
                         child: StrutText(
                           (_selectedCity != null && _selectedCity.id.isNotEmpty) ? _selectedCity.name : L10n.of(context).searchLabelNearby,
-                          style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).hintColor),
+                          style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

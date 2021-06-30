@@ -43,36 +43,7 @@ class LocationReviews extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           UppercaseTitle(title: L10n.of(context).locationTitleReviews),
-          Padding(
-            padding: const EdgeInsets.only(top: kPaddingM, bottom: kPaddingL),
-            child: Row(
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsetsDirectional.only(end: kPaddingS),
-                  child: StarRating(
-                    rating: location.rate,
-                    size: 32,
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      StrutText(
-                        location.rate.toString(),
-                        style: Theme.of(context).textTheme.headline5.bold.fs28,
-                      ),
-                      StrutText(
-                        sprintf('(%s)', <String>[L10n.of(context).locationTotalReviews(location.ratings.toString())]),
-                        style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).disabledColor),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+        SizedBox(height: 20,),
           ListView(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

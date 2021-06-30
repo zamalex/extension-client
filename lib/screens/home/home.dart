@@ -8,6 +8,7 @@ import 'package:salon/data/models/search_tab_model.dart';
 import 'package:salon/data/repositories/location_repository.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/location_model.dart';
 import 'package:salon/screens/home/widgets/category_list_item.dart';
 import 'package:salon/screens/home/widgets/home_header.dart';
 import 'package:salon/screens/search/search.dart';
@@ -47,8 +48,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   Future<void> _loadData() async {
-    _recentlyViewed = await locationRepository.getRecentlyViewed();
-    _topLocations = await locationRepository.getTopLocations();
+    //_recentlyViewed = await locationRepository.getRecentlyViewed();
+    SalonModel().getSalons().then((value){
+      _recentlyViewed=value.map((e){
+        return LocationModel(e.id, e.name, 2.5, 100, 'Askan Building 17, Al Olaya, Riyadh', 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.png', 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
+      }).toList();
+      setState(() {
+
+      });
+    });
     if (mounted) {
       setState(() => _isDataLoaded = true);
     }
@@ -123,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   Widget _showTopRatedSalons() {
     return LocationsCarousel(
-      locations: _topLocations,
+      locations: _recentlyViewed,
       title: L10n.of(context).homeTitleTopRated,
       onNavigate: () {
         (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar).onTap(getIt.get<BottomBarItems>().getBottomBarItem('explore'));

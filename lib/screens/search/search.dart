@@ -14,6 +14,7 @@ import 'package:salon/data/models/search_tab_model.dart';
 import 'package:salon/data/models/toolbar_option_model.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/location_model.dart';
 import 'package:salon/screens/search/widgets/search_filter_drawer.dart';
 import 'package:salon/screens/search/widgets/search_form.dart';
 import 'package:salon/screens/search/widgets/search_header.dart';
@@ -58,11 +59,21 @@ class SearchScreenState extends State<SearchScreen> {
 
   /// Search filter by gender.
   List<ToolbarOptionModel> searchGenderFilter;
+  List<LocationModel> salons;
 
   @override
   void initState() {
     super.initState();
     _searchBloc = BlocProvider.of<SearchBloc>(context);
+
+    SalonModel().getSalons().then((value){
+     salons =value.map((e){
+        return LocationModel(e.id, e.name, 2.5, 100, 'Askan Building 17, Al Olaya, Riyadh', 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.png', 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
+      }).toList();
+      setState(() {
+
+      });
+    });
 
     getIt.get<AppGlobals>().globalKeySearchTabs = GlobalKey<SearchTabsState>();
 
@@ -71,28 +82,6 @@ class SearchScreenState extends State<SearchScreen> {
 
   /// Init globals that require access to BuildContext for translation.
   void _initGlobals() {
-    // searchSortTypes = <dynamic>[
-    //   <String, dynamic>{
-    //     'code': 'distance',
-    //     'label': L10n.current.commonSearchSortTypeDistance,
-    //     'icon': Icons.directions_car,
-    //   },
-    //   <String, dynamic>{
-    //     'code': 'rating',
-    //     'label': L10n.current.commonSearchSortTypeRating,
-    //     'icon': Icons.star,
-    //   },
-    //   <String, dynamic>{
-    //     'code': 'popularity',
-    //     'label': L10n.current.commonSearchSortTypePopularity,
-    //     'icon': Icons.remove_red_eye,
-    //   },
-    //   <String, dynamic>{
-    //     'code': 'price',
-    //     'label': L10n.current.commonSearchSortTypePrice,
-    //     'icon': Icons.attach_money,
-    //   },
-    // ].map((dynamic item) => ToolbarOptionModel.fromJson(item as Map<String, dynamic>)).toList();
 
     searchListTypes = <dynamic>[
       <String, dynamic>{
@@ -223,7 +212,7 @@ class SearchScreenState extends State<SearchScreen> {
                         ),
                         SliverList(
                           delegate: SliverChildListDelegate(<Widget>[
-                            if (session.locations.isNotNullOrEmpty)
+                            if (salons.isNotNullOrEmpty)
                               SearchListToolbar(
                                 // searchSortTypes: searchSortTypes,
                                 searchGenderTypes: searchGenderFilter,
@@ -239,13 +228,13 @@ class SearchScreenState extends State<SearchScreen> {
                                 icon: Icons.gps_off,
                               ),
                             SearchResultTitle(
-                              locations: session.locations,
+                              locations: salons,
                               currentListType: session.currentListType,
                               searchListTypes: searchListTypes,
                               onListTypeChange: (ToolbarOptionModel newListType) => _searchBloc.add(ListTypeChangedSearchEvent(newListType)),
                             ),
                             SearchResultList(
-                              locations: session.locations,
+                              locations: salons,
                               currentListType: session.currentListType,
                             ),
                           ]),
@@ -257,7 +246,7 @@ class SearchScreenState extends State<SearchScreen> {
               ),
             ),
             floatingActionButton: Visibility(
-              visible: !session.isLoading && session.locations.isNotNullOrEmpty,
+              visible: !session.isLoading && salons.isNotNullOrEmpty,
               child: FloatingActionButton(
                 tooltip: L10n.of(context).searchTooltipMap,
                 elevation: 3,
@@ -265,7 +254,7 @@ class SearchScreenState extends State<SearchScreen> {
                   Navigator.pushNamed(
                     context,
                     Routes.searchMap,
-                    arguments: <String, dynamic>{'locations': session.locations},
+                    arguments: <String, dynamic>{'locations': salons},
                   );
                 },
                 child: const Icon(Icons.map, color: kWhite),

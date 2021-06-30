@@ -83,7 +83,7 @@ class LocationListItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: kPaddingS, right: kPaddingS, top: kPaddingS, bottom: kPaddingS / 2),
                     child: StrutText(
-                      'The Barbery',
+                      location.name,
                       maxLines: 1,
                       style: Theme.of(context).textTheme.subtitle1.fs18.w600.black,
                       overflow: TextOverflow.ellipsis,
@@ -92,7 +92,7 @@ class LocationListItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: kPaddingS, right: kPaddingS, bottom: kPaddingS / 2),
                     child: StrutText(
-                      'Askan Building 17, Al Olaya, Riyadh',
+                      location.address,
                       maxLines: 1,
                       style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
                       overflow: TextOverflow.ellipsis,
@@ -115,12 +115,12 @@ class LocationListItem extends StatelessWidget {
                             child: Row(
                               children: <Widget>[
                                 StrutText(
-                                  '4,9',
+                                  location.rate.toString(),
                                   style: Theme.of(context).textTheme.subtitle1.bold.primaryColor,
                                 ),
                                 const Padding(padding: EdgeInsetsDirectional.only(end: kPaddingS / 2)),
                                 StrutText(
-                                  '(98 reviews)',
+                                  '(${location.ratings})',
                                   style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
                                 ),
                               ],
@@ -144,7 +144,7 @@ class LocationListItem extends StatelessWidget {
           margin: EdgeInsets.zero,
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+              color: kWhite,
               borderRadius: const BorderRadius.all(Radius.circular(kBoxDecorationRadius)),
             ),
             child: InkWell(
@@ -171,7 +171,7 @@ class LocationListItem extends StatelessWidget {
                       child: StrutText(
                         location.name,
                         maxLines: 1,
-                        style: Theme.of(context).textTheme.bodyText2.bold,
+                        style: Theme.of(context).textTheme.bodyText2.bold.copyWith(color: kBlack),
                       ),
                     ),
                     Padding(
@@ -182,7 +182,7 @@ class LocationListItem extends StatelessWidget {
                             child: StrutText(
                               location.address,
                               maxLines: 1,
-                              style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).hintColor),
+                              style: Theme.of(context).textTheme.bodyText2.copyWith(color: kPrimaryColor),
                               overflow: TextOverflow.ellipsis,
                             ),
                           )
@@ -204,7 +204,7 @@ class LocationListItem extends StatelessWidget {
                             ),
                             StrutText(
                               location.rate.toString(),
-                              style: Theme.of(context).textTheme.bodyText2.bold,
+                              style: Theme.of(context).textTheme.bodyText2.bold.black,
                             ),
                           ],
                         ),
@@ -226,7 +226,7 @@ class LocationListItem extends StatelessWidget {
           margin: EdgeInsets.zero,
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+              color: kWhite,
               borderRadius: const BorderRadius.all(Radius.circular(kBoxDecorationRadius)),
             ),
             child: InkWell(
@@ -257,13 +257,13 @@ class LocationListItem extends StatelessWidget {
                           StrutText(
                             location.name,
                             maxLines: 1,
-                            style: Theme.of(context).textTheme.subtitle1.w600,
+                            style: Theme.of(context).textTheme.subtitle1.w600.copyWith(color: kBlack),
                           ),
                           const Padding(padding: EdgeInsets.only(top: 2)),
                           StrutText(
                             sprintf('%s, %s', <String>[location.address, location.city]),
                             maxLines: 1,
-                            style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).hintColor),
+                            style: Theme.of(context).textTheme.bodyText2.copyWith(color:kPrimaryColor),
                           ),
                           if (location.ratings > 0)
                             Padding(
@@ -283,12 +283,12 @@ class LocationListItem extends StatelessWidget {
                                       children: <Widget>[
                                         StrutText(
                                           location.rate.toString(),
-                                          style: Theme.of(context).textTheme.bodyText2.bold,
+                                          style: Theme.of(context).textTheme.bodyText2.bold.copyWith(color: kBlack),
                                         ),
                                         const Padding(padding: EdgeInsets.only(right: kPaddingS / 2)),
                                         StrutText(
                                           sprintf('(%s)', <String>[L10n.of(context).locationTotalReviews(location.ratings.toString())]),
-                                          style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),
+                                          style: Theme.of(context).textTheme.bodyText2.copyWith(color: kPrimaryColor),
                                         ),
                                       ],
                                     ),

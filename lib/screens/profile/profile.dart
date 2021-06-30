@@ -8,6 +8,7 @@ import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/screens/appointments/appointments.dart';
 import 'package:salon/screens/profile/widgets/profile_info.dart';
 import 'package:salon/utils/bottom_bar_items.dart';
 import 'package:salon/utils/ui.dart';
@@ -78,8 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             onPressed: () {
                               // tap on BottomNavigationBar button
-                              (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
-                                  .onTap(getIt.get<BottomBarItems>().getBottomBarItem('appointments'));
+                              Navigator.of(context).push(MaterialPageRoute(builder: (c)=>AppointmentsScreen()));
                             },
                           ),
 

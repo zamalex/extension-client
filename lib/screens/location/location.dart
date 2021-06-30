@@ -9,6 +9,7 @@ import 'package:salon/data/repositories/location_repository.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
 import 'package:salon/screens/location/widgets/widgets.dart';
+import 'package:salon/screens/products/products_list.dart';
 import 'package:salon/widgets/app_button.dart';
 import 'package:salon/widgets/sliver_app_title.dart';
 import 'package:salon/utils/text_style.dart';
@@ -32,11 +33,12 @@ class _LocationScreenState extends State<LocationScreen> {
 
   /// The GlobalKey needed to access Scaffold widget.
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final mGrey = const Color.fromRGBO(118 ,123 ,128, 1);
 
   LocationModel _location;
 
   bool _isFavorited = false;
-
+  int selected = 0;
   @override
   void initState() {
     super.initState();
@@ -54,7 +56,7 @@ class _LocationScreenState extends State<LocationScreen> {
     if (widget.locationId > 0) {
       return Scaffold(
         key: _scaffoldKey,
-        backgroundColor: Theme.of(context).cardColor,
+        backgroundColor: kScaffold,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -98,13 +100,52 @@ class _LocationScreenState extends State<LocationScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            LocationInfo(location: _location),
-                            LocationMapPreview(coordinates: _location != null ? _location.coordinates : null),
-                            LocationDescription(description: _location != null ? _location.description : null),
-                            LocationStaff(location: _location),
-                            LocationServices(location: _location),
-                            LocationReviews(location: _location),
-                            LocationsNearby(nearbyLocations: _location != null ? _location.nearbyLocations : null)
+                            Padding(padding: EdgeInsets.symmetric(horizontal: 10),child: StrutText(
+                              'The Barbery',
+                              maxLines: 2,
+                              style: Theme.of(context).textTheme.headline5.w800.black,
+                              overflow: TextOverflow.ellipsis,
+                            ),),
+                            Padding(
+                              padding: const EdgeInsets.only(left:10,right:10,top: kPaddingS),
+                              child: StrutText(
+                                'Askan Building 17, Al Olaya, Riyadh',
+                                maxLines: 2,
+                                style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
+                              ),
+                            ),
+                            SizedBox(height: 15,),
+                            DefaultTabController(length: 2, child: TabBar(tabs: [
+
+                              Container(child: Text('Details',style: TextStyle(color: selected==0?kWhite:kPrimaryColor),)
+                                ,height: 40,alignment: Alignment.center,color: selected==1?kTransparent:mGrey),
+                              Container(child: Text('Products',style: TextStyle(color: selected==0?kPrimaryColor:kWhite),)
+                                ,height: 40,alignment: Alignment.center,color: selected==0?kTransparent:mGrey,),
+                            ],
+                              labelColor: kPrimaryColor,
+                              indicatorColor: kTransparent,
+                              onTap: (i){
+                                setState(() {
+                                  selected = i;
+                                });
+                              },
+                            ),
+                            ),
+
+                            if(selected==1)
+                             SingleChildScrollView(child:  ProductsList(),)
+                            else
+                              Column(children: [
+                                LocationInfo(location: _location),
+
+                                LocationMapPreview(coordinates: _location != null ? _location.coordinates : null),
+                                // LocationDescription(description: _location != null ? _location.description : null),
+                                LocationStaff(location: _location),
+                                LocationServices(location: _location),
+                                LocationReviews(location: _location),
+                              ],)
+
+                         //   LocationsNearby(nearbyLocations: _location != null ? _location.nearbyLocations : null)
                           ],
                         ),
                       ),
@@ -128,7 +169,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        color: getIt.get<AppGlobals>().isPlatformBrightnessDark ? Theme.of(context).scaffoldBackgroundColor : Theme.of(context).cardColor,
+        color: Color.fromRGBO(235 ,235 ,235, 1),
         border: Border(
           top: BorderSide(
             width: 2,
@@ -147,12 +188,12 @@ class _LocationScreenState extends State<LocationScreen> {
                 children: <Widget>[
                   StrutText(
                     L10n.of(context).locationAvailableServies(_location.getServiceCount),
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.subtitle1.primaryColor,
                   ),
                   const Padding(padding: EdgeInsets.only(top: 4)),
                   StrutText(
                     L10n.of(context).locationInstantConfirmation,
-                    style: Theme.of(context).textTheme.subtitle1.bold,
+                    style: Theme.of(context).textTheme.subtitle1.bold.black,
                   ),
                 ],
               ),

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +18,8 @@ import 'package:salon/main_app.dart';
 import 'package:salon/utils/app_preferences.dart';
 import 'package:salon/utils/bottom_bar_items.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'model/loginmodel.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -36,6 +41,22 @@ Future<void> main() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   getIt.get<AppGlobals>().isUser = prefs.getBool('logged')??false;
   // Obtain a list of the available cameras on the device.
+  if(getIt.get<AppGlobals>().isUser){
+     final json = jsonDecode(prefs.getString('me')??null);
+     if(json!=null){
+       LoginModel loginModel = LoginModel.fromJson(json as Map<String,dynamic>);
+
+       if(loginModel!=null){
+         getIt.get<AppGlobals>().user.fullName = loginModel.user.name;
+         print(loginModel.user.name);
+
+       }
+     }
+   }
+
+
+
+
   initCameras();
 
   /// The App's [BlocObserver].

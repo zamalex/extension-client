@@ -15,14 +15,9 @@ import 'package:salon/blocs/theme/theme_bloc.dart';
 import 'package:salon/configs/app_theme.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/routes.dart';
-import 'package:salon/screens/cart/cart.dart';
 import 'package:salon/screens/onboarding.dart';
-import 'package:salon/screens/products/products_list.dart';
 import 'package:salon/screens/splash.dart';
-import 'package:salon/screens/vendor/appointment_details.dart';
-import 'package:salon/screens/vendor/order_details.dart';
-import 'package:salon/screens/vendor/vendor_login.dart';
-import 'package:salon/screens/verify.dart';
+
 import 'package:salon/utils/localization.dart';
 import 'package:salon/widgets/bottom_navigation.dart';
 import 'package:intl/intl.dart' as intl;

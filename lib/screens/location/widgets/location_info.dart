@@ -115,20 +115,7 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          StrutText(
-            widget.location.name,
-            maxLines: 2,
-            style: Theme.of(context).textTheme.headline5.w800,
-            overflow: TextOverflow.ellipsis,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: kPaddingS),
-            child: StrutText(
-              sprintf('%s, %s', <String>[widget.location.address, widget.location.city]),
-              maxLines: 2,
-              style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).hintColor),
-            ),
-          ),
+
           LocationContactInfo(
             icon: Icons.access_time,
             label: L10n.of(context).locationLabelWorkingHours,
@@ -142,7 +129,7 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
               padding: const EdgeInsetsDirectional.only(start: kPaddingS),
               child: Icon(
                 _isBusinessHoursExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                color: Theme.of(context).hintColor,
+                color: kBlack,
               ),
             ),
           ),
@@ -176,11 +163,11 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
                       children: <Widget>[
                         StrutText(
                           L10n.of(context).commonWeekdayLong(DOW.values[index]),
-                          style: now.weekday == (index + 1) ? Theme.of(context).textTheme.bodyText2.w500 : Theme.of(context).textTheme.bodyText2.w300,
+                          style: now.weekday == (index + 1) ? Theme.of(context).textTheme.bodyText2.w500.black : Theme.of(context).textTheme.bodyText2.w300.black,
                         ),
                         StrutText(
                           hours,
-                          style: now.weekday == (index + 1) ? Theme.of(context).textTheme.bodyText2.w500 : Theme.of(context).textTheme.bodyText2.w300,
+                          style: now.weekday == (index + 1) ? Theme.of(context).textTheme.bodyText2.w500.black : Theme.of(context).textTheme.bodyText2.w300.black,
                         ),
                       ],
                     ),
@@ -201,23 +188,7 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
               );
             },
           ),
-          LocationContactInfo(
-            icon: Icons.language,
-            label: L10n.of(context).locationLabelWeb,
-            text: widget.location.website.prettifyUrl(),
-            onTap: () {
-              UI.confirmationDialogBox(
-                context,
-                message: L10n.of(context).locationWebConfirmation,
-                onConfirmation: () => Async.launchUrl(widget.location.website),
-              );
-            },
-          ),
-          // LocationContactInfo(
-          //   icon: Icons.people,
-          //   label: L10n.of(context).locationLabelGenders,
-          //   text: widget.location.genders.genderI18n(context),
-          // ),
+
         ],
       ),
     );

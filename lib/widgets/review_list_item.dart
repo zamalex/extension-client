@@ -42,11 +42,11 @@ class ReviewListItem extends StatelessWidget {
                   children: <Widget>[
                     StrutText(
                       review.user.fullName,
-                      style: Theme.of(context).textTheme.subtitle1.w600,
+                      style: Theme.of(context).textTheme.subtitle1.w600.black,
                     ),
                     StrutText(
                       review.reviewDate.toLocalDateString,
-                      style: Theme.of(context).textTheme.bodyText1.w300.copyWith(color: Theme.of(context).hintColor),
+                      style: Theme.of(context).textTheme.bodyText1.w300.copyWith(color: kPrimaryColor),
                     )
                   ],
                 ),
@@ -55,6 +55,7 @@ class ReviewListItem extends StatelessWidget {
                 child: Container(
                   alignment: AlignmentDirectional.centerEnd,
                   child: StarRating(
+                    color: kPrimaryColor,
                     rating: review.rate.toDouble(),
                     size: 20,
                   ),
@@ -68,7 +69,7 @@ class ReviewListItem extends StatelessWidget {
             padding: const EdgeInsets.only(top: kPaddingS),
             child: StrutText(
               review.comment,
-              style: Theme.of(context).textTheme.subtitle1.h15.w300,
+              style: Theme.of(context).textTheme.subtitle1.h15.w300.primaryColor,
             ),
           ),
         if (showDetails && review.reply != null)

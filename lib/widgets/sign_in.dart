@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -101,9 +103,10 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
         }
           if(value.result)
             {
-
+              print(value.user.phone);
               prefs.setBool("logged", true);
               getIt.get<AppGlobals>().isUser=true;
+              getIt.get<AppGlobals>().user.fullName = value.user.name;
               Phoenix.rebirth(context);
             }
           else

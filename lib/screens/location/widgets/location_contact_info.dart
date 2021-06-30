@@ -36,11 +36,11 @@ class LocationContactInfo extends StatelessWidget {
               height: 32,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Theme.of(context).scaffoldBackgroundColor,
+                color: Colors.transparent,
               ),
               child: Icon(
                 icon,
-                color: Theme.of(context).hintColor,
+                color: kPrimaryColor,
                 size: 18,
               ),
             ),
@@ -52,12 +52,12 @@ class LocationContactInfo extends StatelessWidget {
                   children: <Widget>[
                     StrutText(
                       label,
-                      style: Theme.of(context).textTheme.caption,
+                      style: Theme.of(context).textTheme.caption.primaryColor,
                     ),
                     StrutText(
                       text,
                       maxLines: 1,
-                      style: Theme.of(context).textTheme.bodyText2.w500,
+                      style: Theme.of(context).textTheme.bodyText2.w500.black,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

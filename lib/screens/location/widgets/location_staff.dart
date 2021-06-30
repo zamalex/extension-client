@@ -68,7 +68,7 @@ class LocationStaff extends StatelessWidget {
                       padding: const EdgeInsets.only(top: kPaddingS),
                       child: StrutText(
                         staff.name,
-                        style: Theme.of(context).textTheme.subtitle1.w600,
+                        style: Theme.of(context).textTheme.subtitle1.w600.black,
                       ),
                     ),
                   ],

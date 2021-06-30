@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginModel {
   LoginModel({
@@ -44,6 +45,8 @@ class LoginModel {
         return LoginModel(result: false,message:responseJson['message'].toString() );
       }
       print('response  is '+response.body);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('me', response.body);
 
       // print(responseJson);
       return LoginModel.fromJson(responseJson as Map<String,dynamic>);
@@ -128,6 +131,44 @@ class LoginModel {
     }
   }
 
+
+  Future<Map<String,dynamic>> forgotPassword(String phone) async {
+    var param = {
+      'email_or_phone':phone,
+      'send_code_by': 'phone',
+
+    };
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'X-Requested-With':'XMLHttpRequest'
+    };
+
+    try {
+      var response = await http.post(
+          Uri.parse('http://salon.badee.com.sa/api/v2/auth/password/forget_request'),
+          body: jsonEncode(param),
+          headers: headers
+      );
+
+      print('response  is '+response.body);
+      final responseJson = json.decode(response.body);
+
+
+      if(response.statusCode>=400){
+        return {'status':false,'message':responseJson['message']};
+      }
+      if(responseJson['result'].toString() =='true'){
+        return {'status':true,'message':responseJson['message']};
+      }else{
+        return {'status':false,'message':responseJson['message']};
+
+      }
+
+    } catch (error) {
+      print(error);
+      return {'status':false,'message':'error occured'};
+    }
+  }
 }
 
 class User {

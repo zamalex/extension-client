@@ -111,6 +111,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _mapGetProfileAuthEventToState() async* {
     yield ProcessInProgressAuthState();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final bool hasToken = getIt.get<AppPreferences>().containsKey(PreferenceKey.user);
 

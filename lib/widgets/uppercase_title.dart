@@ -19,7 +19,7 @@ class UppercaseTitle extends StatelessWidget {
       padding: padding ?? const EdgeInsets.only(top: kPaddingL),
       child: StrutText(
         (title ?? '').toUpperCase(),
-        style: Theme.of(context).textTheme.bodyText2.w800,
+        style: Theme.of(context).textTheme.bodyText2.w800.black,
       ),
     );
   }
