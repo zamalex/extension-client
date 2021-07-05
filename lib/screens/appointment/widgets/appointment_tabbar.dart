@@ -2,6 +2,7 @@ import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:salon/data/models/appointment_model.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/appointments_data.dart';
 import 'package:salon/utils/async.dart';
 import 'package:salon/utils/ui.dart';
 import 'package:salon/widgets/labeled_icon_button.dart';
@@ -17,7 +18,7 @@ class AppointmentTabBar extends StatefulWidget {
   @override
   _AppointmentTabBarState createState() => _AppointmentTabBarState();
 
-  final AppointmentModel appointment;
+  final Data appointment;
   final VoidCallback onCancelTap;
   final VoidCallback onNotesTap;
 }
@@ -25,21 +26,21 @@ class AppointmentTabBar extends StatefulWidget {
 class _AppointmentTabBarState extends State<AppointmentTabBar> {
   @override
   Widget build(BuildContext context) {
-    if (widget.appointment == null || widget.appointment.status != AppointmentStatus.active) {
+    /*if (widget.appointment == null || widget.appointment.status != AppointmentStatus.active) {
       return Container();
-    }
+    }*/
 
     final List<Widget> _widgets = <Widget>[];
 
-    if (widget.appointment.location.phone.isNotEmpty) {
+    if (/*widget.appointment.location.phone.isNotEmpty*/true) {
       _widgets.add(LabeledIconButton(
         icon: Icons.call,
         text: L10n.of(context).bookingBtnCall,
         onTap: () {
           UI.confirmationDialogBox(
             context,
-            message: L10n.of(context).bookingCallConfirmation(widget.appointment.location.phone),
-            onConfirmation: () => Async.launchUrl(widget.appointment.location.phone),
+            message: L10n.of(context).bookingCallConfirmation('5123456'),
+            onConfirmation: () => Async.launchUrl('5123456'),
           );
         },
         disableTouchWhenLoading: true,
@@ -51,11 +52,11 @@ class _AppointmentTabBarState extends State<AppointmentTabBar> {
       text: L10n.of(context).bookingBtnCalendar,
       onTap: () {
         Add2Calendar.addEvent2Cal(Event(
-          title: widget.appointment.location.name,
-          description: widget.appointment.services.join('\n'),
-          location: sprintf('%s, %s', <String>[widget.appointment.location.address, widget.appointment.location.city]),
-          startDate: widget.appointment.appointmentStartDateTime,
-          endDate: widget.appointment.appointmentEndDateTime,
+          title: 'Salon',
+          description: 'Booking appointment',
+          location:'122 Utah Park',
+          startDate: DateTime.parse(widget.appointment.bookingDateTime),
+          endDate: DateTime.parse(widget.appointment.bookingDateTime),
         ));
       },
       disableTouchWhenLoading: true,

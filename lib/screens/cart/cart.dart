@@ -1,11 +1,24 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salon/configs/constants.dart';
+import 'package:salon/model/cart_provider.dart';
 import 'package:salon/screens/cart/cart_item.dart';
 import 'package:salon/screens/checkout/checkout.dart';
 import 'package:salon/widgets/app_button.dart';
 import 'package:salon/widgets/strut_text.dart';
-class CartList extends StatelessWidget {
+
+
+class CartList extends StatefulWidget {
+
+  @override
+  _CartListState createState() => _CartListState();
+}
+
+class _CartListState extends State<CartList> {
+  CartProvider cartProvider;
+
+
 
   Widget _bottomBar(BuildContext context) {
     return Container(
@@ -26,11 +39,13 @@ class CartList extends StatelessWidget {
                     style: TextStyle(color: kPrimaryColor),
                   ),
                   const Padding(padding: EdgeInsets.only(top: 4)),
-                  StrutText(
-                    '20 SAR',
-                    style: TextStyle(color: Colors.black),
+                  Consumer<CartProvider>(builder: (c,cart,child){
+                    return StrutText(
+                      '${cart.getPrice} SAR',
+                      style: TextStyle(color: Colors.black),
 
-                  ),
+                    );
+                  },),
                 ],
               ),
             ),
@@ -45,21 +60,29 @@ class CartList extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Cart'),centerTitle: true,),
-
-      body: Column(children: [
-        Expanded(child: Container(padding: EdgeInsets.all(10),color: Colors.grey.shade200,height: MediaQuery.of(context).size.height,
-          child: ListView.builder(itemBuilder: (c,i){
-            return CartItem();
-          },itemCount: 3,),
-        ),),
-        _bottomBar(context)
-      ],)
-    );
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration.zero).then((value) => Provider.of<CartProvider>(context,listen: false).init());
+    //cartProvider = Provider.of<CartProvider>(context,listen: false);
   }
 
+  @override
+  Widget build(BuildContext context) {
 
+
+    return Scaffold(
+        appBar: AppBar(title: Text('Cart'),centerTitle: true,),
+
+        body: Column(children: [
+          Expanded(child: Container(padding: EdgeInsets.all(10),color: Colors.grey.shade200,height: MediaQuery.of(context).size.height,
+            child: ListView.builder(itemBuilder: (c,i){
+              return CartItem(Provider.of<CartProvider>(context).items[i]);
+            },itemCount: Provider.of<CartProvider>(context).items.length,),
+          ),),
+          _bottomBar(context)
+        ],)
+    );
+  }
 }
 

@@ -10,14 +10,16 @@ import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
 import 'package:logging/logging.dart';
 import 'package:logging_appenders/logging_appenders.dart';
+import 'package:provider/provider.dart';
 import 'package:salon/blocs/app_observer.dart';
 import 'package:salon/configs/app_theme.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/main_app.dart';
+import 'package:salon/model/cart_provider.dart';
 import 'package:salon/utils/app_preferences.dart';
-import 'package:salon/utils/bottom_bar_items.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:salon/utils/bottom_bar_items.dart';import 'package:shared_preferences/shared_preferences.dart';
 
 import 'model/loginmodel.dart';
 
@@ -48,6 +50,9 @@ Future<void> main() async {
 
        if(loginModel!=null){
          getIt.get<AppGlobals>().user.fullName = loginModel.user.name;
+         getIt.get<AppGlobals>().user.token = loginModel.accessToken;
+         getIt.get<AppGlobals>().user.id = loginModel.user.id;
+
          print(loginModel.user.name);
 
        }
@@ -63,7 +68,10 @@ Future<void> main() async {
   Bloc.observer = AppObserver();
 
   // Inflate the MainApp widget.
-  runApp(MainApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => CartProvider(),
+    child: MainApp(),
+  ),);
 }
 
 /// Completes with a list of available cameras.

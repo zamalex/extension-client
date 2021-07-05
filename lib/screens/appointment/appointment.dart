@@ -8,6 +8,7 @@ import 'package:salon/data/models/appointment_model.dart';
 import 'package:salon/data/models/service_model.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/appointments_data.dart';
 import 'package:salon/screens/appointment/widgets/appointment_header.dart';
 import 'package:salon/screens/appointment/widgets/appointment_tabbar.dart';
 import 'package:salon/utils/ui.dart';
@@ -28,14 +29,14 @@ class AppointmentScreen extends StatefulWidget {
     this.appointment,
   }) : super(key: key);
 
-  final AppointmentModel appointment;
+  final Data appointment;
 
   @override
   _AppointmentScreenState createState() => _AppointmentScreenState();
 }
 
 class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStatefulModeMixin<AppointmentScreen> {
-  AppointmentModel _appointment;
+  Data _appointment;
   AppointmentBloc _bloc;
 
   bool _isLoading = false;
@@ -65,7 +66,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
   }
 
   Future<void> showNotesEditor() async {
-    final String editedNotes = await Navigator.pushNamed(context, Routes.bookingNotes, arguments: widget.appointment.notes);
+    final String editedNotes = await Navigator.pushNamed(context, Routes.bookingNotes, arguments: 'widget.appointment.notes');
     if (editedNotes != null) {
       _bloc.add(NotesUpdatedAppointmentEvent(editedNotes));
     }
@@ -80,10 +81,10 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
         return BlocListener<AppointmentBloc, AppointmentState>(
           listener: (BuildContext context, AppointmentState apiListener) {
             if (apiListener is UpdateNotesInProgressAppointmentState) {
-              _appointment = _appointment.rebuild(notes: apiListener.notes);
+             // _appointment = _appointment.rebuild(notes: apiListener.notes);
             }
             if (apiListener is CancelSuccessAppointmentState) {
-              _appointment = _appointment.rebuild(status: AppointmentStatus.canceled);
+            //  _appointment = _appointment.rebuild(status: AppointmentStatus.canceled);
               setState(() => _isLoading = false);
             }
           },
@@ -96,7 +97,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
                     pinned: true,
                     expandedHeight: 302,
                     backgroundColor:
-                        getIt.get<AppGlobals>().isPlatformBrightnessDark ? Theme.of(context).scaffoldBackgroundColor : Theme.of(context).accentColor,
+                        getIt.get<AppGlobals>().isPlatformBrightnessDark ? Theme.of(context).accentColor : Theme.of(context).accentColor,
                     flexibleSpace: FlexibleSpaceBar(
                       collapseMode: CollapseMode.parallax,
                       background: AppointmentHeader(_appointment),
@@ -130,11 +131,11 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
   }
 
   Widget _serviceList() {
-    if (_appointment == null || _appointment.services.isEmpty) {
+   // if (_appointment == null || _appointment.services.isEmpty) {
       return Container();
-    }
+   // }
 
-    return ListView.builder(
+    /*return ListView.builder(
       shrinkWrap: true,
       padding: const EdgeInsets.only(top: kPaddingM),
       physics: const NeverScrollableScrollPhysics(),
@@ -162,7 +163,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
         );
       },
       itemCount: _appointment.services.length,
-    );
+    );*/
   }
 
   Widget _totalPrice() {
@@ -186,7 +187,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
         Container(
           padding: const EdgeInsets.symmetric(vertical: kPaddingM),
           child: StrutText(
-            L10n.of(context).commonCurrencyFormat(sprintf('%.2f', <double>[_appointment.totalPrice])),
+            _appointment.grandTotal,
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
@@ -202,18 +203,18 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if (_appointment.status == AppointmentStatus.active) ListTitle(title: L10n.of(context).appointmentSubtitleNotes),
-        if (_appointment.notes.isNotEmpty) Text(_appointment.notes),
-        if (_appointment.notes.isEmpty && _appointment.status == AppointmentStatus.active)
+       /* if (_appointment.status == AppointmentStatus.active)*/ ListTitle(title: L10n.of(context).appointmentSubtitleNotes),
+       /* if (_appointment.notes.isNotEmpty) Text(_appointment.notes),*/
+        /*if (_appointment.notes.isEmpty && _appointment.status == AppointmentStatus.active)*/
           LinkButton(
             label: L10n.of(context).bookingAddNotes,
             onPressed: showNotesEditor,
           ),
-        if (_appointment.status == AppointmentStatus.active) ListTitle(title: L10n.of(context).bookingSubtitleCancelationPolicy),
-        if (_appointment.status == AppointmentStatus.active)
+        /*if (_appointment.status == AppointmentStatus.active)*/ ListTitle(title: L10n.of(context).bookingSubtitleCancelationPolicy),
+        /*if (_appointment.status == AppointmentStatus.active)*/
           Padding(
             padding: const EdgeInsets.only(bottom: kPaddingM),
-            child: Text(_appointment.location.cancelationPolicy),
+            child: Text('Cancel for free anytime in advance, otherwise you can be charger with 10% of the service price for not showing up.'),
           ),
       ],
     );

@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:salon/model/cart_model.dart';
+import 'package:salon/model/cart_provider.dart';
 
 class CartItem extends StatefulWidget {
+
+  CartModel cartModel;
+  CartItem(this.cartModel);
 
   @override
   _CartItemState createState() => _CartItemState();
@@ -9,17 +15,28 @@ class CartItem extends StatefulWidget {
 
 class _CartItemState extends State<CartItem> {
 
-  int count = 1;
+  CartProvider cartProvider;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+  }
+
+  //int count = 1;
 
   Widget _quantityButtons(){
+    cartProvider = Provider.of<CartProvider>(context);
     return  Row(children: [GestureDetector(child: CircleAvatar(child: Text('-',style: TextStyle(color: Colors.white),),radius: 15,backgroundColor: Theme.of(context).accentColor,)
-      ,onTap:(){setState(() {
-        count--;
-      });} ,),Container(child: Text(count.toString(),style: TextStyle(color: Theme.of(context).accentColor),),margin: EdgeInsets.symmetric(horizontal: 5),)
+      ,onTap:(){
+      cartProvider.removeItem(widget.cartModel);
+      } ,),Container(child: Text(widget.cartModel.quantity.toString(),style: TextStyle(color: Theme.of(context).accentColor),),margin: EdgeInsets.symmetric(horizontal: 5),)
       ,GestureDetector(child: CircleAvatar(child: Text('+',style: TextStyle(color: Colors.white),),radius: 15,backgroundColor: Theme.of(context).accentColor,)
-          ,onTap:(){setState(() {
-            count+=1;
-          });} )],mainAxisSize: MainAxisSize.min,);
+          ,onTap:(){
+        cartProvider.addItem(widget.cartModel);
+          } )],mainAxisSize: MainAxisSize.min,);
   }
 
 
@@ -43,25 +60,3 @@ class _CartItemState extends State<CartItem> {
     ),);
   }
 }
-/*
-* Card(child: ListTile(leading: Container(color: Colors.red,height: 500,width:100),
-      title: Text('The Barbery'),
-      minVerticalPadding: 20,
-      horizontalTitleGap: 10,
-      subtitle: Column(children: [
-
-        Text('Product name'),
-        Text('\$20.00')
-
-      ],crossAxisAlignment: CrossAxisAlignment.start,),
-      isThreeLine: true,
-      trailing: Column(children: [
-        _quantityButtons(),
-        Text('Total 40.00 SAR')
-      ],mainAxisAlignment: MainAxisAlignment.spaceAround,mainAxisSize: MainAxisSize.max,),
-      dense: true,
-      contentPadding: EdgeInsets.zero,
-    ),
-
-        );
-* */

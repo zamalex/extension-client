@@ -12,7 +12,7 @@ class AppointmentStatusBadge extends StatelessWidget {
     this.inverse = false,
   }) : super(key: key);
 
-  final AppointmentStatus status;
+  final String status;
   final bool inverse;
 
   @override
@@ -20,32 +20,12 @@ class AppointmentStatusBadge extends StatelessWidget {
     Color _color;
     Color _backgroundColor;
 
-    switch (status) {
-      case AppointmentStatus.completed:
-        _color = kWhite;
-        _backgroundColor = Colors.green;
-        break;
-      case AppointmentStatus.canceled:
-        _color = kWhite;
-        _backgroundColor = Colors.grey;
-        break;
-      case AppointmentStatus.declined:
-      case AppointmentStatus.failed:
-        _color = kWhite;
-        _backgroundColor = Colors.red[600];
-        break;
-      case AppointmentStatus.active:
+
         _color = inverse ? kPrimaryColor : kWhite;
         _backgroundColor = inverse ? kWhite : kPrimaryColor;
-        break;
-      default:
-        _color = Colors.black87;
-        _backgroundColor = Theme.of(context).highlightColor;
-        break;
-    }
 
     return Badge(
-      text: L10n.of(context).commonAppointmentStatus(AppointmentModel.getStatus(status)),
+      text: status,
       color: _color,
       backgroundColor: _backgroundColor,
     );

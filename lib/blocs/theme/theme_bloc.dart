@@ -31,11 +31,11 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     switch (getIt.get<AppGlobals>().darkThemeOption) {
       case DarkOption.dynamic:
         getIt.get<AppTheme>().lightTheme = theme.lightTheme;
-        getIt.get<AppTheme>().darkTheme = theme.darkTheme;
+        getIt.get<AppTheme>().darkTheme = theme.lightTheme;
         break;
       case DarkOption.alwaysOn:
-        getIt.get<AppTheme>().lightTheme = theme.darkTheme;
-        getIt.get<AppTheme>().darkTheme = theme.darkTheme;
+        getIt.get<AppTheme>().lightTheme = theme.lightTheme;
+        getIt.get<AppTheme>().darkTheme = theme.lightTheme;
         break;
       case DarkOption.alwaysOff:
         getIt.get<AppTheme>().lightTheme = theme.lightTheme;
@@ -43,7 +43,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
         break;
       default:
         getIt.get<AppTheme>().lightTheme = theme.lightTheme;
-        getIt.get<AppTheme>().darkTheme = theme.darkTheme;
+        getIt.get<AppTheme>().darkTheme = theme.lightTheme;
         break;
     }
 

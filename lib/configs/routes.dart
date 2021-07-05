@@ -4,6 +4,7 @@ import 'package:salon/data/models/appointment_model.dart';
 import 'package:salon/data/models/location_model.dart';
 import 'package:salon/data/models/voucher_model.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/appointments_data.dart';
 import 'package:salon/screens/appointment/appointment.dart';
 import 'package:salon/screens/booking/booking.dart';
 import 'package:salon/screens/booking/widgets/booking_notes.dart';
@@ -211,7 +212,7 @@ class Routes {
           builder: (BuildContext context) {
             return Directionality(
               textDirection: getIt.get<AppGlobals>().isRTL ? TextDirection.rtl : TextDirection.ltr,
-              child: AppointmentScreen(appointment: routeSettings.arguments as AppointmentModel),
+              child: AppointmentScreen(appointment: routeSettings.arguments as Data),
             );
           },
         );

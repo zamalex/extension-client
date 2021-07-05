@@ -12,7 +12,7 @@ class LoadInProgressAppointmentState extends AppointmentState {}
 class LoadSuccessAppointmentState extends AppointmentState {
   LoadSuccessAppointmentState(this.appointments);
 
-  final List<AppointmentModel> appointments;
+  final List<Data> appointments;
 }
 
 class UpdateNotesInProgressAppointmentState extends AppointmentState {

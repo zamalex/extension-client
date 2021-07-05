@@ -3,13 +3,13 @@ import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/data/models/appointment_model.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/appointments_data.dart';
 import 'package:salon/widgets/appointment_status_badge.dart';
 import 'package:salon/utils/string.dart';
 import 'package:salon/utils/datetime.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/card_divider.dart';
-import 'package:salon/widgets/link_button.dart';
-import 'package:salon/widgets/star_rating.dart';
+
 import 'package:salon/widgets/strut_text.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -22,7 +22,7 @@ class AppointmentsListItem extends StatelessWidget {
     this.rightMargin = kPaddingM,
   }) : super(key: key);
 
-  final AppointmentModel appointment;
+  final Data appointment;
   final String routeName;
   final double leftMargin;
   final double rightMargin;
@@ -35,21 +35,7 @@ class AppointmentsListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Color _dateTimeColor;
 
-    switch (appointment.status) {
-      case AppointmentStatus.declined:
-      case AppointmentStatus.failed:
-      case AppointmentStatus.canceled:
-        _dateTimeColor = Theme.of(context).hintColor;
-        break;
-      case AppointmentStatus.active:
         _dateTimeColor = null;
-        break;
-      // case AppointmentStatus.completed:
-      //   _dateTimeColor = Colors.green;
-      //   break;
-      default:
-        _dateTimeColor = null;
-    }
 
     return InkWell(
       onTap: () {
@@ -83,11 +69,11 @@ class AppointmentsListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   StrutText(
-                    L10n.of(context).commonWeekdayShort(DOW.values[appointment.requestDate.weekday - 1]) + ', ' + appointment.requestDate.toLocalDateString,
+                    appointment.date,
                     style: Theme.of(context).textTheme.headline5.bold.copyWith(color: _dateTimeColor),
                   ),
                   StrutText(
-                    appointment.requestTime,
+                    '12:30',
                     style: Theme.of(context).textTheme.headline5.bold.copyWith(color: _dateTimeColor),
                   ),
                 ],
@@ -103,12 +89,12 @@ class AppointmentsListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       StrutText(
-                        appointment.location.name,
+                        'The Barbery',
                         style: Theme.of(context).textTheme.subtitle1.w500.fs18,
                       ),
                       const Padding(padding: EdgeInsets.only(top: kPaddingS / 2)),
                       StrutText(
-                        appointment.location.address,
+                        '1234 Utah Park',
                         style: Theme.of(context).textTheme.bodyText2.copyWith(
                               color: Theme.of(context).hintColor,
                               fontWeight: FontWeight.normal,
@@ -124,12 +110,12 @@ class AppointmentsListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
                           StrutText(
-                            L10n.of(context).commonCurrencyFormat(sprintf('%.2f', <double>[appointment.totalPrice])),
+                            appointment.grandTotal,
                             style: Theme.of(context).textTheme.subtitle1.fs18,
                           ),
                           const Padding(padding: EdgeInsets.only(top: kPaddingS / 2)),
                           StrutText(
-                            L10n.of(context).commonDurationFormat(appointment.totalDuration),
+                            '75 min',
                             style: Theme.of(context).textTheme.bodyText2.w400.copyWith(color: Theme.of(context).hintColor),
                           ),
                         ],
@@ -154,7 +140,7 @@ class AppointmentsListItem extends StatelessWidget {
                   bottomEnd: Radius.circular(kBoxDecorationRadius),
                 ),
               ),
-              child: _reservationStatus(context, appointment),
+              child: _reservationStatus(context,appointment),
             ),
           ],
         ),
@@ -162,50 +148,18 @@ class AppointmentsListItem extends StatelessWidget {
     );
   }
 
-  Widget _reservationStatus(BuildContext context, AppointmentModel appointment) {
-    switch (appointment.status) {
-      case AppointmentStatus.declined:
-      case AppointmentStatus.failed:
-      case AppointmentStatus.canceled:
-        return Row(
-          //mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            AppointmentStatusBadge(status: appointment.status),
-          ],
-        );
-        break;
-      case AppointmentStatus.completed:
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            StarRating(
-              rating: 0,
-              color: Colors.grey,
-              borderColor: Colors.grey,
-              onRatingChanged: (double rating) => openRatingScreen(context),
-            ),
-            LinkButton(
-              onPressed: () => openRatingScreen(context),
-              label: L10n.of(context).appointmentsLabelReview,
-            ),
-            AppointmentStatusBadge(status: appointment.status),
-          ],
-        );
-        break;
-      case AppointmentStatus.active:
+  Widget _reservationStatus(BuildContext context, Data appointment) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             StrutText(
-              appointment.appointmentStartDateTime.remainingTime(context).toUpperCase(),
+              appointment.deliveryStatusString,
               style: Theme.of(context).textTheme.bodyText2.w500.primaryColor,
             ),
-            AppointmentStatusBadge(status: appointment.status),
+            AppointmentStatusBadge(status: appointment.deliveryStatus,),
           ],
         );
-        break;
-      default:
-        return Container();
-    }
+
+
   }
 }

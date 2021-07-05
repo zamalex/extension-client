@@ -52,6 +52,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     await Future<int>.delayed(Duration(seconds: Random().nextInt(2)));
 
     yield ForgetPasswordSuccessAuthState();
+
   }
 
   Stream<AuthState> _mapOnRegisterAuthEventToState(UserRegisteredAuthEvent event) async* {

@@ -84,7 +84,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     color: _selectedIndex==0?kPrimaryColor:Colors.transparent,
                     borderRadius:  BorderRadius.circular(20),
                   ),
-                  child: _selectedIndex==0?Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [Icon(Icons.explore,color: _selectedIndex==0?Colors.white:kPrimaryColor,),Text('home')],):Icon(Icons.explore,color:kPrimaryColor )
+                  child: _selectedIndex==0?Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [Icon(Icons.explore,color: _selectedIndex==0?Colors.white:kPrimaryColor,),Text('home',style: TextStyle(color: kWhite),)],):Icon(Icons.explore,color:kPrimaryColor )
               ),
               label: ''
           ),
@@ -98,7 +98,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     color: _selectedIndex==1?kPrimaryColor:Colors.transparent,
                     borderRadius:  BorderRadius.circular(20),
                   ),
-                  child: _selectedIndex==1?Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [Icon(Icons.search,color: _selectedIndex==1?Colors.white:kPrimaryColor,),Text('explore')],):Icon(Icons.search,color:kPrimaryColor )
+                  child: _selectedIndex==1?Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [Icon(Icons.search,color: _selectedIndex==1?Colors.white:kPrimaryColor,),Text('search',style:TextStyle(color: kWhite),)],):Icon(Icons.search,color:kPrimaryColor )
               ),
               label: ''
           ),
@@ -112,7 +112,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     color: _selectedIndex==2?kPrimaryColor:Colors.transparent,
                     borderRadius:  BorderRadius.circular(20),
                   ),
-                  child: _selectedIndex==2?Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [Icon(Icons.shopping_cart_outlined,color: _selectedIndex==2?Colors.white:kPrimaryColor,),Text('cart')],):Icon(Icons.shopping_cart_outlined,color:kPrimaryColor )
+                  child: _selectedIndex==2?Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [Icon(Icons.shopping_cart_outlined,color: _selectedIndex==2?Colors.white:kPrimaryColor,),Text('cart',style:TextStyle(color: kWhite),)],):Icon(Icons.shopping_cart_outlined,color:kPrimaryColor )
               ),
               label: ''
           ),
@@ -126,7 +126,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     color: _selectedIndex==3?kPrimaryColor:Colors.transparent,
                     borderRadius:  BorderRadius.circular(20),
                   ),
-                  child: _selectedIndex==3?Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [Icon(Icons.person,color: _selectedIndex==3?Colors.white:kPrimaryColor,),Text('profile')],):Icon(Icons.person,color:kPrimaryColor )
+                  child: _selectedIndex==3?Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [Icon(Icons.person,color: _selectedIndex==3?Colors.white:kPrimaryColor,),Text('profile',style:TextStyle(color: kWhite),)],):Icon(Icons.person,color:kPrimaryColor )
               ),
               label: ''
           ),

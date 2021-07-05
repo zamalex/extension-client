@@ -38,11 +38,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _textAddressController = TextEditingController();
   final TextEditingController _textCityController = TextEditingController();
   final TextEditingController _textZIPController = TextEditingController();
+  final TextEditingController _textMailController = TextEditingController();
   final FocusNode _focusName = FocusNode();
   final FocusNode _focusPhone = FocusNode();
   final FocusNode _focusAddress = FocusNode();
   final FocusNode _focusCity = FocusNode();
   final FocusNode _focusZIP = FocusNode();
+  final FocusNode _focusMail = FocusNode();
 
   File _image;
   AuthBloc _authBloc;
@@ -202,10 +204,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       FormUtils.fieldFocusChange(
                         context,
                         _focusPhone,
-                        _focusAddress,
+                        _focusMail,
                       );
                     },
                     controller: _textPhoneController,
+                  ),
+                  FormLabel(text: L10n.of(context).signInHintEmail),
+
+                  ThemeTextInput(
+                    focusNode: _focusMail,
+                    textInputAction: TextInputAction.next,
+                    onSubmitted: (String text) {
+                      FormUtils.fieldFocusChange(
+                        context,
+                        _focusPhone,
+                        _focusMail,
+                      );
+                    },
+                    controller: _textMailController,
                   ),
                   ListTitle(title: L10n.of(context).editProfileListTitleAddress),
                   FormLabel(text: L10n.of(context).editProfileLabelAddress),
@@ -234,12 +250,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     },
                     controller: _textCityController,
                   ),
-                  FormLabel(text: L10n.of(context).editProfileLabelZIP),
+                 /* FormLabel(text: L10n.of(context).editProfileLabelZIP),
                   ThemeTextInput(
                     focusNode: _focusZIP,
                     textInputAction: TextInputAction.next,
                     controller: _textZIPController,
-                  ),
+                  ),*/
                 ],
               ),
             ),

@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:salon/data/models/appointment_model.dart';
 import 'package:salon/data/repositories/appointment_repository.dart';
+import 'package:salon/model/appointments_data.dart';
 
 part 'appointment_event.dart';
 part 'appointment_state.dart';
@@ -28,12 +29,12 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
   Stream<AppointmentState> _mapGetAppointmentEventToState(LoadedAppointmentEvent event) async* {
     yield LoadInProgressAppointmentState();
 
-    List<AppointmentModel> _appointments;
+    List<Data> _appointments;
+   await ApointmentsData().getHistory().then((value){
+      _appointments = value.where((element) => element.orderType=='booking').toList();
+    
+    });
 
-    _appointments = await const AppointmentRepository().getAppointments();
-    _appointments = _appointments.where((AppointmentModel item) {
-      return event.statuses.contains(describeEnum(item.status));
-    }).toList();
 
     yield LoadSuccessAppointmentState(_appointments);
   }

@@ -34,7 +34,7 @@ class _AppointmentsToolbarState extends State<AppointmentsToolbar> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsetsDirectional.only(start: kPaddingM, top: kPaddingS, bottom: kPaddingS),
-      color: getIt.get<AppGlobals>().isPlatformBrightnessDark ? Theme.of(context).scaffoldBackgroundColor : Theme.of(context).appBarTheme.color.withAlpha(50),
+      color: getIt.get<AppGlobals>().isPlatformBrightnessDark ? Theme.of(context).appBarTheme.color.withAlpha(50) : Theme.of(context).appBarTheme.color.withAlpha(50),
       child: Row(
         children: <Widget>[
           FilterButton(
@@ -47,7 +47,7 @@ class _AppointmentsToolbarState extends State<AppointmentsToolbar> {
             ),
             onSelection: (ToolbarOptionModel filterModel) => widget.onGroupChange(filterModel),
           ),
-          FilterButton(
+         /* FilterButton(
             label: widget.currentSort.label,
             modalTitle: L10n.of(context).searchTitleFilter,
             modalItems: widget.searchSortTypes,
@@ -56,7 +56,7 @@ class _AppointmentsToolbarState extends State<AppointmentsToolbar> {
               value: widget.currentSort,
             ),
             onSelection: (ToolbarOptionModel filterModel) => widget.onSortChange(filterModel),
-          ),
+          ),*/
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/data/models/appointment_model.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/appointments_data.dart';
 import 'package:salon/widgets/appointment_status_badge.dart';
 import 'package:salon/utils/datetime.dart';
 import 'package:salon/utils/text_style.dart';
@@ -15,7 +16,7 @@ class AppointmentHeader extends StatefulWidget {
   @override
   _AppointmentHeaderState createState() => _AppointmentHeaderState();
 
-  final AppointmentModel appointment;
+  final Data appointment;
 }
 
 class _AppointmentHeaderState extends State<AppointmentHeader> {
@@ -40,13 +41,7 @@ class _AppointmentHeaderState extends State<AppointmentHeader> {
               children: <Widget>[
                 Flexible(
                   child: StrutText(
-                    L10n.of(context).appointmentAt(
-                      L10n.of(context).commonWeekdayShort(DOW.values[widget.appointment.requestDate.weekday - 1]),
-                      widget.appointment.requestDate.day,
-                      L10n.of(context).commonMonthShort(Month.values[widget.appointment.requestDate.month - 1]),
-                      widget.appointment.requestDate.year,
-                      widget.appointment.requestTime,
-                    ),
+                    widget.appointment.date,
                     style: Theme.of(context).textTheme.headline4.white.bold,
                     maxLines: 2,
                   ),
@@ -58,29 +53,29 @@ class _AppointmentHeaderState extends State<AppointmentHeader> {
               child: Row(
                 children: <Widget>[
                   AppointmentStatusBadge(
-                    status: widget.appointment.status,
+                    status: widget.appointment.deliveryStatus,
                     inverse: kPrimaryColor == Theme.of(context).appBarTheme.color,
                   ),
                 ],
               ),
             ),
             InkWell(
-              onTap: () => Navigator.pushNamed(context, Routes.location, arguments: widget.appointment.location.id),
+              onTap: () => Navigator.pushNamed(context, Routes.location, arguments: 'widget.appointment.location.id'),
               child: Padding(
                 padding: const EdgeInsets.only(top: kPaddingM),
                 child: StrutText(
-                  widget.appointment.location.name,
+                  'The Barbery',
                   style: Theme.of(context).textTheme.headline6.white,
                   maxLines: 1,
                 ),
               ),
             ),
             InkWell(
-              onTap: () => Navigator.pushNamed(context, Routes.location, arguments: widget.appointment.location.id),
+              onTap: () => Navigator.pushNamed(context, Routes.location, arguments: 'widget.appointment.location.id'),
               child: Padding(
                 padding: const EdgeInsets.only(top: kPaddingS),
                 child: StrutText(
-                  sprintf('%s, %s', <String>[widget.appointment.location.address, widget.appointment.location.city]),
+                  '1234 Utah',
                   style: Theme.of(context).textTheme.subtitle1.copyWith(color: Colors.white70),
                   maxLines: 1,
                 ),

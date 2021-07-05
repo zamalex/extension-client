@@ -29,8 +29,9 @@ class UserModel {
     );
   }
 
-  final int id;
+   int id;
    String fullName;
+   String token='';
   final String profilePhoto;
   final String email;
   final String phone;
