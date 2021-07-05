@@ -40,7 +40,7 @@ class _SearchListToolbarState extends State<SearchListToolbar> {
       child: Row(
         children: <Widget>[
           FilterButton(
-            label: 'Rate',
+            label: 'All',
             modalTitle: L10n.of(context).searchTitleFilter,
             modalItems: widget.searchGenderTypes,
             selectedItem: ModalBottomSheetItem<ToolbarOptionModel>(

@@ -104,12 +104,12 @@ class SearchScreenState extends State<SearchScreen> {
     searchGenderFilter = <dynamic>[
       <String, dynamic>{
         'code': describeEnum(LocationRatingSpecification.Highest),
-        'label': L10n.current.commonRating,
+        'label': 'All Salons',
         'icon': Icons.view_list,
       },
       <String, dynamic>{
         'code': describeEnum(LocationRatingSpecification.Lowest),
-        'label': L10n.current.commonLowestRating,
+        'label': 'Offers Only',
         'icon': Icons.view_quilt,
       },
       
