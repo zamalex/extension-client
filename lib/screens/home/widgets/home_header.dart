@@ -8,6 +8,8 @@ import 'package:salon/utils/bottom_bar_items.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/strut_text.dart';
 
+import '../../../slider.dart';
+
 /// Delegate for configuring a [SliverPersistentHeader].
 ///
 /// A sliver whose size varies when the sliver is scrolled to the edge
@@ -20,88 +22,10 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: <Widget>[
-          WavyHeaderImage(shrinkOffsetPercentage: shrinkOffset / expandedHeight),
-          Padding(
-            padding: const EdgeInsets.only(bottom: kPaddingL, left: kPaddingL, right: kPaddingL, top: kToolbarHeight + kPaddingM),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: StrutText(
-                        getIt.get<AppGlobals>().user != null
-                            ? L10n.of(context).homeTitleUser(getIt.get<AppGlobals>().user.fullName)
-                            : L10n.of(context).homeTitleGuest,
-                        style: Theme.of(context).textTheme.headline4.white.w600,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: kPaddingS),
-                    child: StrutText(
-                      L10n.of(context).homeHeaderSubtitle,
-                      style: Theme.of(context).textTheme.headline6.copyWith(color: kWhite.withOpacity(.85)),
-                      maxLines: 1,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: kPaddingL, left: kPaddingL, right: kPaddingL),
-              child: Card(
-                color:  Color.fromRGBO(248,248,248, 1) ,
-                margin: const EdgeInsets.all(0),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kBoxDecorationRadius)),
-                elevation: 2,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  child: FlatButton(
-                    color: Color.fromRGBO(248,248,248, 1),
-                  //  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kBoxDecorationRadius),),
-                    onPressed: () {
-                      // Switch to Search Tab
-                      (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
-                          .onTap(1);
-                    },
-                    child: IntrinsicHeight(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.search,
-                            color: kPrimaryColor,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: StrutText(
-                              L10n.of(context).homePlaceholderSearch,
-                              style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+    return
+      Container(
+      child: CarosilSlider(shrinkOffset / expandedHeight),
+
     );
   }
 
