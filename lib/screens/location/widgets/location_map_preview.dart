@@ -67,7 +67,7 @@ class _LocationMapPreviewState extends State<LocationMapPreview> {
                 _markers.add(Marker(
                   markerId: markerId,
                   position: LatLng(widget.coordinates.latitude, widget.coordinates.longitude),
-                  icon: BitmapDescriptor.fromBytes(_pinLocationIcon),
+                 // icon: BitmapDescriptor.fromBytes(_pinLocationIcon),
                   //infoWindow: InfoWindow(title: _location.name),
                 ));
               });
