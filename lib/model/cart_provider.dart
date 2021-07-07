@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:salon/model/cart_model.dart';
+import 'package:salon/screens/cart/cart_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartProvider extends ChangeNotifier {
@@ -9,13 +10,13 @@ class CartProvider extends ChangeNotifier {
 
   void init()async{
     print('initiated');
-    List<CartModel> fake = [
+    /*List<CartModel> fake = [
       CartModel(id:1,name: 'product name',salon: 'salon name',quantity:1,price: 10),
       CartModel(id:2,name: 'product name',salon: 'salon name',quantity:2,price: 10)
-    ];
+    ];*/
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('cart', CartModel.encode(fake));
+    //prefs.setString('cart', CartModel.encode(fake));
 
     String json = await prefs.getString('cart');
     items = CartModel.decode(json);
@@ -35,7 +36,11 @@ class CartProvider extends ChangeNotifier {
 
 
   void addItem(CartModel item) async{
-    var existing = items.firstWhere((element) => element.id==item.id);
+    if(items==null)
+      items=[];
+    var existing=null;
+    if(items.isNotEmpty)
+     existing = items.firstWhere((element) => element.id==item.id,orElse: ()=>null);
 
     if(existing==null)
       items.add(item);
@@ -47,6 +52,23 @@ class CartProvider extends ChangeNotifier {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('cart', CartModel.encode(items));
+  }
+
+  int itemCount(int id){
+
+    CartModel existing=null;
+    if(items.isNotEmpty)
+     existing = items.firstWhere((element) => element.id==id,orElse: ()=>null);
+
+    if(existing!=null)
+      return existing.quantity;
+    else{
+      return 0;
+
+    }
+    notifyListeners();
+
+
   }
 
   void removeItem(CartModel item) async{

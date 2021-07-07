@@ -4,10 +4,11 @@ import 'package:salon/blocs/theme/theme_bloc.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/model/cart_model.dart';
 import 'package:salon/model/cart_provider.dart';
+import 'package:salon/model/products_data.dart';
 import 'package:salon/screens/cart/cart_item.dart';
 
 class ProdcutItem extends StatefulWidget {
-  CartModel cartModel;
+  Product cartModel;
   ProdcutItem(this.cartModel);
 
   @override
@@ -24,25 +25,31 @@ class _ProdcutItemState extends State<ProdcutItem> {
   Widget _quantityButtons(){
     return  Row(children: [GestureDetector(child: CircleAvatar(child: Text('-',style: TextStyle(color: Colors.white),),radius: 15,backgroundColor: Theme.of(context).accentColor,)
       ,onTap:(){
-      Provider.of<CartProvider>(context,listen: false).removeItem(widget.cartModel);
-      } ,),Container(child: Text(widget.cartModel.quantity.toString(),style: TextStyle(color: Theme.of(context).accentColor),),margin: EdgeInsets.symmetric(horizontal: 5),)
+      Provider.of<CartProvider>(context,listen: false).removeItem(CartModel(
+          id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
+      ));
+      } ,),Container(child: Text(Provider.of<CartProvider>(context).itemCount(widget.cartModel.id).toString(),style: TextStyle(color: Theme.of(context).accentColor),),margin: EdgeInsets.symmetric(horizontal: 5),)
       ,GestureDetector(child: CircleAvatar(child: Text('+',style: TextStyle(color: Colors.white),),radius: 15,backgroundColor: Theme.of(context).accentColor,)
-          ,onTap:(){Provider.of<CartProvider>(context,listen: false).addItem(widget.cartModel);} )],mainAxisSize: MainAxisSize.min,);
+          ,onTap:(){Provider.of<CartProvider>(context,listen: false).addItem(CartModel(
+              id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
+          ));} )],mainAxisSize: MainAxisSize.min,);
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(color: Colors.white,child: Column(children: [
       Image.asset('assets/images/data/categories/barber-shop.jpg',height: 120,),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: SingleChildScrollView(scrollDirection: Axis.horizontal,child: Text('product name',maxLines: 1,style: TextStyle(color: Colors.grey)),),)
+      Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: SingleChildScrollView(scrollDirection: Axis.horizontal,child: Text(widget.cartModel.name,maxLines: 1,style: TextStyle(color: Colors.grey)),),)
       ,Expanded(child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
 
         children: [
-          Expanded(child: Padding(padding: EdgeInsets.all(5),child: FittedBox(fit: BoxFit.scaleDown,alignment: Alignment.centerLeft,child: Text('15.00\$',style: TextStyle(color: Colors.black,),),),)),
-          widget.cartModel.quantity==0?GestureDetector(child: CircleAvatar(radius: 15,backgroundColor: Theme.of(context).accentColor,child: Icon(Icons.shopping_cart,color: Colors.white,size: 15,),)
-            ,onTap:(){Provider.of<CartProvider>(context,listen: false).addItem(widget.cartModel);} ,):FittedBox(child: _quantityButtons(),),
+          Expanded(child: Padding(padding: EdgeInsets.all(5),child: FittedBox(fit: BoxFit.scaleDown,alignment: Alignment.centerLeft,child: Text('${widget.cartModel.basePrice}',style: TextStyle(color: Colors.black,),),),)),
+          Provider.of<CartProvider>(context).itemCount(widget.cartModel.id)==0?GestureDetector(child: CircleAvatar(radius: 15,backgroundColor: Theme.of(context).accentColor,child: Icon(Icons.shopping_cart,color: Colors.white,size: 15,),)
+            ,onTap:(){Provider.of<CartProvider>(context,listen: false).addItem(CartModel(
+                id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
+                 ));} ,):FittedBox(child: _quantityButtons(),),
         ],
       ))
     ],crossAxisAlignment: CrossAxisAlignment.start,),);
