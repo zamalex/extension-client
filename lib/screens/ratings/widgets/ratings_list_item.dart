@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/data/models/review_model.dart';
+import 'package:salon/model/my_reviews.dart';
 import 'package:salon/widgets/list_item.dart';
 import 'package:salon/widgets/star_rating.dart';
 import 'package:salon/widgets/strut_text.dart';
@@ -15,7 +16,7 @@ class RatingsListItem extends StatelessWidget {
     this.review,
   }) : super(key: key);
 
-  final ReviewModel review;
+  final SingleReview review;
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +34,14 @@ class RatingsListItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: kPaddingS),
               child: StrutText(
-                review.reviewDate.toLocalDateString,
+                review.time,//reviewDate.toLocalDateString,
                 style: Theme.of(context).textTheme.bodyText1.copyWith(color: Theme.of(context).hintColor),
               ),
             ),
             ListItem(
-              title: review.location.name,
+              title: review.moduleName,//location.name,
               titleTextStyle: Theme.of(context).textTheme.headline6,
-              subtitle: sprintf('%s\n%s', <String>[review.location.address, review.location.city]),
+              subtitle: 'Utah Park',//sprintf('%s\n%s', <String>[review.location.address, review.location.city]),
               leading: Padding(
                 padding: const EdgeInsetsDirectional.only(end: kPaddingS),
                 child: Container(
@@ -50,14 +51,14 @@ class RatingsListItem extends StatelessWidget {
                     shape: BoxShape.rectangle,
                     borderRadius: const BorderRadius.all(Radius.circular(kFormFieldsRadius)),
                     image: DecorationImage(
-                      image: AssetImage(review.location.mainPhoto),
+                      image: AssetImage('assets/images/data/categories/barber-shop.jpg'/*location.mainPhoto*/),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ),
               showBorder: false,
-              onPressed: () => Navigator.pushNamed(context, Routes.location, arguments: review.location.id),
+              onPressed: null //Navigator.pushNamed(context, Routes.location, arguments: review.location.id),
             ),
             Padding(
               padding: const EdgeInsets.only(top: kPaddingS),
@@ -67,7 +68,7 @@ class RatingsListItem extends StatelessWidget {
                   Container(
                     padding: const EdgeInsetsDirectional.only(end: kPaddingS),
                     child: StarRating(
-                      rating: review.rate,
+                      rating: double.parse(review.rating.toString()),
                       size: 44,
                     ),
                   ),

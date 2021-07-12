@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:salon/model/constants.dart';
 
 class ProductModel {
   List<Product> products;
@@ -22,7 +23,7 @@ class ProductModel {
   Future<List<Product>> getProducts() async {
     try {
       var response = await http.get(
-        Uri.parse('http://salon.badee.com.sa/api/v2/products?type=product'),
+        Uri.parse('${Globals.BASE}products?type=product'),
 
       );
       print('response  is '+response.body);

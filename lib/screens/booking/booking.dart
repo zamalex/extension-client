@@ -4,6 +4,7 @@ import 'package:salon/blocs/booking/booking_bloc.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/booking_session_model.dart';
 import 'package:salon/data/models/booking_wizard_page_model.dart';
+import 'package:salon/data/models/service_group_model.dart';
 import 'package:salon/data/models/service_model.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/screens/booking/widgets/booking_step1.dart';
@@ -40,7 +41,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
   int _currentStep = 1;
 
   ServiceModel _preselectedService;
-
+  List<ServiceModel> services = [];
   BookingSessionModel session;
 
   List<BookingWizardPageModel> wizardPages = <BookingWizardPageModel>[];
@@ -57,6 +58,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
     super.initState();
 
     _locationId = widget.params['locationId'] as int ?? 0;
+    services = widget.params['services'] as List<ServiceModel> ?? [];
     _preselectedService = widget.params['preselectedService'] as ServiceModel;
 
     BlocProvider.of<BookingBloc>(context).add(LocationLoadedBookingEvent(locationId: _locationId));
@@ -138,7 +140,8 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
         }
 
         session = (state as SessionRefreshSuccessBookingState).session;
-
+        session.location.serviceGroups=[];
+        session.location.serviceGroups.add(ServiceGroupModel('Top Services', '', services));
         if (session.appointmentId > 0) {
           return BookingSuccessDialog();
         }

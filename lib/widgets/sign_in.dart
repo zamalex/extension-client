@@ -8,6 +8,7 @@ import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/constants.dart';
 import 'package:salon/model/loginmodel.dart';
 import 'package:salon/utils/form_utils.dart';
 import 'package:salon/utils/form_validator.dart';
@@ -106,6 +107,7 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
               print(value.user.phone);
               prefs.setBool("logged", true);
               getIt.get<AppGlobals>().isUser=true;
+              Globals.TOKEN = value.accessToken;
               getIt.get<AppGlobals>().user.fullName = value.user.name;
               Phoenix.rebirth(context);
             }

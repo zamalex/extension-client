@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:salon/model/constants.dart';
 
 class SalonModel {
   List<Data> data;
@@ -27,7 +28,7 @@ class SalonModel {
 
     try {
       var response = await http.get(
-        Uri.parse('http://salon.badee.com.sa/api/v2/shops'),
+        Uri.parse('${Globals.BASE}shops'),
 
       );
 

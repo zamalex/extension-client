@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'constants.dart';
+
 class LoginModel {
   LoginModel({
     this.accessToken,
@@ -36,7 +38,7 @@ class LoginModel {
 
     try {
       var response = await http.post(
-        Uri.parse('http://salon.badee.com.sa/api/v2/auth/login'),
+        Uri.parse('${Globals.BASE}auth/login'),
         body: param,
       );
 
@@ -71,7 +73,7 @@ class LoginModel {
 
     try {
       var response = await http.post(
-        Uri.parse('http://salon.badee.com.sa/api/v2/auth/signup'),
+        Uri.parse('${Globals.BASE}auth/signup'),
         body: jsonEncode(param),
         headers: headers
       );
@@ -105,7 +107,7 @@ class LoginModel {
 
     try {
       var response = await http.post(
-          Uri.parse('http://salon.badee.com.sa/api/v2/auth/confirm_code'),
+          Uri.parse('${Globals.BASE}auth/confirm_code'),
           body: jsonEncode(param),
           headers: headers
       );
@@ -145,7 +147,7 @@ class LoginModel {
 
     try {
       var response = await http.post(
-          Uri.parse('http://salon.badee.com.sa/api/v2/auth/password/forget_request'),
+          Uri.parse('${Globals.BASE}auth/password/forget_request'),
           body: jsonEncode(param),
           headers: headers
       );

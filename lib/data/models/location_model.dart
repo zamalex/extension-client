@@ -104,9 +104,9 @@ class LocationModel {
   final List<BusinessHoursModel> businessHours;
   final GeoPoint coordinates;
   final List<LocationModel> nearbyLocations;
-  final List<ReviewModel> reviews;
+   List<ReviewModel> reviews;
   final List<PhotoModel> photos;
-  final List<ServiceGroupModel> serviceGroups;
+   List<ServiceGroupModel> serviceGroups;
   final List<StaffModel> staff;
   final String cancelationPolicy;
 }

@@ -23,6 +23,7 @@ class LocationReviews extends StatelessWidget {
   final LocationModel location;
   final int showLatest;
 
+
   @override
   Widget build(BuildContext context) {
     if (location == null || location.reviews.isNullOrEmpty) {

@@ -5,9 +5,14 @@ import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/data/models/location_model.dart';
+import 'package:salon/data/models/review_model.dart';
+import 'package:salon/data/models/service_group_model.dart';
+import 'package:salon/data/models/service_model.dart';
 import 'package:salon/data/repositories/location_repository.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/my_reviews.dart';
+import 'package:salon/model/products_data.dart';
 import 'package:salon/screens/location/widgets/widgets.dart';
 import 'package:salon/screens/products/products_list.dart';
 import 'package:salon/widgets/app_button.dart';
@@ -36,19 +41,49 @@ class _LocationScreenState extends State<LocationScreen> {
   final mGrey = const Color.fromRGBO(118 ,123 ,128, 1);
 
   LocationModel _location;
-
+  List<ServiceModel> services = [];
+  List<ReviewModel> reviews = [];
   bool _isFavorited = false;
   int selected = 0;
   @override
   void initState() {
     super.initState();
+
+
     _loadData();
   }
 
   Future<void> _loadData() async {
     /// Load location data.
     _location = await locationRepository.getLocation(id: widget.locationId);
+    _location.reviews = [];
     setState(() {});
+    ProductModel().getProducts().then((value){
+      setState(() {
+        services = value.map((e){
+          return ServiceModel(e.id,200,47,e.name,'');
+        }).toList();
+
+        _location.serviceGroups=[];
+        _location.serviceGroups.add(ServiceGroupModel('Top services', '', services));
+
+
+      });
+    });
+
+    MyReviews().getSalonReviews('1').then((value) {
+
+      setState(() {
+        reviews = value;
+
+       // _location.reviews=[];
+        _location.reviews = value;
+
+
+      });
+
+
+  });
   }
 
   @override

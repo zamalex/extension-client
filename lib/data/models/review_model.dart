@@ -12,6 +12,12 @@ class ReviewModel {
     this.user,
     this.reply,
     this.location,
+    this.dateString,
+    this.salonName,
+    this.photo,
+    this.salonAddress,
+    this.userName,
+    this.userPhoto
   });
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
@@ -35,4 +41,10 @@ class ReviewModel {
   final UserModel user;
   final ReviewReplyModel reply;
   final LocationModel location;
+  String dateString;
+  String salonName;
+  String salonAddress;
+  String photo;
+  String userName;
+  String userPhoto;
 }

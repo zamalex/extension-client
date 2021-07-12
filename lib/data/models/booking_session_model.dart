@@ -59,7 +59,7 @@ class BookingSessionModel {
   }
 
   final LocationModel location;
-  final List<ServiceModel> services;
+   List<ServiceModel> services;
   final List<TimetableModel> timetables;
 
   final List<int> selectedServiceIds;

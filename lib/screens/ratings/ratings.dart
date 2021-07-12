@@ -7,6 +7,7 @@ import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/review_model.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/my_reviews.dart';
 import 'package:salon/screens/ratings/widgets/ratings_list_item.dart';
 import 'package:salon/utils/bottom_bar_items.dart';
 import 'package:salon/widgets/jumbotron.dart';
@@ -27,7 +28,7 @@ class _RatingsScreenState extends State<RatingsScreen> {
   bool _isLoading = false;
   bool _isInited = false;
 
-  List<ReviewModel> _reviews;
+  List<SingleReview> _reviews;
 
   @override
   void initState() {
@@ -51,10 +52,12 @@ class _RatingsScreenState extends State<RatingsScreen> {
         return BlocListener<RatingsBloc, RatingsState>(
           listener: (BuildContext context, RatingsState state) {
             if (state is LoadSuccessRatingsState) {
-              _controller.refreshCompleted();
-              _controller.loadComplete();
-              _reviews = state.reviews;
+              //_controller.refreshCompleted();
+             // _controller.loadComplete();
+             // print('new saize os '+_reviews.length.toString());
+
               setState(() {
+                _reviews = state.reviews;
                 _isLoading = false;
                 _isInited = true;
               });

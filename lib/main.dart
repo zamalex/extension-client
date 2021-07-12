@@ -17,6 +17,7 @@ import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/main_app.dart';
 import 'package:salon/model/cart_provider.dart';
+import 'package:salon/model/constants.dart';
 import 'package:salon/utils/app_preferences.dart';
 
 import 'package:salon/utils/bottom_bar_items.dart';import 'package:shared_preferences/shared_preferences.dart';
@@ -52,7 +53,7 @@ Future<void> main() async {
          getIt.get<AppGlobals>().user.fullName = loginModel.user.name;
          getIt.get<AppGlobals>().user.token = loginModel.accessToken;
          getIt.get<AppGlobals>().user.id = loginModel.user.id;
-
+          Globals.TOKEN = loginModel.accessToken;
          print(loginModel.user.name);
 
        }

@@ -18,7 +18,8 @@ class CartProvider extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //prefs.setString('cart', CartModel.encode(fake));
 
-    String json = await prefs.getString('cart');
+    String json = await prefs.getString('cart')??null;
+    if(json!=null)
     items = CartModel.decode(json);
     notifyListeners();
 

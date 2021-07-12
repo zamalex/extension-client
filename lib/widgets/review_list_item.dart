@@ -28,11 +28,11 @@ class ReviewListItem extends StatelessWidget {
           //padding: const EdgeInsets.only(bottom: kPaddingS),
           child: Row(
             children: <Widget>[
-              if (review.user.profilePhoto.isEmpty)
-                InitialsCircleAvatar(initials: review.user.fullName.initials)
+              if (review.userPhoto.isNullOrEmpty)
+                InitialsCircleAvatar(initials: 'A')
               else
                 CircleAvatar(
-                  backgroundImage: AssetImage(review.user.profilePhoto),
+                  backgroundImage: AssetImage(review.userPhoto),
                   radius: kCircleAvatarSizeRadiusSmall,
                 ),
               Padding(
@@ -41,11 +41,11 @@ class ReviewListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     StrutText(
-                      review.user.fullName,
+                      review.userName,
                       style: Theme.of(context).textTheme.subtitle1.w600.black,
                     ),
                     StrutText(
-                      review.reviewDate.toLocalDateString,
+                      review.dateString,
                       style: Theme.of(context).textTheme.bodyText1.w300.copyWith(color: kPrimaryColor),
                     )
                   ],
@@ -56,7 +56,7 @@ class ReviewListItem extends StatelessWidget {
                   alignment: AlignmentDirectional.centerEnd,
                   child: StarRating(
                     color: kPrimaryColor,
-                    rating: review.rate.toDouble(),
+                    rating: review.rate,
                     size: 20,
                   ),
                 ),

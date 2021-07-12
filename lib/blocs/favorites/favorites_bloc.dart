@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:salon/data/models/location_model.dart';
 import 'package:salon/data/repositories/favorites_repository.dart';
+import 'package:salon/model/location_model.dart';
 
 part 'favorites_event.dart';
 part 'favorites_state.dart';
@@ -20,7 +21,15 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   Stream<FavoritesState> _mapLoadFavoritesEventToState(DataLoadedFavoritesEvent event) async* {
     yield LoadInProgressFavoritesState();
 
-    final List<LocationModel> favorites = await const FavoritesRepository().getFavorites();
+    List<LocationModel> favorites = [];//await const FavoritesRepository().getFavorites();
+    await SalonModel().getSalons().then((value) {
+      favorites = value.map((e){
+        return LocationModel(1, ' The Barber', 4, 50, '460,Utah', 'Utah', 'phone', 'email', 'website', 'description', 'assets/images/data/categories/barber-shop.jpg', 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
+      }).toList();
+
+    });
+
+
 
     yield LoadSuccessFavoritesState(favorites);
   }

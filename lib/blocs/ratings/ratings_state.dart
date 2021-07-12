@@ -12,5 +12,5 @@ class LoadInProgressRatingsState extends RatingsState {}
 class LoadSuccessRatingsState extends RatingsState {
   LoadSuccessRatingsState(this.reviews);
 
-  final List<ReviewModel> reviews;
+   List<SingleReview> reviews=[];
 }
