@@ -6,6 +6,7 @@ import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/location_model.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/fav_model.dart';
 import 'package:salon/utils/bottom_bar_items.dart';
 import 'package:salon/utils/list.dart';
 import 'package:salon/widgets/jumbotron.dart';
@@ -170,6 +171,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   void _removeFromList(LocationModel location) {
     final int removeIndex = _favorites.indexOf(location);
 
+    FavModel().addRemoveFav(location.id.toString());
     _favorites.remove(location);
 
     // This builder is just so that the animation has something to work with
@@ -189,4 +191,5 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       setState(() => _isInited = false);
     }
   }
+
 }

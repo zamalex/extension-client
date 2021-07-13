@@ -8,6 +8,7 @@ import 'package:salon/data/models/search_tab_model.dart';
 import 'package:salon/data/repositories/location_repository.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/banners_model.dart'as bann;
 import 'package:salon/model/location_model.dart';
 import 'package:salon/screens/home/widgets/category_list_item.dart';
 import 'package:salon/screens/home/widgets/home_header.dart';
@@ -29,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   bool _isDataLoaded = false;
 
   List<LocationModel> _recentlyViewed;
+  List<bann.Banner> banners=[];
   List<LocationModel> _topLocations;
 
   final LocationRepository locationRepository = const LocationRepository();
@@ -48,6 +50,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   Future<void> _loadData() async {
+
+    bann.Banners().getBanners().then((value){setState(() {
+      banners = value ?? [];
+    });});
+
     //_recentlyViewed = await locationRepository.getRecentlyViewed();
     SalonModel().getSalons().then((value){
       _recentlyViewed=value.map((e){
@@ -147,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         body: CustomScrollView(
           slivers: <Widget>[
             SliverPersistentHeader(
-              delegate: HomeHeader(expandedHeight: 260),
+              delegate: HomeHeader(expandedHeight: 260,banners: banners),
               pinned: false,
             ),
             SliverList(

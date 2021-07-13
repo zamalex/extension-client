@@ -7,6 +7,7 @@ import 'package:salon/screens/home/widgets/wavy_header_image.dart';
 import 'package:salon/utils/bottom_bar_items.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/strut_text.dart';
+import 'package:salon/model/banners_model.dart'as bann;
 
 import '../../../slider.dart';
 
@@ -15,7 +16,9 @@ import '../../../slider.dart';
 /// A sliver whose size varies when the sliver is scrolled to the edge
 /// of the viewport opposite the sliver's [GrowthDirection].
 class HomeHeader extends SliverPersistentHeaderDelegate {
-  HomeHeader({this.expandedHeight});
+  List<bann.Banner> banners=[];
+
+  HomeHeader({this.expandedHeight,this.banners});
 
   /// The max height of the header.
   final double expandedHeight;
@@ -24,7 +27,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return
       Container(
-      child: CarosilSlider(shrinkOffset / expandedHeight),
+      child: CarosilSlider(shrinkOffset / expandedHeight,banners),
 
     );
   }

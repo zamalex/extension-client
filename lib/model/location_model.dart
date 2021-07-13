@@ -54,6 +54,45 @@ class SalonModel {
     }
   }
 
+  Future<List<Data>> getFavSalons() async {
+
+    Map<String, String> headers = {
+      'Authorization': 'Bearer ${Globals.TOKEN}'
+    };
+
+    print('${Globals.TOKEN}');
+
+
+    try {
+      var response = await http.get(
+        Uri.parse('${Globals.BASE}shops?myFavourite=true'),
+          headers: headers
+      );
+      print('request is ${Globals.BASE}shops?myFavourite=true');
+      if(response.statusCode>=400){
+
+      }else{
+        final responseJson = json.decode(response.body);
+        print('respoonse is ${response.body}');
+
+        if(responseJson['success'] as bool==false){
+          return [];
+        }else{
+          return SalonModel.fromJson(responseJson as Map<String,dynamic>).data;
+        }
+      }
+
+      print('response  is '+response.body);
+
+
+      // print(responseJson);
+      return [];
+    } catch (error) {
+      print(error);
+      return [];
+    }
+  }
+
 
 }
 
@@ -61,6 +100,8 @@ class Data {
   int id;
   String name;
   String logo;
+  String address;
+  double rating;
 
   Data({this.id, this.name, this.logo});
 
@@ -68,6 +109,8 @@ class Data {
     id = json['id'] as int;
     name = json['name'] as String;
     logo = json['logo'] as  String;
+    address = json['address'] as  String;
+    rating = double.parse(json['rating'].toString());
   }
 
 

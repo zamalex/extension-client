@@ -2,13 +2,16 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:salon/screens/home/widgets/wavy_header_image.dart';
 // import 'package:carousel_slider/carousel_slider.dart';
+import 'package:salon/model/banners_model.dart'as bann;
 
 class CarosilSlider extends StatefulWidget {
    double shrinkOffsetPercentage;
-   CarosilSlider(this.shrinkOffsetPercentage);
+   List<bann.Banner> banners=[];
 
+   CarosilSlider(this.shrinkOffsetPercentage,this.banners);
 
-  @override
+   // CarosilSlider(this.banners);
+   @override
   _CarosilSliderState createState() => _CarosilSliderState();
 }
 
@@ -16,7 +19,7 @@ class _CarosilSliderState extends State<CarosilSlider> {
   int _current = 0;
 
   List<Widget> getChild() {
-    return [WavyHeaderImage(shrinkOffsetPercentage: widget.shrinkOffsetPercentage)];
+    return widget.banners.map((e) => WavyHeaderImage(shrinkOffsetPercentage: widget.shrinkOffsetPercentage)).toList();
   }
 
   @override
