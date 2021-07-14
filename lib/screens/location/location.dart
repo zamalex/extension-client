@@ -4,16 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
+import 'package:salon/data/models/business_hours_model.dart';
 import 'package:salon/data/models/location_model.dart';
 import 'package:salon/data/models/review_model.dart';
 import 'package:salon/data/models/service_group_model.dart';
 import 'package:salon/data/models/service_model.dart';
+import 'package:salon/data/models/staff_model.dart';
 import 'package:salon/data/repositories/location_repository.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/booking_week.dart';
 import 'package:salon/model/fav_model.dart';
 import 'package:salon/model/my_reviews.dart';
 import 'package:salon/model/products_data.dart';
+import 'package:salon/model/staff_data.dart';
 import 'package:salon/screens/location/widgets/widgets.dart';
 import 'package:salon/screens/products/products_list.dart';
 import 'package:salon/widgets/app_button.dart';
@@ -44,6 +48,8 @@ class _LocationScreenState extends State<LocationScreen> {
   LocationModel _location;
   List<ServiceModel> services = [];
   List<ReviewModel> reviews = [];
+  List<SingleStaff> staff = [];
+  List<StaffModel> staffModel = [];
   bool _isFavorited = false;
   int selected = 0;
   @override
@@ -58,7 +64,14 @@ class _LocationScreenState extends State<LocationScreen> {
     /// Load location data.
     _location = await locationRepository.getLocation(id: widget.locationId);
     _location.reviews = [];
+    _location.businessHours = [];
+    _location.staff = [];
     setState(() {});
+
+    BookingWeekTimes().getWeekTimes('1').then((value){
+        _location.businessHours = value.map((e) => BusinessHoursModel(e.day, e.startTime, e.endTime)).toList();
+    });
+
     ProductModel().getProducts().then((value){
       setState(() {
         services = value.map((e){
@@ -85,6 +98,22 @@ class _LocationScreenState extends State<LocationScreen> {
 
 
   });
+
+    SalonStaff().getSalonStaff('1').then((value) {
+
+      setState(() {
+        staff = value;
+
+        // _location.reviews=[];
+        _location.staff = value.map((e) {
+          return StaffModel(e.id, e.name, e.jobTitle, 'assets/images/data/users/user-1.jpg', e.rating, true);
+
+        }).toList();
+      staffModel=_location.staff;
+      });
+
+
+    });
   }
 
   @override
@@ -237,7 +266,7 @@ class _LocationScreenState extends State<LocationScreen> {
             ),
             AppButton(
               text: L10n.of(context).locationBtnBook,
-              onPressed: () => Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': _location.id}),
+              onPressed: () => Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': _location.id,'staff': staffModel}),
             ),
           ],
         ),

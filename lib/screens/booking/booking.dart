@@ -6,6 +6,7 @@ import 'package:salon/data/models/booking_session_model.dart';
 import 'package:salon/data/models/booking_wizard_page_model.dart';
 import 'package:salon/data/models/service_group_model.dart';
 import 'package:salon/data/models/service_model.dart';
+import 'package:salon/data/models/staff_model.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/screens/booking/widgets/booking_step1.dart';
 import 'package:salon/screens/booking/widgets/booking_step2.dart';
@@ -42,6 +43,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
 
   ServiceModel _preselectedService;
   List<ServiceModel> services = [];
+  List<StaffModel> staff = [];
   BookingSessionModel session;
 
   List<BookingWizardPageModel> wizardPages = <BookingWizardPageModel>[];
@@ -59,6 +61,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
 
     _locationId = widget.params['locationId'] as int ?? 0;
     services = widget.params['services'] as List<ServiceModel> ?? [];
+    staff = widget.params['staff'] as List<StaffModel> ?? [];
     _preselectedService = widget.params['preselectedService'] as ServiceModel;
 
     BlocProvider.of<BookingBloc>(context).add(LocationLoadedBookingEvent(locationId: _locationId));
@@ -69,7 +72,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
     }));
     wizardPages.add(BookingWizardPageModel.fromJson(<String, dynamic>{
       'step': 2,
-      'body': BookingStep2(),
+      'body': BookingStep2(staff),
     }));
     wizardPages.add(BookingWizardPageModel.fromJson(<String, dynamic>{
       'step': 3,
@@ -141,6 +144,8 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
 
         session = (state as SessionRefreshSuccessBookingState).session;
         session.location.serviceGroups=[];
+        session.location.staff=[];
+        session.location.staff = staff;
         session.location.serviceGroups.add(ServiceGroupModel('Top Services', '', services));
         if (session.appointmentId > 0) {
           return BookingSuccessDialog();

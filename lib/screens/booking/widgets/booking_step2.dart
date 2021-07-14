@@ -13,6 +13,11 @@ import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/strut_text.dart';
 
 class BookingStep2 extends StatefulWidget {
+
+  List<StaffModel> staff=[];
+
+  BookingStep2(this.staff);
+
   @override
   _BookingStep2State createState() => _BookingStep2State();
 }
@@ -25,7 +30,7 @@ class _BookingStep2State extends State<BookingStep2> {
         final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
 
         final List<ListItem> _listItems = <ListItem>[];
-
+        session.location.staff = widget.staff;
         _listItems.add(_staffItem(
             StaffModel.fromJson(<String, dynamic>{
               'id': 0,
@@ -34,8 +39,8 @@ class _BookingStep2State extends State<BookingStep2> {
               'profile_photo': 'np.png',
             }),
             session));
-        for (int i = 0; i < session.location.staff.length; i++) {
-          _listItems.add(_staffItem(session.location.staff[i], session));
+        for (int i = 0; i < widget.staff.length; i++) {
+          _listItems.add(_staffItem(widget.staff[i], session));
         }
 
         return SingleChildScrollView(

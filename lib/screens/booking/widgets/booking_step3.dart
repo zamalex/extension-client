@@ -19,7 +19,7 @@ class BookingStep3 extends StatefulWidget {
 
 class _BookingStep3State extends State<BookingStep3> {
   final ScrollController _controller = ScrollController();
-
+List<int> i=[10,20,30,40];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookingBloc, BookingState>(
@@ -78,8 +78,8 @@ class _BookingStep3State extends State<BookingStep3> {
                   padding: const EdgeInsets.symmetric(horizontal: kPaddingM),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List<ListItem>.generate(timetableModel.timestamps.length, (int index) {
-                      return _timetableItem(timetableModel.timestamps[index], session.selectedTimestamp);
+                    children: List<ListItem>.generate(4/*timetableModel.timestamps.length*/, (int index) {
+                      return _timetableItem(DateTime(2020, 1, 1, 12, i[index].toInt()).millisecondsSinceEpoch, session.selectedTimestamp);
                     }),
                   ),
                 )

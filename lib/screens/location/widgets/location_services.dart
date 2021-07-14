@@ -64,7 +64,7 @@ class LocationServices extends StatelessWidget {
                   ],
                 ),
                 onPressed: () =>
-                    Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id, 'preselectedService': service,'services':_services}),
+                    Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id, 'preselectedService': service,'services':_services,'staff':location.staff}),
               );
             }).toList(),
           ),
@@ -73,7 +73,7 @@ class LocationServices extends StatelessWidget {
               padding: const EdgeInsets.only(top: kPaddingL),
               child: LinkText(
                 text: L10n.of(context).locationLinkAllServices,
-                onTap: () => Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id,'services':_services}),
+                onTap: () => Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id,'services':_services,'staff':location.staff}),
               ),
             )
         ],

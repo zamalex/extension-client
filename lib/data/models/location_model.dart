@@ -101,12 +101,12 @@ class LocationModel {
   final String description;
   final String mainPhoto;
   final String genders;
-  final List<BusinessHoursModel> businessHours;
+   List<BusinessHoursModel> businessHours;
   final GeoPoint coordinates;
   final List<LocationModel> nearbyLocations;
    List<ReviewModel> reviews;
   final List<PhotoModel> photos;
    List<ServiceGroupModel> serviceGroups;
-  final List<StaffModel> staff;
+   List<StaffModel> staff;
   final String cancelationPolicy;
 }

@@ -63,3 +63,4 @@ class NotesUpdatedBookingEvent extends BookingEvent {
 }
 
 class SubmittedBookingEvent extends BookingEvent {}
+class GetBookingTimes extends BookingEvent {}

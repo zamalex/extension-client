@@ -67,7 +67,7 @@ class BookingSessionModel {
   final int selectedDateRange;
   final int selectedTimestamp;
   final bool isSubmitting;
-
+  List<int> times = [];
   final String notes;
 
   final double totalPrice;
