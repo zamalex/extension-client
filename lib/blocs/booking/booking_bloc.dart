@@ -11,6 +11,7 @@ import 'package:salon/data/models/staff_model.dart';
 import 'package:salon/data/models/timetable_model.dart';
 import 'package:salon/data/repositories/appointment_repository.dart';
 import 'package:salon/data/repositories/location_repository.dart';
+import 'package:salon/model/confirm_order.dart';
 
 part 'booking_event.dart';
 part 'booking_state.dart';
@@ -180,8 +181,21 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
 
       yield SessionRefreshSuccessBookingState(session.rebuild(isSubmitting: true));
 
+      session.selectedServiceIds.forEach((element) {print('id id ${element.toString()}');});
+      print('staff id ${session.selectedStaff.id} and name ${session.selectedStaff.name}');
+      final DateTime now = DateTime.fromMillisecondsSinceEpoch(session.selectedTimestamp);
+      print('date  ${now.year}-${now.month}-${now.day}');
+      print('time is ${now.hour}:${now.minute}');
+
+      var map = {
+        'booked_shift_id':1.toString(),
+        'services_ids':session.selectedServiceIds,
+        'staff_id':session.selectedStaff.id.toString(),
+        'date':'${now.year}-${now.month}-${now.day}',
+        'time':'${now.hour}:${now.minute}'
+      };
       // Wait for some random time. Simulate net activity ;)
-      await Future<int>.delayed(Duration(seconds: Random().nextInt(2)));
+      await ConfirmOrder().confirmBooking(map);
 
       yield SessionRefreshSuccessBookingState(session.rebuild(
         isSubmitting: false,

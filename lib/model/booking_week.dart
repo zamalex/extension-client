@@ -28,10 +28,10 @@ class BookingWeekTimes {
 
     try {
       var response = await http.get(
-          Uri.parse('${Globals.BASE}booking/$id/available-slots'),
+          Uri.parse('${Globals.BASE}shop/workingHours/$id'),
           headers: headers
       );
-      print('request is ${Globals.BASE}booking/$id/available-slots');
+      print('request is ${Globals.BASE}shop/workingHours/$id');
       if(response.statusCode>=400){
 
       }else{
@@ -64,9 +64,9 @@ class Data {
   Data({this.slots});
 
   Data.fromJson(Map<String, dynamic> json) {
-    if (json['slots'] != null) {
+    if (json['hours'] != null) {
       slots = [];
-      json['slots'].forEach((v) {
+      json['hours'].forEach((v) {
         slots.add( Slots.fromJson(v as Map<String,dynamic>));
       });
     }
@@ -86,7 +86,7 @@ class Slots {
   Slots({this.id, this.day, this.startTime, this.endTime});
 
   Slots.fromJson(Map<String, dynamic> json) {
-    id = json['id']as int;
+    id = json['id']as int??0;
     day = json['day']as int;
     startTime = json['start_time'].toString();
     endTime = json['end_time'].toString();

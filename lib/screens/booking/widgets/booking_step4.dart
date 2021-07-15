@@ -50,6 +50,7 @@ class _BookingStep4State extends State<BookingStep4> {
                     for (final ServiceModel serviceModel in serviceGroupModel.services) {
                       if (session.selectedServiceIds.contains(serviceModel.id)) {
                         _selectedServices.add(serviceModel);
+                       // print('id is ${serviceModel.id}');
                       }
                     }
                   }
@@ -192,4 +193,7 @@ class _BookingStep4State extends State<BookingStep4> {
       BlocProvider.of<BookingBloc>(context).add(NotesUpdatedBookingEvent(editedNotes));
     }
   }
+
+
+
 }

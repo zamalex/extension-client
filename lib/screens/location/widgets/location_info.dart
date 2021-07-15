@@ -37,6 +37,7 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
   void dispose() {
     _controller.dispose();
     super.dispose();
+    
   }
 
   @override

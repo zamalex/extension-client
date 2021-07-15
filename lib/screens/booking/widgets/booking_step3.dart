@@ -5,6 +5,7 @@ import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/booking_session_model.dart';
 import 'package:salon/data/models/timetable_model.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/booking_day_times.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/utils/datetime.dart';
 import 'package:salon/widgets/jumbotron.dart';
@@ -18,8 +19,28 @@ class BookingStep3 extends StatefulWidget {
 }
 
 class _BookingStep3State extends State<BookingStep3> {
+
+  List<Slot> slots = [];
+
   final ScrollController _controller = ScrollController();
 List<int> i=[10,20,30,40];
+
+getSlots(String id,String date){
+  BookingDayTimes().getDayTimes(id, date).then((value){
+    setState(() {
+      slots = value??[];
+    });
+  });
+
+}
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final now = DateTime.now();
+    getSlots('1', '${now.year}-${now.month}-${now.day}');
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookingBloc, BookingState>(
@@ -58,6 +79,8 @@ List<int> i=[10,20,30,40];
                         isSelected: session.selectedDateRange == index,
                         onTap: () {
                           if (session.selectedDateRange != index) {
+                            final now = DateTime.now().add(Duration(days: session.selectedDateRange));
+                            getSlots('1', '${now.year}-${now.month}-${now.day}');
                             context.read<BookingBloc>().add(DateRangeSetBookingEvent(index));
                           }
                         },
@@ -77,9 +100,12 @@ List<int> i=[10,20,30,40];
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: kPaddingM),
                   child: Column(
+
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List<ListItem>.generate(4/*timetableModel.timestamps.length*/, (int index) {
-                      return _timetableItem(DateTime(2020, 1, 1, 12, i[index].toInt()).millisecondsSinceEpoch, session.selectedTimestamp);
+                    children: List<ListItem>.generate(slots.length/*timetableModel.timestamps.length*/, (int index) {
+                      final now = DateTime.now().add(Duration(days: session.selectedDateRange));
+                      final splitTime= slots[index].time.split(':');
+                      return _timetableItem(DateTime(now.year, now.month, now.day, int.tryParse(splitTime[0]), int.tryParse(splitTime[1])).millisecondsSinceEpoch, session.selectedTimestamp);
                     }),
                   ),
                 )

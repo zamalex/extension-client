@@ -8,6 +8,7 @@ import 'package:salon/data/models/service_group_model.dart';
 import 'package:salon/data/models/service_model.dart';
 import 'package:salon/data/models/staff_model.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/confirm_order.dart';
 import 'package:salon/screens/booking/widgets/booking_step1.dart';
 import 'package:salon/screens/booking/widgets/booking_step2.dart';
 import 'package:salon/screens/booking/widgets/booking_step3.dart';
@@ -104,6 +105,22 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
         return;
       }
     } else if (_currentStep == 4) {
+
+
+      /*session.selectedServiceIds.forEach((element) {print('id id ${element.toString()}');});
+      print('staff id ${session.selectedStaff.id} and name ${session.selectedStaff.name}');
+      final DateTime now = DateTime.fromMillisecondsSinceEpoch(session.selectedTimestamp);
+      print('date  ${now.year}-${now.month}-${now.day}');
+      print('time is ${now.hour}:${now.minute}');
+
+      var map = {
+        'booked_shift_id':1,
+        'services_ids':session.selectedServiceIds,
+        'staff_id':session.selectedStaff.id,
+        'date':'${now.year}-${now.month}-${now.day}',
+        'time':'${now.hour}:${now.minute}'
+      };*/
+      //ConfirmOrder().confirmBooking(map);
       BlocProvider.of<BookingBloc>(context).add(SubmittedBookingEvent());
     }
 
