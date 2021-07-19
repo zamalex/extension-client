@@ -17,19 +17,24 @@ class LocationServices extends StatelessWidget {
     Key key,
     this.location,
     this.limit = 3,
+    this.name,
+    this.address
   }) : super(key: key);
 
   final LocationModel location;
   final int limit;
+  final String name;
+  final String address;
 
   @override
   Widget build(BuildContext context) {
     if (location == null || location.serviceGroups.isNullOrEmpty) {
       return Container();
     }
-
+    location.name = name;
+    location.address = address;
     List<ServiceModel> _services = location.serviceGroups.first.services;
-
+    print(location.name);
     if (limit < _services.length) {
       _services = _services.sublist(0, limit);
     }
@@ -64,7 +69,7 @@ class LocationServices extends StatelessWidget {
                   ],
                 ),
                 onPressed: () =>
-                    Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id, 'preselectedService': service,'services':_services,'staff':location.staff}),
+                    Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id, 'preselectedService': service,'services':_services,'staff':location.staff,'location':location}),
               );
             }).toList(),
           ),
@@ -73,7 +78,7 @@ class LocationServices extends StatelessWidget {
               padding: const EdgeInsets.only(top: kPaddingL),
               child: LinkText(
                 text: L10n.of(context).locationLinkAllServices,
-                onTap: () => Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id,'services':_services,'staff':location.staff}),
+                onTap: () => Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id,'services':_services,'staff':location.staff,'location':location}),
               ),
             )
         ],

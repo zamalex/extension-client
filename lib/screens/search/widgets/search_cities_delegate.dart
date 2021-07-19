@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salon/blocs/cities/cities_bloc.dart';
+import 'package:salon/blocs/search/search_bloc.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/city_model.dart';
@@ -18,7 +19,9 @@ class SearchCitiesDelegate extends SearchDelegate<CityModel> {
     this.citiesBloc,
     this.hintText,
     this.myLocation,
+    this.searchBloc
   }) : super(searchFieldLabel: hintText);
+  final SearchBloc searchBloc;
 
   final Bloc<CitiesEvent, CitiesState> citiesBloc;
   final String hintText;
@@ -135,7 +138,9 @@ class SearchCitiesDelegate extends SearchDelegate<CityModel> {
             color: Theme.of(context).disabledColor,
           ),
           title: sprintf('%s, %s', <String>[_cities[index].name, _cities[index].state]),
-          onPressed: () => close(context, _cities[index]),
+          onPressed: () {
+            searchBloc.add(CitySelectedSearchEvent(_cities[index]));
+            close(context, _cities[index]);},
         );
       },
     );

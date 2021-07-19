@@ -65,7 +65,7 @@ class Routes {
           builder: (BuildContext context) {
             return Directionality(
               textDirection: getIt.get<AppGlobals>().isRTL ? TextDirection.rtl : TextDirection.ltr,
-              child: LocationScreen(locationId: routeSettings.arguments as int),
+              child: LocationScreen(locationId: routeSettings.arguments as LocationModel,),
             );
           },
           settings: const RouteSettings(name: location),

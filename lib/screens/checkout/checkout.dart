@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salon/configs/constants.dart';
+import 'package:salon/model/cart_provider.dart';
+import 'package:salon/model/mycarts.dart';
 import 'package:salon/screens/checkout/expand_address.dart';
 import 'package:salon/screens/checkout/expand_copon.dart';
 import 'package:salon/screens/checkout/expand_date.dart';
@@ -9,6 +12,9 @@ class Checkout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(Provider.of<CartProvider>(context,listen: false).allCarts.length>0)OrderSummary().getOrderSummary(Provider.of<CartProvider>(context).allCarts[0].ownerId).then((value){});
+
+
     return Scaffold(appBar: AppBar(title: Text('Checkout'),centerTitle: true,),
     body: Column(children: [
       Expanded(child: SingleChildScrollView(child: Container(child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [

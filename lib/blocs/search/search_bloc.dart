@@ -8,6 +8,7 @@ import 'package:salon/data/models/location_model.dart';
 import 'package:salon/data/models/search_session_model.dart';
 import 'package:salon/data/models/toolbar_option_model.dart';
 import 'package:salon/data/repositories/location_repository.dart';
+import 'package:salon/model/location_model.dart';
 import 'package:salon/utils/geo.dart';
 
 part 'search_event.dart';
@@ -82,6 +83,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       if (_locations.isNotEmpty && session.q.isNotEmpty) {
         _locations = _locations.where((LocationModel location) => location.name.toLowerCase().contains(session.q.toLowerCase())).toList();
       }
+     await SalonModel().getSalons().then((value){
+        _locations =value.map((e){
+          return LocationModel(e.id, e.name, 2.5, 100, 'Askan Building 17, Al Olaya, Riyadh', 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.png', 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
+        }).toList();
+
+      });
 
       yield RefreshSuccessSearchState(session.rebuild(
         locations: _locations,

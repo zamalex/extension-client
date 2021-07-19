@@ -167,11 +167,11 @@ class _BookingStep4State extends State<BookingStep4> {
                               ),
                               onPressed: () => selectPaymentmethodEvent(PaymentMethod.inStore),
                             ),
-                            ListTitle(title: L10n.of(context).bookingSubtitleCancelationPolicy),
+                           /* ListTitle(title: L10n.of(context).bookingSubtitleCancelationPolicy),
                             Padding(
                               padding: const EdgeInsets.only(bottom: kPaddingM),
                               child: Text(session.location.cancelationPolicy),
-                            ),
+                            ),*/
                           ],
                         ),
                       ),

@@ -31,7 +31,7 @@ class LocationListItem extends StatelessWidget {
   final VoidCallback onFavoriteButtonPressed;
 
   void _showLocationScreen(BuildContext context) {
-    Navigator.pushNamed(context, Routes.location, arguments: location.id);
+    Navigator.pushNamed(context, Routes.location, arguments: location);
   }
 
   @override

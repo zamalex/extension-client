@@ -46,14 +46,14 @@ class _CartItemState extends State<CartItem> {
       Expanded(flex: 2,child: Image.asset('assets/images/data/categories/barber-shop.jpg',height: 100,fit: BoxFit.cover,)),
       SizedBox(width: 5,),
       Expanded(flex:2,child: Container(height: 100,child: Column(children: [
-        Text('Salon name',style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
-        Container(child: Text('Product name  ',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),),),
-        Text('\$20.00',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
+        Text(widget.cartModel.salon,overflow: TextOverflow.ellipsis,style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+        Container(child: Text(widget.cartModel.name,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),),),
+        Text('${widget.cartModel.price } SAR',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
 
       ],crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.spaceEvenly,),)),
       Expanded(flex:3,child: Column(children: [
         _quantityButtons(),
-        Text('Total 40.00 SAR',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
+        Text('Total ${widget.cartModel.quantity*widget.cartModel.price} SAR',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
       ],mainAxisAlignment: MainAxisAlignment.spaceEvenly,mainAxisSize: MainAxisSize.max,crossAxisAlignment: CrossAxisAlignment.end,),),
     SizedBox(width: 5,)],)
 

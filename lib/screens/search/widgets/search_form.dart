@@ -19,11 +19,13 @@ class SearchForm extends StatefulWidget {
     this.selectedDateRange = 0,
     this.selectedCity,
     this.myLocation,
+    this.searchBloc
   }) : super(key: key);
 
   final int selectedDateRange;
   final CityModel selectedCity;
   final CityModel myLocation;
+  final SearchBloc searchBloc;
 
   @override
   _SearchFormState createState() => _SearchFormState();
@@ -136,6 +138,7 @@ class _SearchFormState extends State<SearchForm> {
     final CityModel _cityModel = await showSearch<CityModel>(
       context: context,
       delegate: SearchCitiesDelegate(
+        searchBloc: widget.searchBloc,
         hintText: L10n.of(context).searchPlaceholderQuickSearchCities,
         citiesBloc: BlocProvider.of<CitiesBloc>(context),
         myLocation: widget.myLocation,

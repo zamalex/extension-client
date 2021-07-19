@@ -4,6 +4,7 @@ import 'package:salon/blocs/booking/booking_bloc.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/booking_session_model.dart';
 import 'package:salon/data/models/booking_wizard_page_model.dart';
+import 'package:salon/data/models/location_model.dart';
 import 'package:salon/data/models/service_group_model.dart';
 import 'package:salon/data/models/service_model.dart';
 import 'package:salon/data/models/staff_model.dart';
@@ -46,6 +47,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
   List<ServiceModel> services = [];
   List<StaffModel> staff = [];
   BookingSessionModel session;
+  LocationModel locationModel;
 
   List<BookingWizardPageModel> wizardPages = <BookingWizardPageModel>[];
 
@@ -61,6 +63,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
     super.initState();
 
     _locationId = widget.params['locationId'] as int ?? 0;
+    locationModel = widget.params['location'] as LocationModel;
     services = widget.params['services'] as List<ServiceModel> ?? [];
     staff = widget.params['staff'] as List<StaffModel> ?? [];
     _preselectedService = widget.params['preselectedService'] as ServiceModel;
@@ -106,21 +109,6 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
       }
     } else if (_currentStep == 4) {
 
-
-      /*session.selectedServiceIds.forEach((element) {print('id id ${element.toString()}');});
-      print('staff id ${session.selectedStaff.id} and name ${session.selectedStaff.name}');
-      final DateTime now = DateTime.fromMillisecondsSinceEpoch(session.selectedTimestamp);
-      print('date  ${now.year}-${now.month}-${now.day}');
-      print('time is ${now.hour}:${now.minute}');
-
-      var map = {
-        'booked_shift_id':1,
-        'services_ids':session.selectedServiceIds,
-        'staff_id':session.selectedStaff.id,
-        'date':'${now.year}-${now.month}-${now.day}',
-        'time':'${now.hour}:${now.minute}'
-      };*/
-      //ConfirmOrder().confirmBooking(map);
       BlocProvider.of<BookingBloc>(context).add(SubmittedBookingEvent());
     }
 
@@ -163,6 +151,9 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
         session.location.serviceGroups=[];
         session.location.staff=[];
         session.location.staff = staff;
+        session.location.name = locationModel.name;
+        session.location.address = locationModel.address;
+
         session.location.serviceGroups.add(ServiceGroupModel('Top Services', '', services));
         if (session.appointmentId > 0) {
           return BookingSuccessDialog();

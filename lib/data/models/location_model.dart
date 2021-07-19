@@ -90,12 +90,12 @@ class LocationModel {
   }
 
   final int id;
-  final String name;
-  final double rate;
-  final int ratings;
-  final String address;
+  String name;
+   double rate;
+   int ratings;
+   String address;
   final String city;
-  final String phone;
+   String phone;
   final String email;
   final String website;
   final String description;

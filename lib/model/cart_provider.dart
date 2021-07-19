@@ -2,25 +2,34 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:salon/model/cart_model.dart';
+import 'package:salon/model/mycarts.dart';
 import 'package:salon/screens/cart/cart_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartProvider extends ChangeNotifier {
   List<CartModel> items = [];
+  List<MyCarts> allCarts = [];
 
   void init()async{
-    print('initiated');
-    /*List<CartModel> fake = [
-      CartModel(id:1,name: 'product name',salon: 'salon name',quantity:1,price: 10),
-      CartModel(id:2,name: 'product name',salon: 'salon name',quantity:2,price: 10)
-    ];*/
+    items = [];
+    await MyCarts().getCartList().then((value){
+      print('size is ${value.length}');
+      allCarts = value;
+      value.forEach((element) {
+        element.cartItems.forEach((inner) {
+            items.add(CartModel(id: inner.productId,name: inner.productName,quantity: inner.quantity,salon: element.name,price: inner.price+0.0));
+        });
+      });
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    });
+    print('initiated');
+
+    //SharedPreferences prefs = await SharedPreferences.getInstance();
     //prefs.setString('cart', CartModel.encode(fake));
 
-    String json = await prefs.getString('cart')??null;
-    if(json!=null)
-    items = CartModel.decode(json);
+    //String json = await prefs.getString('cart')??null;
+   // if(json!=null)
+   // items = CartModel.decode(json);
     notifyListeners();
 
   }
@@ -37,7 +46,22 @@ class CartProvider extends ChangeNotifier {
 
 
   void addItem(CartModel item) async{
-    if(items==null)
+    await MyCarts().addTocart(item).then((value){
+      print('size is ${value.length}');
+      if(value.length>0)
+        items= [];
+
+      allCarts = value;
+
+      value.forEach((element) {
+        element.cartItems.forEach((inner) {
+          items.add(CartModel(id: inner.productId,name: inner.productName,quantity: inner.quantity,salon: element.name,price: inner.price+0.0));
+        });
+      });
+
+    });
+    notifyListeners();
+   /* if(items==null)
       items=[];
     var existing=null;
     if(items.isNotEmpty)
@@ -52,7 +76,9 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('cart', CartModel.encode(items));
+    prefs.setString('cart', CartModel.encode(items));*/
+    
+    
   }
 
   int itemCount(int id){

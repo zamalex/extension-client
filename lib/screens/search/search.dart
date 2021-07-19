@@ -14,6 +14,7 @@ import 'package:salon/data/models/search_tab_model.dart';
 import 'package:salon/data/models/toolbar_option_model.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/category.dart';
 import 'package:salon/model/location_model.dart';
 import 'package:salon/screens/search/widgets/search_filter_drawer.dart';
 import 'package:salon/screens/search/widgets/search_form.dart';
@@ -48,6 +49,7 @@ class SearchScreenState extends State<SearchScreen> {
   });
 
   List<SearchTabModel> categoryTabs = <SearchTabModel>[];
+  List<SearchTabModel> cats = <SearchTabModel>[];
 
   SearchBloc _searchBloc;
 
@@ -59,14 +61,15 @@ class SearchScreenState extends State<SearchScreen> {
 
   /// Search filter by gender.
   List<ToolbarOptionModel> searchGenderFilter;
-  List<LocationModel> salons;
+  List<LocationModel> salons=[];
 
   @override
   void initState() {
     super.initState();
     _searchBloc = BlocProvider.of<SearchBloc>(context);
 
-    SalonModel().getSalons().then((value){
+
+  /*  SalonModel().getSalons().then((value){
      salons =value.map((e){
         return LocationModel(e.id, e.name, 2.5, 100, 'Askan Building 17, Al Olaya, Riyadh', 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.png', 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
       }).toList();
@@ -74,10 +77,26 @@ class SearchScreenState extends State<SearchScreen> {
 
       });
     });
-
+*/
     getIt.get<AppGlobals>().globalKeySearchTabs = GlobalKey<SearchTabsState>();
 
     _initGlobals();
+
+    CategoryData().getCategories().then((value){
+      setState(() {
+        cats=value.map((e){
+          return SearchTabModel(e.id,GlobalKey(debugLabel: 'categoryTab_' + e.id.toString()),e.name);
+        }).toList();
+
+        for (final SearchTabModel category in cats) {
+          categoryTabs.add(SearchTabModel.fromJson(<String, dynamic>{
+            'id': category.id,
+            'globalKey': GlobalKey(debugLabel: 'categoryTab_' + category.id.toString()),
+            'label': category.label,
+          }));
+        }
+      });
+    });
   }
 
   /// Init globals that require access to BuildContext for translation.
@@ -123,13 +142,13 @@ class SearchScreenState extends State<SearchScreen> {
     }));
 
     /// Other tabs in the list will be added from the location category list.
-    for (final CategoryModel category in getIt.get<AppGlobals>().categories) {
+   /* for (final CategoryModel category in getIt.get<AppGlobals>().categories) {
       categoryTabs.add(SearchTabModel.fromJson(<String, dynamic>{
         'id': category.id,
         'globalKey': GlobalKey(debugLabel: 'categoryTab_' + category.id.toString()),
         'label': category.title,
       }));
-    }
+    }*/
 
     /// Initialize the search session.
     _searchBloc.add(SessionInitedSearchEvent(
@@ -163,6 +182,7 @@ class SearchScreenState extends State<SearchScreen> {
         /// Session is initialized and/or refreshed.
         final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
 
+
         /// Lets see what's in it and show the results on the screen.
         return AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
@@ -192,6 +212,7 @@ class SearchScreenState extends State<SearchScreen> {
                           primary: true,
                           floating: true,
                           flexibleSpace: SearchForm(
+                            searchBloc: _searchBloc,
                             selectedDateRange: session.selectedDateRange,
                             selectedCity: session.selectedCity,
                             myLocation: _myLocation,
@@ -212,7 +233,7 @@ class SearchScreenState extends State<SearchScreen> {
                         ),
                         SliverList(
                           delegate: SliverChildListDelegate(<Widget>[
-                            if (salons.isNotNullOrEmpty)
+                            if (session.locations.isNotNullOrEmpty)
                               SearchListToolbar(
                                 // searchSortTypes: searchSortTypes,
                                 searchGenderTypes: searchGenderFilter,
@@ -228,13 +249,13 @@ class SearchScreenState extends State<SearchScreen> {
                                 icon: Icons.gps_off,
                               ),
                             SearchResultTitle(
-                              locations: salons,
+                              locations: session.locations,
                               currentListType: session.currentListType,
                               searchListTypes: searchListTypes,
                               onListTypeChange: (ToolbarOptionModel newListType) => _searchBloc.add(ListTypeChangedSearchEvent(newListType)),
                             ),
                             SearchResultList(
-                              locations: salons,
+                              locations: session.locations,
                               currentListType: session.currentListType,
                             ),
                           ]),

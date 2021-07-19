@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/city_model.dart';
 import 'package:salon/data/repositories/location_repository.dart';
+import 'package:salon/model/cities_data.dart';
 
 part 'cities_event.dart';
 part 'cities_state.dart';
@@ -25,7 +26,14 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
       final String q = event.q.toLowerCase();
       const LocationRepository locationRepository = LocationRepository();
 
-      List<CityModel> _cities = await locationRepository.searchCities(q: event.q);
+      List<CityModel> _cities = [];//await locationRepository.searchCities(q: event.q);
+
+      await CitiesData().getCategories().then((value){
+        _cities = value.map((e){
+          return CityModel(e.id.toString(), e.name, 'ksa', null);
+        }).toList();
+      });
+
 
       if (_cities.isNotEmpty) {
         _cities = _cities.where((CityModel city) => city.name.toLowerCase().contains(q)).toList();

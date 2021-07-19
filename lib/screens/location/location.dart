@@ -29,10 +29,11 @@ import 'package:share/share.dart';
 class LocationScreen extends StatefulWidget {
   const LocationScreen({
     Key key,
-    this.locationId = 0,
+    this.namedLocation,
+    this.locationId ,
   }) : super(key: key);
-
-  final int locationId;
+  final namedLocation;
+  final LocationModel locationId;
 
   @override
   _LocationScreenState createState() => _LocationScreenState();
@@ -62,10 +63,12 @@ class _LocationScreenState extends State<LocationScreen> {
 
   Future<void> _loadData() async {
     /// Load location data.
-    _location = await locationRepository.getLocation(id: widget.locationId);
+    _location = await locationRepository.getLocation(id: widget.locationId.id);
     _location.reviews = [];
     _location.businessHours = [];
     _location.staff = [];
+
+
     setState(() {});
 
     BookingWeekTimes().getWeekTimes('1').then((value){
@@ -118,7 +121,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.locationId > 0) {
+    if (widget.locationId.id > 0) {
       return Scaffold(
         key: _scaffoldKey,
         backgroundColor: kScaffold,
@@ -167,7 +170,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Padding(padding: EdgeInsets.symmetric(horizontal: 10),child: StrutText(
-                              'The Barbery',
+                              widget.locationId.name,
                               maxLines: 2,
                               style: Theme.of(context).textTheme.headline5.w800.black,
                               overflow: TextOverflow.ellipsis,
@@ -175,7 +178,7 @@ class _LocationScreenState extends State<LocationScreen> {
                             Padding(
                               padding: const EdgeInsets.only(left:10,right:10,top: kPaddingS),
                               child: StrutText(
-                                'Askan Building 17, Al Olaya, Riyadh',
+                                widget.locationId.address,
                                 maxLines: 2,
                                 style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
                               ),
@@ -207,7 +210,7 @@ class _LocationScreenState extends State<LocationScreen> {
                                 LocationMapPreview(coordinates: _location != null ? _location.coordinates : null),
                                 // LocationDescription(description: _location != null ? _location.description : null),
                                 LocationStaff(location: _location),
-                                LocationServices(location: _location),
+                                LocationServices(location: _location,address: widget.locationId.address,name: widget.locationId.name,),
                                 LocationReviews(location: _location),
                               ],)
 
@@ -266,7 +269,7 @@ class _LocationScreenState extends State<LocationScreen> {
             ),
             AppButton(
               text: L10n.of(context).locationBtnBook,
-              onPressed: () => Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': _location.id,'staff': staffModel}),
+              onPressed: () => Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': _location.id,'staff': staffModel,'location':widget.locationId,'services':services}),
             ),
           ],
         ),
