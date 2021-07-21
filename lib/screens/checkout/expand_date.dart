@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:salon/configs/constants.dart';
 class ExpandDate extends StatefulWidget {
 
+  ExpandDate(this.setDate,this.dateTime);
+  Function setDate;
+  DateTime dateTime;
   @override
   _ExpandDateState createState() => _ExpandDateState();
 }
@@ -17,6 +22,15 @@ class _ExpandDateState extends State<ExpandDate> {
         child: Column(
           children: [
             ListTile(
+              onTap: (){
+                DatePicker.showDateTimePicker(context,
+                  showTitleActions: true,
+                  minTime: DateTime.now(),
+                  maxTime: DateTime.now().add(const Duration(days: 7)), onChanged: (date) {
+
+                  }, onConfirm: (date) {
+                    widget.setDate(date);
+                  }, currentTime: DateTime.now(), locale: LocaleType.en);},
               leading: Icon(Icons.alarm,color: kPrimaryColor,),
               title: Text('Delivery date & time',style: TextStyle(color: kPrimaryColor)),
               trailing: Container(
@@ -47,9 +61,9 @@ class _ExpandDateState extends State<ExpandDate> {
               secondChild: Container(),
               firstChild: Container(
                 // height: 150,
-                  child: Padding(padding: EdgeInsets.only(right: 20,left: 20,bottom: 10),child: Column(children: [
-                    Row(mainAxisAlignment:MainAxisAlignment.start,children: [Text('Wed, Nov 17, 2020',style: TextStyle(color: kPrimaryColor),),],)
-                    ,Row(mainAxisAlignment:MainAxisAlignment.start,children: [Text('12:30 - 14:30',style: TextStyle(color:kPrimaryColor),),],)
+                  child:widget.dateTime==null?Container(): Padding(padding: EdgeInsets.only(right: 20,left: 20,bottom: 10),child: Column(children: [
+                    Row(mainAxisAlignment:MainAxisAlignment.start,children: [Text(DateFormat('EEEE, d MMM, yyyy').format(widget.dateTime),style: TextStyle(color: kPrimaryColor),),],)
+                    ,Row(mainAxisAlignment:MainAxisAlignment.start,children: [Text('${widget.dateTime.hour}:${widget.dateTime.minute}',style: TextStyle(color:kPrimaryColor),),],)
                   ],),)
               ),
             )

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:salon/configs/constants.dart';
+import 'package:salon/screens/checkout/change_address.dart';
 class ExpandAddress extends StatefulWidget {
+
+  ExpandAddress(this.address,this.changeAdress);
+  String address;
+  Function changeAdress;
 
   @override
   _ExpandAddressState createState() => _ExpandAddressState();
@@ -48,8 +53,12 @@ class _ExpandAddressState extends State<ExpandAddress> {
               firstChild: Container(
                // height: 150,
                 child: Padding(padding: EdgeInsets.only(right: 20,left: 20,bottom: 10),child: Column(children: [
-                  Row(mainAxisAlignment:MainAxisAlignment.start,children: [Text('Askan Building 17, Al Olaya, Riyadh',style: TextStyle(color: kPrimaryColor),),],)
-                  ,Row(mainAxisAlignment:MainAxisAlignment.end,children: [Text('change address',style: TextStyle(color: Colors.black,decoration: TextDecoration.underline,),),],)
+                  Row(mainAxisAlignment:MainAxisAlignment.start,children: [Text(widget.address,style: TextStyle(color: kPrimaryColor),),],)
+                  ,Row(mainAxisAlignment:MainAxisAlignment.end,children: [InkWell(child: Text('change address',style: TextStyle(color: Colors.black,decoration: TextDecoration.underline,),),onTap: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder:(_)=>ChangeAddress(notes: widget.address,))).then((value){
+                          widget.changeAdress(value??'');
+                    });
+                  },),],)
                 ],),)
               ),
             )

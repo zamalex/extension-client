@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CartProvider extends ChangeNotifier {
   List<CartModel> items = [];
   List<MyCarts> allCarts = [];
+  OrderSummary orderSummary;
 
   void init()async{
     items = [];
@@ -44,6 +45,12 @@ class CartProvider extends ChangeNotifier {
     return total;
   }
 
+  checkCopon(String code){
+    if(code.isNotEmpty)
+    MyCarts().checkCopon(allCarts[0].ownerId, code).then((value){
+      getOrdersummary();
+    });
+  }
 
   void addItem(CartModel item) async{
     await MyCarts().addTocart(item).then((value){
@@ -111,5 +118,13 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('cart', CartModel.encode(items));
+  }
+
+
+  getOrdersummary(){
+    OrderSummary().getOrderSummary(allCarts[0].ownerId).then((value){
+          orderSummary = value;
+          notifyListeners();
+    });
   }
 }

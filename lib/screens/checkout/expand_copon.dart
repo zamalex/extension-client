@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:salon/configs/constants.dart';
+import 'package:salon/screens/checkout/add_copon.dart';
 class ExpandCopon extends StatefulWidget {
+
+  ExpandCopon(this.address,this.changeAdress);
+  String address;
+  Function changeAdress;
 
   @override
   _ExpandCoponState createState() => _ExpandCoponState();
@@ -17,18 +22,23 @@ class _ExpandCoponState extends State<ExpandCopon> {
         child: Column(
           children: [
             ListTile(
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(builder:(_)=>AddCopon(notes: widget.address,))).then((value){
+                  widget.changeAdress(value??'');
+                });
+              },
               leading: Icon(Icons.shopping_bag,color: kPrimaryColor,),
               title: Text('Coupon Code',style: TextStyle(color: kPrimaryColor)),
               trailing: Container(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('Code10%',style: TextStyle(color: kPrimaryColor),),
+                    Text(widget.address,style: TextStyle(color: kPrimaryColor),),
                     IconButton(
                       onPressed: () {
-                        setState(() {
+                        /*setState(() {
                           expanded = !expanded;
-                        });
+                        });*/
                       },
                       icon: expanded
                           ? Icon(

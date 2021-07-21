@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a en locale. All the
+// This is a library that provides messages for a ar locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -17,7 +17,7 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'en';
+  String get localeName => 'ar';
 
   static m0(dow, day, month, year, time) => "${dow}, ${day} ${month} ${year} at ${time}";
 
@@ -69,17 +69,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m24(length) => "Min. length is ${length} characters";
 
-  static m25(name) => "Hi, ${name}!";
+  static m25(name) => "اهلا, ${name}!";
 
   static m26(code) => "Get Salon and use code ${code} to get US\$5 off your first booking expenses.";
 
-  static m27(num) => "${num} services available";
+  static m27(num) => "${num} خدمة متاحة";
 
-  static m28(number) => "Call number ${number}?";
+  static m28(number) => "الاتصال بالرقم ${number}?";
 
-  static m29(date) => "Replied on ${date}";
+  static m29(date) => "تم الرد في ${date}";
 
-  static m30(num) => "${num} reviews";
+  static m30(num) => "${num} تقييم";
 
   static m31(num) => "${num} characters remaining";
 
@@ -155,10 +155,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "chatOnlineLabel" : MessageLookupByLibrary.simpleMessage("Online"),
     "chatPlaceholder" : MessageLookupByLibrary.simpleMessage("Type a message..."),
     "commonAppointmentStatus" : m9,
-    "commonBtnApply" : MessageLookupByLibrary.simpleMessage("Apply"),
-    "commonBtnCancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
-    "commonBtnClose" : MessageLookupByLibrary.simpleMessage("Close"),
-    "commonBtnOk" : MessageLookupByLibrary.simpleMessage("Ok"),
+    "commonBtnApply" : MessageLookupByLibrary.simpleMessage("تطبيق"),
+    "commonBtnCancel" : MessageLookupByLibrary.simpleMessage("الغاء"),
+    "commonBtnClose" : MessageLookupByLibrary.simpleMessage("اغلاق"),
+    "commonBtnOk" : MessageLookupByLibrary.simpleMessage("حستا"),
     "commonCurrencyFormat" : m10,
     "commonDarkMode" : m11,
     "commonDialogsErrorTitle" : MessageLookupByLibrary.simpleMessage("Oops!"),
@@ -173,16 +173,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "commonLocales" : m18,
     "commonLocationFavorited" : MessageLookupByLibrary.simpleMessage("Location added to your favorites list."),
     "commonLocationUnfavorited" : MessageLookupByLibrary.simpleMessage("Location removed from your favorites list."),
-    "commonLowestRating" : MessageLookupByLibrary.simpleMessage("Lowest Rating"),
+    "commonLowestRating" : MessageLookupByLibrary.simpleMessage("الافل تقييما"),
     "commonMonthLong" : m19,
     "commonMonthShort" : m20,
     "commonPhotoSources" : m21,
-    "commonRating" : MessageLookupByLibrary.simpleMessage("Highest Rating"),
+    "commonRating" : MessageLookupByLibrary.simpleMessage("الاعلى تقييما"),
     "commonReadMore" : MessageLookupByLibrary.simpleMessage("read more"),
-    "commonSearchSortTypeDistance" : MessageLookupByLibrary.simpleMessage("Nearest"),
-    "commonSearchSortTypePopularity" : MessageLookupByLibrary.simpleMessage("Most popular"),
-    "commonSearchSortTypePrice" : MessageLookupByLibrary.simpleMessage("Lowest price"),
-    "commonSearchSortTypeRating" : MessageLookupByLibrary.simpleMessage("Top rated"),
+    "commonSearchSortTypeDistance" : MessageLookupByLibrary.simpleMessage("الاقرب"),
+    "commonSearchSortTypePopularity" : MessageLookupByLibrary.simpleMessage("الاكثر شهرة"),
+    "commonSearchSortTypePrice" : MessageLookupByLibrary.simpleMessage("الافل سعرا"),
+    "commonSearchSortTypeRating" : MessageLookupByLibrary.simpleMessage("الاعلى تقييما"),
     "commonSmartRefresherFooterCanLoadingText" : MessageLookupByLibrary.simpleMessage("Release to load more"),
     "commonSmartRefresherFooterIdleText" : MessageLookupByLibrary.simpleMessage("Pull to load more"),
     "commonSmartRefresherFooterLoadingText" : MessageLookupByLibrary.simpleMessage("Loading..."),
@@ -194,8 +194,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "commonTooltipRefresh" : MessageLookupByLibrary.simpleMessage("Refresh"),
     "commonWeekdayLong" : m22,
     "commonWeekdayShort" : m23,
-    "commonWeekdayToday" : MessageLookupByLibrary.simpleMessage("Today"),
-    "commonWeekdayTomorrow" : MessageLookupByLibrary.simpleMessage("Tomorrow"),
+    "commonWeekdayToday" : MessageLookupByLibrary.simpleMessage("اليوم"),
+    "commonWeekdayTomorrow" : MessageLookupByLibrary.simpleMessage("غدا"),
     "editProfileBtnUpdate" : MessageLookupByLibrary.simpleMessage("Update profile"),
     "editProfileLabelAddress" : MessageLookupByLibrary.simpleMessage("Address"),
     "editProfileLabelCity" : MessageLookupByLibrary.simpleMessage("City"),
@@ -222,10 +222,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "formValidatorRequired" : MessageLookupByLibrary.simpleMessage("Required field"),
     "homeHeaderSubtitle" : MessageLookupByLibrary.simpleMessage("Book what you love"),
     "homePlaceholderSearch" : MessageLookupByLibrary.simpleMessage("Search for a service or business"),
-    "homeTitleGuest" : MessageLookupByLibrary.simpleMessage("Explore"),
-    "homeTitlePopularCategories" : MessageLookupByLibrary.simpleMessage("Popular Categories"),
-    "homeTitleRecentlyViewed" : MessageLookupByLibrary.simpleMessage("Recently Viewed"),
-    "homeTitleTopRated" : MessageLookupByLibrary.simpleMessage("Top Rated Locations"),
+    "homeTitleGuest" : MessageLookupByLibrary.simpleMessage("اكتشف"),
+    "homeTitlePopularCategories" : MessageLookupByLibrary.simpleMessage("الاقسام"),
+    "homeTitleRecentlyViewed" : MessageLookupByLibrary.simpleMessage("المعروض حديثا"),
+    "homeTitleTopRated" : MessageLookupByLibrary.simpleMessage("الاعلى تقييما"),
     "homeTitleUser" : m25,
     "inboxSlideButtonArchive" : MessageLookupByLibrary.simpleMessage("Archive"),
     "inboxSlideButtonDelete" : MessageLookupByLibrary.simpleMessage("Delete"),
@@ -237,25 +237,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "inviteSubtitle" : MessageLookupByLibrary.simpleMessage("Get discounts by inviting friends"),
     "inviteTitle" : MessageLookupByLibrary.simpleMessage("Invite friends"),
     "locationAvailableServies" : m27,
-    "locationBtnBook" : MessageLookupByLibrary.simpleMessage("Book"),
+    "locationBtnBook" : MessageLookupByLibrary.simpleMessage("احجز"),
     "locationCallConfirmation" : m28,
-    "locationClosed" : MessageLookupByLibrary.simpleMessage("Closed"),
-    "locationCurrentlyClosed" : MessageLookupByLibrary.simpleMessage("Currently closed"),
-    "locationInstantConfirmation" : MessageLookupByLibrary.simpleMessage("Instant confirmation!"),
+    "locationClosed" : MessageLookupByLibrary.simpleMessage("مفلق"),
+    "locationCurrentlyClosed" : MessageLookupByLibrary.simpleMessage("مفلق الان"),
+    "locationInstantConfirmation" : MessageLookupByLibrary.simpleMessage("تأميد فوري!"),
     "locationLabelGenders" : MessageLookupByLibrary.simpleMessage("Genders"),
-    "locationLabelPhone" : MessageLookupByLibrary.simpleMessage("Phone"),
-    "locationLabelWeb" : MessageLookupByLibrary.simpleMessage("Web"),
-    "locationLabelWorkingHours" : MessageLookupByLibrary.simpleMessage("Working hours"),
-    "locationLinkAllReviews" : MessageLookupByLibrary.simpleMessage("See all reviews"),
-    "locationLinkAllServices" : MessageLookupByLibrary.simpleMessage("See all services"),
-    "locationNoResults" : MessageLookupByLibrary.simpleMessage("No locations match the search criteria. Try another city and/or date."),
+    "locationLabelPhone" : MessageLookupByLibrary.simpleMessage("الهاتف"),
+    "locationLabelWeb" : MessageLookupByLibrary.simpleMessage("الموقع"),
+    "locationLabelWorkingHours" : MessageLookupByLibrary.simpleMessage("ساعات العمل"),
+    "locationLinkAllReviews" : MessageLookupByLibrary.simpleMessage("كل التقييمات"),
+    "locationLinkAllServices" : MessageLookupByLibrary.simpleMessage("كل الخدمات"),
+    "locationNoResults" : MessageLookupByLibrary.simpleMessage("لا توجد نتائج"),
     "locationRepliedOn" : m29,
-    "locationTitleAboutUs" : MessageLookupByLibrary.simpleMessage("About Us"),
-    "locationTitleNearby" : MessageLookupByLibrary.simpleMessage("Nearby Locations"),
-    "locationTitleRatings" : MessageLookupByLibrary.simpleMessage("Ratings"),
-    "locationTitleReviews" : MessageLookupByLibrary.simpleMessage("Reviews"),
-    "locationTitleStaff" : MessageLookupByLibrary.simpleMessage("Our Staff"),
-    "locationTitleTopServices" : MessageLookupByLibrary.simpleMessage("Top Services"),
+    "locationTitleAboutUs" : MessageLookupByLibrary.simpleMessage("عننا"),
+    "locationTitleNearby" : MessageLookupByLibrary.simpleMessage("الصالونات القريبة"),
+    "locationTitleRatings" : MessageLookupByLibrary.simpleMessage("التقييمات"),
+    "locationTitleReviews" : MessageLookupByLibrary.simpleMessage("الاراء"),
+    "locationTitleStaff" : MessageLookupByLibrary.simpleMessage("موظفينا"),
+    "locationTitleTopServices" : MessageLookupByLibrary.simpleMessage("الخدمات"),
     "locationTotalReviews" : m30,
     "locationWebConfirmation" : MessageLookupByLibrary.simpleMessage("Open web page?"),
     "onboardingBtnGetStarted" : MessageLookupByLibrary.simpleMessage("Get Started"),
