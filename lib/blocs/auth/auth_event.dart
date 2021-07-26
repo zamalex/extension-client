@@ -47,6 +47,7 @@ class ProfileUpdatedAuthEvent extends AuthEvent {
   ProfileUpdatedAuthEvent({
     this.fullName,
     this.phone,
+    this.email,
     this.address,
     this.city,
     this.zip,
@@ -55,6 +56,7 @@ class ProfileUpdatedAuthEvent extends AuthEvent {
 
   final String fullName;
   final String phone;
+  final String email;
   final String address;
   final String city;
   final String zip;

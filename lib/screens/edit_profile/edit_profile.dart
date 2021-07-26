@@ -69,6 +69,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _authBloc.add(ProfileUpdatedAuthEvent(
         fullName: _textNameController.text,
         phone: _textPhoneController.text,
+        email:_textMailController.text,
         address: _textAddressController.text,
         city: _textCityController.text,
         zip: _textZIPController.text,
@@ -209,7 +210,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     },
                     controller: _textPhoneController,
                   ),
-                  FormLabel(text: L10n.of(context).signInHintEmail),
+                  const FormLabel(text: 'Email'),
 
                   ThemeTextInput(
                     focusNode: _focusMail,

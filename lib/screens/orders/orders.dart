@@ -13,6 +13,8 @@ import 'package:salon/main.dart';
 import 'package:salon/model/appointments_data.dart';
 import 'package:salon/screens/appointments/widgets/appointments_list_item.dart';
 import 'package:salon/screens/appointments/widgets/appointments_toolbar.dart';
+import 'package:salon/screens/orders/orders_list_item.dart';
+import 'package:salon/screens/orders/orders_toolbar.dart';
 import 'package:salon/utils/bottom_bar_items.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/jumbotron.dart';
@@ -21,13 +23,13 @@ import 'package:salon/utils/list.dart';
 import 'package:salon/widgets/pull_to_refresh.dart';
 import 'package:salon/widgets/strut_text.dart';
 
-class AppointmentsScreen extends StatefulWidget {
-  const AppointmentsScreen({Key key}) : super(key: key);
+class OrdersScreen extends StatefulWidget {
+  const OrdersScreen({Key key}) : super(key: key);
   @override
-  _AppointmentsScreenState createState() => _AppointmentsScreenState();
+  _OrdersScreenState createState() => _OrdersScreenState();
 }
 
-class _AppointmentsScreenState extends State<AppointmentsScreen> {
+class _OrdersScreenState extends State<OrdersScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final RefreshController _controller = RefreshController(initialRefresh: false);
 
@@ -71,17 +73,17 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
     searchGroupTypes = <dynamic>[
       <String, dynamic>{
         'code': 'active',
-        'label': L10n.current.appointmentsStatusGroup('active'),
+        'label': 'All',
         'icon': Icons.calendar_today,
       },
       <String, dynamic>{
         'code': 'completed',
-        'label': L10n.current.appointmentsStatusGroup('completed'),
+        'label': 'Delivered',
         'icon': Icons.calendar_today,
       },
       <String, dynamic>{
         'code': 'other',
-        'label': L10n.current.appointmentsStatusGroup('other'),
+        'label': 'Canceled',
         'icon': Icons.calendar_today,
       },
     ].map((dynamic item) => ToolbarOptionModel.fromJson(item as Map<String, dynamic>)).toList();
@@ -111,7 +113,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
 
     BlocProvider.of<AppointmentBloc>(context).add(LoadedAppointmentEvent(
       statuses: _statuses,
-      type: 'booking',
+      type: 'purchase',
       page: page,
       resultsPerPage: kReservationsPerPage,
     ));
@@ -146,7 +148,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                   SafeArea(
                     top: false,
                     bottom: false,
-                    child: AppointmentsToolbar(
+                    child: OrdersToolbar(
                       currentSort: _currentSort,
                       currentGroup: _currentGroup,
                       searchSortTypes: searchSortTypes,
@@ -183,7 +185,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
           padding: const EdgeInsets.symmetric(vertical: kPaddingS),
           itemCount: _appointments.length,
           itemBuilder: (BuildContext context, int index) {
-            return AppointmentsListItem(
+            return OrdersListItem(
               appointment: _appointments[index],
               routeName: Routes.appointment,
             );

@@ -8,13 +8,16 @@ abstract class AppointmentEvent {
 class LoadedAppointmentEvent extends AppointmentEvent {
   LoadedAppointmentEvent({
     this.statuses,
+
     this.page,
     this.resultsPerPage,
+    this.type
   });
 
   final List<String> statuses;
   final int page;
   final int resultsPerPage;
+  final String type;
 }
 
 class NotesUpdatedAppointmentEvent extends AppointmentEvent {

@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/model/constants.dart';
+
+import '../main.dart';
 
 class ApointmentsData {
   List<Data> data;
@@ -28,7 +31,7 @@ class ApointmentsData {
 
     try {
       var response = await http.get(
-        Uri.parse('${Globals.BASE}purchase-history/8'),
+        Uri.parse('${Globals.BASE}purchase-history/${getIt.get<AppGlobals>().ID}'),
 
       );
       print('response  is '+response.body);

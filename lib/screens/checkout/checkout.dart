@@ -103,8 +103,21 @@ class _CheckoutState extends State<Checkout> {
             },),
 
           ],),),))
-          , Padding(padding: EdgeInsets.symmetric(horizontal: 10),child: SizedBox(height: 48,width: MediaQuery.of(context).size.width,child: ElevatedButton(child: Text('Confirm Order',style: TextStyle(color: Colors.white),)
-            ,style: ButtonStyle(backgroundColor: MaterialStateProperty.all(kPrimaryColor)) ,),),),
+          , Consumer<CartProvider>(builder: (c,p,ch){
+            return p.loading?const CircularProgressIndicator():Padding(padding: EdgeInsets.symmetric(horizontal: 10),child: SizedBox(height: 48,width: MediaQuery.of(context).size.width,child: ElevatedButton(child: Text('Confirm Order',style: TextStyle(color: Colors.white),)
+              ,style: ButtonStyle(backgroundColor: MaterialStateProperty.all(kPrimaryColor)) ,onPressed: (){
+
+                if(Provider.of<CartProvider>(context,listen: false).allCarts.isNotEmpty){
+                  p.startLoading();
+                  MyCarts().createOrder(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, 'stripe').then((value){
+                    p.done();
+                    Provider.of<CartProvider>(context,listen: false).init();
+                  });
+                }
+
+
+              },),),);
+          },),
           SizedBox(height: 10,),
         ],)
     );

@@ -33,10 +33,10 @@ class MyCarts {
       print('${Globals.TOKEN}');
 
       var response = await http.post(
-          Uri.parse('${Globals.BASE}carts/${getIt.get<AppGlobals>().user.id}'),
+          Uri.parse('${Globals.BASE}carts/${getIt.get<AppGlobals>().ID}'),
           headers: headers
       );
-      print('${Globals.BASE}carts/${getIt.get<AppGlobals>().user.id}');
+      print('${Globals.BASE}carts/${getIt.get<AppGlobals>().ID}');
       print('response  is '+response.body);
 
       list=(json.decode(response.body) as List).map((i) =>
@@ -61,7 +61,7 @@ class MyCarts {
     Map<String,dynamic> body ={
       'id':cartModel.id,
       //'variant':'',
-      'user_id':getIt.get<AppGlobals>().user.id,
+      'user_id':getIt.get<AppGlobals>().ID,
       'quantity':1,
 
     } ;
@@ -102,7 +102,7 @@ class MyCarts {
     Map<String,dynamic> body ={
       'owner_id':owner,
       //'variant':'',
-      'user_id':getIt.get<AppGlobals>().user.id,
+      'user_id':getIt.get<AppGlobals>().ID,
       'coupon_code':coupon_code,
 
     } ;
@@ -132,6 +132,43 @@ class MyCarts {
       return null;
     }
   }
+
+  Future createOrder(int owner,String payment) async {
+    Map<String,dynamic> body ={
+      'owner_id':owner,
+      //'variant':'',
+      'user_id':getIt.get<AppGlobals>().ID,
+      'payment_type':payment,
+
+    } ;
+    try {
+      Map<String, String> headers = {
+        'Authorization': 'Bearer ${Globals.TOKEN}',
+        'Content-Type':'application/json'
+      };
+      print('${Globals.TOKEN}');
+      print('body ${body.toString()}');
+
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}order/store'),
+          headers: headers,
+          body: jsonEncode(body)
+      );
+      print('${Globals.BASE}order/store');
+      print('response  is '+response.body);
+      final responseJson = json.decode(response.body);
+
+      if(responseJson['result']as bool)
+        return true;
+
+      return false;
+    } catch (error) {
+      print(error);
+      return null;
+    }
+  }
+
+
 
 
 }
@@ -224,7 +261,7 @@ class OrderSummary {
 
     try {
       var response = await http.get(
-        Uri.parse('${Globals.BASE}cart-summary/${getIt.get<AppGlobals>().user.id}/$owner'),
+        Uri.parse('${Globals.BASE}cart-summary/${getIt.get<AppGlobals>().ID}/$owner'),
          headers: headers
       );
 

@@ -16,6 +16,7 @@ import 'package:salon/screens/forgot_password.dart';
 import 'package:salon/screens/inbox/chat.dart';
 import 'package:salon/screens/invite.dart';
 import 'package:salon/screens/location/location.dart';
+import 'package:salon/screens/orders/orders.dart';
 import 'package:salon/screens/payment_card/add_payment_card.dart';
 import 'package:salon/screens/payment_card/payment_card.dart';
 import 'package:salon/screens/photo_gallery.dart';
@@ -175,7 +176,7 @@ class Routes {
           builder: (BuildContext context) {
             return Directionality(
               textDirection: getIt.get<AppGlobals>().isRTL ? TextDirection.rtl : TextDirection.ltr,
-              child: const VouchersScreen(),
+              child: const OrdersScreen(),
             );
           },
         );

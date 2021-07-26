@@ -117,7 +117,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     final bool hasToken = getIt.get<AppPreferences>().containsKey(PreferenceKey.user);
 
     if (hasToken) {
-      getIt.get<AppGlobals>().user = await const UserRepository().getProfile();
+      //getIt.get<AppGlobals>().user = await const UserRepository().getProfile();
 
       add(UserSavedAuthEvent(getIt.get<AppGlobals>().user));
     } else {
@@ -151,9 +151,9 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   Stream<AuthState> _mapProfileUpdateAuthEventToState(ProfileUpdatedAuthEvent event) async* {
     yield ProcessInProgressAuthState();
 
-    getIt.get<AppGlobals>().user = await const UserRepository().getProfile();
+    //getIt.get<AppGlobals>().user = await const UserRepository().getProfile();
 
-    add(UserSavedAuthEvent(getIt.get<AppGlobals>().user));
+    //add(UserSavedAuthEvent(getIt.get<AppGlobals>().user));
 
     yield ProfileUpdateSuccessAuthState();
   }

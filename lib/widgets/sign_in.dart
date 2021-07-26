@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:provider/provider.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/cart_provider.dart';
 import 'package:salon/model/constants.dart';
 import 'package:salon/model/loginmodel.dart';
 import 'package:salon/utils/form_utils.dart';
@@ -109,6 +111,10 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
               getIt.get<AppGlobals>().isUser=true;
               Globals.TOKEN = value.accessToken;
               getIt.get<AppGlobals>().user.fullName = value.user.name;
+              getIt.get<AppGlobals>().user.id = value.user.id;
+              getIt.get<AppGlobals>().ID= value.user.id;
+              Provider.of<CartProvider>(context,listen: false).init();
+
               Phoenix.rebirth(context);
             }
           else

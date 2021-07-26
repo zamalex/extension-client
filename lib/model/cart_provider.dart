@@ -10,6 +10,17 @@ class CartProvider extends ChangeNotifier {
   List<CartModel> items = [];
   List<MyCarts> allCarts = [];
   OrderSummary orderSummary;
+  bool loading = false;
+
+  void done(){
+    loading = false;
+    notifyListeners();
+  }
+
+  void startLoading(){
+    loading = true;
+    notifyListeners();
+  }
 
   void init()async{
     items = [];
@@ -127,4 +138,7 @@ class CartProvider extends ChangeNotifier {
           notifyListeners();
     });
   }
+
+
+
 }

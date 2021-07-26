@@ -41,7 +41,7 @@ class AppGlobals {
 
   /// Logged in user data.
   UserModel user=UserModel(0, 'Mohamed El-Katteb', 'profilePhoto', 'mkhatteb@badee.com', 'phone', 'city', 'zip', 'address', 0, 0);
-
+  int ID;
   bool isUser=false;
   /// Currently selected [Locale].
   Locale selectedLocale;
