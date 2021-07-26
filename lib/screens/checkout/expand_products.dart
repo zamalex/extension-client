@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salon/configs/constants.dart';
+import 'package:salon/model/cart_provider.dart';
 class ExpandProducts extends StatefulWidget {
 
   @override
@@ -17,18 +19,20 @@ class _ExpandProductsState extends State<ExpandProducts> {
         child: Column(
           children: [
             ListTile(
+              onTap: (){Navigator.pop(context);},
               leading: Icon(Icons.shopping_bag,color: kPrimaryColor,),
               title: Text('Products',style: TextStyle(color: kPrimaryColor)),
               trailing: Container(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CircleAvatar(backgroundColor: kPrimaryColor,child: Text('3',style: TextStyle(color: Colors.white),),radius: 12,),
+                    CircleAvatar(backgroundColor: kPrimaryColor,child: Text(Provider.of<CartProvider>(context,listen: false).items.length.toString(),style: TextStyle(color: Colors.white),),radius: 12,),
                     IconButton(
                       onPressed: () {
-                        setState(() {
+                        Navigator.pop(context);
+                       /* setState(() {
                           expanded = !expanded;
-                        });
+                        });*/
                       },
                       icon: expanded
                           ? Icon(

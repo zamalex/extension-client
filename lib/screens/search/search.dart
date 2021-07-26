@@ -31,8 +31,8 @@ import 'package:salon/widgets/location_list_item.dart';
 import 'package:salon/utils/list.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key key}) : super(key: key);
-
+  const SearchScreen({Key key,this.cat=0}) : super(key: key);
+  final int cat;
   @override
   SearchScreenState createState() => SearchScreenState();
 }
@@ -94,6 +94,16 @@ class SearchScreenState extends State<SearchScreen> {
             'globalKey': GlobalKey(debugLabel: 'categoryTab_' + category.id.toString()),
             'label': category.label,
           }));
+        }
+
+        if(widget.cat!=0){
+          _searchBloc.add(SessionInitedSearchEvent(
+            selectedCity: _myLocation,
+            activeSearchTab: widget.cat,
+            // currentSort: searchSortTypes.first, // default is the first one
+            currentListType: searchListTypes.first, // default is the first one
+            currentGenderFilter: searchGenderFilter.first, // default is the first one
+          ));
         }
       });
     });

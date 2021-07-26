@@ -43,7 +43,7 @@ class _CartItemState extends State<CartItem> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(height:100,child: Card(color:Colors.white,child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-      Expanded(flex: 2,child: Image.asset('assets/images/data/categories/barber-shop.jpg',height: 100,fit: BoxFit.cover,)),
+      Expanded(flex: 2,child: Image.asset('assets/images/onboarding/welcome.png',height: 100,fit: BoxFit.cover,)),
       SizedBox(width: 5,),
       Expanded(flex:2,child: Container(height: 100,child: Column(children: [
         Text(widget.cartModel.salon,overflow: TextOverflow.ellipsis,style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),

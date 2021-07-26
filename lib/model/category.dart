@@ -70,7 +70,9 @@ class SingleCategory {
   SingleCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int;
     name = json['name']as String;
-    banner = json['banner']as String;
+   // banner = json['banner']as String;
+    banner = ((json['banner'] as  String)==null|| (json['banner']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['banner']as String;
+
     icon = json['icon']as String;
   }
 

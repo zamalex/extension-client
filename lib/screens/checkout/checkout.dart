@@ -8,6 +8,7 @@ import 'package:salon/screens/checkout/expand_address.dart';
 import 'package:salon/screens/checkout/expand_copon.dart';
 import 'package:salon/screens/checkout/expand_date.dart';
 import 'package:salon/screens/checkout/expand_products.dart';
+import 'package:salon/utils/ui.dart';
 
 class Checkout extends StatefulWidget {
 
@@ -107,13 +108,7 @@ class _CheckoutState extends State<Checkout> {
             return p.loading?const CircularProgressIndicator():Padding(padding: EdgeInsets.symmetric(horizontal: 10),child: SizedBox(height: 48,width: MediaQuery.of(context).size.width,child: ElevatedButton(child: Text('Confirm Order',style: TextStyle(color: Colors.white),)
               ,style: ButtonStyle(backgroundColor: MaterialStateProperty.all(kPrimaryColor)) ,onPressed: (){
 
-                if(Provider.of<CartProvider>(context,listen: false).allCarts.isNotEmpty){
-                  p.startLoading();
-                  MyCarts().createOrder(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, 'stripe').then((value){
-                    p.done();
-                    Provider.of<CartProvider>(context,listen: false).init();
-                  });
-                }
+               checkout(p);
 
 
               },),),);
@@ -121,6 +116,28 @@ class _CheckoutState extends State<Checkout> {
           SizedBox(height: 10,),
         ],)
     );
+  }
+
+  void checkout(CartProvider p) {
+    if(Provider.of<CartProvider>(context,listen: false).allCarts.isNotEmpty){
+      if(address.isEmpty){
+        UI.showErrorDialog(context, message: 'enter your address');
+        return;
+      }
+      if(selectedTime==null){
+        UI.showErrorDialog(context, message: 'select delivery time');
+        return;
+      }
+
+      String date = '${selectedTime.year}-${selectedTime.month}-${selectedTime.day}';
+      String time = '${selectedTime.hour}-${selectedTime.minute}-${selectedTime.second}';
+
+      p.startLoading();
+      MyCarts().createOrder(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, 'stripe',date,time).then((value){
+        p.done();
+        Provider.of<CartProvider>(context,listen: false).init();
+      });
+    }
   }
 }
 

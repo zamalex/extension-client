@@ -38,7 +38,7 @@ class _ProdcutItemState extends State<ProdcutItem> {
   @override
   Widget build(BuildContext context) {
     return Card(color: Colors.white,child: Column(children: [
-      Image.asset('assets/images/data/categories/barber-shop.jpg',height: 120,),
+      Image.asset(widget.cartModel.thumbnailImage,height: 120,fit: BoxFit.cover,width: MediaQuery.of(context).size.width,),
       Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: SingleChildScrollView(scrollDirection: Axis.horizontal,child: Text(widget.cartModel.name,maxLines: 1,style: TextStyle(color: Colors.grey)),),)
       ,Expanded(child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

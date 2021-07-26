@@ -39,7 +39,7 @@ class CategoryListItem extends StatelessWidget {
                     topRight: Radius.circular(kBoxDecorationRadius),
                   ),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/data/categories/barber-shop.jpg'),
+                    image: AssetImage(category.image),
                     fit: BoxFit.cover,
                   ),
                 ),

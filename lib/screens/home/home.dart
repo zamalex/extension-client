@@ -9,6 +9,7 @@ import 'package:salon/data/repositories/location_repository.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
 import 'package:salon/model/banners_model.dart'as bann;
+import 'package:salon/model/category.dart';
 import 'package:salon/model/location_model.dart';
 import 'package:salon/screens/home/widgets/category_list_item.dart';
 import 'package:salon/screens/home/widgets/home_header.dart';
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   bool _isDataLoaded = false;
 
   List<LocationModel> _recentlyViewed;
+  List<CategoryModel> categories=[];
   List<bann.Banner> banners=[];
   List<LocationModel> _topLocations;
 
@@ -55,6 +57,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       banners = value ?? [];
     });});
 
+    CategoryData().getCategories().then((value){
+      setState(() {
+        categories=value.map((e){
+          return CategoryModel(id: e.id,title: e.name,image: e.banner);
+        }).toList();
+
+
+
+      });
+    });
     //_recentlyViewed = await locationRepository.getRecentlyViewed();
     SalonModel().getSalons().then((value){
       _recentlyViewed=value.map((e){
@@ -83,14 +95,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 ? ListView(
                     padding: const EdgeInsetsDirectional.only(start: kPaddingM),
                     scrollDirection: Axis.horizontal,
-                    children: getIt.get<AppGlobals>().categories.map((CategoryModel category) {
+                    children: categories.map((CategoryModel category) {
                       return Container(
                         width: 160,
                         margin: const EdgeInsets.only(bottom: 1), // for card shadow
                         padding: const EdgeInsetsDirectional.only(end: kPaddingS),
                         child: CategoryListItem(
                           category: category,
-                          onTap: () => _scrollToTabItem(category),
+                          onTap: (){
+                            _scrollToTabItem(category);
+                          },
                         ),
                       );
                     }).toList(),
@@ -112,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar).onTap(getIt.get<BottomBarItems>().getBottomBarItem('explore'));
 
     final SearchScreenState searchScreenState = getIt.get<AppGlobals>().globalKeySearchScreen.currentState as SearchScreenState;
+
     final List<SearchTabModel> catTabs = searchScreenState.categoryTabs;
     final int index = catTabs.indexWhere((SearchTabModel tab) => tab.id == category.id);
 
@@ -126,6 +141,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
       // Tap on tab item.
       (searchScreenState.categoryTabs[index].globalKey.currentWidget as InkWell).onTap();
+
+      (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
+          .onTap(1);
     }
   }
 

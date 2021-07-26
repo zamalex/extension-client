@@ -108,7 +108,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int;
     name = json['name'] as String;
-    logo = json['logo'] as  String;
+    logo = ((json['logo'] as  String)==null|| (json['logo']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['logo']as String;
     address = json['address'] as  String;
     rating = double.parse(json['rating'].toString());
   }

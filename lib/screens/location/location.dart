@@ -78,7 +78,7 @@ class _LocationScreenState extends State<LocationScreen> {
     ProductModel().getProducts().then((value){
       setState(() {
         services = value.map((e){
-          return ServiceModel(e.id,200,47,e.name,'');
+          return ServiceModel(e.id,double.parse(e.basePrice.replaceAll(RegExp(','), '')),e.service_duration,e.name,'');
         }).toList();
 
         _location.serviceGroups=[];

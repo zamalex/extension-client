@@ -118,17 +118,22 @@ class CartProvider extends ChangeNotifier {
 
   void removeItem(CartModel item) async{
 
-    if(items[items.indexWhere((element) => element.id==item.id)].quantity>1){
-      items[items.indexWhere((element) => element.id==item.id)].quantity--;
+    await MyCarts().removeFromCart(item).then((value){
+      print('size is ${value.length}');
+      if(value.length>0)
+        items= [];
 
-    }
-    else{
-      items.removeWhere((element) => element.id==item.id);
-    }
+      allCarts = value;
+
+      value.forEach((element) {
+        element.cartItems.forEach((inner) {
+          items.add(CartModel(id: inner.productId,name: inner.productName,quantity: inner.quantity,salon: element.name,price: inner.price+0.0));
+        });
+      });
+
+    });
 
     notifyListeners();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('cart', CartModel.encode(items));
   }
 
 

@@ -98,6 +98,44 @@ class MyCarts {
     }
   }
 
+  Future<List<MyCarts>> removeFromCart(CartModel cartModel) async {
+    List<MyCarts> list = [];
+    Map<String,dynamic> body ={
+      'id':cartModel.id,
+      //'variant':'',
+      'user_id':getIt.get<AppGlobals>().ID,
+      'quantity':-1,
+
+    } ;
+    try {
+      Map<String, String> headers = {
+        'Authorization': 'Bearer ${Globals.TOKEN}',
+        'Content-Type':'application/json'
+      };
+      print('${Globals.TOKEN}');
+      print('body ${body.toString()}');
+
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}carts/change-quantity'),
+          headers: headers,
+          body: jsonEncode(body)
+      );
+      print('${Globals.BASE}carts/change-quantity');
+      print('response  is '+response.body);
+
+      list=(json.decode(response.body) as List).map((i) =>
+          MyCarts.fromJson(i as Map<String,dynamic>)).toList();
+
+
+
+      return list;
+
+    } catch (error) {
+      print(error);
+      return [];
+    }
+  }
+
   Future checkCopon(int owner,String coupon_code) async {
     Map<String,dynamic> body ={
       'owner_id':owner,
@@ -133,12 +171,14 @@ class MyCarts {
     }
   }
 
-  Future createOrder(int owner,String payment) async {
+  Future createOrder(int owner,String payment,String date,String time) async {
     Map<String,dynamic> body ={
       'owner_id':owner,
       //'variant':'',
       'user_id':getIt.get<AppGlobals>().ID,
       'payment_type':payment,
+      'date':date,
+      'time':time,
 
     } ;
     try {
