@@ -54,6 +54,38 @@ class SalonModel {
     }
   }
 
+  Future<List<Data>> filterSalons(String lat,String long,String cat,String city,String name) async {
+
+
+
+
+    try {
+      var response = await http.get(
+        Uri.parse('${Globals.BASE}shops?latitude=$lat&longitude=$long&name=$name&category_id=$cat&city_id=$city'),
+
+      );
+
+      if(response.statusCode>=400){
+
+      }else{
+        final responseJson = json.decode(response.body);
+        if(responseJson['success'] as bool==false){
+          return [];
+        }else{
+          return SalonModel.fromJson(responseJson as Map<String,dynamic>).data;
+        }
+      }
+
+      print('response  is '+response.body);
+
+
+      // print(responseJson);
+      return [];
+    } catch (error) {
+      print(error);
+      return [];
+    }
+  }
   Future<List<Data>> getFavSalons() async {
 
     Map<String, String> headers = {

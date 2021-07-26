@@ -277,7 +277,7 @@ class SearchScreenState extends State<SearchScreen> {
               ),
             ),
             floatingActionButton: Visibility(
-              visible: !session.isLoading && salons.isNotNullOrEmpty,
+              visible: !session.isLoading && session.locations.isNotNullOrEmpty,
               child: FloatingActionButton(
                 tooltip: L10n.of(context).searchTooltipMap,
                 elevation: 3,
@@ -285,7 +285,7 @@ class SearchScreenState extends State<SearchScreen> {
                   Navigator.pushNamed(
                     context,
                     Routes.searchMap,
-                    arguments: <String, dynamic>{'locations': salons},
+                    arguments: <String, dynamic>{'locations': session.locations},
                   );
                 },
                 child: const Icon(Icons.map, color: kWhite),

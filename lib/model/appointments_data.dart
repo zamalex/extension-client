@@ -62,65 +62,145 @@ class ApointmentsData {
 class Data {
   int id;
   String orderType;
-  int bookingStaffId;
-  String bookingStaffName;
   String bookingDateTime;
   String code;
   int userId;
   String paymentType;
+  String shippingTypeString;
   String paymentStatus;
   String paymentStatusString;
   String deliveryStatus;
   String deliveryStatusString;
   String grandTotal;
   String date;
-  Links links;
+  bool cancelRequest;
+  bool canCancel;
+  Shop shop;
+  Order items;
 
   Data(
       {this.id,
         this.orderType,
-        this.bookingStaffId,
-        this.bookingStaffName,
         this.bookingDateTime,
         this.code,
         this.userId,
         this.paymentType,
+        this.shippingTypeString,
         this.paymentStatus,
         this.paymentStatusString,
         this.deliveryStatus,
         this.deliveryStatusString,
         this.grandTotal,
         this.date,
-        this.links});
+        this.cancelRequest,
+        this.canCancel,
+        this.shop,
+        this.items});
 
   Data.fromJson(Map<String, dynamic> json) {
-    id = json['id']as int;
+    id = json['id'] as int;
     orderType = json['order_type']as String;
-    bookingStaffId = json['booking_staff_id']as int;
-    bookingStaffName = json['booking_staff_name']as String;
     bookingDateTime = json['booking_date_time']as String;
     code = json['code']as String;
     userId = json['user_id']as int;
-    paymentType = json['payment_type']as String;
     paymentStatus = json['payment_status']as String;
     paymentStatusString = json['payment_status_string']as String;
     deliveryStatus = json['delivery_status']as String;
     deliveryStatusString = json['delivery_status_string']as String;
     grandTotal = json['grand_total']as String;
+
     date = json['date']as String;
-    links = json['links'] != null ?  Links.fromJson(json['links']as Map<String,dynamic>) : null;
+    cancelRequest = json['cancel_request']as bool;
+    canCancel = json['can_cancel']as bool;
+    shop = json['shop'] != null ?  Shop.fromJson(json['shop'] as Map<String,dynamic>) : null;
+    items = json['items'] != null ?  Order.fromJson(json['items']as Map<String,dynamic>) : null;
+  }
+
+}
+
+
+
+class Shop {
+  List<SalonData> data;
+
+  Shop({this.data});
+
+  Shop.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = [];
+      json['data'].forEach((v) {
+        data.add( SalonData.fromJson(v as Map<String,dynamic>));
+      });
+    }
   }
 
 
 }
 
-class Links {
-  String details;
+class SalonData {
+  int id;
+  String name;
+  String address;
+  String phone;
+  String longitude;
+  String latitude;
 
-  Links({this.details});
+  SalonData(
+      {this.id,
+        this.name,
+        this.address,
+        this.phone,
+        this.longitude,
+        this.latitude});
 
-  Links.fromJson(Map<String, dynamic> json) {
-    details = json['details'] as String;
+  SalonData.fromJson(Map<String, dynamic> json) {
+    id = json['id']as  int;
+    name = json['name']as String;
+    address = json['address']as String;
+    phone = json['phone']as String;
+    longitude = json['longitude']as String;
+    latitude = json['latitude']as String;
+  }
+
+}
+
+
+class Order {
+  List<OrderData> data;
+
+  Order({this.data});
+
+  Order.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = [];
+      json['data'].forEach((v) {
+        data.add( OrderData.fromJson(v as Map<String,dynamic>));
+      });
+    }
+  }
+
+
+}
+class OrderData {
+  String orderType;
+  int productId;
+  String productName;
+  String price;
+  int quantity;
+
+  OrderData(
+      {this.orderType,
+        this.productId,
+        this.productName,
+        this.price,
+        this.quantity});
+
+  OrderData.fromJson(Map<String, dynamic> json) {
+    orderType = json['order_type']as String;
+    productId = json['product_id']as int;
+    productName = json['product_name']as String;
+    price = json['price']as String;
+    quantity = json['quantity']as int;
   }
 
 

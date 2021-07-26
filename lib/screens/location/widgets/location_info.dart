@@ -107,7 +107,10 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
       final DateTime endTime = DateTime.tryParse(DateFormat('yyyy-MM-dd', 'en').format(now) + ' ' + businessHoursForToday.endTime);
 
       if (startTime.millisecondsSinceEpoch <= now.millisecondsSinceEpoch && endTime.millisecondsSinceEpoch > now.millisecondsSinceEpoch) {
-        isClosed = false;
+
+        setState(() {
+          isClosed = false;
+        });
       }
     }
 
@@ -120,9 +123,9 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
           LocationContactInfo(
             icon: Icons.access_time,
             label: L10n.of(context).locationLabelWorkingHours,
-            text: /*isClosed
+            text: isClosed
                 ? L10n.of(context).locationCurrentlyClosed
-                : */sprintf('%s - %s', <String>[businessHoursForToday.startTime, businessHoursForToday.endTime]),
+                : sprintf('%s - %s', <String>[businessHoursForToday.startTime, businessHoursForToday.endTime]),
             onTap: () {
               setState(() => _isBusinessHoursExpanded = !_isBusinessHoursExpanded);
             },

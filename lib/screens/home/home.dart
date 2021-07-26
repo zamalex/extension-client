@@ -180,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 <Widget>[
                   _showCategories(),
                   _showRecentlyViewed(),
-                  _showTopRatedSalons(),
+                 // _showTopRatedSalons(),
                   const Padding(padding: EdgeInsets.only(bottom: kPaddingL)),
                 ],
               ),

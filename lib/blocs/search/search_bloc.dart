@@ -74,7 +74,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       List<LocationModel> _locations;
 
-      if (session.activeSearchTab == 0) {
+     /* if (session.activeSearchTab == 0) {
         _locations = await locationRepository.search();
       } else {
         _locations = await locationRepository.searchCategory(id: session.activeSearchTab);
@@ -82,10 +82,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       if (_locations.isNotEmpty && session.q.isNotEmpty) {
         _locations = _locations.where((LocationModel location) => location.name.toLowerCase().contains(session.q.toLowerCase())).toList();
-      }
-     await SalonModel().getSalons().then((value){
+      }*/
+
+     await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q).then((value){
         _locations =value.map((e){
-          return LocationModel(e.id, e.name, 2.5, 100, 'Askan Building 17, Al Olaya, Riyadh', 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.png', 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
+          return LocationModel(e.id, e.name, 2.5, 100, 'Askan Building 17, Al Olaya, Riyadh', 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.png', 'genders', [],GeoPoint(latitude: 0, longitude: 0), [], [], [], [], [], 'cancelationPolicy');
         }).toList();
 
       });

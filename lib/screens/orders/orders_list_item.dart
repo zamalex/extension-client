@@ -40,7 +40,7 @@ class OrdersListItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (routeName.isNotNullOrEmpty) {
-          Navigator.pushNamed(context, routeName, arguments: appointment);
+         // Navigator.pushNamed(context, routeName, arguments: appointment);
         }
       },
       child: Card(
@@ -89,12 +89,12 @@ class OrdersListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       StrutText(
-                        'The Barbery',
+                        appointment.shop.data.first.name,
                         style: Theme.of(context).textTheme.subtitle1.w500.fs18,
                       ),
                       const Padding(padding: EdgeInsets.only(top: kPaddingS / 2)),
                       StrutText(
-                        '1234 Utah Park',
+                        appointment.shop.data.first.address,
                         style: Theme.of(context).textTheme.bodyText2.copyWith(
                           color: Theme.of(context).hintColor,
                           fontWeight: FontWeight.normal,
@@ -110,12 +110,12 @@ class OrdersListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
                           StrutText(
-                            appointment.grandTotal,
+                            '',//appointment.grandTotal,
                             style: Theme.of(context).textTheme.subtitle1.fs18,
                           ),
                           const Padding(padding: EdgeInsets.only(top: kPaddingS / 2)),
                           StrutText(
-                            '75 min',
+                            '',
                             style: Theme.of(context).textTheme.bodyText2.w400.copyWith(color: Theme.of(context).hintColor),
                           ),
                         ],
@@ -125,7 +125,7 @@ class OrdersListItem extends StatelessWidget {
                 ],
               ),
             ),
-           Column(children: List.generate(2, (index){
+           Column(children: List.generate(appointment.items.data.length, (index){
              return  Container(
                padding: const EdgeInsets.symmetric(horizontal: kPaddingM,vertical: 8),
                decoration: BoxDecoration(
@@ -139,11 +139,12 @@ class OrdersListItem extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: <Widget>[
                   Expanded(child:  StrutText(
-                    'product name',
+                    appointment.items.data[index].productName,
                     style: Theme.of(context).textTheme.subtitle1.w500.fs18,
+                    overflow: TextOverflow.ellipsis,
                   ),),
                    StrutText(
-                     '120 SAR',
+                     '${appointment.items.data[index].price} SAR',
                      style: Theme.of(context).textTheme.subtitle1.w500.fs18,
                    ),
                  ],
@@ -178,7 +179,7 @@ class OrdersListItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         StrutText(
-         'Total 20.00 SAR',
+         'Total ${appointment.grandTotal} SAR',
           style: Theme.of(context).textTheme.bodyText2.w500.primaryColor,
         ),
         AppointmentStatusBadge(status: appointment.deliveryStatus,),
