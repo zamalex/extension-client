@@ -37,8 +37,8 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   /// Manage state of modal progress HUD widget.
   bool _isLoading = false;
   bool _isInited = false;
-
-  List<Data> _appointments;
+  int page=1;
+  List<Data> _appointments=[];
 
   /// Search sort types.
   List<ToolbarOptionModel> searchSortTypes;
@@ -70,18 +70,18 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
 
     searchGroupTypes = <dynamic>[
       <String, dynamic>{
-        'code': 'active',
-        'label': L10n.current.appointmentsStatusGroup('active'),
+        'code': 'All',
+        'label': 'All',
         'icon': Icons.calendar_today,
       },
       <String, dynamic>{
-        'code': 'completed',
-        'label': L10n.current.appointmentsStatusGroup('completed'),
+        'code': 'Active',
+        'label': 'Active',
         'icon': Icons.calendar_today,
       },
       <String, dynamic>{
-        'code': 'other',
-        'label': L10n.current.appointmentsStatusGroup('other'),
+        'code': 'Canceled',
+        'label': 'Canceled',
         'icon': Icons.calendar_today,
       },
     ].map((dynamic item) => ToolbarOptionModel.fromJson(item as Map<String, dynamic>)).toList();
@@ -93,19 +93,29 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   Future<void> _loadAppointments({int page = 1}) async {
     setState(() => _isLoading = true);
 
+    if(page==1){
+      _appointments.clear();
+       this.page=1;
+    }
     final List<String> _statuses = <String>[];
 
+    String status='all';
     switch (_currentGroup.code) {
-      case 'active':
+      case 'All':
+        status = 'all';
         _statuses.add(describeEnum(AppointmentStatus.active));
         break;
-      case 'completed':
+      case 'Active':
+        status = 'active';
+
         _statuses.add(describeEnum(AppointmentStatus.completed));
         break;
       default:
+        status = 'canceled';
+
         _statuses.add(describeEnum(AppointmentStatus.canceled));
-        _statuses.add(describeEnum(AppointmentStatus.declined));
-        _statuses.add(describeEnum(AppointmentStatus.failed));
+        //_statuses.add(describeEnum(AppointmentStatus.declined));
+        // _statuses.add(describeEnum(AppointmentStatus.failed));
         break;
     }
 
@@ -113,9 +123,11 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
       statuses: _statuses,
       type: 'booking',
       page: page,
+      status: status,
       resultsPerPage: kReservationsPerPage,
     ));
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +138,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
             if (state is LoadSuccessAppointmentState) {
               _controller.refreshCompleted();
               _controller.loadComplete();
-              _appointments = state.appointments;
+              _appointments.addAll(state.appointments);
               setState(() {
                 _isLoading = false;
                 _isInited = true;
@@ -157,7 +169,8 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                       },
                       onGroupChange: (ToolbarOptionModel newgroup) {
                         setState(() => _currentGroup = newgroup);
-                        _loadAppointments();
+                        page=1;
+                        _loadAppointments(page:1);
                       },
                     ),
                   ),
@@ -177,8 +190,13 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
         enablePullDown: true,
         enablePullUp: true,
         controller: _controller,
-        onRefresh: _loadAppointments,
-        onLoading: _loadAppointments,
+        onRefresh:(){
+          page=1;
+          _loadAppointments(page: 1);
+        },
+        onLoading: (){
+          _loadAppointments(page: ++page);
+        },
         child: ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: kPaddingS),
           itemCount: _appointments.length,
@@ -186,6 +204,10 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
             return AppointmentsListItem(
               appointment: _appointments[index],
               routeName: Routes.appointment,
+              load: (){
+                page = 1;
+                _loadAppointments(page: 1);
+              },
             );
           },
         ),

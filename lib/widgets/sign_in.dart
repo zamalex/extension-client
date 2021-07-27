@@ -111,6 +111,9 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
               getIt.get<AppGlobals>().isUser=true;
               Globals.TOKEN = value.accessToken;
               getIt.get<AppGlobals>().user.fullName = value.user.name;
+              getIt.get<AppGlobals>().user.phone= value.user.phone;
+              getIt.get<AppGlobals>().user.email= value.user.email;
+
               getIt.get<AppGlobals>().user.id = value.user.id;
               getIt.get<AppGlobals>().ID= value.user.id;
               Provider.of<CartProvider>(context,listen: false).init();

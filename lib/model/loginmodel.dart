@@ -27,6 +27,18 @@ class LoginModel {
   );
 
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['result'] = this.result;
+    data['message'] = this.message;
+    data['access_token'] = this.accessToken;
+
+    if (this.user != null) {
+      data['user'] = this.user.toJson();
+    }
+    return data;
+  }
+
   Future<LoginModel> loginUser(String email, String password) async {
     var param = {
       'phone': email,
@@ -178,7 +190,7 @@ class User {
     this.id,
     this.name,
     this.avatar,
-
+this.email,
     this.phone,
   });
 
@@ -187,14 +199,26 @@ class User {
   String avatar;
 
   String phone;
+  String email;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
     id: int.parse(json['id'].toString()),
     name: json['name'].toString(),
     avatar: json['avatar'].toString(),
+    email: json['email'].toString(),
 
     phone: json['phone'].toString(),
   );
 
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['avatar'] = this.avatar;
+    data['phone'] = this.phone;
+    data['email'] = this.email;
+    return data;
+  }
 
 }

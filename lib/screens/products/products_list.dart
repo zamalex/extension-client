@@ -28,6 +28,9 @@ class ProductsList extends StatelessWidget {
           } else if (snapshot.hasData) {
             // Extracting data from snapshot object
             final data = snapshot.data as List<Product>;
+            data.forEach((element) {
+              element.salon_id = 1;
+            });
             print(data.length.toString());
             return Center(
               child: Container(padding:EdgeInsets.symmetric(horizontal: 10),height: MediaQuery.of(context).size.height,child: GridView.builder(

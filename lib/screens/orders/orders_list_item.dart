@@ -69,11 +69,13 @@ class OrdersListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   StrutText(
-                    appointment.date,
+              appointment.bookingDateTime!=null?DateTime.parse(appointment.bookingDateTime).toLocalDateString:'',
+
                     style: Theme.of(context).textTheme.headline5.bold.copyWith(color: _dateTimeColor),
                   ),
                   StrutText(
-                    '12:30',
+                      appointment.bookingDateTime!=null?DateTime.parse(appointment.bookingDateTime).toLocalTimeString:'',
+
                     style: Theme.of(context).textTheme.headline5.bold.copyWith(color: _dateTimeColor),
                   ),
                 ],
@@ -89,12 +91,12 @@ class OrdersListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       StrutText(
-                        appointment.shop.data.first.name,
+                        appointment.shop.data.isEmpty?'':appointment.shop.data.first.name,
                         style: Theme.of(context).textTheme.subtitle1.w500.fs18,
                       ),
                       const Padding(padding: EdgeInsets.only(top: kPaddingS / 2)),
                       StrutText(
-                        appointment.shop.data.first.address,
+                        appointment.shop.data.isEmpty?'':appointment.shop.data.first.address,
                         style: Theme.of(context).textTheme.bodyText2.copyWith(
                           color: Theme.of(context).hintColor,
                           fontWeight: FontWeight.normal,

@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 class CartModel{
+  int salon_id;
   int id;
   String name;
   String salon;
   int quantity;
   double price;
 
-  CartModel({this.id,this.name,this.salon,this.quantity,this.price});
+  CartModel({this.id,this.name,this.salon,this.quantity,this.price,this.salon_id});
 
   factory CartModel.fromJson(Map<String, dynamic> jsonData) {
     return CartModel(

@@ -39,8 +39,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
   /// Manage state of modal progress HUD widget.
   bool _isLoading = false;
   bool _isInited = false;
-
-  List<Data> _appointments;
+  int page=1;
+  List<Data> _appointments=[];
 
   /// Search sort types.
   List<ToolbarOptionModel> searchSortTypes;
@@ -72,17 +72,17 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
     searchGroupTypes = <dynamic>[
       <String, dynamic>{
-        'code': 'active',
+        'code': 'All',
         'label': 'All',
         'icon': Icons.calendar_today,
       },
       <String, dynamic>{
-        'code': 'completed',
+        'code': 'Delivered',
         'label': 'Delivered',
         'icon': Icons.calendar_today,
       },
       <String, dynamic>{
-        'code': 'other',
+        'code': 'Canceled',
         'label': 'Canceled',
         'icon': Icons.calendar_today,
       },
@@ -95,19 +95,29 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Future<void> _loadAppointments({int page = 1}) async {
     setState(() => _isLoading = true);
 
+    if(page==1){
+      _appointments.clear();
+      this.page=1;
+    }
     final List<String> _statuses = <String>[];
 
+    String status='all';
     switch (_currentGroup.code) {
-      case 'active':
+      case 'All':
+        status = 'all';
         _statuses.add(describeEnum(AppointmentStatus.active));
         break;
-      case 'completed':
+      case 'Delivered':
+        status = 'delivered';
+
         _statuses.add(describeEnum(AppointmentStatus.completed));
         break;
       default:
+        status = 'canceled';
+
         _statuses.add(describeEnum(AppointmentStatus.canceled));
-        _statuses.add(describeEnum(AppointmentStatus.declined));
-        _statuses.add(describeEnum(AppointmentStatus.failed));
+        //_statuses.add(describeEnum(AppointmentStatus.declined));
+       // _statuses.add(describeEnum(AppointmentStatus.failed));
         break;
     }
 
@@ -115,6 +125,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       statuses: _statuses,
       type: 'purchase',
       page: page,
+      status: status,
       resultsPerPage: kReservationsPerPage,
     ));
   }
@@ -128,7 +139,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
             if (state is LoadSuccessAppointmentState) {
               _controller.refreshCompleted();
               _controller.loadComplete();
-              _appointments = state.appointments;
+              _appointments.addAll(state.appointments);
               setState(() {
                 _isLoading = false;
                 _isInited = true;
@@ -159,7 +170,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       },
                       onGroupChange: (ToolbarOptionModel newgroup) {
                         setState(() => _currentGroup = newgroup);
-                        _loadAppointments();
+                        page=1;
+                        _loadAppointments(page:1);
                       },
                     ),
                   ),
@@ -179,8 +191,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
         enablePullDown: true,
         enablePullUp: true,
         controller: _controller,
-        onRefresh: _loadAppointments,
-        onLoading: _loadAppointments,
+        onRefresh:(){
+          page=1;
+          _loadAppointments(page: 1);
+        },
+        onLoading: (){
+          _loadAppointments(page: ++page);
+        },
         child: ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: kPaddingS),
           itemCount: _appointments.length,

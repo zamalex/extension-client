@@ -19,7 +19,7 @@ class ProfileInfo extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage('assets/images/data/categories/barber-shop.jpg'),
+                image: AssetImage('assets/images/onboarding/welcome.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -38,7 +38,7 @@ class ProfileInfo extends StatelessWidget {
                   ),
                   const Padding(padding: EdgeInsets.only(top: 4)),
                   StrutText(
-                    getIt.get<AppGlobals>().user.email,
+                    getIt.get<AppGlobals>().user.phone,
                     maxLines: 1,
                     style: TextStyle(color: kPrimaryColor,fontSize: 18),
                     overflow: TextOverflow.ellipsis,

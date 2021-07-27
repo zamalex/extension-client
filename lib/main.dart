@@ -53,6 +53,9 @@ Future<void> main() async {
          getIt.get<AppGlobals>().user.fullName = loginModel.user.name;
          getIt.get<AppGlobals>().user.token = loginModel.accessToken;
          getIt.get<AppGlobals>().user.id = loginModel.user.id;
+         getIt.get<AppGlobals>().user.phone= loginModel.user.phone;
+         getIt.get<AppGlobals>().user.email= loginModel.user.email;
+
          getIt.get<AppGlobals>().ID = loginModel.user.id;
           Globals.TOKEN = loginModel.accessToken;
          print(loginModel.user.name);

@@ -54,6 +54,7 @@ class ProductModel {
 }
 
 class Product {
+  int salon_id;
   int id;
   int service_duration;
   String name;
@@ -63,6 +64,7 @@ class Product {
 
   Product(
       {this.id,
+        this.salon_id,
         this.service_duration,
         this.name,
         this.thumbnailImage,

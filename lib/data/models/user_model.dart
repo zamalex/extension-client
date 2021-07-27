@@ -33,11 +33,11 @@ class UserModel {
    String fullName;
    String token='';
   final String profilePhoto;
-  final String email;
-  final String phone;
+   String email;
+   String phone;
   final String city;
   final String zip;
-  final String address;
+   String address;
   final int upcomingAppointments;
   final int activeVouchers;
 }

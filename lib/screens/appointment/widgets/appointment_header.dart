@@ -41,7 +41,8 @@ class _AppointmentHeaderState extends State<AppointmentHeader> {
               children: <Widget>[
                 Flexible(
                   child: StrutText(
-                    widget.appointment.date,
+        widget.appointment.bookingDateTime!=null?DateTime.parse(widget.appointment.bookingDateTime).toLocalDateString:'',
+
                     style: Theme.of(context).textTheme.headline4.white.bold,
                     maxLines: 2,
                   ),
@@ -64,7 +65,7 @@ class _AppointmentHeaderState extends State<AppointmentHeader> {
               child: Padding(
                 padding: const EdgeInsets.only(top: kPaddingM),
                 child: StrutText(
-                  'The Barbery',
+                  widget.appointment.shop?.data?.first?.name??'',
                   style: Theme.of(context).textTheme.headline6.white,
                   maxLines: 1,
                 ),
@@ -75,7 +76,7 @@ class _AppointmentHeaderState extends State<AppointmentHeader> {
               child: Padding(
                 padding: const EdgeInsets.only(top: kPaddingS),
                 child: StrutText(
-                  '1234 Utah',
+                  widget.appointment.shop?.data?.first?.address??'',
                   style: Theme.of(context).textTheme.subtitle1.copyWith(color: Colors.white70),
                   maxLines: 1,
                 ),

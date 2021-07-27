@@ -64,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ],
                     ),
                   ),
-                  ListItem(
+                 /* ListItem(
                     title: L10n.of(context).settingsListDarkMode,
                     onPressed: () => _showDarkModePicker(context),
                     trailing: Row(
@@ -76,7 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         const ArrowRightIcon(),
                       ],
                     ),
-                  ),
+                  )*/
                   ListTitle(title: L10n.of(context).settingsListTitleSupport),
                   ListItem(
                     title: L10n.of(context).settingsListTerms,
@@ -88,7 +88,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     trailing: const ArrowRightIcon(),
                     onPressed: () => Async.launchUrl(kPrivacyPolicyURL),
                   ),
-                  Padding(
+                  /*Padding(
                     padding: const EdgeInsets.symmetric(vertical: kPaddingL),
                     child: Column(
                       children: <Widget>[
@@ -128,7 +128,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ],
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ),

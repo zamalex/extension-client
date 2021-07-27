@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -9,6 +10,7 @@ import 'package:salon/data/models/user_model.dart';
 import 'package:salon/data/repositories/user_repository.dart';
 import 'package:salon/main.dart';
 import 'package:salon/model/loginmodel.dart';
+import 'package:salon/model/profile_data.dart';
 import 'package:salon/utils/app_cache_manager.dart';
 import 'package:salon/utils/app_preferences.dart';
 
@@ -150,6 +152,17 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _mapProfileUpdateAuthEventToState(ProfileUpdatedAuthEvent event) async* {
     yield ProcessInProgressAuthState();
+
+    
+   /* if(event.image!=null){
+      final bytes =
+      event.image.readAsBytesSync();
+      String img64 = base64Encode(bytes);
+      print(event.image.path.split('/').last);
+     await ProfileData().updateImage(event.image.path.split('/').last, img64);
+    }
+
+    await ProfileData().updateProfile(event.fullName,event.phone,event.email,event.address);*/
 
     //getIt.get<AppGlobals>().user = await const UserRepository().getProfile();
 

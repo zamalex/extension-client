@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -11,6 +12,9 @@ import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/constants.dart';
+import 'package:salon/model/loginmodel.dart';
+import 'package:salon/model/profile_data.dart';
 import 'package:salon/utils/form_utils.dart';
 import 'package:salon/utils/form_validator.dart';
 import 'package:salon/utils/ui.dart';
@@ -19,6 +23,7 @@ import 'package:salon/widgets/list_title.dart';
 import 'package:salon/widgets/modal_bottom_sheet_item.dart';
 import 'package:salon/widgets/theme_button.dart';
 import 'package:salon/widgets/theme_text_input.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum PhotoSource { gallery, camera }
 
@@ -33,6 +38,9 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final GlobalKey<ThemeTextInputState> keyNameInput = GlobalKey<ThemeTextInputState>();
+  final GlobalKey<ThemeTextInputState> keyPhoneInput = GlobalKey<ThemeTextInputState>();
+  final GlobalKey<ThemeTextInputState> keyMailInput = GlobalKey<ThemeTextInputState>();
+  final GlobalKey<ThemeTextInputState> keyAddressInput = GlobalKey<ThemeTextInputState>();
   final TextEditingController _textNameController = TextEditingController();
   final TextEditingController _textPhoneController = TextEditingController();
   final TextEditingController _textAddressController = TextEditingController();
@@ -48,33 +56,82 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   File _image;
   AuthBloc _authBloc;
-
+  bool loading = false;
   @override
   void initState() {
     _authBloc = BlocProvider.of<AuthBloc>(context);
 
+    getUser();
+
     _textNameController.text = getIt.get<AppGlobals>().user.fullName;
     _textPhoneController.text = getIt.get<AppGlobals>().user.phone;
-    _textAddressController.text = getIt.get<AppGlobals>().user.address;
-    _textZIPController.text = getIt.get<AppGlobals>().user.zip;
-    _textCityController.text = getIt.get<AppGlobals>().user.city;
+    _textAddressController.text = '';
+    _textZIPController.text = '';
+    _textCityController.text = '';
 
     super.initState();
+  }
+
+  getUser()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final json = jsonDecode(prefs.getString('me')??null);
+    if(json!=null){
+      LoginModel loginModel = LoginModel.fromJson(json as Map<String,dynamic>);
+
+      if(loginModel!=null){
+        getIt.get<AppGlobals>().user.fullName = loginModel.user.name;
+        getIt.get<AppGlobals>().user.token = loginModel.accessToken;
+        getIt.get<AppGlobals>().user.id = loginModel.user.id;
+        getIt.get<AppGlobals>().user.phone= loginModel.user.phone;
+        getIt.get<AppGlobals>().user.email= loginModel.user.email;
+
+        getIt.get<AppGlobals>().ID = loginModel.user.id;
+        Globals.TOKEN = loginModel.accessToken;
+        print(loginModel.user.name);
+
+      }
+    }
   }
 
   Future<void> _update() async {
     FormUtils.hideKeyboard(context);
 
-    if (keyNameInput.currentState.validate()) {
-      _authBloc.add(ProfileUpdatedAuthEvent(
+    if (keyNameInput.currentState.validate()&&keyMailInput.currentState.validate()&&keyPhoneInput.currentState.validate()) {
+      /*_authBloc.add(ProfileUpdatedAuthEvent(
         fullName: _textNameController.text,
         phone: _textPhoneController.text,
         email:_textMailController.text,
         address: _textAddressController.text,
         city: _textCityController.text,
-        zip: _textZIPController.text,
+        zip:'',
         image: _image,
-      ));
+      ));*/
+      setState(() {
+        loading = true;
+      });
+      if(_image!=null){
+        final bytes =
+        _image.readAsBytesSync();
+        String img64 = base64Encode(bytes);
+        print(_image.path.split('/').last);
+        await ProfileData().updateImage(_image.path.split('/').last, img64);
+      }
+
+      await ProfileData().updateProfile(_textNameController.text,
+          _textPhoneController.text,_textMailController.text,_textAddressController.text);
+
+      setState(() {
+        loading = false;
+      });
+
+      UI.showMessage(
+        context,
+        title: L10n.of(context).editProfileTitle,
+        message: L10n.of(context).editProfileSuccess,
+        buttonText: L10n.of(context).commonBtnClose,
+        onPressed: () => Navigator.pop(context),
+      );
     }
   }
 
@@ -141,7 +198,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            image: AssetImage(getIt.get<AppGlobals>().user.profilePhoto),
+                            image: AssetImage('assets/images/onboarding/welcome.png'),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -199,6 +256,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   FormLabel(text: L10n.of(context).editProfileLabelPhone),
                   ThemeTextInput(
+                    key: keyPhoneInput,
+                    validator: FormValidator.isRequired(L10n.of(context).formValidatorRequired),
                     focusNode: _focusPhone,
                     textInputAction: TextInputAction.next,
                     onSubmitted: (String text) {
@@ -213,6 +272,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const FormLabel(text: 'Email'),
 
                   ThemeTextInput(
+                    key: keyMailInput,
+
+                    validator: FormValidator.isRequired(L10n.of(context).formValidatorRequired),
                     focusNode: _focusMail,
                     textInputAction: TextInputAction.next,
                     onSubmitted: (String text) {
@@ -227,6 +289,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ListTitle(title: L10n.of(context).editProfileListTitleAddress),
                   FormLabel(text: L10n.of(context).editProfileLabelAddress),
                   ThemeTextInput(
+                    key: keyAddressInput,
+
+                    validator: FormValidator.isRequired(L10n.of(context).formValidatorRequired),
                     focusNode: _focusAddress,
                     textInputAction: TextInputAction.next,
                     onSubmitted: (String text) {
@@ -282,7 +347,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: ThemeButton(
                       onPressed: _update,
                       text: L10n.of(context).editProfileBtnUpdate,
-                      showLoading: apiState is ProcessInProgressAuthState,
+                      showLoading: loading,
                       disableTouchWhenLoading: true,
                     ),
                   );

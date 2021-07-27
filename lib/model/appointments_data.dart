@@ -24,16 +24,17 @@ class ApointmentsData {
     status = json['status'] as int;
   }
 
-  Future<List<Data>> getHistory() async {
+  Future<List<Data>> getHistory({int page=1}) async {
 
 
 
 
     try {
       var response = await http.get(
-        Uri.parse('${Globals.BASE}purchase-history/${getIt.get<AppGlobals>().ID}'),
+        Uri.parse('${Globals.BASE}purchase-history/${getIt.get<AppGlobals>().ID}?page=$page'),
 
       );
+      print('${Globals.BASE}purchase-history/${getIt.get<AppGlobals>().ID}?page=$page');
       print('response  is '+response.body);
 
       if(response.statusCode>=400){
@@ -53,6 +54,42 @@ class ApointmentsData {
     } catch (error) {
       print(error);
       return [];
+    }
+  }
+
+
+  Future<bool> cancelOrder(int id) async {
+
+    Map<String, String> headers = {
+      'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Content-Type': 'application/json'
+    };
+
+
+    try {
+      var response = await http.post(
+        Uri.parse('${Globals.BASE}order/$id/cancel'),
+        headers: headers
+      );
+      print('response  is '+response.body);
+
+      if(response.statusCode>=400){
+        return false;
+
+      }else{
+        final responseJson = json.decode(response.body);
+        if(responseJson['result'] as bool==false){
+          return false;
+        }else{
+          return true;
+        }
+      }
+
+
+
+    } catch (error) {
+      print(error);
+      return false;
     }
   }
 

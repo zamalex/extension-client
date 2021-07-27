@@ -38,7 +38,7 @@ class LocationHeader extends StatelessWidget {
       alignment: AlignmentDirectional.bottomStart,
       children: <Widget>[
         InkWell(
-          onTap: () => _openPhotoGallery(context),
+          onTap: (){},// => _openPhotoGallery(context),
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(

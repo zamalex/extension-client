@@ -20,8 +20,10 @@ class AppointmentsListItem extends StatelessWidget {
     this.routeName = '',
     this.leftMargin = kPaddingM,
     this.rightMargin = kPaddingM,
+    this.load
   }) : super(key: key);
 
+  final Function load;
   final Data appointment;
   final String routeName;
   final double leftMargin;
@@ -40,7 +42,11 @@ class AppointmentsListItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (routeName.isNotNullOrEmpty) {
-          Navigator.pushNamed(context, routeName, arguments: appointment);
+          Navigator.pushNamed(context, routeName, arguments: appointment).then((value){
+            if(value!=null&&value==true){
+              load();
+            }
+          });
         }
       },
       child: Card(
@@ -69,11 +75,11 @@ class AppointmentsListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   StrutText(
-                    appointment.date,
+                    appointment.bookingDateTime!=null?DateTime.parse(appointment.bookingDateTime).toLocalDateString:'',
                     style: Theme.of(context).textTheme.headline5.bold.copyWith(color: _dateTimeColor),
                   ),
                   StrutText(
-                    '12:30',
+                    appointment.bookingDateTime!=null?DateTime.parse(appointment.bookingDateTime).toLocalTimeString:'',
                     style: Theme.of(context).textTheme.headline5.bold.copyWith(color: _dateTimeColor),
                   ),
                 ],
@@ -89,12 +95,12 @@ class AppointmentsListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       StrutText(
-                        'The Barbery',
+                        appointment.shop?.data?.first?.name??'',
                         style: Theme.of(context).textTheme.subtitle1.w500.fs18,
                       ),
                       const Padding(padding: EdgeInsets.only(top: kPaddingS / 2)),
                       StrutText(
-                        '1234 Utah Park',
+                        appointment.shop?.data?.first?.address??'',
                         style: Theme.of(context).textTheme.bodyText2.copyWith(
                               color: Theme.of(context).hintColor,
                               fontWeight: FontWeight.normal,
@@ -110,12 +116,12 @@ class AppointmentsListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
                           StrutText(
-                            appointment.grandTotal,
+                            '',
                             style: Theme.of(context).textTheme.subtitle1.fs18,
                           ),
                           const Padding(padding: EdgeInsets.only(top: kPaddingS / 2)),
                           StrutText(
-                            '75 min',
+                            '',
                             style: Theme.of(context).textTheme.bodyText2.w400.copyWith(color: Theme.of(context).hintColor),
                           ),
                         ],

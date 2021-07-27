@@ -30,8 +30,10 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     yield LoadInProgressAppointmentState();
 
     List<Data> _appointments;
-   await ApointmentsData().getHistory().then((value){
-      _appointments = value.where((element) => element.orderType==event.type).toList();
+    print(event.type);
+    print(event.status);
+   await ApointmentsData().getHistory(page:event.page).then((value){
+      _appointments = value.where((element) => element.orderType==event.type&&(event.status=='all'?true:element.deliveryStatus==event.status)).toList();
     
     });
 
@@ -45,7 +47,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
 
   Stream<AppointmentState> _mapCancelAppointmentEventToState(CanceledAppointmentEvent event) async* {
     /// Wait for some random time. Simulate net activity ;)
-    await Future<int>.delayed(Duration(seconds: Random().nextInt(2)));
+    await ApointmentsData().cancelOrder(event.id);
 
     yield CancelSuccessAppointmentState();
   }

@@ -55,6 +55,10 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
   }
 
   void cancelReservation() {
+    if(!widget.appointment.canCancel){
+      UI.showErrorDialog(context,title: 'info',message: 'you cant cancel this appointment');
+    }
+
     UI.confirmationDialogBox(
       context,
       message: L10n.of(context).appointmentCancelationConfirmation,
@@ -86,6 +90,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
             if (apiListener is CancelSuccessAppointmentState) {
             //  _appointment = _appointment.rebuild(status: AppointmentStatus.canceled);
               setState(() => _isLoading = false);
+              Navigator.pop(context,true);
             }
           },
           child: Scaffold(

@@ -130,7 +130,7 @@ class _CheckoutState extends State<Checkout> {
       }
 
       String date = '${selectedTime.year}-${selectedTime.month}-${selectedTime.day}';
-      String time = '${selectedTime.hour}-${selectedTime.minute}-${selectedTime.second}';
+      String time = '${selectedTime.hour}:${selectedTime.minute}:${selectedTime.second}';
 
       p.startLoading();
       MyCarts().createOrder(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, 'stripe',date,time).then((value){
