@@ -53,7 +53,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final FocusNode _focusCity = FocusNode();
   final FocusNode _focusZIP = FocusNode();
   final FocusNode _focusMail = FocusNode();
-
+  LoginModel loginModel;
   File _image;
   AuthBloc _authBloc;
   bool loading = false;
@@ -77,7 +77,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     final json = jsonDecode(prefs.getString('me')??null);
     if(json!=null){
-      LoginModel loginModel = LoginModel.fromJson(json as Map<String,dynamic>);
+       loginModel = LoginModel.fromJson(json as Map<String,dynamic>);
 
       if(loginModel!=null){
         getIt.get<AppGlobals>().user.fullName = loginModel.user.name;
@@ -124,6 +124,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       setState(() {
         loading = false;
       });
+      
+      if(loginModel!=null){
+        loginModel.user.email =  _textMailController.text;
+        loginModel.user.name =  _textNameController.text;
+        loginModel.user.phone =  _textPhoneController.text;
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        
+        prefs.setString('me', jsonEncode(loginModel.toJson()));
+
+      }
 
       UI.showMessage(
         context,
