@@ -26,7 +26,7 @@ class _LocationsCarouselState extends State<LocationsCarousel> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 342,
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -37,7 +37,7 @@ class _LocationsCarouselState extends State<LocationsCarousel> {
             onNavigate: widget.onNavigate,
           ),
           Container(
-            height: 250,
+            height: 300,
             child: widget.locations != null
                 ? ListView(
                     padding: const EdgeInsetsDirectional.only(start: kPaddingM),

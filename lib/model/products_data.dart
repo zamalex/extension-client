@@ -20,10 +20,10 @@ class ProductModel {
     status = json['status']as int;
   }
 
-  Future<List<Product>> getProducts() async {
+  Future<List<Product>> getProducts(int id) async {
     try {
       var response = await http.get(
-        Uri.parse('${Globals.BASE}products?type=product'),
+        Uri.parse('${Globals.BASE}products/seller/$id?type=product'),
 
       );
       print('response  is '+response.body);
@@ -48,6 +48,37 @@ class ProductModel {
       return [];
     }
   }
+
+  Future<List<Product>> getServices(int id) async {
+    try {
+      var response = await http.get(
+        Uri.parse('${Globals.BASE}products/seller/$id?type=service'),
+
+      );
+      print('response  is '+response.body);
+
+      if(response.statusCode>=400){
+        return [];
+
+      }else{
+        final responseJson = json.decode(response.body);
+        if(responseJson['success'] as bool==false){
+          return [];
+        }else{
+
+          return ProductModel.fromJson(responseJson as Map<String,dynamic>).products;
+        }
+      }
+
+
+
+    } catch (error) {
+      print(error);
+      return [];
+    }
+  }
+
+
 
 
 

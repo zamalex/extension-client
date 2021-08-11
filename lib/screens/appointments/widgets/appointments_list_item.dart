@@ -75,11 +75,11 @@ class AppointmentsListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   StrutText(
-                    appointment.bookingDateTime!=null?DateTime.parse(appointment.bookingDateTime).toLocalDateString:'',
+                    appointment.bookingDateTime!=null?DateTime.parse(appointment.bookingDateTime.replaceAll('  ',' ')).toLocalDateString:'',
                     style: Theme.of(context).textTheme.headline5.bold.copyWith(color: _dateTimeColor),
                   ),
                   StrutText(
-                    appointment.bookingDateTime!=null?DateTime.parse(appointment.bookingDateTime).toLocalTimeString:'',
+                    appointment.bookingDateTime!=null?DateTime.parse(appointment.bookingDateTime.replaceAll('  ',' ')).toLocalTimeString:'',
                     style: Theme.of(context).textTheme.headline5.bold.copyWith(color: _dateTimeColor),
                   ),
                 ],

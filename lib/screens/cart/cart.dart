@@ -80,7 +80,7 @@ class _CartListState extends State<CartList> {
               return CartItem(Provider.of<CartProvider>(context).items[i]);
             },itemCount: Provider.of<CartProvider>(context).items.length,),
           ),),
-          _bottomBar(context)
+          Provider.of<CartProvider>(context,listen: true).items.isNotEmpty?_bottomBar(context):Container()
         ],)
     );
   }

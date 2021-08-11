@@ -98,8 +98,11 @@ class LoginModel {
       if(response.statusCode>=400){
         return {'status':false,'message':responseJson['message']};
       }
+    if(responseJson['result']as bool){
+      return {'status':true,'message':responseJson['message'],'user_id':responseJson['user_id']};
 
-       return {'status':true,'message':responseJson['message']};
+    }else
+       return {'status':false,'message':responseJson['message'],'user_id':responseJson['user_id']};
     } catch (error) {
       print(error);
       return {'status':false,'message':'error occured'};
@@ -132,7 +135,7 @@ class LoginModel {
       if(response.statusCode>=400){
         return {'status':false,'message':responseJson['message']};
       }
-      if(responseJson['result'].toString() =='true'){
+      if(responseJson['result']as bool){
         return {'status':true,'message':responseJson['message']};
       }else{
         return {'status':false,'message':responseJson['message']};

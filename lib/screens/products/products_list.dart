@@ -7,6 +7,9 @@ import 'package:salon/screens/products/product_item.dart';
 
 class ProductsList extends StatelessWidget {
 
+  int salon;
+
+  ProductsList(this.salon);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class ProductsList extends StatelessWidget {
             // Extracting data from snapshot object
             final data = snapshot.data as List<Product>;
             data.forEach((element) {
-              element.salon_id = 1;
+              element.salon_id = salon;
             });
             print(data.length.toString());
             return Center(
@@ -55,7 +58,7 @@ class ProductsList extends StatelessWidget {
 
       // Future that needs to be resolved
       // inorder to display something on the Canvas
-      future: ProductModel().getProducts(),
+      future: ProductModel().getProducts(salon),
     );
   }
 }

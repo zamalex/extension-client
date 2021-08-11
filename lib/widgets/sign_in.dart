@@ -21,6 +21,7 @@ import 'package:salon/widgets/theme_text_input.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
+import 'bottom_navigation.dart';
 
 /// Signin widget to be used wherever we need user to log in before taking any
 /// action.
@@ -118,7 +119,17 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
               getIt.get<AppGlobals>().ID= value.user.id;
               Provider.of<CartProvider>(context,listen: false).init();
 
-              Phoenix.rebirth(context);
+            //  Phoenix.rebirth(context);
+             /* Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => BottomNavigation(),
+                ),
+                    (route) => false,
+              );*/
+             // Navigator.of(context, rootNavigator: true).pop();
+
+              (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar).onTap(0);
             }
           else
             UI.showErrorDialog(

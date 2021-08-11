@@ -280,7 +280,7 @@ class _SearchMapScreenState extends State<SearchMapScreen> {
                   bottom: true,
                   top: false,
                   child: Container(
-                    height: 260,
+                    height: 280,
                     margin: const EdgeInsets.only(bottom: 10),
                     child: Swiper(
                       itemBuilder: (BuildContext context, int index) => _locationPreviewBox(_locations[index], index),

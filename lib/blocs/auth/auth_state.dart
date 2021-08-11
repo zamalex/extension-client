@@ -11,7 +11,8 @@ class InitialAuthState extends AuthState {}
 
 class LoginSuccessAuthState extends AuthState {
   LoginModel loginModel;
-  LoginSuccessAuthState({this.loginModel});
+  int user_id;
+  LoginSuccessAuthState({this.loginModel,this.user_id});
 }
 
 class ProcessInProgressAuthState extends AuthState {}

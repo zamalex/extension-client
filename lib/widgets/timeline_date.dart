@@ -35,7 +35,7 @@ class TimelineDate extends StatelessWidget {
           color: isSelected ? kPrimaryColor : Theme.of(context).dividerColor,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(kPaddingS),
+          padding: const EdgeInsets.all(0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,

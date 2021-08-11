@@ -80,7 +80,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
     }));
     wizardPages.add(BookingWizardPageModel.fromJson(<String, dynamic>{
       'step': 3,
-      'body': BookingStep3(),
+      'body': BookingStep3(locationModel.id),
     }));
     wizardPages.add(BookingWizardPageModel.fromJson(<String, dynamic>{
       'step': 4,

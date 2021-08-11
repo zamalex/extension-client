@@ -99,7 +99,7 @@ class LocationModel {
   final String email;
   final String website;
   final String description;
-  final String mainPhoto;
+   String mainPhoto;
   final String genders;
    List<BusinessHoursModel> businessHours;
   final GeoPoint coordinates;

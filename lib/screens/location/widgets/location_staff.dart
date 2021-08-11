@@ -55,8 +55,8 @@ class LocationStaff extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     InkWell(
-                      onTap: () =>
-                          Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id, 'preselectedStaff': staff.id}),
+                    //  onTap: () =>
+                       //   Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id, 'preselectedStaff': staff.id}),
                       child: staff.profilePhoto.isEmpty
                           ? InitialsCircleAvatar(initials: staff.name.initials, size: InitialsCircleAvatarSize.large)
                           : CircleAvatar(

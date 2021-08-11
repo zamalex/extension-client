@@ -35,7 +35,7 @@ class _CartItemState extends State<CartItem> {
       } ,),Container(child: Text(widget.cartModel.quantity.toString(),style: TextStyle(color: Theme.of(context).accentColor),),margin: EdgeInsets.symmetric(horizontal: 5),)
       ,GestureDetector(child: CircleAvatar(child: Text('+',style: TextStyle(color: Colors.white),),radius: 15,backgroundColor: Theme.of(context).accentColor,)
           ,onTap:(){
-        cartProvider.addItem(widget.cartModel);
+        cartProvider.addItem(widget.cartModel,context);
           } )],mainAxisSize: MainAxisSize.min,);
   }
 

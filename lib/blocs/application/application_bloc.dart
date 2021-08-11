@@ -132,9 +132,9 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
       if (permissionGranted == PermissionStatus.granted) {
         /// getLocation() may loop forever on emulators if location is set to 'None'!
         ///
-        //if (!getIt.get<AppGlobals>().isAnEmulator || kReleaseMode) {
-        //  getIt.get<AppGlobals>().currentPosition = await getIt.get<Location>().getLocation();
-        //} else {
+        if (true) {
+         getIt.get<AppGlobals>().currentPosition = await getIt.get<Location>().getLocation();
+        } else {
         getIt.get<AppGlobals>().currentPosition = LocationData.fromMap(<String, double>{
           'latitude': kDefaultLat,
           'longitude': kDefaultLon,
@@ -145,7 +145,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
           'heading': 0.0,
           'time': 0.0,
         });
-        //}
+        }
       }
     } catch (e) {
       Console.log('Location ERROR', e.toString(), error: e);

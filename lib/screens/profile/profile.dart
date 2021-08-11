@@ -85,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                           ListItem(
                             titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
-                            title: 'My orders',//L10n.of(context).profileListVouchers,
+                            title: L10n.of(context).myOrders,//L10n.of(context).profileListVouchers,
                             leading: const Icon(Icons.shopping_cart_outlined,color: kPrimaryColor),
                             trailing: Row(
                               children: <Widget>[

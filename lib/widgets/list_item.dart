@@ -76,7 +76,7 @@ class ListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     StrutText(
-                      title,
+                      title??'',
                       style: titleTextStyle ?? Theme.of(context).textTheme.subtitle1.fs18,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

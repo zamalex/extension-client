@@ -66,7 +66,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
      final result = await UserRepository().register(name: event.fullName,email: event.email,password: event.password);
 
      if(result['status']as bool){
-       yield LoginSuccessAuthState();
+       yield LoginSuccessAuthState(user_id: result['user_id']as int??0);
 
      }else{
        yield RegistrationFailureAuthState(result['message'].toString());

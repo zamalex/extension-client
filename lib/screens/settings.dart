@@ -9,6 +9,7 @@ import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/screens/policy/policy.dart';
 import 'package:salon/utils/async.dart';
 import 'package:salon/utils/ui.dart';
 import 'package:salon/widgets/arrow_right_icon.dart';
@@ -81,12 +82,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ListItem(
                     title: L10n.of(context).settingsListTerms,
                     trailing: const ArrowRightIcon(),
-                    onPressed: () => Async.launchUrl(kTermsOfServiceURL),
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder:(m)=>PolicyScreen('support'))),
                   ),
                   ListItem(
                     title: L10n.of(context).settingsListPrivacy,
                     trailing: const ArrowRightIcon(),
-                    onPressed: () => Async.launchUrl(kPrivacyPolicyURL),
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder:(m)=>PolicyScreen('return'))),
+
+                    // onPressed: () => Async.launchUrl(kPrivacyPolicyURL),
                   ),
                   /*Padding(
                     padding: const EdgeInsets.symmetric(vertical: kPaddingL),

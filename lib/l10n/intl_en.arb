@@ -1,5 +1,11 @@
 {
     "@@locale": "en",
+    "myOrders":"My Orders",
+    "topRatedSalonz":"Top rated salons",
+    "bhome":"home",
+    "bsearch":"search",
+    "bcart":"cart",
+    "bprofile":"profile",
     "homeTitleUser": "Hi, {name}!",
     "homeTitleGuest": "Explore",
     "homeTitlePopularCategories": "Popular Categories",

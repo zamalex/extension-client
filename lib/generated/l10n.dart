@@ -1510,6 +1510,66 @@ class L10n {
     );
   }
 
+  String get myOrders {
+    return Intl.message(
+      'My Orders',
+      name: 'myOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /*
+  *  "","home",
+    "bsearch","",
+    "","cart",
+    "","profile",
+  *
+  * */
+  String get bhome {
+    return Intl.message(
+      'home',
+      name: 'bhome',
+      desc: '',
+      args: [],
+    );
+  }
+  String get bsearch {
+    return Intl.message(
+      'search',
+      name: 'bsearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get bcart {
+    return Intl.message(
+      'cart',
+      name: 'bcart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get bprofile {
+    return Intl.message(
+      'profile',
+      name: 'bprofile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get topRatedSalonz {
+    return Intl.message(
+      'Top rated salons',
+      name: 'topRatedSalonz',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `My favorites`
   String get profileListFavorites {
     return Intl.message(

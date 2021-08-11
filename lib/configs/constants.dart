@@ -10,7 +10,7 @@ const String kAppVersion = '1.3.0';
 ///
 /// Use null for system font or font name declared in pubspec.yaml like Roboto
 /// or Raleway.
-const String kFontFamily = null;
+const String kFontFamily = 'Poppins';
 
 // Date/time formats
 const String kDateFormat = 'MMM d, y';

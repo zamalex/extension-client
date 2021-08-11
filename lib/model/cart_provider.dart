@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:salon/model/cart_model.dart';
 import 'package:salon/model/mycarts.dart';
 import 'package:salon/screens/cart/cart_item.dart';
+import 'package:salon/utils/ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartProvider extends ChangeNotifier {
@@ -11,6 +13,7 @@ class CartProvider extends ChangeNotifier {
   List<MyCarts> allCarts = [];
   OrderSummary orderSummary;
   bool loading = false;
+  bool isLoading = false;
 
   void done(){
     loading = false;
@@ -56,15 +59,19 @@ class CartProvider extends ChangeNotifier {
     return total;
   }
 
-  checkCopon(String code){
+  checkCopon(String code,BuildContext context){
     if(code.isNotEmpty)
     MyCarts().checkCopon(allCarts[0].ownerId, code).then((value){
+      UI.showErrorDialog(context,message: value.toString());
       getOrdersummary();
     });
   }
 
-  void addItem(CartModel item) async{
-    await MyCarts().addTocart(item).then((value){
+  void addItem(CartModel item,BuildContext context) async{
+     isLoading = true;
+    notifyListeners();
+
+    await MyCarts().addTocart(item,context).then((value){
       print('size is ${value.length}');
       if(value.length>0)
         items= [];
@@ -78,6 +85,9 @@ class CartProvider extends ChangeNotifier {
       });
 
     });
+
+     isLoading = false;
+
     notifyListeners();
    /* if(items==null)
       items=[];
@@ -117,6 +127,8 @@ class CartProvider extends ChangeNotifier {
   }
 
   void removeItem(CartModel item) async{
+    isLoading = true;
+    notifyListeners();
 
     await MyCarts().removeFromCart(item).then((value){
       print('size is ${value.length}');
@@ -132,7 +144,7 @@ class CartProvider extends ChangeNotifier {
       });
 
     });
-
+    isLoading = false;
     notifyListeners();
   }
 

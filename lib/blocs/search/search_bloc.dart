@@ -86,7 +86,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
      await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q).then((value){
         _locations =value.map((e){
-          return LocationModel(e.id, e.name, 2.5, 100, 'Askan Building 17, Al Olaya, Riyadh', 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.png', 'genders', [],GeoPoint(latitude: 0, longitude: 0), [], [], [], [], [], 'cancelationPolicy');
+          return LocationModel(e.id, e.name, e.rating??0, 100, e.address??'', '', '545545545', 'email', 'website', 'description', e.logo, 'genders', [],GeoPoint(latitude: double.parse(e.latitude), longitude:  double.parse(e.longitude)), [], [], [], [], [], 'cancelationPolicy');
         }).toList();
 
       });

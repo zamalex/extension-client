@@ -41,7 +41,7 @@ class _AppointmentHeaderState extends State<AppointmentHeader> {
               children: <Widget>[
                 Flexible(
                   child: StrutText(
-        widget.appointment.bookingDateTime!=null?DateTime.parse(widget.appointment.bookingDateTime).toLocalDateString:'',
+        widget.appointment.bookingDateTime!=null?DateTime.parse(widget.appointment.bookingDateTime.replaceAll('  ',' ')).toLocalDateString:'',
 
                     style: Theme.of(context).textTheme.headline4.white.bold,
                     maxLines: 2,

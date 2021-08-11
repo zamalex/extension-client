@@ -36,6 +36,9 @@ class LocationListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   // location.mainPhoto = 'https://i.picsum.photos/id/556/200/300.jpg?hmac=TLwE28gIMuw2BUTndMuC3hoTlK6FtrE6Mx1UnR2dzu8';
+    var image = location.mainPhoto=='assets/images/onboarding/welcome.png'?AssetImage(location.mainPhoto):NetworkImage(location.mainPhoto);
+
     switch (viewType) {
       case LocationListItemViewType.block:
       case LocationListItemViewType.map:
@@ -46,7 +49,7 @@ class LocationListItem extends StatelessWidget {
           ),
           margin: EdgeInsets.zero,
           child: Container(
-            height: 290,
+            height: 300,
             decoration: BoxDecoration(
               color: kWhite,
               borderRadius: const BorderRadius.all(Radius.circular(kBoxDecorationRadius)),
@@ -63,7 +66,7 @@ class LocationListItem extends StatelessWidget {
                         height: viewType == LocationListItemViewType.map ? 160 : 200,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(location.mainPhoto),
+                            image: image as ImageProvider,
                             fit: BoxFit.cover,
                           ),
                           borderRadius: const BorderRadius.only(
@@ -83,7 +86,7 @@ class LocationListItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: kPaddingS, right: kPaddingS, top: kPaddingS, bottom: kPaddingS / 2),
                     child: StrutText(
-                      location.name,
+                      location.name??'unnamed',
                       maxLines: 1,
                       style: Theme.of(context).textTheme.subtitle1.fs18.w600.black,
                       overflow: TextOverflow.ellipsis,
@@ -92,7 +95,7 @@ class LocationListItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: kPaddingS, right: kPaddingS, bottom: kPaddingS / 2),
                     child: StrutText(
-                      location.address,
+                      location.address??'no address',
                       maxLines: 1,
                       style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
                       overflow: TextOverflow.ellipsis,
@@ -157,7 +160,7 @@ class LocationListItem extends StatelessWidget {
                       height: 120,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(location.mainPhoto),
+                          image: image as ImageProvider,
                           fit: BoxFit.cover,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -239,7 +242,7 @@ class LocationListItem extends StatelessWidget {
                     height: 96,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(location.mainPhoto),
+                        image: image as ImageProvider,
                         fit: BoxFit.cover,
                       ),
                       borderRadius: const BorderRadiusDirectional.only(
@@ -255,7 +258,7 @@ class LocationListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           StrutText(
-                            location.name,
+                            location.name??'unnamed',
                             maxLines: 1,
                             style: Theme.of(context).textTheme.subtitle1.w600.copyWith(color: kBlack),
                           ),

@@ -37,7 +37,7 @@ class _CheckoutState extends State<Checkout> {
     setState(() {
       coupon=add;
     });
-    Provider.of<CartProvider>(context,listen: false).checkCopon(add);
+    Provider.of<CartProvider>(context,listen: false).checkCopon(add,context);
   }
 
   @override
@@ -135,6 +135,9 @@ class _CheckoutState extends State<Checkout> {
       p.startLoading();
       MyCarts().createOrder(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, 'stripe',date,time).then((value){
         p.done();
+        UI.showMessage(context, message: 'order placed successfully',buttonText: 'ok',onPressed:(){
+          Navigator.of(context).pop();
+        });
         Provider.of<CartProvider>(context,listen: false).init();
       });
     }

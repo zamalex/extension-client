@@ -22,6 +22,7 @@ class ProfileData {
       'image':image
     };
 
+
     try {
       var response = await http.post(
           Uri.parse('${Globals.BASE}profile/update-image'),
@@ -59,7 +60,7 @@ class ProfileData {
 
     Map<String,dynamic> body = {
       'id':'${getIt.get<AppGlobals>().ID}',
-      'name':'Zero Harman',
+      'name':name,
       'phone':phone,
       'email':email,
       'address':address,
@@ -68,6 +69,8 @@ class ProfileData {
       'password':''
     };
 
+    print(body.toString());
+    print('${Globals.BASE}profile/update');
 
 
     try {

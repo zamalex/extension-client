@@ -68,8 +68,8 @@ class LocationServices extends StatelessWidget {
                     ),
                   ],
                 ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id, 'preselectedService': service,'services':_services,'staff':location.staff,'location':location}),
+              //  onPressed: () =>
+                  //  Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id, 'preselectedService': service,'services':_services,'staff':location.staff,'location':location}),
               );
             }).toList(),
           ),

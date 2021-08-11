@@ -101,6 +101,7 @@ dependencies:
   flutter_datetime_picker: ^1.5.1
   intl: ^0.17.0
 dev_dependencies:
+  change_app_package_name: ^1.0.0
   flutter_test:
     sdk: flutter
 dependency_overrides:
@@ -169,6 +170,26 @@ flutter:
         - asset: assets/fonts/Raleway-SemiBoldItalic.ttf
         - asset: assets/fonts/Raleway-Thin.ttf
         - asset: assets/fonts/Raleway-ThinItalic.ttf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Black.ttf
+        - asset: assets/fonts/Poppins-BlackItalic.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-BoldItalic.ttf
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/Poppins-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+        - asset: assets/fonts/Poppins-ExtraLightItalic.ttf
+        - asset: assets/fonts/Poppins-Italic.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins-LightItalic.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-MediumItalic.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-SemiBoldItalic.ttf
+        - asset: assets/fonts/Poppins-Thin.ttf
+        - asset: assets/fonts/Poppins-ThinItalic.ttf
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto-Black.ttf

@@ -165,7 +165,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             message: authState.message,
                           );
                         }else if(authState is LoginSuccessAuthState){
-                          Navigator.push(context, MaterialPageRoute(builder: (c)=>VerifyCode()));
+                          Navigator.push(context, MaterialPageRoute(builder: (c)=>VerifyCode(user_id: authState.user_id,register: true,)));
                         }
                       },
                       child: ThemeButton(

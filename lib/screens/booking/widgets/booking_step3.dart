@@ -14,6 +14,9 @@ import 'package:salon/widgets/strut_text.dart';
 import 'package:salon/widgets/timeline_date.dart';
 
 class BookingStep3 extends StatefulWidget {
+  int id;
+  BookingStep3(this.id);
+
   @override
   _BookingStep3State createState() => _BookingStep3State();
 }
@@ -39,7 +42,7 @@ getSlots(String id,String date){
     // TODO: implement initState
     super.initState();
     final now = DateTime.now();
-    getSlots('1', '${now.year}-${now.month}-${now.day}');
+    getSlots(widget.id.toString(), '${now.year}-${now.month}-${now.day}');
   }
   @override
   Widget build(BuildContext context) {
@@ -80,7 +83,7 @@ getSlots(String id,String date){
                         onTap: () {
                           if (session.selectedDateRange != index) {
                             final now = DateTime.now().add(Duration(days: session.selectedDateRange));
-                            getSlots('1', '${now.year}-${now.month}-${now.day}');
+                            getSlots(session.location.id.toString(), '${now.year}-${now.month}-${now.day}');
                             context.read<BookingBloc>().add(DateRangeSetBookingEvent(index));
                           }
                         },

@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/model/loginmodel.dart';
 import 'package:salon/screens/vendor/theme_button.dart';
 import 'package:salon/widgets/bold_title.dart';
 
+import '../main.dart';
+
 
 class VerifyCode extends StatefulWidget {
 
+  int user_id;
+  bool register;
+  VerifyCode({this.user_id,this.register=false});
   @override
   _VerifyCodeState createState() => _VerifyCodeState();
 }
@@ -30,8 +36,17 @@ class _VerifyCodeState extends State<VerifyCode> {
     setState(() {
       loading = true;
     });
-    LoginModel().verifyRegister('11', controller1.text+controller2.text+controller3.text+controller4.text).then((value){
-      print(value['message']);
+    LoginModel().verifyRegister(widget.user_id.toString(), controller1.text+controller2.text+controller3.text+controller4.text).then((value){
+      if(widget.register&&value['result']!=null&&value['result']as bool){
+        (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
+            .onTap(3);
+        Navigator.of(context).popUntil((route) => route.isFirst);
+      }else
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value['message'].toString())));
+
+
+     // Navigator.of(context, rootNavigator: true).pop();
       setState(() {
         loading=false;
       });

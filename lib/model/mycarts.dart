@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/model/cart_model.dart';
 import 'package:salon/model/constants.dart';
+import 'package:salon/utils/ui.dart';
 
 import '../main.dart';
 
@@ -56,8 +58,9 @@ class MyCarts {
     }
   }
 
-  Future<List<MyCarts>> addTocart(CartModel cartModel) async {
+  Future<List<MyCarts>> addTocart(CartModel cartModel,BuildContext context) async {
     List<MyCarts> list = [];
+    String resul;
     Map<String,dynamic> body ={
       'id':cartModel.id,
       //'variant':'',
@@ -81,6 +84,15 @@ class MyCarts {
       print('${Globals.BASE}carts/add');
       print('response  is '+response.body);
 
+      resul = response.body;
+
+      if(json.decode(response.body) is Map){
+        if(json.decode(response.body)['result']==false){
+          UI.showErrorDialog(context,message:json.decode(response.body)['message'].toString());
+        return [];
+        }
+      }
+
       list=(json.decode(response.body) as List).map((i) =>
           MyCarts.fromJson(i as Map<String,dynamic>)).toList();
 
@@ -94,6 +106,12 @@ class MyCarts {
 
     } catch (error) {
       print(error);
+     /* Map<String,dynamic> res = json.decode(resul)as Map<String,dynamic>;
+
+      if(res['result']as bool??true == false){
+        UI.showErrorDialog(context,message: res['message'].toString()??'server error');
+        print(res['message'].toString());
+      }*/
       return [];
     }
   }
@@ -162,16 +180,16 @@ class MyCarts {
       final responseJson = json.decode(response.body);
 
       if(responseJson['result']as bool)
-      return true;
+      return responseJson['message'];
 
-      return false;
+      return responseJson['message'];
     } catch (error) {
       print(error);
-      return null;
+      return 'server error';
     }
   }
 
-  Future createOrder(int owner,String payment,String date,String time) async {
+  Future<bool> createOrder(int owner,String payment,String date,String time) async {
     Map<String,dynamic> body ={
       'owner_id':owner,
       //'variant':'',
@@ -204,7 +222,7 @@ class MyCarts {
       return false;
     } catch (error) {
       print(error);
-      return null;
+      return false;
     }
   }
 

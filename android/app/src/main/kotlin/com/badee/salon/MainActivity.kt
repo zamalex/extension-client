@@ -1,4 +1,4 @@
-package rs.zj.salon
+package com.badee.salon
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
@@ -14,13 +15,17 @@ import 'package:salon/data/repositories/location_repository.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
 import 'package:salon/model/booking_week.dart';
+import 'package:salon/model/cart_provider.dart';
 import 'package:salon/model/fav_model.dart';
+import 'package:salon/model/location_model.dart';
 import 'package:salon/model/my_reviews.dart';
 import 'package:salon/model/products_data.dart';
 import 'package:salon/model/staff_data.dart';
 import 'package:salon/screens/location/widgets/widgets.dart';
 import 'package:salon/screens/products/products_list.dart';
+import 'package:salon/utils/geo.dart';
 import 'package:salon/widgets/app_button.dart';
+import 'package:salon/widgets/bottom_navigation.dart';
 import 'package:salon/widgets/sliver_app_title.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/strut_text.dart';
@@ -63,7 +68,16 @@ class _LocationScreenState extends State<LocationScreen> {
 
   Future<void> _loadData() async {
     /// Load location data.
-    _location = await locationRepository.getLocation(id: widget.locationId.id);
+  await  SalonModel().getSalonData(widget.locationId.id.toString()).then((value){
+      if(value.isNotEmpty){
+        _location=  LocationModel(value[0].id, value[0].name, value[0].rating, 100, value[0].address, '', value[0].phone.toString(), 'email', 'website', 'description', value[0].logo, 'genders', [], GeoPoint(latitude: double.parse(value[0].latitude),longitude: double.parse(value[0].longitude)), [], [], [], [], [], 'cancelationPolicy');
+
+        setState(() {
+
+        });
+      }
+    });
+   // _location = await locationRepository.getLocation(id: widget.locationId.id);
     _location.reviews = [];
     _location.businessHours = [];
     _location.staff = [];
@@ -71,11 +85,11 @@ class _LocationScreenState extends State<LocationScreen> {
 
     setState(() {});
 
-    BookingWeekTimes().getWeekTimes('1').then((value){
+    BookingWeekTimes().getWeekTimes(widget.locationId.id.toString()).then((value){
         _location.businessHours = value.map((e) => BusinessHoursModel(e.day, e.startTime, e.endTime)).toList();
     });
 
-    ProductModel().getProducts().then((value){
+    ProductModel().getServices(widget.locationId.id).then((value){
       setState(() {
         services = value.map((e){
           return ServiceModel(e.id,double.parse(e.basePrice.replaceAll(RegExp(','), '')),e.service_duration,e.name,'');
@@ -88,7 +102,7 @@ class _LocationScreenState extends State<LocationScreen> {
       });
     });
 
-    MyReviews().getSalonReviews('1').then((value) {
+    MyReviews().getSalonReviews(widget.locationId.id.toString()).then((value) {
 
       setState(() {
         reviews = value;
@@ -102,7 +116,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   });
 
-    SalonStaff().getSalonStaff('1').then((value) {
+    SalonStaff().getSalonStaff(widget.locationId.id.toString()).then((value) {
 
       setState(() {
         staff = value;
@@ -121,6 +135,9 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
+   /* if(Provider.of<CartProvider>(context).error.isNotEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(Provider.of<CartProvider>(context).error)));
+    }*/
     if (widget.locationId.id > 0) {
       return Scaffold(
         key: _scaffoldKey,
@@ -158,7 +175,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       collapseMode: CollapseMode.parallax,
                       background: LocationHeader(location: _location),
                     ),
-                    title: _location != null ? SliverAppTitle(child: Text(_location.name)) : Container(),
+                    title: _location != null ? SliverAppTitle(child: Text(_location.name??'unnamed')) : Container(),
                   ),
                   SliverToBoxAdapter(
                     child: SafeArea(
@@ -170,7 +187,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Padding(padding: EdgeInsets.symmetric(horizontal: 10),child: StrutText(
-                              widget.locationId.name,
+                              widget.locationId.name??'unnamed',
                               maxLines: 2,
                               style: Theme.of(context).textTheme.headline5.w800.black,
                               overflow: TextOverflow.ellipsis,
@@ -178,7 +195,7 @@ class _LocationScreenState extends State<LocationScreen> {
                             Padding(
                               padding: const EdgeInsets.only(left:10,right:10,top: kPaddingS),
                               child: StrutText(
-                                widget.locationId.address,
+                                widget.locationId.address??'undefined',
                                 maxLines: 2,
                                 style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
                               ),
@@ -202,7 +219,7 @@ class _LocationScreenState extends State<LocationScreen> {
                             ),
 
                             if(selected==1)
-                             SingleChildScrollView(child:  ProductsList(),)
+                             SingleChildScrollView(child:  ProductsList(widget.locationId.id),)
                             else
                               Column(children: [
                                 LocationInfo(location: _location),
@@ -269,7 +286,20 @@ class _LocationScreenState extends State<LocationScreen> {
             ),
             AppButton(
               text: L10n.of(context).locationBtnBook,
-              onPressed: () => Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': _location.id,'staff': staffModel,'location':widget.locationId,'services':services}),
+              onPressed: () {
+    if (!getIt.get<AppGlobals>().isUser){
+
+
+        (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
+            .onTap(3);
+        Navigator.of(context, rootNavigator: true).pop();
+
+   // (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar).onTap(2);
+
+    return;}
+
+
+                Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': _location.id,'staff': staffModel,'location':widget.locationId,'services':services});},
             ),
           ],
         ),

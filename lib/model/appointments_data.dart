@@ -137,7 +137,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int;
     orderType = json['order_type']as String;
-    bookingDateTime = json['booking_date_time']as String;
+    bookingDateTime = json['delivery_date_time']as String;
     code = json['code']as String;
     userId = json['user_id']as int;
     paymentStatus = json['payment_status']as String;
