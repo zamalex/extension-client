@@ -73,7 +73,7 @@ class BookingSessionModel {
   final double totalPrice;
   final int totalDuration;
 
-  final String apiError;
+   String apiError;
   final int appointmentId;
 
   final PaymentMethod paymentMethod;

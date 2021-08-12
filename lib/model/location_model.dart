@@ -179,6 +179,7 @@ class Data {
   String address;
   String phone;
   double rating;
+  bool offer;
 
   Data({this.id, this.name, this.logo});
 
@@ -191,6 +192,7 @@ class Data {
     address = json['address'] as  String??'undefined';
     phone = json['phone'] as  String??'undefined';
     rating = double.parse(json['rating'].toString())??0;
+    offer = json['has_offer'] as bool??false;
   }
 
 

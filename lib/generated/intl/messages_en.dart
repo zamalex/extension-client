@@ -132,7 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "bookingMinutes" : MessageLookupByLibrary.simpleMessage("min"),
     "bookingNoteslabel" : MessageLookupByLibrary.simpleMessage("Special requests about your booking"),
     "bookingPayInStore" : MessageLookupByLibrary.simpleMessage("Pay in store"),
-    "bookingPayWithCard" : MessageLookupByLibrary.simpleMessage("Pay with card"),
+    "bookingPayWithCard" : MessageLookupByLibrary.simpleMessage("Pay with points"),
     "bookingSigninTitle" : MessageLookupByLibrary.simpleMessage("Login to continue"),
     "bookingStaffNoPreferenceDescription" : MessageLookupByLibrary.simpleMessage("No preference"),
     "bookingStaffNoPreferenceName" : MessageLookupByLibrary.simpleMessage("No preference"),

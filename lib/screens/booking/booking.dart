@@ -109,7 +109,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
       }
     } else if (_currentStep == 4) {
 
-      BlocProvider.of<BookingBloc>(context).add(SubmittedBookingEvent());
+      BlocProvider.of<BookingBloc>(context).add(SubmittedBookingEvent(context: context));
     }
 
     if (_currentStep < totalSteps) {
@@ -158,6 +158,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
         if (session.appointmentId > 0) {
           return BookingSuccessDialog();
         }
+
 
         return BlocListener<BookingBloc, BookingState>(
           listener: (BuildContext context, BookingState listener) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
 import 'package:salon/blocs/booking/booking_bloc.dart';
 import 'package:salon/configs/app_globals.dart';
@@ -10,6 +11,7 @@ import 'package:salon/data/models/service_group_model.dart';
 import 'package:salon/data/models/service_model.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/cart_provider.dart';
 import 'package:salon/widgets/arrow_right_icon.dart';
 import 'package:salon/widgets/list_item.dart';
 import 'package:salon/widgets/list_title.dart';
@@ -25,6 +27,18 @@ class BookingStep4 extends StatefulWidget {
 }
 
 class _BookingStep4State extends State<BookingStep4> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Future.delayed(Duration.zero).then((value){
+      Provider.of<CartProvider>(context,listen: false).checkBalance();
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
@@ -147,16 +161,7 @@ class _BookingStep4State extends State<BookingStep4> {
                               onPressed: () => showNotesEditor(session.notes),
                             ),
                             ListTitle(title: L10n.of(context).bookingSubtitleCheckout),
-                            ListItem(
-                              title: L10n.of(context).bookingPayWithCard,
-                              showBorder: false,
-                              leading: Radio<PaymentMethod>(
-                                value: PaymentMethod.cc,
-                                groupValue: session.paymentMethod,
-                                onChanged: (PaymentMethod selected) => selectPaymentmethodEvent(selected),
-                              ),
-                              onPressed: () => selectPaymentmethodEvent(PaymentMethod.cc),
-                            ),
+
                             ListItem(
                               title: L10n.of(context).bookingPayInStore,
                               showBorder: false,
@@ -167,6 +172,17 @@ class _BookingStep4State extends State<BookingStep4> {
                               ),
                               onPressed: () => selectPaymentmethodEvent(PaymentMethod.inStore),
                             ),
+                            if (Provider.of<CartProvider>(context).balance>0) ListItem(
+                                title: L10n.of(context).bookingPayWithCard,
+                                showBorder: false,
+                                leading: Radio<PaymentMethod>(
+                                  value: PaymentMethod.cc,
+                                  groupValue: session.paymentMethod,
+                                  onChanged: (PaymentMethod selected) => selectPaymentmethodEvent(selected),
+                                ),
+                                onPressed: () => selectPaymentmethodEvent(PaymentMethod.cc),
+                              )
+
                            /* ListTitle(title: L10n.of(context).bookingSubtitleCancelationPolicy),
                             Padding(
                               padding: const EdgeInsets.only(bottom: kPaddingM),

@@ -1,3 +1,7 @@
+
+import 'package:flutter/cupertino.dart';
+import 'package:salon/utils/ui.dart';
+
 import 'constants.dart';
 import 'dart:convert';
 
@@ -6,7 +10,7 @@ import 'package:salon/model/constants.dart';
 
 class ConfirmOrder {
 
-  Future confirmBooking(Map<String,dynamic> body) async {
+  Future<Map> confirmBooking(Map<String,dynamic> body,BuildContext context) async {
 
     Map<String, String> headers = {
       'Authorization': 'Bearer ${Globals.TOKEN}',
@@ -24,6 +28,24 @@ class ConfirmOrder {
       print('body  is ${jsonEncode(body)}');
       print('respoonse is ${response.body}');
 
+      final responseJson = json.decode(response.body);
+
+      if(responseJson['result']as bool==false){
+
+
+
+            UI.showErrorDialog(context,message:responseJson['message'].toString());
+
+        return {
+          'result':false,
+          'message':responseJson['message']
+        };
+      }else{
+        return {
+          'result':true,
+          'message':responseJson['message']
+        };
+      }
       /*if(response.statusCode>=400){
 
       }else{
@@ -41,10 +63,15 @@ class ConfirmOrder {
 
 */
       // print(responseJson);
-      return [];
+
     } catch (error) {
       print(error);
-      return [];
+      UI.showErrorDialog(context,message:error.toString());
+
+      return {
+        'result':false,
+        'message':error.toString()
+      };
     }
   }
 

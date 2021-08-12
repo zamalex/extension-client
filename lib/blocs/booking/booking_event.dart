@@ -3,6 +3,8 @@ part of 'booking_bloc.dart';
 abstract class BookingEvent {
   @override
   String toString() => '$runtimeType';
+
+  BuildContext context;
 }
 
 class LocationLoadedBookingEvent extends BookingEvent {
@@ -62,5 +64,8 @@ class NotesUpdatedBookingEvent extends BookingEvent {
   final String notes;
 }
 
-class SubmittedBookingEvent extends BookingEvent {}
+class SubmittedBookingEvent extends BookingEvent {
+  BuildContext context;
+  SubmittedBookingEvent({this.context});
+}
 class GetBookingTimes extends BookingEvent {}

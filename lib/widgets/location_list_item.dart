@@ -80,7 +80,9 @@ class LocationListItem extends StatelessWidget {
                           icon: Icon(isFavorited ? Icons.favorite : Icons.favorite_border),
                           color: kPrimaryColor,
                           onPressed: onFavoriteButtonPressed ?? () {},
-                        ),
+                        )
+                      else
+                       location.offer? Container(margin:EdgeInsets.all(5),color:kPrimaryColor,padding: EdgeInsets.symmetric(vertical: 5,horizontal: 15),child: Text('Offer',style: TextStyle(color: kWhite),),):Container(),
                     ],
                   ),
                   Padding(
@@ -156,18 +158,26 @@ class LocationListItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      height: 120,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: image as ImageProvider,
-                          fit: BoxFit.cover,
+                    Stack(
+                      alignment: Alignment.topRight,
+                      children: [
+                        Container(
+                          height: 120,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: image as ImageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(kBoxDecorationRadius),
+                              topRight: Radius.circular(kBoxDecorationRadius),
+                            ),
+                          ),
                         ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(kBoxDecorationRadius),
-                          topRight: Radius.circular(kBoxDecorationRadius),
-                        ),
-                      ),
+                       location.offer? Container(margin:EdgeInsets.all(5),color:kPrimaryColor,padding: EdgeInsets.symmetric(vertical: 5,horizontal: 15),child: Text('Offer',style: TextStyle(color: kWhite),),):Container(),
+
+                      ],
+
                     ),
                     Padding(
                       padding: const EdgeInsetsDirectional.only(top: kPaddingS, start: kPaddingS, end: kPaddingS),

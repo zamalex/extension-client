@@ -9,6 +9,10 @@ import 'package:salon/screens/checkout/expand_copon.dart';
 import 'package:salon/screens/checkout/expand_date.dart';
 import 'package:salon/screens/checkout/expand_products.dart';
 import 'package:salon/utils/ui.dart';
+import 'package:salon/widgets/list_item.dart';
+import 'package:salon/generated/l10n.dart';
+import 'package:salon/widgets/list_title.dart';
+
 
 class Checkout extends StatefulWidget {
 
@@ -40,6 +44,7 @@ class _CheckoutState extends State<Checkout> {
     Provider.of<CartProvider>(context,listen: false).checkCopon(add,context);
   }
 
+  int paymentMethod = 0;
   @override
   void initState() {
     // TODO: implement initState
@@ -47,8 +52,10 @@ class _CheckoutState extends State<Checkout> {
 
     Future.delayed(Duration.zero).then((value){
       if(Provider.of<CartProvider>(context,listen: false).allCarts.length>0)Provider.of<CartProvider>(context,listen: false).getOrdersummary();
-
+      Provider.of<CartProvider>(context,listen: false).checkBalance();
     });
+
+
   }
 
   @override
@@ -62,6 +69,49 @@ class _CheckoutState extends State<Checkout> {
             ExpandAddress(address,setAddress),
             ExpandDate(setTime,selectedTime),
             ExpandCopon(coupon,addCopon),
+
+            ListTitle(title: L10n.of(context).bookingSubtitleCheckout),
+
+            ListItem(
+              title: L10n.of(context).bookingPayInStore,
+              showBorder: false,
+              leading: Radio<int>(
+                value: 0,
+                groupValue: paymentMethod,
+                onChanged: (int selected){
+                  setState(() {
+                    paymentMethod = 0;
+                    print('payment method ${paymentMethod}');
+                  });
+                },
+              ),
+              onPressed: (){
+                setState(() {
+                  paymentMethod = 0;
+                });
+              },
+            ),
+
+              if(Provider.of<CartProvider>(context).balance>0) ListItem(
+                title: L10n.of(context).bookingPayWithCard,
+                showBorder: false,
+                leading: Radio<int>(
+                  value: 1,
+                  groupValue: paymentMethod,
+                  onChanged: (int selected) {
+                    setState(() {
+                      paymentMethod = 1;
+                      print('payment method ${paymentMethod}');
+
+                    });
+                  },
+                ),
+                onPressed: (){
+                  setState(() {
+                    paymentMethod = 1;
+                  });
+                },
+              ),
 
             Consumer<CartProvider>(builder: (c,provider,child){
               return provider.orderSummary==null?Container(): Padding(padding: EdgeInsets.symmetric(horizontal: 10,),child: Column(crossAxisAlignment:CrossAxisAlignment.start,children: [
@@ -80,6 +130,7 @@ class _CheckoutState extends State<Checkout> {
                   Text(provider.orderSummary.couponCode,style: TextStyle(color: Colors.black),),
 
                 ],),
+
 
                 SizedBox(height: 15,),
                 Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
@@ -128,12 +179,13 @@ class _CheckoutState extends State<Checkout> {
         UI.showErrorDialog(context, message: 'select delivery time');
         return;
       }
-
+      String payment = paymentMethod==0?'cash_on_delivery':'cash_on_delivery';
+      bool points = paymentMethod==0?false:true;
       String date = '${selectedTime.year}-${selectedTime.month}-${selectedTime.day}';
       String time = '${selectedTime.hour}:${selectedTime.minute}:${selectedTime.second}';
 
       p.startLoading();
-      MyCarts().createOrder(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, 'stripe',date,time).then((value){
+      MyCarts().createOrder(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, payment,date,time,address,points,coupon).then((value){
         p.done();
         UI.showMessage(context, message: 'order placed successfully',buttonText: 'ok',onPressed:(){
           Navigator.of(context).pop();

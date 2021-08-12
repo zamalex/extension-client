@@ -12,7 +12,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Step to Salon"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:roundIcon="@mipmap/ic_launcher">
         
         <!-- TODO: Add your Google Maps API key here -->

@@ -84,12 +84,25 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         _locations = _locations.where((LocationModel location) => location.name.toLowerCase().contains(session.q.toLowerCase())).toList();
       }*/
 
-     await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q).then((value){
-        _locations =value.map((e){
-          return LocationModel(e.id, e.name, e.rating??0, 100, e.address??'', '', '545545545', 'email', 'website', 'description', e.logo, 'genders', [],GeoPoint(latitude: double.parse(e.latitude), longitude:  double.parse(e.longitude)), [], [], [], [], [], 'cancelationPolicy');
-        }).toList();
+      bool offer = session.currentGenderFilter.label=='All Salons'?false:true;
+     
+      if(offer){
+        await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q).then((value){
+          _locations =value.where((element) => element.offer).map((e){
+            return LocationModel(e.offer,e.id, e.name, e.rating??0, 100, e.address??'', '', '545545545', 'email', 'website', 'description', e.logo, 'genders', [],GeoPoint(latitude: double.parse(e.latitude), longitude:  double.parse(e.longitude)), [], [], [], [], [], 'cancelationPolicy');
+          }).toList();
 
-      });
+        });
+      }else{
+        await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q).then((value){
+          _locations =value.map((e){
+            return LocationModel(e.offer,e.id, e.name, e.rating??0, 100, e.address??'', '', '545545545', 'email', 'website', 'description', e.logo, 'genders', [],GeoPoint(latitude: double.parse(e.latitude), longitude:  double.parse(e.longitude)), [], [], [], [], [], 'cancelationPolicy');
+          }).toList();
+
+        });
+      }
+      
+    
 
       yield RefreshSuccessSearchState(session.rebuild(
         locations: _locations,

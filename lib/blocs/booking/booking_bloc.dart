@@ -44,7 +44,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
     } else if (event is NotesUpdatedBookingEvent) {
       yield* _mapUpdateNotesdBookingEventToState(event);
     } else if (event is SubmittedBookingEvent) {
-      yield* _mapSubmitBookingEventToState();
+      yield* _mapSubmitBookingEventToState(event.context);
     }
   }
 
@@ -175,7 +175,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
     }
   }
 
-  Stream<BookingState> _mapSubmitBookingEventToState() async* {
+  Stream<BookingState> _mapSubmitBookingEventToState(BuildContext context) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
 
@@ -186,21 +186,40 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       final DateTime now = DateTime.fromMillisecondsSinceEpoch(session.selectedTimestamp);
       print('date  ${now.year}-${now.month}-${now.day}');
       print('time is ${now.hour}:${now.minute}');
-
-      var map = {
+      bool points = session.paymentMethod.index==0?true:false;
+        var map = {
         'booked_shift_id':1.toString(),
         'services_ids':session.selectedServiceIds,
-        'staff_id':session.selectedStaff.id.toString(),
+        if(session.selectedStaff.id!=0)'staff_id':session.selectedStaff.id.toString(),
         'date':'${now.year}-${now.month}-${now.day}',
-        'time':'${now.hour}:${now.minute}'
-      };
-      // Wait for some random time. Simulate net activity ;)
-      await ConfirmOrder().confirmBooking(map);
+        'time':'${now.hour}:${now.minute}',
+        'payment_type':'cash_on_delivery',
+        'pay_with_points':points
 
-      yield SessionRefreshSuccessBookingState(session.rebuild(
-        isSubmitting: false,
-        appointmentId: 1,
-      ));
+      };
+
+        print(map.toString());
+      // Wait for some random time. Simulate net activity ;)
+      var result ={};
+      await ConfirmOrder().confirmBooking(map,context).then((value){
+         result  = value;
+      });
+
+
+      if(result['result']as bool){
+        yield SessionRefreshSuccessBookingState(session.rebuild(
+          isSubmitting: false,
+          appointmentId: 1,
+
+        ),);
+      }else{
+        yield SessionRefreshSuccessBookingState(session.rebuild(
+          isSubmitting: false,
+          apiError:result['message'].toString(),
+          appointmentId: -1,
+        ),message:result['message'].toString());
+      }
+
     }
   }
 }

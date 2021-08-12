@@ -19,7 +19,7 @@ class _CarosilSliderState extends State<CarosilSlider> {
   int _current = 0;
 
   List<Widget> getChild() {
-    return widget.banners.map((e) => WavyHeaderImage(shrinkOffsetPercentage: widget.shrinkOffsetPercentage)).toList();
+    return widget.banners.map((e) => WavyHeaderImage(imageUrl: e.photo,shrinkOffsetPercentage: widget.shrinkOffsetPercentage)).toList();
   }
 
   @override

@@ -189,7 +189,39 @@ class MyCarts {
     }
   }
 
-  Future<bool> createOrder(int owner,String payment,String date,String time) async {
+
+  Future<double> checkBalance() async {
+    Map<String,dynamic> body ={
+      'user_id':getIt.get<AppGlobals>().ID,
+    } ;
+    try {
+      Map<String, String> headers = {
+        'Authorization': 'Bearer ${Globals.TOKEN}',
+        'Content-Type':'application/json'
+      };
+      print('${Globals.TOKEN}');
+      print('body ${body.toString()}');
+
+      var response = await http.get(
+          Uri.parse('${Globals.BASE}shops/staffs/1'),
+          headers: headers,
+
+      );
+
+
+      final responseJson = json.decode(response.body);
+
+      //if(responseJson['result']as bool)
+      return 10;
+
+
+    } catch (error) {
+      print(error);
+      return 0;
+    }
+  }
+
+  Future<bool> createOrder(int owner,String payment,String date,String time,String address,bool points,String copon) async {
     Map<String,dynamic> body ={
       'owner_id':owner,
       //'variant':'',
@@ -197,6 +229,9 @@ class MyCarts {
       'payment_type':payment,
       'date':date,
       'time':time,
+      'address_text':address,
+      'pay_with_points':points,
+      'coupon_text':copon,
 
     } ;
     try {

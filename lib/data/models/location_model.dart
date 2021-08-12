@@ -10,7 +10,8 @@ enum LocationRatingSpecification { Highest, Lowest }
 
 class LocationModel {
   LocationModel(
-    this.id,
+      this.offer,
+      this.id,
     this.name,
     this.rate,
     this.ratings,
@@ -48,6 +49,7 @@ class LocationModel {
     final List<dynamic> _staff = json['staff'] as List<dynamic> ?? <dynamic>[];
 
     return LocationModel(
+      false,
       json['id'] as int ?? 0,
       json['name'] as String ?? '',
       json['rate'] as double ?? 0.0,
@@ -90,6 +92,7 @@ class LocationModel {
   }
 
   final int id;
+  bool offer;
   String name;
    double rate;
    int ratings;

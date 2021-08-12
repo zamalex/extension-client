@@ -11,8 +11,10 @@ import 'package:salon/main.dart';
 import 'package:salon/model/banners_model.dart'as bann;
 import 'package:salon/model/category.dart';
 import 'package:salon/model/location_model.dart';
+import 'package:salon/model/products_data.dart';
 import 'package:salon/screens/home/widgets/category_list_item.dart';
 import 'package:salon/screens/home/widgets/home_header.dart';
+import 'package:salon/screens/home/widgets/service_list_item.dart';
 import 'package:salon/screens/search/search.dart';
 import 'package:salon/screens/search/widgets/search_tabs.dart';
 import 'package:salon/utils/bottom_bar_items.dart';
@@ -33,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   List<LocationModel> _recentlyViewed;
   List<CategoryModel> categories=[];
   List<bann.Banner> banners=[];
+  List<Product> services=[];
   List<LocationModel> _topLocations;
 
   final LocationRepository locationRepository = const LocationRepository();
@@ -57,6 +60,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       banners = value ?? [];
     });});
 
+
+    ProductModel().getTopServices(0).then((value){setState(() {
+      services = value ?? [];
+    });});
+
     CategoryData().getCategories().then((value){
       setState(() {
         categories=value.map((e){
@@ -70,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     //_recentlyViewed = await locationRepository.getRecentlyViewed();
     SalonModel().getSalons().then((value){
       _recentlyViewed=value.map((e){
-        return LocationModel(e.id, e.name, e.rating, 100, e.address, 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.png', 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
+        return LocationModel(e.offer,e.id, e.name, e.rating, 100, e.address, 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.png', 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
       }).toList();
       setState(() {
 
@@ -154,6 +162,43 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
+  Widget _showTopServices() {
+    return Container(
+      height: 220,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          BoldTitle(title: L10n.of(context).locationTitleTopServices),
+          Container(
+            height: 130,
+            child: _isDataLoaded
+                ? ListView(
+              padding: const EdgeInsetsDirectional.only(start: kPaddingM),
+              scrollDirection: Axis.horizontal,
+              children: services.map((Product category) {
+                return Container(
+                  width: 160,
+                  margin: const EdgeInsets.only(bottom: 1), // for card shadow
+                  padding: const EdgeInsetsDirectional.only(end: kPaddingS),
+                  child: ServiceListItem(
+                    category: category,
+                  ),
+                );
+              }).toList(),
+            )
+                : ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsetsDirectional.only(start: kPaddingM),
+              itemBuilder: (BuildContext context, int index) => const ShimmerBox(width: 160, height: 130),
+              itemCount: List<int>.generate(3, (int index) => index).length,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _showTopRatedSalons() {
     return LocationsCarousel(
       locations: _recentlyViewed,
@@ -180,6 +225,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 <Widget>[
                   _showCategories(),
                   _showRecentlyViewed(),
+                 _showTopServices(),
                  // _showTopRatedSalons(),
                   const Padding(padding: EdgeInsets.only(bottom: kPaddingL)),
                 ],

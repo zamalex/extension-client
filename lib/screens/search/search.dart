@@ -243,8 +243,9 @@ class SearchScreenState extends State<SearchScreen> {
                         ),
                         SliverList(
                           delegate: SliverChildListDelegate(<Widget>[
-                            if (session.locations.isNotNullOrEmpty)
+                           // if (session.locations.isNotNullOrEmpty)
                               SearchListToolbar(
+                                session: session,
                                 // searchSortTypes: searchSortTypes,
                                 searchGenderTypes: searchGenderFilter,
                                 currentSort: session.currentSort,
@@ -253,11 +254,11 @@ class SearchScreenState extends State<SearchScreen> {
                                 onSortChange: (ToolbarOptionModel newSort) => _searchBloc.add(SortOrderChangedSearchEvent(newSort)),
                                 onGenderFilterChange: (ToolbarOptionModel newGenderFilter) => _searchBloc.add(GenderFilterChangedSearchEvent(newGenderFilter)),
                               ),
-                            if (getIt.get<AppGlobals>().currentPosition == null && session.selectedCity.id.isEmpty)
+                           /* if (getIt.get<AppGlobals>().currentPosition == null && session.selectedCity.id.isEmpty)
                               Jumbotron(
                                 title: L10n.of(context).searchTitleLocationServiceDisabled,
                                 icon: Icons.gps_off,
-                              ),
+                              ),*/
                             SearchResultTitle(
                               locations: session.locations,
                               currentListType: session.currentListType,

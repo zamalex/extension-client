@@ -15,6 +15,8 @@ class CartProvider extends ChangeNotifier {
   bool loading = false;
   bool isLoading = false;
 
+  double balance=0;
+
   void done(){
     loading = false;
     notifyListeners();
@@ -65,6 +67,17 @@ class CartProvider extends ChangeNotifier {
       UI.showErrorDialog(context,message: value.toString());
       getOrdersummary();
     });
+  }
+
+
+  checkBalance() async {
+   balance = 0;
+   notifyListeners();
+    await MyCarts().checkBalance().then((double value){
+        balance = value;
+    });
+
+    notifyListeners();
   }
 
   void addItem(CartModel item,BuildContext context) async{

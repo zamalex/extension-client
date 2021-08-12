@@ -8,8 +8,8 @@ abstract class BookingState {
 class InitialBookingState extends BookingState {}
 
 class SessionRefreshSuccessBookingState extends BookingState {
-  SessionRefreshSuccessBookingState(this.session);
-
+  SessionRefreshSuccessBookingState(this.session,{this.message});
+  String message='';
   final BookingSessionModel session;
 }
 

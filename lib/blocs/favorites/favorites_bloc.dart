@@ -24,7 +24,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     List<LocationModel> favorites = [];//await const FavoritesRepository().getFavorites();
     await SalonModel().getFavSalons().then((value) {
       favorites = value.map((e){
-        return LocationModel(e.id, e.name, e.rating, 50, e.address, 'Utah', 'phone', 'email', 'website', 'description', e.logo, 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
+        return LocationModel(e.offer,e.id, e.name, e.rating, 50, e.address, 'Utah', 'phone', 'email', 'website', 'description', e.logo, 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
       }).toList();
 
     });

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
+import 'package:salon/data/models/search_session_model.dart';
 import 'package:salon/data/models/toolbar_option_model.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
@@ -16,6 +17,7 @@ class SearchListToolbar extends StatefulWidget {
     @required this.currentGenderFilter,
     @required this.onSortChange,
     @required this.onGenderFilterChange,
+    this.session,
     this.onFilterTap,
   }) : super(key: key);
 
@@ -26,7 +28,7 @@ class SearchListToolbar extends StatefulWidget {
   final ToolbarOptionModelCallback onSortChange;
   final ToolbarOptionModelCallback onGenderFilterChange;
   final VoidCallback onFilterTap;
-
+final SearchSessionModel session;
   @override
   _SearchListToolbarState createState() => _SearchListToolbarState();
 }
@@ -40,7 +42,7 @@ class _SearchListToolbarState extends State<SearchListToolbar> {
       child: Row(
         children: <Widget>[
           FilterButton(
-            label: 'All',
+            label: widget.session.currentGenderFilter.label,
             modalTitle: L10n.of(context).searchTitleFilter,
             modalItems: widget.searchGenderTypes,
             selectedItem: ModalBottomSheetItem<ToolbarOptionModel>(

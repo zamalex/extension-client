@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:salon/configs/constants.dart';
 
 class WavyHeaderImage extends StatelessWidget {
-  const WavyHeaderImage({Key key, this.shrinkOffsetPercentage}) : super(key: key);
+  const WavyHeaderImage({this.imageUrl,Key key, this.shrinkOffsetPercentage}) : super(key: key);
 
   final double shrinkOffsetPercentage;
-
+  final String imageUrl;
   @override
   Widget build(BuildContext context) {
+    var image = /*(imageUrl!=null&&imageUrl.isNotEmpty)?NetworkImage(imageUrl,):*/AssetImage(AssetsImages.homeWavyHeader);
     return ClipPath(
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: const AssetImage(AssetsImages.homeWavyHeader),
+            image:  image as ImageProvider,
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(Colors.grey[700], BlendMode.overlay),
           ),

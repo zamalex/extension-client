@@ -79,6 +79,36 @@ class ProductModel {
   }
 
 
+  Future<List<Product>> getTopServices(int id) async {
+    try {
+      var response = await http.get(
+        Uri.parse('${Globals.BASE}products?type=service&page=1'),
+
+      );
+      print('response  is '+response.body);
+
+      if(response.statusCode>=400){
+        return [];
+
+      }else{
+        final responseJson = json.decode(response.body);
+        if(responseJson['success'] as bool==false){
+          return [];
+        }else{
+
+          return ProductModel.fromJson(responseJson as Map<String,dynamic>).products;
+        }
+      }
+
+
+
+    } catch (error) {
+      print(error);
+      return [];
+    }
+  }
+
+
 
 
 

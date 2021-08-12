@@ -232,7 +232,7 @@
     "bookingSuccessSubtitle": "You don't need to do anything else. We will send you a reminder before the appointment.",
     "bookingCallConfirmation": "Call number {number}?",
     "bookingAddNotes": "Add booking notes",
-    "bookingPayWithCard": "Pay with card",
+    "bookingPayWithCard": "Pay with points",
     "bookingPayInStore": "Pay in store",
     "bookingNoteslabel": "Special requests about your booking",
     "bookingStaffNoPreferenceName": "No preference",
