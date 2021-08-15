@@ -191,28 +191,23 @@ class MyCarts {
 
 
   Future<double> checkBalance() async {
-    Map<String,dynamic> body ={
-      'user_id':getIt.get<AppGlobals>().ID,
-    } ;
+
     try {
       Map<String, String> headers = {
         'Authorization': 'Bearer ${Globals.TOKEN}',
         'Content-Type':'application/json'
       };
-      print('${Globals.TOKEN}');
-      print('body ${body.toString()}');
 
       var response = await http.get(
-          Uri.parse('${Globals.BASE}shops/staffs/1'),
+          Uri.parse('${Globals.BASE}wallet/balance/${getIt.get<AppGlobals>().ID}'),
           headers: headers,
-
       );
 
 
       final responseJson = json.decode(response.body);
 
       //if(responseJson['result']as bool)
-      return 10;
+      return double.parse(responseJson['balance'].toString()??'0');
 
 
     } catch (error) {

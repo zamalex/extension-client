@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/screens/checkout/change_address.dart';
+import 'package:salon/generated/l10n.dart';
+
+
 class ExpandAddress extends StatefulWidget {
 
   ExpandAddress(this.address,this.changeAdress);
@@ -23,7 +26,7 @@ class _ExpandAddressState extends State<ExpandAddress> {
           children: [
             ListTile(
               leading: Icon(Icons.location_pin,color: kPrimaryColor,),
-              title: Text('Address',style: TextStyle(color: kPrimaryColor)),
+              title: Text(L10n.of(context).Addresss,style: TextStyle(color: kPrimaryColor)),
               trailing: Container(
                 child:   IconButton(
                   onPressed: () {
@@ -54,7 +57,7 @@ class _ExpandAddressState extends State<ExpandAddress> {
                // height: 150,
                 child: Padding(padding: EdgeInsets.only(right: 20,left: 20,bottom: 10),child: Column(children: [
                   Row(mainAxisAlignment:MainAxisAlignment.start,children: [Text(widget.address,style: TextStyle(color: kPrimaryColor),),],)
-                  ,Row(mainAxisAlignment:MainAxisAlignment.end,children: [InkWell(child: Text('change address',style: TextStyle(color: Colors.black,decoration: TextDecoration.underline,),),onTap: (){
+                  ,Row(mainAxisAlignment:MainAxisAlignment.end,children: [InkWell(child: Text(L10n.of(context).changeaddress,style: TextStyle(color: Colors.black,decoration: TextDecoration.underline,),),onTap: (){
                     Navigator.of(context).push(MaterialPageRoute(builder:(_)=>ChangeAddress(notes: widget.address,))).then((value){
                           widget.changeAdress(value??'');
                     });

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/model/cart_provider.dart';
+import 'package:salon/generated/l10n.dart';
+
 class ExpandProducts extends StatefulWidget {
 
   @override
@@ -21,7 +23,7 @@ class _ExpandProductsState extends State<ExpandProducts> {
             ListTile(
               onTap: (){Navigator.pop(context);},
               leading: Icon(Icons.shopping_bag,color: kPrimaryColor,),
-              title: Text('Products',style: TextStyle(color: kPrimaryColor)),
+              title: Text(L10n.of(context).Productss,style: TextStyle(color: kPrimaryColor)),
               trailing: Container(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

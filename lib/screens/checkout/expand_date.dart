@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:salon/configs/constants.dart';
+import 'package:salon/generated/l10n.dart';
+
 class ExpandDate extends StatefulWidget {
 
   ExpandDate(this.setDate,this.dateTime);
@@ -32,7 +34,7 @@ class _ExpandDateState extends State<ExpandDate> {
                     widget.setDate(date);
                   }, currentTime: DateTime.now(), locale: LocaleType.en);},
               leading: Icon(Icons.alarm,color: kPrimaryColor,),
-              title: Text('Delivery date & time',style: TextStyle(color: kPrimaryColor)),
+              title: Text(L10n.of(context).deliverydatetime,style: TextStyle(color: kPrimaryColor)),
               trailing: Container(
                 child:   IconButton(
                   onPressed: () {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/screens/checkout/add_copon.dart';
+import 'package:salon/generated/l10n.dart';
+
 class ExpandCopon extends StatefulWidget {
 
   ExpandCopon(this.address,this.changeAdress);
@@ -28,7 +30,7 @@ class _ExpandCoponState extends State<ExpandCopon> {
                 });
               },
               leading: Icon(Icons.shopping_bag,color: kPrimaryColor,),
-              title: Text('Coupon Code',style: TextStyle(color: kPrimaryColor)),
+              title: Text(L10n.of(context).coponcode,style: TextStyle(color: kPrimaryColor)),
               trailing: Container(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

@@ -5,6 +5,7 @@ import 'package:salon/utils/form_utils.dart';
 import 'package:salon/widgets/form_label.dart';
 import 'package:salon/widgets/theme_button.dart';
 import 'package:salon/widgets/theme_text_input.dart';
+import 'package:salon/generated/l10n.dart';
 
 class AddCopon extends StatefulWidget {
   const AddCopon({
@@ -39,7 +40,7 @@ class _AddCoponState extends State<AddCopon> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Add Coupon'),
+        title:  Text(L10n.of(context).addcopon),
       ),
       body: SafeArea(
         child: Column(
@@ -48,7 +49,7 @@ class _AddCoponState extends State<AddCopon> {
               child: ListView(
                 padding: const EdgeInsets.only(left: kPaddingM, right: kPaddingM, top: kPaddingM),
                 children: <Widget>[
-                  const FormLabel(text: 'Add Coupon'),
+                   FormLabel(text: L10n.of(context).addcopon),
                   ThemeTextInput(
                     focusNode: focusNode,
                     textInputAction: TextInputAction.next,

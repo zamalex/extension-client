@@ -7,6 +7,7 @@ import 'package:salon/screens/cart/cart_item.dart';
 import 'package:salon/screens/checkout/checkout.dart';
 import 'package:salon/widgets/app_button.dart';
 import 'package:salon/widgets/strut_text.dart';
+import 'package:salon/generated/l10n.dart';
 
 
 class CartList extends StatefulWidget {
@@ -35,13 +36,13 @@ class _CartListState extends State<CartList> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   StrutText(
-                    'Total',
+                    L10n.of(context).totaal,
                     style: TextStyle(color: kPrimaryColor),
                   ),
                   const Padding(padding: EdgeInsets.only(top: 4)),
                   Consumer<CartProvider>(builder: (c,cart,child){
                     return StrutText(
-                      '${cart.getPrice} SAR',
+                      '${cart.getPrice} ${L10n.of(context).SAR}',
                       style: TextStyle(color: Colors.black),
 
                     );
@@ -50,7 +51,7 @@ class _CartListState extends State<CartList> {
               ),
             ),
             AppButton(
-              text: 'Checkout',
+              text: L10n.of(context).Checkoutt,
               onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (v)=>Checkout())),
             ),
           ],
@@ -72,7 +73,7 @@ class _CartListState extends State<CartList> {
 
 
     return Scaffold(
-        appBar: AppBar(title: Text('Cart'),centerTitle: true,),
+        appBar: AppBar(title: Text(L10n.of(context).Cartt),centerTitle: true,),
 
         body: Column(children: [
           Expanded(child: Container(padding: EdgeInsets.all(10),color: Colors.grey.shade200,height: MediaQuery.of(context).size.height,

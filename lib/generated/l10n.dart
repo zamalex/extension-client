@@ -2457,6 +2457,142 @@ class L10n {
     );
   }
 
+  String get totaal {
+    return Intl.message(
+      'Total',
+      name: 'totaal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get SAR {
+    return Intl.message(
+      'SAR',
+      name: 'SAR',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Checkoutt {
+    return Intl.message(
+      'Checkout',
+      name: 'Checkoutt',
+      desc: '',
+      args: [],
+    );
+  }
+
+
+  String get Cartt {
+    return Intl.message(
+      'Cart',
+      name: 'Cartt',
+      desc: '',
+      args: [],
+    );
+  }
+/////////////////////////////////////////////////////////////////////////////////
+  String get addcopon {
+    return Intl.message(
+      'Add Coupon',
+      name: 'addcopon',
+      desc: '',
+      args: [],
+    );
+  }
+  String get changeaddress {
+    return Intl.message(
+      'Change Address',
+      name: 'changeaddress',
+      desc: '',
+      args: [],
+    );
+  }
+  String get ordersummary {
+    return Intl.message(
+      'Order summary',
+      name: 'ordersummary',
+      desc: '',
+      args: [],
+    );
+  }
+  String get totalammount {
+    return Intl.message(
+      'Total amount',
+      name: 'totalammount',
+      desc: '',
+      args: [],
+    );
+  }
+  String get coponcode {
+    return Intl.message(
+      'Coupon Code',
+      name: 'coponcode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get deliveryfees {
+    return Intl.message(
+      'Delivery fees',
+      name: 'deliveryfees',
+      desc: '',
+      args: [],
+    );
+  }
+  String get enteraddress {
+    return Intl.message(
+      'enter your address',
+      name: 'enteraddress',
+      desc: '',
+      args: [],
+    );
+  }
+  String get selectdeliverytime {
+    return Intl.message(
+      'select delivery time',
+      name: 'selectdeliverytime',
+      desc: '',
+      args: [],
+    );
+  }
+  String get Addresss {
+    return Intl.message(
+      'Addresss',
+      name: 'Addresss',
+      desc: '',
+      args: [],
+    );
+  }
+  String get deliverydatetime {
+    return Intl.message(
+      'Delivery date & time',
+      name: 'deliverydatetime',
+      desc: '',
+      args: [],
+    );
+  }
+  String get Productss {
+    return Intl.message(
+      'Products',
+      name: 'Productss',
+      desc: '',
+      args: [],
+    );
+  }
+  String get confirmorder {
+    return Intl.message(
+      'Confirm Order',
+      name: 'confirmorder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /////////////////////////////////////////////////////////////////////////
   /// `Pay in store`
   String get bookingPayInStore {
     return Intl.message(
