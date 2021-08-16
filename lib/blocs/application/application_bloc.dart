@@ -97,7 +97,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
       /// Init location services.
       add(LocationServicesInitedApplicationEvent());
     } else {
-      //yield SetupSuccessApplicationState();
+      yield SetupSuccessApplicationState();
     }
   }
 
@@ -112,6 +112,8 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
   Stream<ApplicationState> _mapInitLocationServicesApplicationEventToState() async* {
     // LocationAccuracy.powerSave may cause infinite loops on Android
     // while calling getLocation().
+
+    yield SetupSuccessApplicationState();
     getIt.get<Location>().changeSettings(accuracy: LocationAccuracy.low);
 
     /// Checks if the location service is enabled.
@@ -133,7 +135,10 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
         /// getLocation() may loop forever on emulators if location is set to 'None'!
         ///
         if (true) {
-         getIt.get<AppGlobals>().currentPosition = await getIt.get<Location>().getLocation();
+        try{
+          getIt.get<AppGlobals>().currentPosition = await getIt.get<Location>().getLocation();
+
+        }catch(ee){}
         } else {
         getIt.get<AppGlobals>().currentPosition = LocationData.fromMap(<String, double>{
           'latitude': kDefaultLat,
@@ -152,7 +157,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
     }
 
     // Setup is completed. On the main screen.
-    yield SetupSuccessApplicationState();
+    //yield SetupSuccessApplicationState();
   }
 
   Stream<ApplicationState> _mapCompletedOnboardingApplicationEventToState() async* {
