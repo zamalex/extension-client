@@ -10,7 +10,7 @@ class ProfileInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, Routes.editProfile),
+      onTap: (){}/*Navigator.pushNamed(context, Routes.editProfile).then((value){})*/,
       child: Row(
         children: <Widget>[
           Container(

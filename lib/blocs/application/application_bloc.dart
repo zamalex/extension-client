@@ -113,7 +113,6 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
     // LocationAccuracy.powerSave may cause infinite loops on Android
     // while calling getLocation().
 
-    yield SetupSuccessApplicationState();
     getIt.get<Location>().changeSettings(accuracy: LocationAccuracy.low);
 
     /// Checks if the location service is enabled.
@@ -136,7 +135,13 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
         ///
         if (true) {
         try{
-          getIt.get<AppGlobals>().currentPosition = await getIt.get<Location>().getLocation();
+          getIt.get<AppGlobals>().currentPosition = await Future.any([
+          getIt.get<Location>().getLocation(),
+          Future.delayed(Duration(seconds: 5), () => null),
+          ]);
+          //if (getIt.get<AppGlobals>().currentPosition == null) {
+            //getIt.get<AppGlobals>().currentPosition = await getIt.get<Location>().getLocation();          }
+
 
         }catch(ee){}
         } else {
@@ -157,7 +162,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
     }
 
     // Setup is completed. On the main screen.
-    //yield SetupSuccessApplicationState();
+    yield SetupSuccessApplicationState();
   }
 
   Stream<ApplicationState> _mapCompletedOnboardingApplicationEventToState() async* {

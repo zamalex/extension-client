@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/model/constants.dart';
 
@@ -13,7 +15,8 @@ class ProfileData {
 
     final Map<String, String> headers = {
       'Authorization': 'Bearer ${Globals.TOKEN}',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Current-Locale':Intl.getCurrentLocale()
     };
 
     Map<String,dynamic> body = {
@@ -51,11 +54,12 @@ class ProfileData {
     }
   }
 
-  Future<bool> updateProfile(String name,String phone,String email,String address) async {
+  Future<bool> updateProfile(String name,String phone,String email,String address,String city) async {
 
     final Map<String, String> headers = {
       'Authorization': 'Bearer ${Globals.TOKEN}',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Current-Locale':Intl.getCurrentLocale()
     };
 
     Map<String,dynamic> body = {

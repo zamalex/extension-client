@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:core';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:salon/data/models/review_model.dart';
 import 'package:salon/model/constants.dart';
 
@@ -27,13 +29,14 @@ class MyReviews {
   Future<List<ReviewModel>> getSalonReviews(String id) async {
 
     Map<String, String> headers = {
-      'Authorization': 'Bearer ${Globals.TOKEN}'
+      'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Current-Locale':Intl.getCurrentLocale()
     };
 
     try {
       var response = await http.get(
         Uri.parse('${Globals.BASE}reviews/shop/$id'),
-        // headers: headers
+         headers: headers
       );
 
       print('request  is '+'${Globals.BASE}reviews/shop/$id');
@@ -47,7 +50,7 @@ class MyReviews {
       if(responseJson['success']as bool){
         return MyReviews.fromJson(responseJson as Map<String,dynamic>).data.map((e) {
           return ReviewModel(photo: 'assets/images/data/categories/barber-shop.jpg',salonAddress: 'Utah park',salonName: 'The Barber',rate: e.rating,dateString:
-          e.time,comment: e.comment,userName: e.userName,userPhoto: 'assets/images/data/users/user-1.jpg');
+          e.time,comment: e.comment,userName: e.userName,userPhoto: e.avatar??'');
         }).toList();
       }else{
         return [];
@@ -65,6 +68,7 @@ class MyReviews {
 
     Map<String, String> headers = {
     'Authorization': 'Bearer ${Globals.TOKEN}'
+      ,'Current-Locale':Intl.getCurrentLocale()
     };
 
     try {

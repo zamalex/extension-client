@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/model/constants.dart';
 
@@ -26,13 +28,15 @@ class ApointmentsData {
 
   Future<List<Data>> getHistory({int page=1}) async {
 
-
+    Map<String,String> header = {
+      'Current-Locale':Intl.getCurrentLocale()
+    };
 
 
     try {
       var response = await http.get(
         Uri.parse('${Globals.BASE}purchase-history/${getIt.get<AppGlobals>().ID}?page=$page'),
-
+        headers: header
       );
       print('${Globals.BASE}purchase-history/${getIt.get<AppGlobals>().ID}?page=$page');
       print('response  is '+response.body);
@@ -62,7 +66,8 @@ class ApointmentsData {
 
     Map<String, String> headers = {
       'Authorization': 'Bearer ${Globals.TOKEN}',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Current-Locale':Intl.getCurrentLocale()
     };
 
 

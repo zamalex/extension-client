@@ -34,6 +34,8 @@ class LocationHeader extends StatelessWidget {
       );
     }
 
+    var image = location.mainPhoto=='assets/images/onboarding/welcome.png'?AssetImage(location.mainPhoto):NetworkImage(location.mainPhoto);
+
     return Stack(
       alignment: AlignmentDirectional.bottomStart,
       children: <Widget>[
@@ -42,7 +44,7 @@ class LocationHeader extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(location.mainPhoto),
+                image: image as ImageProvider,
                 fit: BoxFit.cover,
               ),
             ),

@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:salon/model/constants.dart';
 
 class Banners {
@@ -22,9 +24,15 @@ class Banners {
 
   Future<List<Banner>> getBanners() async {
     try {
+
+      Map<String,String> header = {
+        'Current-Locale':Intl.getCurrentLocale()
+      };
+
+      print(header.toString());
       var response = await http.get(
         Uri.parse('${Globals.BASE}sliders'),
-
+        headers: header
       );
       print('response  is '+response.body);
 

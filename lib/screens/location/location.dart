@@ -123,7 +123,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
         // _location.reviews=[];
         _location.staff = value.map((e) {
-          return StaffModel(e.id, e.name, e.jobTitle, 'assets/images/data/users/user-1.jpg', e.rating, true);
+          return StaffModel(e.id, e.name, e.jobTitle, e.avatar, e.rating, true);
 
         }).toList();
       staffModel=_location.staff;
@@ -161,7 +161,7 @@ class _LocationScreenState extends State<LocationScreen> {
                             IconButton(
                               icon: Icon(_isFavorited ? Icons.favorite : Icons.favorite_border),
                               onPressed: () {
-                                FavModel().addRemoveFav('1');
+                                FavModel().addRemoveFav(widget.locationId.id.toString());
                                 setState(() => _isFavorited = !_isFavorited);
                                 _scaffoldKey.currentState.showSnackBar(SnackBar(
                                   content: Text(_isFavorited ? L10n.of(context).commonLocationFavorited : L10n.of(context).commonLocationUnfavorited),

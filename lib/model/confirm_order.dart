@@ -1,5 +1,8 @@
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:salon/utils/ui.dart';
 
 import 'constants.dart';
@@ -14,7 +17,8 @@ class ConfirmOrder {
 
     Map<String, String> headers = {
       'Authorization': 'Bearer ${Globals.TOKEN}',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Current-Locale':Intl.getCurrentLocale()
     };
     // print('${Globals.TOKEN}');
 

@@ -58,10 +58,13 @@ class LocationStaff extends StatelessWidget {
                     //  onTap: () =>
                        //   Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id, 'preselectedStaff': staff.id}),
                       child: staff.profilePhoto.isEmpty
-                          ? InitialsCircleAvatar(initials: staff.name.initials, size: InitialsCircleAvatarSize.large)
+                          ? CircleAvatar(
+                        radius: 48,
+                        backgroundImage: AssetImage('assets/images/onboarding/welcome.png'),
+                      )
                           : CircleAvatar(
                               radius: 48,
-                              backgroundImage: AssetImage(staff.profilePhoto),
+                              backgroundImage: NetworkImage(staff.profilePhoto),
                             ),
                     ),
                     Padding(

@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/model/constants.dart';
 
@@ -27,12 +29,15 @@ class SalonModel {
   Future<List<Data>> getSalons() async {
 
 
+    Map<String,String> header = {
+      'Current-Locale':Intl.getCurrentLocale()
+    };
 
 
     try {
       var response = await http.get(
         Uri.parse('${Globals.BASE}shops'),
-
+        headers: header
       );
 
       if(response.statusCode>=400){
@@ -59,6 +64,9 @@ class SalonModel {
 
 
   Future<List<Data>> getSalonData(String id) async {
+    Map<String,String> header = {
+      'Current-Locale':Intl.getCurrentLocale()
+    };
 
 
 
@@ -66,7 +74,7 @@ class SalonModel {
     try {
       var response = await http.get(
         Uri.parse('${Globals.BASE}shops/details/$id'),
-
+        headers: header
       );
 
       if(response.statusCode>=400){
@@ -93,17 +101,23 @@ class SalonModel {
 
   Future<List<Data>> filterSalons(String lat,String long,String cat,String city,String name) async {
 
+    Map<String,String> header = {
+      'Current-Locale':Intl.getCurrentLocale()
+    };
 
     if(getIt.get<AppGlobals>().currentPosition!=null){
       lat = getIt.get<AppGlobals>().currentPosition.latitude.toString();
       long = getIt.get<AppGlobals>().currentPosition.longitude.toString();
-
+      header.putIfAbsent('latitude', () => lat);
+      header.putIfAbsent('longitude', () => long);
     }
+
+
 
     try {
       var response = await http.get(
         Uri.parse('${Globals.BASE}shops?latitude=$lat&longitude=$long&name=$name&category_id=$cat&city_id=$city'),
-
+          headers: header
       );
 
       print(        '${Globals.BASE}shops?latitude=$lat&longitude=$long&name=$name&category_id=$cat&city_id=$city');
@@ -131,7 +145,8 @@ class SalonModel {
   Future<List<Data>> getFavSalons() async {
 
     Map<String, String> headers = {
-      'Authorization': 'Bearer ${Globals.TOKEN}'
+      'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Current-Locale':Intl.getCurrentLocale()
     };
 
     print('${Globals.TOKEN}');
@@ -186,8 +201,8 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int;
     name = json['name'] as String??'unnamed';
-    latitude = json['latitude'] as String??'0';
-    longitude = json['longitude'] as String??'0';
+    latitude = (json['latitude'] as String).isEmpty?'0':(json['latitude'] as String);
+    longitude = (json['longitude'] as String).isEmpty?'0':(json['longitude'] as String);
     logo = ((json['logo'] as  String)==null|| (json['logo']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['logo']as String;
     address = json['address'] as  String??'undefined';
     phone = json['phone'] as  String??'undefined';

@@ -1,14 +1,17 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 class CartModel{
   int salon_id;
+  String logo;
   int id;
   String name;
   String salon;
   int quantity;
   double price;
 
-  CartModel({this.id,this.name,this.salon,this.quantity,this.price,this.salon_id});
+  CartModel({this.id,this.name,this.salon,this.quantity,this.price,this.salon_id,@required this.logo});
 
   factory CartModel.fromJson(Map<String, dynamic> jsonData) {
     return CartModel(

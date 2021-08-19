@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:salon/model/constants.dart';
 
 class PolicyModel {
@@ -22,9 +24,14 @@ class PolicyModel {
 
   Future<String> getPolicy(String type) async {
     try {
+
+      Map<String,String> header = {
+        'Current-Locale':Intl.getCurrentLocale()
+      };
+
       var response = await http.get(
         Uri.parse('${Globals.BASE}policies/$type'),
-
+        headers: header
       );
       print('response  is '+response.body);
 

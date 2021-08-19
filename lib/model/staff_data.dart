@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:intl/intl.dart';
+
 import 'constants.dart';
 import 'dart:convert';
 
@@ -25,7 +29,8 @@ class SalonStaff {
   Future<List<SingleStaff>> getSalonStaff(String id) async {
 
     Map<String, String> headers = {
-      'Authorization': 'Bearer ${Globals.TOKEN}'
+      'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Current-Locale':Intl.getCurrentLocale()
     };
 
    // print('${Globals.TOKEN}');

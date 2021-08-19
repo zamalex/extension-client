@@ -96,7 +96,7 @@ class _BookingStep4State extends State<BookingStep4> {
                                       shape: BoxShape.rectangle,
                                       borderRadius: const BorderRadius.all(Radius.circular(kFormFieldsRadius)),
                                       image: DecorationImage(
-                                        image: AssetImage(session.location.mainPhoto),
+                                        image: AssetImage('assets/images/onboarding/welcome.png'),
                                         fit: BoxFit.cover,
                                       ),
                                     ),

@@ -1,12 +1,15 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:salon/model/constants.dart';
 
 class FavModel{
   Future addRemoveFav(String id) async {
     try {
       Map<String, String> headers = {
-        'Authorization': 'Bearer ${Globals.TOKEN}'
+        'Authorization': 'Bearer ${Globals.TOKEN}',
+        'Current-Locale':Intl.getCurrentLocale()
       };
       print('${Globals.TOKEN}');
 

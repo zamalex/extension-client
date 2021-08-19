@@ -32,13 +32,13 @@ class _ProdcutItemState extends State<ProdcutItem> {
       builder: (c,b,a){
        return b.isLoading? Text('loading'):  Row(children: [GestureDetector(child: CircleAvatar(child: Text('-',style: TextStyle(color: Colors.white),),radius: 15,backgroundColor: Theme.of(context).accentColor,)
           ,onTap:(){
-            Provider.of<CartProvider>(context,listen: false).removeItem(CartModel(
+            Provider.of<CartProvider>(context,listen: false).removeItem(CartModel(logo: widget.cartModel.thumbnailImage,
                 id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
             ));
           } ,),Container(child: Text(Provider.of<CartProvider>(context).itemCount(widget.cartModel.id).toString(),style: TextStyle(color: Theme.of(context).accentColor),),margin: EdgeInsets.symmetric(horizontal: 5),)
           ,GestureDetector(child: CircleAvatar(child: Text('+',style: TextStyle(color: Colors.white),),radius: 15,backgroundColor: Theme.of(context).accentColor,)
-              ,onTap:(){Provider.of<CartProvider>(context,listen: false).addItem(CartModel(
-                  id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
+              ,onTap:(){Provider.of<CartProvider>(context,listen: false).addItem(CartModel(logo: widget.cartModel.thumbnailImage
+                  ,id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
               ),context);} )],mainAxisSize: MainAxisSize.min,);
       },
 
@@ -48,7 +48,7 @@ class _ProdcutItemState extends State<ProdcutItem> {
   @override
   Widget build(BuildContext context) {
     return Card(color: Colors.white,child: Column(children: [
-      widget.cartModel.thumbnailImage=='assets/images/onboarding/welcome.png'?Image.asset(widget.cartModel.thumbnailImage,height: 120,fit: BoxFit.cover,width: MediaQuery.of(context).size.width,):Image.asset(widget.cartModel.thumbnailImage,height: 120,fit: BoxFit.cover,width: MediaQuery.of(context).size.width,)
+      widget.cartModel.thumbnailImage=='assets/images/onboarding/welcome.png'?Image.asset(widget.cartModel.thumbnailImage,height: 120,fit: BoxFit.cover,width: MediaQuery.of(context).size.width,):Image.network(widget.cartModel.thumbnailImage,height: 120,fit: BoxFit.cover,width: MediaQuery.of(context).size.width,)
       ,Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: SingleChildScrollView(scrollDirection: Axis.horizontal,child: Text(widget.cartModel.name,maxLines: 1,style: TextStyle(color: Colors.grey)),),)
       ,Expanded(child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,6 +65,7 @@ class _ProdcutItemState extends State<ProdcutItem> {
 
             return;}
             Provider.of<CartProvider>(context,listen: false).addItem(CartModel(
+              logo: widget.cartModel.thumbnailImage,
                 id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
                  ),context);} ,):FittedBox(child: _quantityButtons(),),
         ],

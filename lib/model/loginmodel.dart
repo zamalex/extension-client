@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants.dart';
@@ -46,12 +47,16 @@ class LoginModel {
       'password': password,
     };
 
+    Map<String,String> header = {
+      'Current-Locale':Intl.getCurrentLocale()
+    };
 
 
     try {
       var response = await http.post(
         Uri.parse('${Globals.BASE}auth/login'),
         body: param,
+        headers: header
       );
 
       final responseJson = json.decode(response.body);
@@ -80,7 +85,8 @@ class LoginModel {
     };
     Map<String, String> headers = {
       'Content-Type': 'application/json',
-      'X-Requested-With':'XMLHttpRequest'
+      'X-Requested-With':'XMLHttpRequest',
+      'Current-Locale':Intl.getCurrentLocale()
     };
 
     try {
@@ -117,7 +123,8 @@ class LoginModel {
     };
     Map<String, String> headers = {
       'Content-Type': 'application/json',
-      'X-Requested-With':'XMLHttpRequest'
+      'X-Requested-With':'XMLHttpRequest',
+    'Current-Locale':Intl.getCurrentLocale()
     };
 
     try {
@@ -157,7 +164,8 @@ class LoginModel {
     };
     Map<String, String> headers = {
       'Content-Type': 'application/json',
-      'X-Requested-With':'XMLHttpRequest'
+      'X-Requested-With':'XMLHttpRequest',
+      'Current-Locale':Intl.getCurrentLocale()
     };
 
     try {

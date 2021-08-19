@@ -145,7 +145,7 @@ class CartProvider extends ChangeNotifier {
 
     await MyCarts().removeFromCart(item).then((value){
       print('size is ${value.length}');
-      if(value.length>0)
+     // if(value.length>0)
         items= [];
 
       allCarts = value;

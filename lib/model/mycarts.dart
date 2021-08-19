@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/model/cart_model.dart';
 import 'package:salon/model/constants.dart';
@@ -195,7 +197,8 @@ class MyCarts {
     try {
       Map<String, String> headers = {
         'Authorization': 'Bearer ${Globals.TOKEN}',
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        'Current-Locale':Intl.getCurrentLocale()
       };
 
       var response = await http.get(
@@ -232,7 +235,8 @@ class MyCarts {
     try {
       Map<String, String> headers = {
         'Authorization': 'Bearer ${Globals.TOKEN}',
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        'Current-Locale':Intl.getCurrentLocale()
       };
       print('${Globals.TOKEN}');
       print('body ${body.toString()}');

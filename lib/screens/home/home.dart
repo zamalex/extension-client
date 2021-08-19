@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     //_recentlyViewed = await locationRepository.getRecentlyViewed();
     SalonModel().getSalons().then((value){
       _recentlyViewed=value.map((e){
-        return LocationModel(e.offer,e.id, e.name, e.rating, 100, e.address, 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.png', 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
+        return LocationModel(e.offer,e.id, e.name, e.rating, 100, e.address, 'city', '545545545', 'email', 'website', 'description', e.logo, 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
       }).toList();
       setState(() {
 

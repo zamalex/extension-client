@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:salon/model/constants.dart';
 
 class ProductModel {
@@ -22,9 +24,14 @@ class ProductModel {
 
   Future<List<Product>> getProducts(int id) async {
     try {
+
+      Map<String,String> header = {
+        'Current-Locale':Intl.getCurrentLocale()
+      };
+
       var response = await http.get(
         Uri.parse('${Globals.BASE}products/seller/$id?type=product'),
-
+        headers: header
       );
       print('response  is '+response.body);
 
@@ -51,9 +58,13 @@ class ProductModel {
 
   Future<List<Product>> getServices(int id) async {
     try {
+      Map<String,String> header = {
+        'Current-Locale':Intl.getCurrentLocale()
+      };
+
       var response = await http.get(
         Uri.parse('${Globals.BASE}products/seller/$id?type=service'),
-
+        headers: header
       );
       print('response  is '+response.body);
 
@@ -81,9 +92,13 @@ class ProductModel {
 
   Future<List<Product>> getTopServices(int id) async {
     try {
+      Map<String,String> header = {
+        'Current-Locale':Intl.getCurrentLocale()
+      };
+
       var response = await http.get(
         Uri.parse('${Globals.BASE}products?type=service&page=1'),
-
+        headers: header
       );
       print('response  is '+response.body);
 
@@ -137,7 +152,7 @@ class Product {
     id = json['id']as int;
     service_duration = json['service_duration']as int;
     name = json['name']as String;
-    thumbnailImage = ((json['thumbnailImage'] as  String)==null|| (json['thumbnailImage']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['thumbnailImage']as String;
+    thumbnailImage = ((json['thumbnail_image'] as  String)==null|| (json['thumbnail_image']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['thumbnail_image']as String;
 
    // thumbnailImage = json['thumbnail_image']as String;
     basePrice = json['base_price']as String;

@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:intl/intl.dart';
+
 import 'constants.dart';
 import 'dart:convert';
 
@@ -25,7 +29,8 @@ class CategoryData {
   Future<List<SingleCategory>> getCategories() async {
 
     Map<String, String> headers = {
-      'Authorization': 'Bearer ${Globals.TOKEN}'
+      'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Current-Locale':Intl.getCurrentLocale()
     };
 
     // print('${Globals.TOKEN}');
@@ -71,7 +76,7 @@ class SingleCategory {
     id = json['id'] as int;
     name = json['name']as String;
    // banner = json['banner']as String;
-    banner = ((json['banner'] as  String)==null|| (json['banner']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['banner']as String;
+    banner = ((json['banner'] as  String)==null|| (json['banner']as String).isEmpty)?'':json['banner']as String;
 
     icon = json['icon']as String;
   }

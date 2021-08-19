@@ -8,7 +8,7 @@ class WavyHeaderImage extends StatelessWidget {
   final String imageUrl;
   @override
   Widget build(BuildContext context) {
-    var image = /*(imageUrl!=null&&imageUrl.isNotEmpty)?NetworkImage(imageUrl,):*/AssetImage(AssetsImages.homeWavyHeader);
+    var image = (imageUrl!=null&&imageUrl.isNotEmpty)?NetworkImage(imageUrl,):AssetImage(AssetsImages.homeWavyHeader);
     return ClipPath(
       child: Container(
         decoration: BoxDecoration(

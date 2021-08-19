@@ -119,7 +119,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       }
 
       await ProfileData().updateProfile(_textNameController.text,
-          _textPhoneController.text,_textMailController.text,_textAddressController.text);
+          _textPhoneController.text,_textMailController.text,_textAddressController.text,_textCityController.text);
 
       setState(() {
         loading = false;
@@ -132,7 +132,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         
         prefs.setString('me', jsonEncode(loginModel.toJson()));
-
+        getIt.get<AppGlobals>().user.fullName = loginModel.user.name;
+        getIt.get<AppGlobals>().user.token = loginModel.accessToken;
+        getIt.get<AppGlobals>().user.id = loginModel.user.id;
+        getIt.get<AppGlobals>().user.phone= loginModel.user.phone;
+        getIt.get<AppGlobals>().user.email= loginModel.user.email;
       }
 
       UI.showMessage(

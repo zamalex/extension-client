@@ -32,7 +32,7 @@ class ReviewListItem extends StatelessWidget {
                 InitialsCircleAvatar(initials: 'A')
               else
                 CircleAvatar(
-                  backgroundImage: AssetImage(review.userPhoto),
+                  backgroundImage: NetworkImage(review.userPhoto),
                   radius: kCircleAvatarSizeRadiusSmall,
                 ),
               Padding(

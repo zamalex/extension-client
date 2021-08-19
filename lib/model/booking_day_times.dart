@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:intl/intl.dart';
+
 import 'constants.dart';
 import 'dart:convert';
 
@@ -19,7 +23,8 @@ class BookingDayTimes {
   Future<List<Slot>> getDayTimes(String id,String date) async {
 
     Map<String, String> headers = {
-      'Authorization': 'Bearer ${Globals.TOKEN}'
+      'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Current-Locale':Intl.getCurrentLocale()
     };
     // print('${Globals.TOKEN}');
 

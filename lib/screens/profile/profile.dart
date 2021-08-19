@@ -127,7 +127,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: L10n.of(context).profileListEdit,
                             leading: const Icon(Icons.person_outline,color: kPrimaryColor),
                             trailing: const ArrowRightIcon(),
-                            onPressed: () => Navigator.pushNamed(context, Routes.editProfile),
+                            onPressed: () => Navigator.pushNamed(context, Routes.editProfile).then((value){
+                              setState(() {
+
+                              });
+                            }),
                           ),
 
                           ListItem(

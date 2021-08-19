@@ -55,8 +55,8 @@ class _AppointmentTabBarState extends State<AppointmentTabBar> {
           title: 'Salon',
           description: 'Booking appointment',
           location:'122 Utah Park',
-          startDate: DateTime.parse(widget.appointment.bookingDateTime),
-          endDate: DateTime.parse(widget.appointment.bookingDateTime),
+          startDate: DateTime.parse(widget.appointment.bookingDateTime.replaceAll('  ', ' ')),
+          endDate: DateTime.parse(widget.appointment.bookingDateTime.replaceAll('  ', ' ')),
         ));
       },
       disableTouchWhenLoading: true,
