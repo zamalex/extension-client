@@ -70,7 +70,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
   }
 
   Future<void> showNotesEditor() async {
-    final String editedNotes = await Navigator.pushNamed(context, Routes.bookingNotes, arguments: 'widget.appointment.notes');
+    final String editedNotes = await Navigator.pushNamed(context, Routes.bookingNotes, arguments: '');
     if (editedNotes != null) {
       _bloc.add(NotesUpdatedAppointmentEvent(editedNotes));
     }

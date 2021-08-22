@@ -5,6 +5,7 @@ import 'package:salon/data/repositories/location_repository.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/utils/list.dart';
 import 'package:salon/widgets/uppercase_title.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Signature for when a tap on search history query has occurred.
 typedef SearchHistoryTapCallback = void Function(SearchHistoryModel model);
@@ -32,9 +33,14 @@ class _SearchLocationsDelegateHistoryState extends State<SearchLocationsDelegate
 
   Future<void> _loadHistory() async {
     const LocationRepository locationRepository = LocationRepository();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    _searchHistory = [];//await locationRepository.getSearchHistory();
+    String q = prefs.getString('query')??'';
 
+    if(q.isNotEmpty)
+    _searchHistory = [SearchHistoryModel(query: q)];//await locationRepository.getSearchHistory();
+      else
+      _searchHistory = [];
     if (_searchHistory.isNotEmpty) {
       setState(() {});
     }
@@ -70,7 +76,9 @@ class _SearchLocationsDelegateHistoryState extends State<SearchLocationsDelegate
                     }
                   },
                   label: Text(item.query),
-                  onDeleted: () {
+                  onDeleted: () async{
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.remove('query');
                     _searchHistory.remove(item);
                     setState(() {});
                   },

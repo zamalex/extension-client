@@ -29,6 +29,7 @@ import 'package:salon/widgets/jumbotron.dart';
 import 'package:salon/widgets/loading_overlay.dart';
 import 'package:salon/widgets/location_list_item.dart';
 import 'package:salon/utils/list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key key,this.cat=0}) : super(key: key);
@@ -310,6 +311,10 @@ class SearchScreenState extends State<SearchScreen> {
       _searchBloc.add(FilteredListRequestedSearchEvent());
     } else {
       _searchBloc.add(KeywordChangedSearchEvent(queryString));
+    }
+    if(queryString!=null&&queryString.isNotEmpty){
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('query', queryString);
     }
 
     return queryString;
