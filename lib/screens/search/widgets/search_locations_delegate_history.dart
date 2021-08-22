@@ -33,7 +33,7 @@ class _SearchLocationsDelegateHistoryState extends State<SearchLocationsDelegate
   Future<void> _loadHistory() async {
     const LocationRepository locationRepository = LocationRepository();
 
-    _searchHistory = await locationRepository.getSearchHistory();
+    _searchHistory = [];//await locationRepository.getSearchHistory();
 
     if (_searchHistory.isNotEmpty) {
       setState(() {});

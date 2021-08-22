@@ -52,7 +52,8 @@ class SearchCitiesDelegate extends SearchDelegate<CityModel> {
         getIt.get<AppGlobals>().isRTL ? Icons.keyboard_arrow_right : Icons.keyboard_arrow_left,
         size: 38,
       ),
-      onPressed: () => close(context, null),
+      onPressed: (){
+        close(context, null);},
     );
   }
 
@@ -90,7 +91,9 @@ class SearchCitiesDelegate extends SearchDelegate<CityModel> {
               color: kPrimaryColor,
             ),
             title: L10n.of(context).searchLabelNearby,
-            onPressed: () => close(context, myLocation),
+            onPressed: () {
+              searchBloc.add(CitySelectedSearchEvent(null));
+              close(context, myLocation);},
           ),
         ),
       ],
