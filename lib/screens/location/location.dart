@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:salon/blocs/application/application_bloc.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
@@ -50,6 +52,7 @@ class _LocationScreenState extends State<LocationScreen> {
   /// The GlobalKey needed to access Scaffold widget.
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final mGrey = const Color.fromRGBO(118 ,123 ,128, 1);
+  var locationBlock;
 
   LocationModel _location;
   List<ServiceModel> services = [];
@@ -63,6 +66,7 @@ class _LocationScreenState extends State<LocationScreen> {
     super.initState();
 
 
+
     _loadData();
   }
 
@@ -71,7 +75,7 @@ class _LocationScreenState extends State<LocationScreen> {
   await  SalonModel().getSalonData(widget.locationId.id.toString()).then((value){
       if(value.isNotEmpty){
         _location=  LocationModel(value[0].offer,value[0].id, value[0].name, value[0].rating, 100, value[0].address, '', value[0].phone.toString(), 'email', 'website', 'description', value[0].logo, 'genders', [], GeoPoint(latitude: double.parse(value[0].latitude),longitude: double.parse(value[0].longitude)), [], [], [], [], [], 'cancelationPolicy');
-
+        widget.locationId.mainPhoto = _location.mainPhoto;
         setState(() {
 
         });
@@ -132,6 +136,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
     });
   }
+
 
   @override
   Widget build(BuildContext context) {

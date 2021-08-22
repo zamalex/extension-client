@@ -37,10 +37,11 @@ class _VerifyCodeState extends State<VerifyCode> {
       loading = true;
     });
     LoginModel().verifyRegister(widget.user_id.toString(), controller1.text+controller2.text+controller3.text+controller4.text).then((value){
-      if(widget.register&&value['result']!=null&&value['result']as bool){
+      if(widget.register&&value['status']!=null&&value['status']as bool){
         (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
             .onTap(3);
         Navigator.of(context).popUntil((route) => route.isFirst);
+       // Navigator.of(context, rootNavigator: true).pop();
       }else
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value['message'].toString())));

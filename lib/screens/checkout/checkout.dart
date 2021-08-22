@@ -60,6 +60,9 @@ class _CheckoutState extends State<Checkout> {
 
   @override
   Widget build(BuildContext context) {
+    final TextDirection currentDirection = Directionality.of(context);
+
+    bool isRTL = currentDirection == TextDirection.rtl;
 
 
     return Scaffold(appBar: AppBar(title: Text(L10n.of(context).Checkoutt),centerTitle: true,),
@@ -93,7 +96,8 @@ class _CheckoutState extends State<Checkout> {
             ),
 
               if(Provider.of<CartProvider>(context).balance>0) ListItem(
-                title: L10n.of(context).bookingPayWithCard,
+                title: isRTL?L10n.of(context).bookingPayWithCard+' لديك ${Provider.of<CartProvider>(context).balance} ريال ':L10n.of(context).bookingPayWithCard+' you have ${Provider.of<CartProvider>(context).balance} SAR',
+
                 showBorder: false,
                 leading: Radio<int>(
                   value: 1,
@@ -144,7 +148,14 @@ class _CheckoutState extends State<Checkout> {
                 SizedBox(height: 15,),
                 Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
                   Text(L10n.of(context).totaal,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-                  Text(provider.orderSummary.grandTotal,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+
+                  if(paymentMethod==1)
+                  Text(provider.balance>=double.parse(provider.orderSummary.grandTotal)?'0':provider.orderSummary.grandTotal,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
+
+
+              else
+                    Text(provider.orderSummary.grandTotal,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+
 
 
                 ],),

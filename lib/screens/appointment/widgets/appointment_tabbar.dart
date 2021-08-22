@@ -37,11 +37,15 @@ class _AppointmentTabBarState extends State<AppointmentTabBar> {
         icon: Icons.call,
         text: L10n.of(context).bookingBtnCall,
         onTap: () {
+
+          if(widget.appointment.shop.data.first.phone!=null&&widget.appointment.shop.data.first.phone.isNotEmpty)
           UI.confirmationDialogBox(
             context,
-            message: L10n.of(context).bookingCallConfirmation('5123456'),
-            onConfirmation: () => Async.launchUrl('5123456'),
+            message: L10n.of(context).bookingCallConfirmation(widget.appointment.shop.data.first.phone),
+            onConfirmation: () => Async.launchUrl(widget.appointment.shop.data.first.phone),
           );
+          else
+            UI.showErrorDialog(context,message: 'no available phone number');
         },
         disableTouchWhenLoading: true,
       ));
@@ -52,9 +56,9 @@ class _AppointmentTabBarState extends State<AppointmentTabBar> {
       text: L10n.of(context).bookingBtnCalendar,
       onTap: () {
         Add2Calendar.addEvent2Cal(Event(
-          title: 'Salon',
+          title: widget.appointment.shop.data.first.name??'',
           description: 'Booking appointment',
-          location:'122 Utah Park',
+          location: widget.appointment.shop.data.first.address??'',
           startDate: DateTime.parse(widget.appointment.bookingDateTime.replaceAll('  ', ' ')),
           endDate: DateTime.parse(widget.appointment.bookingDateTime.replaceAll('  ', ' ')),
         ));

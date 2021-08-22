@@ -65,6 +65,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     _textNameController.text = getIt.get<AppGlobals>().user.fullName;
     _textPhoneController.text = getIt.get<AppGlobals>().user.phone;
+    _textMailController.text = getIt.get<AppGlobals>().user.email??'';
     _textAddressController.text = '';
     _textZIPController.text = '';
     _textCityController.text = '';
@@ -84,7 +85,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         getIt.get<AppGlobals>().user.token = loginModel.accessToken;
         getIt.get<AppGlobals>().user.id = loginModel.user.id;
         getIt.get<AppGlobals>().user.phone= loginModel.user.phone;
-        getIt.get<AppGlobals>().user.email= loginModel.user.email;
+        getIt.get<AppGlobals>().user.email= loginModel.user.email??'';
 
         getIt.get<AppGlobals>().ID = loginModel.user.id;
         Globals.TOKEN = loginModel.accessToken;

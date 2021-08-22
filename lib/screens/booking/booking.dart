@@ -153,6 +153,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
         session.location.staff = staff;
         session.location.name = locationModel.name;
         session.location.address = locationModel.address;
+        session.location.mainPhoto = locationModel.mainPhoto;
 
         session.location.serviceGroups.add(ServiceGroupModel('Top Services', '', services));
         if (session.appointmentId > 0) {
