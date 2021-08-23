@@ -125,7 +125,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
                     _serviceList(),
                     _totalPrice(),
                     const CardDivider(),
-                    _footer(),
+                   if(widget.appointment.orderType!='purchase') _footer(),
                   ],
                 ),
               ),

@@ -40,7 +40,7 @@ class OrdersListItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (routeName.isNotNullOrEmpty) {
-         // Navigator.pushNamed(context, routeName, arguments: appointment);
+          Navigator.pushNamed(context, routeName, arguments: appointment);
         }
       },
       child: Card(

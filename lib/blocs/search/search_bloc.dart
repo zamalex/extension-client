@@ -272,15 +272,39 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           searchType: SearchType.quick,
         ));
 
+        await getLocation();
         const LocationRepository locationRepository = LocationRepository();
 
         List<LocationModel> _locations;
 
+        /* if (session.activeSearchTab == 0) {
         _locations = await locationRepository.search();
+      } else {
+        _locations = await locationRepository.searchCategory(id: session.activeSearchTab);
+      }
 
-        if (_locations.isNotEmpty) {
-          _locations = _locations.where((LocationModel location) => location.name.toLowerCase().contains(event.q.toLowerCase())).toList();
+      if (_locations.isNotEmpty && session.q.isNotEmpty) {
+        _locations = _locations.where((LocationModel location) => location.name.toLowerCase().contains(session.q.toLowerCase())).toList();
+      }*/
+
+        bool offer = session.currentGenderFilter.label=='All Salons'?false:true;
+
+        if(offer){
+          await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q).then((value){
+            _locations =value.where((element) => element.offer).map((e){
+              return LocationModel(e.offer,e.id, e.name, e.rating??0, 100, e.address??'', '', '545545545', 'email', 'website', 'description', e.logo, 'genders', [],GeoPoint(latitude: double.parse(e.latitude), longitude:  double.parse(e.longitude)), [], [], [], [], [], 'cancelationPolicy');
+            }).where((element) =>element.name.toLowerCase().contains(event.q.toLowerCase())).toList();
+
+          });
+        }else{
+          await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q).then((value){
+            _locations =value.map((e){
+              return LocationModel(e.offer,e.id, e.name, e.rating??0, 100, e.address??'', '', '545545545', 'email', 'website', 'description', e.logo, 'genders', [],GeoPoint(latitude: double.parse(e.latitude), longitude:  double.parse(e.longitude)), [], [], [], [], [], 'cancelationPolicy');
+            }).where((element) =>element.name.toLowerCase().contains(event.q.toLowerCase())).toList();
+
+          });
         }
+
 
         yield RefreshSuccessSearchState(session.rebuild(
           locations: _locations,
