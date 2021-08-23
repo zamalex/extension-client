@@ -56,7 +56,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
 
   void cancelReservation() {
     if(!widget.appointment.canCancel){
-      UI.showErrorDialog(context,title: 'info',message: 'you cant cancel this appointment');
+      UI.showErrorDialog(context,title: 'info',message: 'you can\'t cancel this appointment');
+      return;
     }
 
     UI.confirmationDialogBox(

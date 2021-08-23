@@ -150,7 +150,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
             key: scaffoldKey,
             appBar: AppBar(
               centerTitle: true,
-              title: Text(L10n.of(context).appointmentsTitle),
+              title: Text(getIt.get<AppGlobals>().isRTL?'الطلبات':'Orders'),
             ),
             body: LoadingOverlay(
               isLoading: _isLoading,

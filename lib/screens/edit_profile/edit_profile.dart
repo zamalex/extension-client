@@ -66,7 +66,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _textNameController.text = getIt.get<AppGlobals>().user.fullName;
     _textPhoneController.text = getIt.get<AppGlobals>().user.phone;
     _textMailController.text = getIt.get<AppGlobals>().user.email??'';
-    _textAddressController.text = '';
+    _textAddressController.text =  getIt.get<AppGlobals>().user.address??'';
     _textZIPController.text = '';
     _textCityController.text = '';
 
@@ -77,6 +77,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final json = jsonDecode(prefs.getString('me')??null);
+    final address =await prefs.getString('address')??'';
     if(json!=null){
        loginModel = LoginModel.fromJson(json as Map<String,dynamic>);
 
@@ -86,6 +87,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         getIt.get<AppGlobals>().user.id = loginModel.user.id;
         getIt.get<AppGlobals>().user.phone= loginModel.user.phone;
         getIt.get<AppGlobals>().user.email= loginModel.user.email??'';
+        getIt.get<AppGlobals>().user.address= address??'';
 
         getIt.get<AppGlobals>().ID = loginModel.user.id;
         Globals.TOKEN = loginModel.accessToken;
@@ -133,11 +135,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         
         prefs.setString('me', jsonEncode(loginModel.toJson()));
+        prefs.setString('address', _textAddressController.text);
         getIt.get<AppGlobals>().user.fullName = loginModel.user.name;
         getIt.get<AppGlobals>().user.token = loginModel.accessToken;
         getIt.get<AppGlobals>().user.id = loginModel.user.id;
         getIt.get<AppGlobals>().user.phone= loginModel.user.phone;
         getIt.get<AppGlobals>().user.email= loginModel.user.email;
+        getIt.get<AppGlobals>().user.address=_textAddressController.text;
       }
 
       UI.showMessage(
@@ -318,7 +322,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     },
                     controller: _textAddressController,
                   ),
-                  FormLabel(text: L10n.of(context).editProfileLabelCity),
+                  /*FormLabel(text: L10n.of(context).editProfileLabelCity),
                   ThemeTextInput(
                     focusNode: _focusCity,
                     textInputAction: TextInputAction.next,
@@ -330,7 +334,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       );
                     },
                     controller: _textCityController,
-                  ),
+                  ),*/
                  /* FormLabel(text: L10n.of(context).editProfileLabelZIP),
                   ThemeTextInput(
                     focusNode: _focusZIP,
