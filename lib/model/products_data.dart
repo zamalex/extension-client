@@ -131,6 +131,7 @@ class ProductModel {
 
 class Product {
   int salon_id;
+  int shop_id;
   int id;
   int service_duration;
   String name;
@@ -140,6 +141,7 @@ class Product {
 
   Product(
       {this.id,
+        this.shop_id,
         this.salon_id,
         this.service_duration,
         this.name,
@@ -150,6 +152,7 @@ class Product {
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id']as int;
+    shop_id = json['shop_id']as int;
     service_duration = json['service_duration']as int;
     name = json['name']as String;
     thumbnailImage = ((json['thumbnail_image'] as  String)==null|| (json['thumbnail_image']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['thumbnail_image']as String;

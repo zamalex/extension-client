@@ -20,7 +20,7 @@ class ServiceListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.pushNamed(context, Routes.location, arguments: LocationModel(false, 1, 'unnamed', 0, 0, 'undefined', '','','', '','', '','', [],GeoPoint(longitude: 0,latitude: 0),[], [], [], [], [], ''));
+        Navigator.pushNamed(context, Routes.location, arguments: LocationModel(false, category.shop_id, 'unnamed', 0, 0, 'undefined', '','','', '','', '','', [],GeoPoint(longitude: 0,latitude: 0),[], [], [], [], [], ''));
       },
       child: Card(
         elevation: 1,
