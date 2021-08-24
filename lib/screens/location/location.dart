@@ -228,7 +228,9 @@ class _LocationScreenState extends State<LocationScreen> {
                             if(selected==1)
                              SingleChildScrollView(child:  ProductsList(widget.locationId.id),)
                             else
-                              Column(children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                 LocationInfo(location: _location),
 
                                 LocationMapPreview(coordinates: _location != null ? _location.coordinates : null),

@@ -124,10 +124,10 @@ class LocationListItem extends StatelessWidget {
                                   style: Theme.of(context).textTheme.subtitle1.bold.primaryColor,
                                 ),
                                 const Padding(padding: EdgeInsetsDirectional.only(end: kPaddingS / 2)),
-                                StrutText(
+                               /* StrutText(
                                   '(${location.ratings})',
                                   style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
-                                ),
+                                ),*/
                               ],
                             ),
                           )
@@ -299,10 +299,10 @@ class LocationListItem extends StatelessWidget {
                                           style: Theme.of(context).textTheme.bodyText2.bold.copyWith(color: kBlack),
                                         ),
                                         const Padding(padding: EdgeInsets.only(right: kPaddingS / 2)),
-                                        StrutText(
+                                       /* StrutText(
                                           sprintf('(%s)', <String>[L10n.of(context).locationTotalReviews(location.ratings.toString())]),
                                           style: Theme.of(context).textTheme.bodyText2.copyWith(color: kPrimaryColor),
-                                        ),
+                                        ),*/
                                       ],
                                     ),
                                   )

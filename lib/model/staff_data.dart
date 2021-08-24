@@ -93,7 +93,7 @@ class SingleStaff {
     name = json['name'].toString()??'';
     jobTitle = json['job_title'].toString()??'';
     email = json['email'].toString()??'';
-    avatar = json['avatar'].toString()??'';
+    avatar = json['avatar'] as String??'';
     avatarOriginal = json['avatar_original'].toString()??'';
     phone = json['phone'].toString()??'';
     rating = double.parse(json['rating'].toString()??'0');
