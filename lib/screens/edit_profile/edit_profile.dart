@@ -54,6 +54,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final FocusNode _focusZIP = FocusNode();
   final FocusNode _focusMail = FocusNode();
   LoginModel loginModel;
+  String img = '';
   File _image;
   AuthBloc _authBloc;
   bool loading = false;
@@ -69,6 +70,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _textAddressController.text =  getIt.get<AppGlobals>().user.address??'';
     _textZIPController.text = '';
     _textCityController.text = '';
+
+    LoginModel().getProfileImage().then((value){
+          setState(() {
+            img=value;
+          });
+    });
 
     super.initState();
   }
@@ -217,7 +224,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            image: AssetImage('assets/images/onboarding/welcome.png'),
+                            image:img.isNotEmpty?NetworkImage(img): AssetImage('assets/images/onboarding/welcome.png')as ImageProvider,
                             fit: BoxFit.cover,
                           ),
                         ),

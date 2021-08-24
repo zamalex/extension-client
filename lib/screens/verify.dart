@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/model/loginmodel.dart';
+import 'package:salon/screens/change_password.dart';
 import 'package:salon/screens/vendor/theme_button.dart';
 import 'package:salon/widgets/bold_title.dart';
 
@@ -42,7 +43,14 @@ class _VerifyCodeState extends State<VerifyCode> {
             .onTap(3);
         Navigator.of(context).popUntil((route) => route.isFirst);
        // Navigator.of(context, rootNavigator: true).pop();
-      }else
+      }else  if(!widget.register&&value['status']!=null&&value['status']as bool){
+
+        Navigator.of(context).push(MaterialPageRoute(builder: (c){
+          return ChangePasswordScreen(controller1.text+controller2.text+controller3.text+controller4.text);
+        }));
+        // Navigator.of(context, rootNavigator: true).pop();
+      }
+      else
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value['message'].toString())));
 

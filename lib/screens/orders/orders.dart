@@ -243,7 +243,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
               onPressed: () {
                 // Tap on BottomNavigationBar's Explore button.
                 (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
-                    .onTap(getIt.get<BottomBarItems>().getBottomBarItem('explore'));
+                    .onTap(0);
+                Navigator.of(context).popUntil((route) => route.isFirst);
               },
             ),
           ],

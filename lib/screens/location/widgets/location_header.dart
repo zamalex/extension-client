@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/data/models/location_model.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/my_reviews.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/strut_text.dart';
 import 'package:shimmer/shimmer.dart';
 
 class LocationHeader extends StatelessWidget {
-  const LocationHeader({Key key, this.location}) : super(key: key);
+  LocationHeader({Key key, this.location}) : super(key: key);
 
   final LocationModel location;
 
@@ -25,6 +27,21 @@ class LocationHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _dialog = RatingDialog(
+      // your app's name?
+      title: 'Rate Salon',
+      // encourage your user to leave a high rating?
+      message:
+      'Tap a star to set your rating. Add more description here if you want.',
+      // your app's logo?
+      image:Image.asset('assets/images/onboarding/welcome.png',width: 100,height: 100,),
+      submitButton: 'Submit',
+      onCancelled: () => print('cancelled'),
+      onSubmitted: (response) {
+        MyReviews().submitReview(location.id.toString(), response.comment, double.parse(response.rating.toString()));
+
+      },
+    );
     if (location == null) {
       return Shimmer.fromColors(
         baseColor: Theme.of(context).hoverColor,
@@ -52,7 +69,12 @@ class LocationHeader extends StatelessWidget {
         ),
         if (location.ratings > 0)
           InkWell(
-            onTap: () => Navigator.pushNamed(context, Routes.locationReviews, arguments: location),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => _dialog,
+              );
+            },//Navigator.pushNamed(context, Routes.locationReviews, arguments: location),
             child: Padding(
               padding: const EdgeInsetsDirectional.only(bottom: kPaddingM, start: kPaddingM),
               child: Container(
@@ -71,10 +93,10 @@ class LocationHeader extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline6.w800.white,
                     ),
                     const Padding(padding: EdgeInsets.only(top: 4)),
-                    StrutText(
+                   /* StrutText(
                       L10n.of(context).locationTotalReviews(location.ratings.toString()),
                       style: Theme.of(context).textTheme.bodyText2.white,
-                    ),
+                    )*/
                   ],
                 ),
               ),

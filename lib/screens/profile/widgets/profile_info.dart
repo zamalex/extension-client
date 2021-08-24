@@ -7,6 +7,8 @@ import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/strut_text.dart';
 
 class ProfileInfo extends StatelessWidget {
+  String img;
+  ProfileInfo(this.img);
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -19,7 +21,7 @@ class ProfileInfo extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage('assets/images/onboarding/welcome.png'),
+                image:img.isNotEmpty?NetworkImage(img): AssetImage('assets/images/onboarding/welcome.png')as ImageProvider,
                 fit: BoxFit.cover,
               ),
             ),

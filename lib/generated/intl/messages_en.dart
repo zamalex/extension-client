@@ -230,7 +230,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "forgotPasswordBtn" : MessageLookupByLibrary.simpleMessage("Reset Password"),
     "forgotPasswordDialogText" : MessageLookupByLibrary.simpleMessage("Secure link to reset your password has been sent to the provided email address."),
     "forgotPasswordDialogTitle" : MessageLookupByLibrary.simpleMessage("Secure link has been sent"),
-    "forgotPasswordLabel" : MessageLookupByLibrary.simpleMessage("Enter your registered email address and we shall send you a secure link to reset your password."),
+    "forgotPasswordLabel" : MessageLookupByLibrary.simpleMessage("Enter your registered phone number and we shall send you sms to reset your password."),
     "forgotPasswordTitle" : MessageLookupByLibrary.simpleMessage("Forgot password?"),
     "formValidatorEmail" : MessageLookupByLibrary.simpleMessage("Phone format invalid"),
     "formValidatorInvalidPassword" : MessageLookupByLibrary.simpleMessage("Password format invalid"),

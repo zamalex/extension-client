@@ -4,8 +4,11 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/data/models/review_model.dart';
 import 'package:salon/model/constants.dart';
+
+import '../main.dart';
 
 class MyReviews {
   List<SingleReview> data;
@@ -60,6 +63,44 @@ class MyReviews {
     } catch (error) {
       print(error);
       return [];
+    }
+  }
+
+
+  Future submitReview(String id,String comment,double rating) async {
+
+    Map<String, String> headers = {
+      'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Current-Locale':Intl.getCurrentLocale()
+    };
+
+    Map<String,dynamic> body = {
+      'user_id':'${getIt.get<AppGlobals>().ID}',
+      'shop_id':id,
+      'rating':rating,
+      'comment':comment,
+
+    };
+
+
+    try {
+      var response = await http.post(
+        Uri.parse('${Globals.BASE}reviews/shop/submit'),
+         headers: headers,
+        body:jsonEncode(body)
+      );
+
+      print('request  is '+'${Globals.BASE}reviews/shop/submit');
+      print('response  is '+response.body);
+      print('body  is '+body.toString());
+      final responseJson = json.decode(response.body);
+
+
+    return true;
+
+    } catch (error) {
+      print(error);
+      return false;
     }
   }
 

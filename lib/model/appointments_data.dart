@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:salon/configs/app_globals.dart';
@@ -26,7 +27,7 @@ class ApointmentsData {
     status = json['status'] as int;
   }
 
-  Future<List<Data>> getHistory({int page=1}) async {
+  Future<List<Data>> getHistory({int page=1,@required String type}) async {
 
     Map<String,String> header = {
       'Current-Locale':Intl.getCurrentLocale()
@@ -35,10 +36,10 @@ class ApointmentsData {
 
     try {
       var response = await http.get(
-        Uri.parse('${Globals.BASE}purchase-history/${getIt.get<AppGlobals>().ID}?page=$page'),
+        Uri.parse('${Globals.BASE}purchase-history/${getIt.get<AppGlobals>().ID}?page=$page&order_type=$type'),
         headers: header
       );
-      print('${Globals.BASE}purchase-history/${getIt.get<AppGlobals>().ID}?page=$page');
+      print('${Globals.BASE}purchase-history/${getIt.get<AppGlobals>().ID}?page=$page&order_type=$type');
       print('response  is '+response.body);
 
       if(response.statusCode>=400){

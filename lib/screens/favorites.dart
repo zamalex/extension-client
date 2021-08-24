@@ -134,8 +134,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 text: L10n.of(context).appointmentsBtnExplore,
                 onPressed: () {
                   (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
-                      .onTap(getIt.get<BottomBarItems>().getBottomBarItem('explore'));
-                  Navigator.pop(context);
+                      .onTap(0);
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                 },
               ),
             ],

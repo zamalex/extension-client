@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -155,6 +156,89 @@ class LoginModel {
     }
   }
 
+  Future<String> getProfileImage()async{
+    var param = {
+
+      'access_token': Globals.TOKEN,
+
+    };
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'X-Requested-With':'XMLHttpRequest',
+    'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Current-Locale':Intl.getCurrentLocale()
+    };
+
+    try {
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}get-user-by-access_token'),
+          body: jsonEncode(param),
+          headers: headers
+      );
+
+      print(param.toString());
+      print('response  is '+response.body);
+      final responseJson = json.decode(response.body);
+
+
+      if(response.statusCode>=400){
+        return '';
+      }
+      if(responseJson['result']as bool){
+        return responseJson['avatar_original']as String??'';
+      }else{
+        return '';
+
+      }
+
+    } catch (error) {
+      print(error);
+      return '';
+    }
+  }
+
+
+
+  Future<bool> changePass(String code,String pass)async{
+    var param = {
+
+      'verification_code': code,
+      'password': pass,
+
+    };
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'X-Requested-With':'XMLHttpRequest',
+      'Current-Locale':Intl.getCurrentLocale()
+    };
+
+    try {
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}auth/password/confirm_reset'),
+          body: jsonEncode(param),
+          headers: headers
+      );
+
+      print(param.toString());
+      print('response  is '+response.body);
+      final responseJson = json.decode(response.body);
+
+
+      if(response.statusCode>=400){
+        return false;
+      }
+      if(responseJson['result']as bool){
+        return true;
+      }else{
+        return false;
+
+      }
+
+    } catch (error) {
+      print(error);
+      return false;
+    }
+  }
 
   Future<Map<String,dynamic>> forgotPassword(String phone) async {
     var param = {

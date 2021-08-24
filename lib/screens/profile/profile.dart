@@ -8,6 +8,7 @@ import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/loginmodel.dart';
 import 'package:salon/screens/appointments/appointments.dart';
 import 'package:salon/screens/profile/widgets/profile_info.dart';
 import 'package:salon/utils/bottom_bar_items.dart';
@@ -29,7 +30,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   AuthBloc block;
-
+  String img = '';
   @override
   void initState() {
     // TODO: implement initState
@@ -37,6 +38,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     block = BlocProvider.of<AuthBloc>(context);
 
+    LoginModel().getProfileImage().then((value){
+      setState(() {
+        img=value;
+      });
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -52,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Padding(
                     padding: const EdgeInsets.all(kPaddingM),
                     child: Column(
-                      children: <Widget>[ProfileInfo()],
+                      children: <Widget>[ProfileInfo(img)],
                     ),
                   ),
                   Expanded(

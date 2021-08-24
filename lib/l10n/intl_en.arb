@@ -143,7 +143,7 @@
     "formValidatorMinLength": "Min. length is {length} characters",
     "formValidatorInvalidPassword": "Password format invalid",
     "forgotPasswordTitle": "Forgot password?",
-    "forgotPasswordLabel": "Enter your registered email address and we shall send you a secure link to reset your password.",
+    "forgotPasswordLabel": "Enter your registered phone number and we shall send you sms to reset your password.",
     "forgotPasswordBtn": "Reset Password",
     "forgotPasswordBack": "Back to login",
     "forgotPasswordDialogTitle": "Secure link has been sent",

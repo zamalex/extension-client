@@ -1323,7 +1323,7 @@ class L10n {
   /// `Enter your registered email address and we shall send you a secure link to reset your password.`
   String get forgotPasswordLabel {
     return Intl.message(
-      'Enter your registered email address and we shall send you a secure link to reset your password.',
+      'Enter your registered phone number and we shall send you sms to reset your password.',
       name: 'forgotPasswordLabel',
       desc: '',
       args: [],
