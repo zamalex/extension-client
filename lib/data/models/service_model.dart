@@ -7,6 +7,17 @@ class ServiceModel {
     this.description,
   );
 
+  ServiceModel.all(
+      this.id,
+      this.seller_id,
+      this.shop_id,
+      this.price,
+      this.duration,
+      this.name,
+      this.description,
+      );
+
+
   factory ServiceModel.fromJson(Map<String, dynamic> json) {
     return ServiceModel(
       json['id'] as int ?? 0,
@@ -18,6 +29,8 @@ class ServiceModel {
   }
 
   final int id;
+  int shop_id;
+  int seller_id;
   final double price;
   final int duration;
   final String name;

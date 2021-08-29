@@ -187,8 +187,11 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       print('date  ${now.year}-${now.month}-${now.day}');
       print('time is ${now.hour}:${now.minute}');
       bool points = session.paymentMethod.index==0?true:false;
+
         var map = {
         'booked_shift_id':1.toString(),
+        'shop_id':session.location.serviceGroups.first.services.first.shop_id.toString(),
+        'seller_id':session.location.serviceGroups.first.services.first.seller_id.toString(),
         'services_ids':session.selectedServiceIds,
         if(session.selectedStaff.id!=0)'staff_id':session.selectedStaff.id.toString(),
         'date':'${now.year}-${now.month}-${now.day}',

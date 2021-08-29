@@ -20,6 +20,7 @@ class BookingStep1 extends StatefulWidget {
 
   final ServiceModel preselectedService;
 
+
   @override
   _BookingStep1State createState() => _BookingStep1State();
 }
@@ -28,7 +29,6 @@ class _BookingStep1State extends State<BookingStep1> {
   @override
   void initState() {
     super.initState();
-
     if (widget.preselectedService != null) {
       context.read<BookingBloc>().add(ServiceSelectedBookingEvent(service: widget.preselectedService));
     }
