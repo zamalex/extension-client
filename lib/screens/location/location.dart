@@ -78,6 +78,7 @@ class _LocationScreenState extends State<LocationScreen> {
         widget.locationId.mainPhoto = _location.mainPhoto;
         widget.locationId.name = _location.name;
         widget.locationId.address = _location.address;
+        _isFavorited = value[0].isFavourite;
         setState(() {
 
         });

@@ -65,6 +65,7 @@ class SalonModel {
 
   Future<List<Data>> getSalonData(String id) async {
     Map<String,String> header = {
+      'Authorization': 'Bearer ${Globals.TOKEN}',
       'Current-Locale':Intl.getCurrentLocale()
     };
 
@@ -195,6 +196,7 @@ class Data {
   String phone;
   double rating;
   bool offer;
+  bool isFavourite;
 
   Data({this.id, this.name, this.logo});
 
@@ -208,6 +210,7 @@ class Data {
     phone = json['phone'] as  String??'undefined';
     rating = double.parse(json['rating'].toString())??0;
     offer = json['has_offer'] as bool??false;
+    isFavourite = json['isFavourite'] as bool??false;
   }
 
 
