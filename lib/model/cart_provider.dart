@@ -16,6 +16,13 @@ class CartProvider extends ChangeNotifier {
   bool isLoading = false;
 
   double balance=0;
+  bool payWithBalance = false;
+
+  setPayWithBalance(bool p){
+    payWithBalance = p;
+    notifyListeners();
+  }
+
 
   void done(){
     loading = false;

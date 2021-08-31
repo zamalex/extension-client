@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
 import 'package:salon/blocs/base_bloc.dart';
 import 'package:salon/data/models/booking_session_model.dart';
@@ -11,6 +12,7 @@ import 'package:salon/data/models/staff_model.dart';
 import 'package:salon/data/models/timetable_model.dart';
 import 'package:salon/data/repositories/appointment_repository.dart';
 import 'package:salon/data/repositories/location_repository.dart';
+import 'package:salon/model/cart_provider.dart';
 import 'package:salon/model/confirm_order.dart';
 
 part 'booking_event.dart';
@@ -186,7 +188,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       final DateTime now = DateTime.fromMillisecondsSinceEpoch(session.selectedTimestamp);
       print('date  ${now.year}-${now.month}-${now.day}');
       print('time is ${now.hour}:${now.minute}');
-      bool points = session.paymentMethod.index==0?true:false;
+      bool points =Provider.of<CartProvider>(context,listen: false).payWithBalance ;//session.paymentMethod.index==0?true:false;
 
         var map = {
         'booked_shift_id':1.toString(),

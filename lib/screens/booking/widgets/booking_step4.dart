@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -34,8 +35,9 @@ class _BookingStep4State extends State<BookingStep4> {
     super.initState();
 
     Future.delayed(Duration.zero).then((value){
-      Provider.of<CartProvider>(context,listen: false).checkBalance();
+      Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
 
+      Provider.of<CartProvider>(context,listen: false).checkBalance();
     });
   }
 
@@ -160,6 +162,50 @@ class _BookingStep4State extends State<BookingStep4> {
                               trailing: const ArrowRightIcon(),
                               onPressed: () => showNotesEditor(session.notes),
                             ),
+
+                            if( Provider.of<CartProvider>(context).balance>0)
+                              Row(
+                                children: [
+                                  CupertinoSwitch(
+                                    value: Provider.of<CartProvider>(context).payWithBalance,
+                                    onChanged: (value) {
+                                      if(value)
+                                        selectPaymentmethodEvent(PaymentMethod.inStore);
+                                      else{
+                                        selectPaymentmethodEvent(PaymentMethod.inStore);
+                                      }
+                                      Provider.of<CartProvider>(context,listen: false).setPayWithBalance(value);
+                                    },
+                                  ),
+
+                                  Column(children: [
+                                    Text(getIt.get<AppGlobals>().isRTL?'الرصيد':'Balance'),
+                                    Text(Provider.of<CartProvider>(context).balance.toString())
+                                  ],)
+                                ],
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              )
+                            else
+                              AbsorbPointer(
+                                absorbing: true,
+                                child: Row(
+                                  children: [
+                                    CupertinoSwitch(
+                                      value: Provider.of<CartProvider>(context).payWithBalance,
+                                      onChanged: (value) {
+
+                                        Provider.of<CartProvider>(context,listen: false).setPayWithBalance(value);
+                                      },
+                                    ),
+
+                                    Column(children: [
+                                      Text(getIt.get<AppGlobals>().isRTL?'الرصيد':'Balance'),
+                                      Text(Provider.of<CartProvider>(context).balance.toString())
+                                    ],)
+                                  ],
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                ),
+                              ),
                             ListTitle(title: L10n.of(context).bookingSubtitleCheckout),
 
                             ListItem(
@@ -172,7 +218,7 @@ class _BookingStep4State extends State<BookingStep4> {
                               ),
                               onPressed: () => selectPaymentmethodEvent(PaymentMethod.inStore),
                             ),
-                            if (Provider.of<CartProvider>(context).balance>0) ListItem(
+                            if (Provider.of<CartProvider>(context).balance==-2) ListItem(
                                 title: L10n.of(context).bookingPayWithCard,
                                 showBorder: false,
                                 leading: Radio<PaymentMethod>(

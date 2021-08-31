@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/model/cart_provider.dart';
 import 'package:salon/model/mycarts.dart';
@@ -12,6 +13,8 @@ import 'package:salon/utils/ui.dart';
 import 'package:salon/widgets/list_item.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/widgets/list_title.dart';
+
+import '../../main.dart';
 
 
 class Checkout extends StatefulWidget {
@@ -51,6 +54,8 @@ class _CheckoutState extends State<Checkout> {
     super.initState();
 
     Future.delayed(Duration.zero).then((value){
+      Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
+
       if(Provider.of<CartProvider>(context,listen: false).allCarts.length>0)Provider.of<CartProvider>(context,listen: false).getOrdersummary();
       Provider.of<CartProvider>(context,listen: false).checkBalance();
     });
@@ -72,7 +77,43 @@ class _CheckoutState extends State<Checkout> {
             ExpandAddress(address,setAddress),
             ExpandDate(setTime,selectedTime),
             ExpandCopon(coupon,addCopon),
+            if( Provider.of<CartProvider>(context).balance>0)
+              Row(
+                children: [
+                  CupertinoSwitch(
+                    value: Provider.of<CartProvider>(context).payWithBalance,
+                    onChanged: (value) {
+                      Provider.of<CartProvider>(context,listen: false).setPayWithBalance(value);
+                    },
+                  ),
 
+                  Column(children: [
+                    Text(getIt.get<AppGlobals>().isRTL?'الرصيد':'Balance'),
+                    Text(Provider.of<CartProvider>(context).balance.toString())
+                  ],)
+                ],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              )
+            else
+              AbsorbPointer(
+                absorbing: true,
+                child: Row(
+                  children: [
+                    CupertinoSwitch(
+                      value: Provider.of<CartProvider>(context).payWithBalance,
+                      onChanged: (value) {
+                        Provider.of<CartProvider>(context,listen: false).setPayWithBalance(value);
+                      },
+                    ),
+
+                    Column(children: [
+                      Text(getIt.get<AppGlobals>().isRTL?'الرصيد':'Balance'),
+                      Text(Provider.of<CartProvider>(context).balance.toString())
+                    ],)
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
+              ),
             ListTitle(title: L10n.of(context).bookingSubtitleCheckout),
 
             ListItem(
@@ -95,7 +136,7 @@ class _CheckoutState extends State<Checkout> {
               },
             ),
 
-              if(Provider.of<CartProvider>(context).balance>0) ListItem(
+              if(Provider.of<CartProvider>(context).balance==-2) ListItem(
                 title: isRTL?L10n.of(context).bookingPayWithCard+' لديك ${Provider.of<CartProvider>(context).balance} ريال ':L10n.of(context).bookingPayWithCard+' you have ${Provider.of<CartProvider>(context).balance} SAR',
 
                 showBorder: false,
@@ -149,8 +190,8 @@ class _CheckoutState extends State<Checkout> {
                 Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
                   Text(L10n.of(context).totaal,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
 
-                  if(paymentMethod==1)
-                  Text(provider.balance>=double.parse(provider.orderSummary.grandTotal)?'0':provider.orderSummary.grandTotal,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
+                  if(Provider.of<CartProvider>(context,).payWithBalance)
+                  Text(provider.balance>=double.parse(provider.orderSummary.grandTotal)?'0':(double.parse(provider.orderSummary.grandTotal)-provider.balance).toString(),style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
 
 
               else
@@ -191,7 +232,7 @@ class _CheckoutState extends State<Checkout> {
         return;
       }
       String payment = paymentMethod==0?'cash_on_delivery':'cash_on_delivery';
-      bool points = paymentMethod==0?false:true;
+      bool points = Provider.of<CartProvider>(context,listen: false).payWithBalance;//paymentMethod==0?false:true;
       String date = '${selectedTime.year}-${selectedTime.month}-${selectedTime.day}';
       String time = '${selectedTime.hour}:${selectedTime.minute}:${selectedTime.second}';
 
@@ -202,6 +243,7 @@ class _CheckoutState extends State<Checkout> {
           Navigator.of(context).pop();
         });
         Provider.of<CartProvider>(context,listen: false).init();
+        Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
       });
     }
   }
