@@ -23,6 +23,14 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  clear(){
+    // items = [];
+     //allCarts = [];
+     items.clear();
+     allCarts.clear();
+    notifyListeners();
+  }
+
 
   void done(){
     loading = false;
@@ -36,6 +44,7 @@ class CartProvider extends ChangeNotifier {
 
   void init()async{
     items = [];
+    clear();
     await MyCarts().getCartList().then((value){
       print('size is ${value.length}');
       allCarts = value;
@@ -71,7 +80,10 @@ class CartProvider extends ChangeNotifier {
   checkCopon(String code,BuildContext context){
     if(code.isNotEmpty)
     MyCarts().checkCopon(allCarts[0].ownerId, code).then((value){
-      UI.showErrorDialog(context,message: value.toString());
+      if(value['result']as bool==false){
+        UI.showErrorDialog(context,message: value['message'].toString());
+
+      }
       getOrdersummary();
     });
   }

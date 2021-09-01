@@ -156,7 +156,7 @@ class MyCarts {
     }
   }
 
-  Future checkCopon(int owner,String coupon_code) async {
+  Future<Map> checkCopon(int owner,String coupon_code) async {
     Map<String,dynamic> body ={
       'owner_id':owner,
       //'variant':'',
@@ -182,12 +182,12 @@ class MyCarts {
       final responseJson = json.decode(response.body);
 
       if(responseJson['result']as bool)
-      return responseJson['message'];
+      return {'result':true,'message':responseJson['message']};
 
-      return responseJson['message'];
+      return {'result':false,'message':responseJson['message']};
     } catch (error) {
       print(error);
-      return 'server error';
+      return {'result':false,'message':'server error'};
     }
   }
 

@@ -55,7 +55,7 @@ class _ProdcutItemState extends State<ProdcutItem> {
         mainAxisSize: MainAxisSize.max,
 
         children: [
-          Expanded(child: Padding(padding: EdgeInsets.all(5),child: FittedBox(fit: BoxFit.scaleDown,alignment: Alignment.centerLeft,child: Text('${widget.cartModel.basePrice}',style: TextStyle(color: Colors.black,),),),)),
+          Expanded(child: Padding(padding: EdgeInsets.all(5),child: FittedBox(fit: BoxFit.scaleDown,alignment: Alignment.centerLeft,child: Text('${widget.cartModel.base_discounted_price.toString()}',style: TextStyle(color: Colors.black,),),),)),
           Provider.of<CartProvider>(context).itemCount(widget.cartModel.id)==0?GestureDetector(child: CircleAvatar(radius: 15,backgroundColor: Theme.of(context).accentColor,child: Icon(Icons.shopping_cart,color: Colors.white,size: 15,),)
             ,onTap:(){
             if (!getIt.get<AppGlobals>().isUser){

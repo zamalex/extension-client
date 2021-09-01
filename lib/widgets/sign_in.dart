@@ -117,7 +117,7 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
 
               getIt.get<AppGlobals>().user.id = value.user.id;
               getIt.get<AppGlobals>().ID= value.user.id;
-              Provider.of<CartProvider>(context,listen: false).init();
+             // Provider.of<CartProvider>(context,listen: false).init();
 
             //  Phoenix.rebirth(context);
              /* Navigator.pushAndRemoveUntil(

@@ -138,6 +138,7 @@ class Product {
   String name;
   String thumbnailImage;
   String basePrice;
+  double base_discounted_price;
 
 
   Product(
@@ -149,7 +150,7 @@ class Product {
         this.name,
         this.thumbnailImage,
         this.basePrice,
-
+        this.base_discounted_price
       });
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -162,6 +163,7 @@ class Product {
 
    // thumbnailImage = json['thumbnail_image']as String;
     basePrice = json['base_price']as String;
+    base_discounted_price = double.parse(json['base_discounted_price'].toString());
 
   }
 

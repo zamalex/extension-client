@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:provider/provider.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
+import 'package:salon/model/cart_provider.dart';
 import 'package:salon/model/loginmodel.dart';
 import 'package:salon/screens/appointments/appointments.dart';
 import 'package:salon/screens/profile/widgets/profile_info.dart';
@@ -160,6 +162,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                              SharedPreferences prefs = await SharedPreferences.getInstance();
                              prefs.setBool("logged", false);
                               getIt.get<AppGlobals>().isUser=false;
+                             Provider.of<CartProvider>(context,listen: false).clear();
                               Phoenix.rebirth(context);
 
                             // block.add(UserLoggedOutAuthEvent());

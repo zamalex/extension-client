@@ -92,7 +92,7 @@ class _VerifyCodeState extends State<VerifyCode> {
               showLoading: loading,
               disableTouchWhenLoading: true,
             ),
-            TextButton(onPressed: (){}, child: Text('Back to login',style: TextStyle(color: kPrimaryColor),),)
+           // TextButton(onPressed: (){}, child: Text('Back to login',style: TextStyle(color: kPrimaryColor),),)
           ],),
       ),
     );

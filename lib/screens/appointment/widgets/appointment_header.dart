@@ -61,7 +61,7 @@ class _AppointmentHeaderState extends State<AppointmentHeader> {
               ),
             ),
             InkWell(
-              onTap: () => Navigator.pushNamed(context, Routes.location, arguments: 'widget.appointment.location.id'),
+              onTap: () {},
               child: Padding(
                 padding: const EdgeInsets.only(top: kPaddingM),
                 child: StrutText(
@@ -72,7 +72,7 @@ class _AppointmentHeaderState extends State<AppointmentHeader> {
               ),
             ),
             InkWell(
-              onTap: () => Navigator.pushNamed(context, Routes.location, arguments: 'widget.appointment.location.id'),
+              onTap: (){},
               child: Padding(
                 padding: const EdgeInsets.only(top: kPaddingS),
                 child: StrutText(

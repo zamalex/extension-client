@@ -64,14 +64,19 @@ class _CartListState extends State<CartList> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(Duration.zero).then((value) => Provider.of<CartProvider>(context,listen: false).init());
+
+    Future.delayed(Duration.zero).then((value){
+      Provider.of<CartProvider>(context,listen: false).clear();
+      Provider.of<CartProvider>(context,listen: false).init();
+
+    } );
     //cartProvider = Provider.of<CartProvider>(context,listen: false);
   }
 
   @override
   Widget build(BuildContext context) {
 
-
+    //Provider.of<CartProvider>(context,listen: false).init();
     return Scaffold(
         appBar: AppBar(title: Text(L10n.of(context).Cartt),centerTitle: true,),
 
