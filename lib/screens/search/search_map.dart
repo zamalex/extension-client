@@ -34,7 +34,7 @@ class _SearchMapScreenState extends State<SearchMapScreen> {
   List<LocationModel> _locations;
   CameraPosition _initialCameraPosition;
   int _indexLocation = 0;
-  Uint8List _pinLocationIcon;
+  //Uint8List _pinLocationIcon;
   //LocationData _currentPosition;
   int _selectedSlide = -1;
   LatLngBounds _currentRegion;
@@ -82,7 +82,7 @@ class _SearchMapScreenState extends State<SearchMapScreen> {
   }
 
   Future<void> _loadData() async {
-    _pinLocationIcon = await Async.loadCustomMapPin();
+  //  _pinLocationIcon = await Async.loadCustomMapPin();
   }
 
   LatLngBounds _getBounds() {
@@ -136,7 +136,7 @@ class _SearchMapScreenState extends State<SearchMapScreen> {
       final Marker marker = Marker(
         markerId: markerId,
         position: LatLng(item.coordinates.latitude, item.coordinates.longitude),
-        icon: BitmapDescriptor.fromBytes(_pinLocationIcon),
+      //  icon: BitmapDescriptor.fromBytes(_pinLocationIcon),
         infoWindow: InfoWindow(title: item.name),
         onTap: () {
           final int index = _locations.indexWhere((LocationModel i) => i.id == item.id);
@@ -236,68 +236,70 @@ class _SearchMapScreenState extends State<SearchMapScreen> {
             mini: true,
           ),
         ),
-        body: BlocBuilder<SearchBloc, SearchState>(builder: (BuildContext context, SearchState state) {
-          if (state is RefreshSuccessSearchState && state.session.searchType == SearchType.map && _isLoading) {
-            _locations = state.session.locations;
-            _isLoading = false;
+        body: SafeArea(
+          child: BlocBuilder<SearchBloc, SearchState>(builder: (BuildContext context, SearchState state) {
+            if (state is RefreshSuccessSearchState && state.session.searchType == SearchType.map && _isLoading) {
+              _locations = state.session.locations;
+              _isLoading = false;
 
-            _setMarkers();
-          }
-          return Stack(
-            alignment: AlignmentDirectional.bottomCenter,
-            children: <Widget>[
-              GoogleMap(
-                onMapCreated: (GoogleMapController controller) {
-                  _mapController.complete(controller);
-                  setState(() => _setMarkers());
-                },
-                onCameraIdle: () async {
-                  final GoogleMapController controller = await _mapController.future;
-                  _currentRegion = await controller.getVisibleRegion();
+              _setMarkers();
+            }
+            return Stack(
+              alignment: AlignmentDirectional.bottomCenter,
+              children: <Widget>[
+                GoogleMap(
+                  onMapCreated: (GoogleMapController controller) {
+                    _mapController.complete(controller);
+                    setState(() => _setMarkers());
+                  },
+                  onCameraIdle: () async {
+                    final GoogleMapController controller = await _mapController.future;
+                    _currentRegion = await controller.getVisibleRegion();
 
-                  /// prevent locations reloading after the initial 'onCameraIdle' call
-                  if (!_isMapInited) {
-                    _isMapInited = true;
-                    return;
-                  }
+                    /// prevent locations reloading after the initial 'onCameraIdle' call
+                    if (!_isMapInited) {
+                      _isMapInited = true;
+                      return;
+                    }
 
-                  if (_selectedSlide == -1) {
-                    _reloadLocations();
-                  }
-                },
-                onTap: (LatLng tapLocation) => setState(() => _selectedSlide = -1),
-                markers: _markers,
-                mapType: MapType.normal,
-                initialCameraPosition: _initialCameraPosition,
-                myLocationEnabled: true,
-                myLocationButtonEnabled: false,
-                zoomControlsEnabled: true,
-                zoomGesturesEnabled: true,
-              ),
-              Visibility(
-                visible: _selectedSlide != -1,
-                child: SafeArea(
-                  bottom: true,
-                  top: false,
-                  child: Container(
-                    height: 280,
-                    margin: const EdgeInsets.only(bottom: 10),
-                    child: Swiper(
-                      itemBuilder: (BuildContext context, int index) => _locationPreviewBox(_locations[index], index),
-                      onIndexChanged: (int index) => _onSwiperIndexChange(index),
-                      controller: _swiperController,
-                      itemCount: _locations.length,
-                      viewportFraction: 0.8,
-                      scale: 0.85,
-                      loop: _locations.length > 1,
-                      index: _selectedSlide,
+                    if (_selectedSlide == -1) {
+                      //_reloadLocations();
+                    }
+                  },
+                  onTap: (LatLng tapLocation) => setState(() => _selectedSlide = -1),
+                  markers: _markers,
+                  mapType: MapType.normal,
+                  initialCameraPosition: _initialCameraPosition,
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: false,
+                  zoomControlsEnabled: true,
+                  zoomGesturesEnabled: true,
+                ),
+                Visibility(
+                  visible: _selectedSlide != -1,
+                  child: SafeArea(
+                    bottom: true,
+                    top: false,
+                    child: Container(
+                      height: 280,
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: Swiper(
+                        itemBuilder: (BuildContext context, int index) => _locationPreviewBox(_locations[index], index),
+                        onIndexChanged: (int index) => _onSwiperIndexChange(index),
+                        controller: _swiperController,
+                        itemCount: _locations.length,
+                        viewportFraction: 0.8,
+                        scale: 0.85,
+                        loop: _locations.length > 1,
+                        index: _selectedSlide,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          );
-        }),
+              ],
+            );
+          }),
+        ),
       ),
     );
   }
