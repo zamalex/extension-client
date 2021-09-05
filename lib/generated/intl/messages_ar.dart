@@ -39,7 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m9(status) => "${Intl.select(status, {'active': 'active', 'canceled': 'canceled', 'completed': 'completed', 'declined': 'declined', 'failed': 'failed', 'other': 'unknown', })}";
 
-  static m10(value) => "\$${value}";
+  static m10(value) => "${value} ر.س ";
 
   static m11(mode) => "${Intl.select(mode, {'dynamic': 'Dynamic', 'alwaysOn': 'Always on', 'alwaysOff': 'Always off', 'other': 'Unknown', })}";
 

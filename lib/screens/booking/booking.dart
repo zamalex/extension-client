@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salon/blocs/booking/booking_bloc.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/booking_session_model.dart';
 import 'package:salon/data/models/booking_wizard_page_model.dart';
@@ -24,6 +25,8 @@ import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/strut_text.dart';
 import 'package:salon/widgets/theme_button.dart';
 import 'package:sprintf/sprintf.dart';
+
+import '../../main.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({
@@ -277,7 +280,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
                     Padding(
                       padding: const EdgeInsets.only(left: 4),
                       child: StrutText(
-                        kCurrency,
+                        getIt.get<AppGlobals>().isRTL?'ر.س':'SAR',
                         style: Theme.of(context).textTheme.headline6.w400.copyWith(color: Theme.of(context).textTheme.caption.color),
                       ),
                     ),

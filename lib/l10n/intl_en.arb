@@ -79,7 +79,7 @@
     "commonDarkMode": "{mode, select, dynamic {Dynamic} alwaysOn {Always on} alwaysOff {Always off} other {Unknown}}",
     "commonLocales": "{locale, select, ar {Arabic} en {English} hr {Croatian} other {Unknown}}",
     "commonPhotoSources": "{source, select, gallery {Photo gallery} camera {Phone camera} other {---}}",
-    "commonCurrencyFormat": "${value}",
+    "commonCurrencyFormat": "{value} SAR",
     "commonDurationFormat": "{value} min",
     "commonAppointmentStatus": "{status, select, active {active} canceled {canceled} completed {completed} declined {declined} failed {failed} other {unknown}}",
     "commonElapsedDayHours": "in 1 day, {hours} hours",
