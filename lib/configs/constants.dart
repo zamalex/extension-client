@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/data/models/toolbar_option_model.dart';
+
+import '../main.dart';
 
 typedef ToolbarOptionModelCallback = void Function(ToolbarOptionModel sortModel);
 
@@ -104,7 +107,7 @@ const String kDemoEmail = 'admin@example.com';
 const String kDemoPassword = 'Password1';
 
 /// Currency used in the application.
-const String kCurrency = 'USD';
+ String kCurrency = getIt.get<AppGlobals>().isRTL?'ر.س':'SAR';
 
 /// Logz.io Token for remote logging.
 /// Settings > General > Account Settings

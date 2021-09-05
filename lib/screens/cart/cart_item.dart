@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:salon/configs/app_globals.dart';
+import 'package:salon/configs/constants.dart';
 import 'package:salon/model/cart_model.dart';
 import 'package:salon/model/cart_provider.dart';
+
+import '../../main.dart';
 
 class CartItem extends StatefulWidget {
 
@@ -48,12 +52,12 @@ class _CartItemState extends State<CartItem> {
       Expanded(flex:2,child: Container(height: 100,child: Column(children: [
         Text(widget.cartModel.salon,overflow: TextOverflow.ellipsis,style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
         Container(child: Text(widget.cartModel.name,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),),),
-        Text('${widget.cartModel.price } SAR',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
+        Text('${widget.cartModel.price } ${kCurrency}',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
 
       ],crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.spaceEvenly,),)),
       Expanded(flex:3,child: Column(children: [
         _quantityButtons(),
-        Text('Total ${widget.cartModel.quantity*widget.cartModel.price} SAR',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
+        Text(getIt.get<AppGlobals>().isRTL?'الاجمالي ${widget.cartModel.quantity*widget.cartModel.price} ${kCurrency}':'Total ${widget.cartModel.quantity*widget.cartModel.price} ${kCurrency}',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
       ],mainAxisAlignment: MainAxisAlignment.spaceEvenly,mainAxisSize: MainAxisSize.max,crossAxisAlignment: CrossAxisAlignment.end,),),
     SizedBox(width: 5,)],)
 
