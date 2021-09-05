@@ -51,7 +51,7 @@ class RatingsListItem extends StatelessWidget {
                     shape: BoxShape.rectangle,
                     borderRadius: const BorderRadius.all(Radius.circular(kFormFieldsRadius)),
                     image: DecorationImage(
-                      image: NetworkImage(review.avatar),
+                      image: (review.avatar==null||review.avatar.isEmpty||review.avatar=='null')?AssetImage('assets/images/onboarding/welcome.png')as ImageProvider:NetworkImage(review.avatar),
                       fit: BoxFit.cover,
                     ),
                   ),
