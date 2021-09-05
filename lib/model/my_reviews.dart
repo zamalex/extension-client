@@ -71,6 +71,7 @@ class MyReviews {
 
     Map<String, String> headers = {
       'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Content-Type': 'application/json',
       'Current-Locale':Intl.getCurrentLocale()
     };
 
