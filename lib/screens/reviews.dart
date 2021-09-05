@@ -109,7 +109,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                       ],
                     ),
                   ),
-              /*    const UppercaseTitle(title: 'Ratings', padding: EdgeInsets.only(bottom: kPaddingM)),
+                  const UppercaseTitle(title: 'Ratings', padding: EdgeInsets.only(bottom: kPaddingM)),
                   ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -146,7 +146,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                       );
                     },
                     itemCount: List<int>.generate(5, (int index) => index).length,
-                  ),*/
+                  ),
                   ListView(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
