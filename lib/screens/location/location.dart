@@ -103,7 +103,7 @@ class _LocationScreenState extends State<LocationScreen> {
         }).toList();
 
         _location.serviceGroups=[];
-        _location.serviceGroups.add(ServiceGroupModel('Top services', '', services));
+        _location.serviceGroups.add(ServiceGroupModel(getIt.get<AppGlobals>().isRTL?'الخدمات':'Top services', '', services));
 
 
       });
@@ -211,9 +211,9 @@ class _LocationScreenState extends State<LocationScreen> {
                             SizedBox(height: 15,),
                             DefaultTabController(length: 2, child: TabBar(tabs: [
 
-                              Container(child: Text('Details',style: TextStyle(color: selected==0?kWhite:kPrimaryColor),)
+                              Container(child: Text(getIt.get<AppGlobals>().isRTL?'التفاصيل':'Details',style: TextStyle(color: selected==0?kWhite:kPrimaryColor),)
                                 ,height: 40,alignment: Alignment.center,color: selected==1?kTransparent:mGrey),
-                              Container(child: Text('Products',style: TextStyle(color: selected==0?kPrimaryColor:kWhite),)
+                              Container(child: Text(getIt.get<AppGlobals>().isRTL?'المنتجات':'Products',style: TextStyle(color: selected==0?kPrimaryColor:kWhite),)
                                 ,height: 40,alignment: Alignment.center,color: selected==0?kTransparent:mGrey,),
                             ],
                               labelColor: kPrimaryColor,

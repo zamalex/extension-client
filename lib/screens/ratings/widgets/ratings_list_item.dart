@@ -41,7 +41,7 @@ class RatingsListItem extends StatelessWidget {
             ListItem(
               title: review.moduleName,//location.name,
               titleTextStyle: Theme.of(context).textTheme.headline6,
-              subtitle: 'Utah Park',//sprintf('%s\n%s', <String>[review.location.address, review.location.city]),
+              subtitle: '',//sprintf('%s\n%s', <String>[review.location.address, review.location.city]),
               leading: Padding(
                 padding: const EdgeInsetsDirectional.only(end: kPaddingS),
                 child: Container(
@@ -51,7 +51,7 @@ class RatingsListItem extends StatelessWidget {
                     shape: BoxShape.rectangle,
                     borderRadius: const BorderRadius.all(Radius.circular(kFormFieldsRadius)),
                     image: DecorationImage(
-                      image: AssetImage('assets/images/data/categories/barber-shop.jpg'/*location.mainPhoto*/),
+                      image: NetworkImage(review.avatar),
                       fit: BoxFit.cover,
                     ),
                   ),

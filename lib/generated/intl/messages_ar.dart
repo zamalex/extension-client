@@ -27,9 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m3(number) => "بـ ${number}?";
 
-  static m4(current, total) => "Step ${current} of ${total}";
+  static m4(current, total) => "الخطوة ${current} من ${total}";
 
-  static m5(page) => "${Intl.select(page, {'page1': 'Select services', 'page2': 'Select staff', 'page3': 'Appointment', 'page4': 'Confirmation', 'other': '---', })}";
+  static m5(page) => "${Intl.select(page, {'page1': 'اختر الخدمات', 'page2': 'اختر العامل', 'page3': 'الموعد', 'page4': 'التأكيد', 'other': '---', })}";
 
   static m6(from, to, total) => "من ${from} الى ${to} (${total})";
 
@@ -130,8 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "bookingBtnCall" : MessageLookupByLibrary.simpleMessage("Call"),
     "bookingBtnCancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
     "bookingBtnClose" : MessageLookupByLibrary.simpleMessage("Ok, got it"),
-    "bookingBtnConfirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
-    "bookingBtnNext" : MessageLookupByLibrary.simpleMessage("Next"),
+    "bookingBtnConfirm" : MessageLookupByLibrary.simpleMessage("تأكيد"),
+    "bookingBtnNext" : MessageLookupByLibrary.simpleMessage("التالي"),
     "bookingBtnNotes" : MessageLookupByLibrary.simpleMessage("Notes"),
     "bookingCallConfirmation" : m3,
     "bookingLabelSteps" : m4,
