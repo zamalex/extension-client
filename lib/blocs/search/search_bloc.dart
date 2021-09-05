@@ -51,6 +51,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> _mapInitSessionSearchEventToState(SessionInitedSearchEvent event) async* {
     yield RefreshSuccessSearchState(
       SearchSessionModel(
+        currentPage: 1,
         selectedCity: event.selectedCity,
         currentSort: event.currentSort,
         currentListType: event.currentListType,
@@ -116,13 +117,16 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
   Stream<SearchState> _mapFilteredSearchEventToState(FilteredListRequestedSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
+
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
+
 
       yield RefreshSuccessSearchState(session.rebuild(
         isLoading: true,
         searchType: SearchType.full,
       ));
 
+      if(session.currentPage==1)
       await getLocation();
       const LocationRepository locationRepository = LocationRepository();
 
@@ -141,35 +145,50 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       bool offer = session.currentGenderFilter.label=='All Salons'?false:true;
      
       if(offer){
-        await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q).then((value){
+        await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q,page: session.currentPage).then((value){
           _locations =value.where((element) => element.offer).map((e){
             return LocationModel(e.offer,e.id, e.name, e.rating??0, 100, e.address??'', '', '545545545', 'email', 'website', 'description', e.logo, 'genders', [],GeoPoint(latitude: double.parse(e.latitude), longitude:  double.parse(e.longitude)), [], [], [], [], [], 'cancelationPolicy');
           }).toList();
 
         });
       }else{
-        await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q).then((value){
+        await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q,page: session.currentPage).then((value){
           _locations =value.map((e){
             return LocationModel(e.offer,e.id, e.name, e.rating??0, 100, e.address??'', '', '545545545', 'email', 'website', 'description', e.logo, 'genders', [],GeoPoint(latitude: double.parse(e.latitude), longitude:  double.parse(e.longitude)), [], [], [], [], [], 'cancelationPolicy');
           }).toList();
 
         });
       }
-      
-    
 
-      yield RefreshSuccessSearchState(session.rebuild(
-        locations: _locations,
-        isLoading: false,
-        searchType: SearchType.full,
-      ));
+
+
+      if(session.locations==null){
+        session.locations=[];
+      }
+      if(session.currentPage==1){
+        yield RefreshSuccessSearchState(session.rebuild(
+          locations:_locations,
+          isLoading: false,
+          searchType: SearchType.full,
+          currentPage: session.currentPage+1
+        ));
+      }else{
+        yield RefreshSuccessSearchState(session.rebuild(
+          locations:session.locations..addAll(_locations),
+          isLoading: false,
+          searchType: SearchType.full,
+            currentPage: session.currentPage+1
+        ));
+      }
+
+
     }
   }
 
   Stream<SearchState> _mapCategoryFilteredSearchEventToState(CategoryFilteredSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
-
+      session.currentPage=1;
       yield RefreshSuccessSearchState(session.rebuild(
         activeSearchTab: event.activeSearchTab,
         searchType: SearchType.full,
@@ -182,7 +201,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   Stream<SearchState> _mapListTypeSearchEventToState(ListTypeChangedSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
+
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
+      session.currentPage=1;
 
       yield RefreshSuccessSearchState(session.rebuild(
         searchType: SearchType.full,
@@ -194,6 +215,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> _mapSortOrderSearchEventToState(SortOrderChangedSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
+      session.currentPage=1;
 
       yield RefreshSuccessSearchState(session.rebuild(
         currentSort: event.newSort,
@@ -208,6 +230,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> _mapGenderFilterSearchEventToState(GenderFilterChangedSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
+      session.currentPage=1;
 
       yield RefreshSuccessSearchState(session.rebuild(
         currentGenderFilter: event.genderFilter,
@@ -222,6 +245,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> _mapCitySelectedSearchEventToState(CitySelectedSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
+      session.currentPage=1;
 
       yield RefreshSuccessSearchState(session.rebuild(
         selectedCity: event.city,
@@ -236,6 +260,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> _mapNewDateRangeSearchEventToState(NewDateRangeSelectedSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
+      session.currentPage=1;
 
       yield RefreshSuccessSearchState(session.rebuild(
         selectedDateRange: event.dateRange,
@@ -250,6 +275,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> _mapKeywordSearchEventToState(KeywordChangedSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
+      session.currentPage=1;
 
       yield RefreshSuccessSearchState(session.rebuild(
         q: event.q,
@@ -265,6 +291,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     if (state is RefreshSuccessSearchState) {
       if (event.q.length >= kMinimalNameQueryLength) {
         final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
+        session.currentPage=1;
 
         yield RefreshSuccessSearchState(session.rebuild(
           isLoading: true,
@@ -290,14 +317,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         bool offer = session.currentGenderFilter.label=='All Salons'?false:true;
 
         if(offer){
-          await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q).then((value){
+          await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q,page: session.currentPage).then((value){
             _locations =value.where((element) => element.offer).map((e){
               return LocationModel(e.offer,e.id, e.name, e.rating??0, 100, e.address??'', '', '545545545', 'email', 'website', 'description', e.logo, 'genders', [],GeoPoint(latitude: double.parse(e.latitude), longitude:  double.parse(e.longitude)), [], [], [], [], [], 'cancelationPolicy');
             }).where((element) =>element.name.toLowerCase().contains(event.q.toLowerCase())).toList();
 
           });
         }else{
-          await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q).then((value){
+          await SalonModel().filterSalons('', '', session.activeSearchTab.toString()!='0'?session.activeSearchTab.toString():'', session.selectedCity.id, session.q,page: session.currentPage).then((value){
             _locations =value.map((e){
               return LocationModel(e.offer,e.id, e.name, e.rating??0, 100, e.address??'', '', '545545545', 'email', 'website', 'description', e.logo, 'genders', [],GeoPoint(latitude: double.parse(e.latitude), longitude:  double.parse(e.longitude)), [], [], [], [], [], 'cancelationPolicy');
             }).where((element) =>element.name.toLowerCase().contains(event.q.toLowerCase())).toList();
@@ -318,6 +345,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> _mapMapSearchEventToState(MapSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
+      session.currentPage=1;
 
       yield RefreshSuccessSearchState(session.rebuild(
         isLoading: true,

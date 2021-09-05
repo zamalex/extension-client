@@ -91,7 +91,7 @@ class _RatingsScreenState extends State<RatingsScreen> {
       );
     }
 
-    if (_isInited) {
+   /* if (_isInited) {
       String _title;
 
       return Padding(
@@ -118,7 +118,7 @@ class _RatingsScreenState extends State<RatingsScreen> {
           ],
         ),
       );
-    }
+    }*/
 
     return Container();
   }

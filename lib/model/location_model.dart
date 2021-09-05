@@ -100,7 +100,7 @@ class SalonModel {
     }
   }
 
-  Future<List<Data>> filterSalons(String lat,String long,String cat,String city,String name) async {
+  Future<List<Data>> filterSalons(String lat,String long,String cat,String city,String name,{int page=1}) async {
 
     Map<String,String> header = {
       'Current-Locale':Intl.getCurrentLocale()
@@ -117,11 +117,11 @@ class SalonModel {
 
     try {
       var response = await http.get(
-        Uri.parse('${Globals.BASE}shops?latitude=$lat&longitude=$long&name=$name&category_id=$cat&city_id=$city'),
+        Uri.parse('${Globals.BASE}shops?page=$page&latitude=$lat&longitude=$long&name=$name&category_id=$cat&city_id=$city'),
           headers: header
       );
 
-      print(        '${Globals.BASE}shops?latitude=$lat&longitude=$long&name=$name&category_id=$cat&city_id=$city');
+      print(        '${Globals.BASE}shops?page=$page&latitude=$lat&longitude=$long&name=$name&category_id=$cat&city_id=$city');
       if(response.statusCode>=400){
 
       }else{

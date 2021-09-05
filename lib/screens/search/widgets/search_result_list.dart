@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:salon/blocs/search/search_bloc.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/location_model.dart';
 import 'package:salon/data/models/toolbar_option_model.dart';
@@ -9,17 +10,30 @@ import 'package:salon/widgets/location_list_item.dart';
 import 'package:salon/widgets/strut_text.dart';
 
 class SearchResultList extends StatelessWidget {
-  const SearchResultList({
+
+
+  SearchResultList({
     Key key,
+    this.searchBlock,
     this.locations,
     this.currentListType,
   }) : super(key: key);
 
   final List<LocationModel> locations;
   final ToolbarOptionModel currentListType;
+  final SearchBloc searchBlock;
+  ScrollController _scrollController = new ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    _scrollController
+        .addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        print('scrolllled');
+        searchBlock.add(FilteredListRequestedSearchEvent());
+      }
+    });
     if (locations == null) {
       return Container();
     }
@@ -35,7 +49,10 @@ class SearchResultList extends StatelessWidget {
             ),
             StrutText(
               L10n.of(context).locationNoResults,
-              style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).disabledColor),
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1
+                  .copyWith(color: Theme.of(context).disabledColor),
               textAlign: TextAlign.center,
             ),
           ],
@@ -43,39 +60,30 @@ class SearchResultList extends StatelessWidget {
       );
     }
 
-    final LocationListItemViewType _viewType =
-        LocationListItemViewType.values.firstWhere((LocationListItemViewType e) => describeEnum(e) == currentListType.code);
+    final LocationListItemViewType _viewType = LocationListItemViewType.values
+        .firstWhere((LocationListItemViewType e) =>
+    describeEnum(e) == currentListType.code);
 
-    return Container(
-      padding: const EdgeInsetsDirectional.only(start: kPaddingM, top: kPaddingM, bottom: kPaddingM),
-      child: Wrap(
-        runSpacing: kPaddingS,
-        alignment: WrapAlignment.spaceBetween,
-        children: locations.map((LocationModel item) {
-          switch (_viewType) {
-            case LocationListItemViewType.grid:
-              return FractionallySizedBox(
-                widthFactor: 0.5,
-                child: Container(
-                  padding: const EdgeInsetsDirectional.only(end: kPaddingM),
+    return Column(
+      children: [
+        Container(
+            height: 400,
+            padding: const EdgeInsetsDirectional.only(end: kPaddingM),
+            child: ListView.builder(
+
+              controller: _scrollController,
+              itemBuilder: (c, i) {
+                return Container(
+                  margin: EdgeInsets.all(10),
                   child: LocationListItem(
-                    location: item,
+                    location: locations[i],
                     viewType: _viewType,
                   ),
-                ),
-              );
-              break;
-            default:
-              return Container(
-                padding: const EdgeInsetsDirectional.only(end: kPaddingM),
-                child: LocationListItem(
-                  location: item,
-                  viewType: _viewType,
-                ),
-              );
-          }
-        }).toList(),
-      ),
+                );
+              },
+              itemCount: locations.length,
+            )),
+      ],
     );
   }
 }

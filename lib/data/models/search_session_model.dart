@@ -5,7 +5,10 @@ import 'package:salon/data/models/toolbar_option_model.dart';
 enum SearchType { full, quick, map }
 
 class SearchSessionModel {
+
+  int page;
   SearchSessionModel({
+    this.page=0,
     this.locations,
     this.currentSort,
     this.currentListType,
@@ -48,7 +51,7 @@ class SearchSessionModel {
   }
 
   final String q;
-  final int currentPage;
+   int currentPage;
   final int selectedDateRange;
   final ToolbarOptionModel currentSort;
   final ToolbarOptionModel currentListType;
@@ -58,7 +61,7 @@ class SearchSessionModel {
   final bool isLoading;
   final SearchType searchType;
 
-  final List<LocationModel> locations;
+   List<LocationModel> locations;
 
   @override
   String toString() {

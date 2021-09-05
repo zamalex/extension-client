@@ -267,6 +267,7 @@ class SearchScreenState extends State<SearchScreen> {
                               onListTypeChange: (ToolbarOptionModel newListType) => _searchBloc.add(ListTypeChangedSearchEvent(newListType)),
                             ),
                             SearchResultList(
+                              searchBlock: _searchBloc,
                               locations: session.locations,
                               currentListType: session.currentListType,
                             ),
@@ -284,6 +285,7 @@ class SearchScreenState extends State<SearchScreen> {
                 tooltip: L10n.of(context).searchTooltipMap,
                 elevation: 3,
                 onPressed: () {
+                  //_searchBloc.add(FilteredListRequestedSearchEvent());
                   Navigator.pushNamed(
                     context,
                     Routes.searchMap,

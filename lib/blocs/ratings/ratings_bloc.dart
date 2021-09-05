@@ -25,7 +25,7 @@ class RatingsBloc extends Bloc<RatingsEvent, RatingsState> {
 
     await MyReviews().getMyReviews('8').then((value) {
       reviews = value;
-      print(value[0].moduleName);
+     // print(value[0].moduleName);
 
 
     });

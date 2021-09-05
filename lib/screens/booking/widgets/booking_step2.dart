@@ -76,7 +76,7 @@ class _BookingStep2State extends State<BookingStep2> {
               staffModel.rate.toString(),
               style: Theme.of(context).textTheme.subtitle1.fs18.bold,
             ),
-          if (staffModel.rate > 0)
+          if (staffModel.rate == -1)
             const Icon(
               Icons.star,
               size: 20,

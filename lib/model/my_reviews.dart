@@ -114,11 +114,11 @@ class MyReviews {
 
     try {
       var response = await http.get(
-          Uri.parse('${Globals.BASE}reviews/myReviews?user_id=$id'),
+          Uri.parse('${Globals.BASE}reviews/myReviews?user_id=${getIt.get<AppGlobals>().ID}'),
           headers: headers
       );
 
-      print('request  is '+'${Globals.BASE}/reviews/myReviews?user_id=$id');
+      print('request  is '+'${Globals.BASE}/reviews/myReviews?user_id=${getIt.get<AppGlobals>().ID}');
       print('response  is '+response.body);
       final responseJson = json.decode(response.body);
 
