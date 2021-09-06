@@ -146,7 +146,7 @@ class OrdersListItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),),
                    StrutText(
-                     '${appointment.items.data[index].price} SAR',
+                     '${appointment.items.data[index].price} ${kCurrency}',
                      style: Theme.of(context).textTheme.subtitle1.w500.fs18,
                    ),
                  ],

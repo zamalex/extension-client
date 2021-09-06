@@ -123,6 +123,34 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
                       onNotesTap: showNotesEditor,
                     ),
                     _serviceList(),
+                    SizedBox(height: 10,),
+                    const CardDivider(),
+                    SizedBox(height: 10,),
+                    Column(children: List.generate(_appointment.items.data.length, (index){
+                      return  Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor,
+                          borderRadius: const BorderRadiusDirectional.only(
+                            topStart: Radius.circular(kBoxDecorationRadius),
+                            topEnd: Radius.circular(kBoxDecorationRadius),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Expanded(child:  StrutText(
+                              _appointment.items.data[index].productName,
+                              style: Theme.of(context).textTheme.subtitle1.w500.fs18,
+                              overflow: TextOverflow.ellipsis,
+                            ),),
+                            StrutText(
+                              '${_appointment.items.data[index].price} ${kCurrency}',
+                              style: Theme.of(context).textTheme.subtitle1.w500.fs18,
+                            ),
+                          ],
+                        ),
+                      );
+                    }),),
                     _totalPrice(),
                     const CardDivider(),
                    if(widget.appointment.orderType!='purchase') _footer(),

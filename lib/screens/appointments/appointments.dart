@@ -21,6 +21,7 @@ import 'package:salon/utils/list.dart';
 import 'package:salon/widgets/pull_to_refresh.dart';
 import 'package:salon/widgets/strut_text.dart';
 
+
 class AppointmentsScreen extends StatefulWidget {
   const AppointmentsScreen({Key key}) : super(key: key);
   @override
