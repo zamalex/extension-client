@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/model/loginmodel.dart';
@@ -11,6 +12,8 @@ import 'package:salon/widgets/bold_title.dart';
 import 'package:salon/widgets/strut_text.dart';
 import 'package:salon/widgets/theme_button.dart';
 import 'package:salon/widgets/theme_text_input.dart';
+
+import '../main.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key key}) : super(key: key);
@@ -74,7 +77,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ThemeTextInput(
                   key: keyEmailInput,
                   controller: _textEmailController,
-                  hintText: 'Your phone number',
+                  hintText: getIt.get<AppGlobals>().isRTL?'ادخل رقم الجوال':'Your phone number',
                   keyboardType: TextInputType.phone,
                   icon: const Icon(Icons.clear,color: kPrimaryColor,),
                   textInputAction: TextInputAction.next,

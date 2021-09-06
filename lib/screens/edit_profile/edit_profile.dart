@@ -66,7 +66,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     _textNameController.text = getIt.get<AppGlobals>().user.fullName;
     _textPhoneController.text = getIt.get<AppGlobals>().user.phone;
-    _textMailController.text = getIt.get<AppGlobals>().user.email??'';
+    _textMailController.text = (getIt.get<AppGlobals>().user.email==null||getIt.get<AppGlobals>().user.email=='null')?'':getIt.get<AppGlobals>().user.email;
     _textAddressController.text =  getIt.get<AppGlobals>().user.address??'';
     _textZIPController.text = '';
     _textCityController.text = '';
@@ -136,7 +136,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       });
       
       if(loginModel!=null){
-        loginModel.user.email =  _textMailController.text;
+        loginModel.user.email =  _textMailController.text??'';
         loginModel.user.name =  _textNameController.text;
         loginModel.user.phone =  _textPhoneController.text;
         final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -147,7 +147,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         getIt.get<AppGlobals>().user.token = loginModel.accessToken;
         getIt.get<AppGlobals>().user.id = loginModel.user.id;
         getIt.get<AppGlobals>().user.phone= loginModel.user.phone;
-        getIt.get<AppGlobals>().user.email= loginModel.user.email;
+        getIt.get<AppGlobals>().user.email= loginModel.user.email??'';
         getIt.get<AppGlobals>().user.address=_textAddressController.text;
       }
 

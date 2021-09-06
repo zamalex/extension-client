@@ -174,7 +174,7 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
                   ThemeTextInput(
                     key: keyEmailInput,
                     controller: _textEmailController,
-                    hintText: 'enter phone number',
+                    hintText: getIt.get<AppGlobals>().isRTL?'ادخل رقم الجوال':'enter phone number',
                     focusNode: _focusEmail,
                     keyboardType: TextInputType.phone,
                     icon: const Icon(Icons.clear,color: Colors.grey,),

@@ -12,6 +12,9 @@ class AppGlobals {
 
   AppGlobals._();
 
+
+  int serviceIndex = 0;
+
   /// Singleton instance.
   static final AppGlobals instance = AppGlobals._();
 

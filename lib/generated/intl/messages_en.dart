@@ -89,7 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m34(num) => "Locations (${num})";
 
-  static m35(length) => "Password must be at least ${length} characters long and contain at least one number and one uppercase letter.";
+  static m35(length) => "Password must be at least ${length} characters";
 
   static m36(date) => "Valid until: ${date}";
 

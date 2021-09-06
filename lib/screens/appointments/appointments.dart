@@ -71,17 +71,17 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
     searchGroupTypes = <dynamic>[
       <String, dynamic>{
         'code': 'All',
-        'label': 'All',
+        'label':getIt.get<AppGlobals>().isRTL?'الكل': 'All',
         'icon': Icons.calendar_today,
       },
       <String, dynamic>{
         'code': 'Active',
-        'label': 'Active',
+        'label': getIt.get<AppGlobals>().isRTL?'جاري':'Active',
         'icon': Icons.calendar_today,
       },
       <String, dynamic>{
         'code': 'Canceled',
-        'label': 'Canceled',
+        'label': getIt.get<AppGlobals>().isRTL?'ملغي':'Canceled',
         'icon': Icons.calendar_today,
       },
     ].map((dynamic item) => ToolbarOptionModel.fromJson(item as Map<String, dynamic>)).toList();

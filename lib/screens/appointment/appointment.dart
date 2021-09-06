@@ -220,7 +220,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
         /*if (_appointment.status == AppointmentStatus.active)*/
           Padding(
             padding: const EdgeInsets.only(bottom: kPaddingM),
-            child: Text('Cancel for free anytime in advance, otherwise you can be charger with 10% of the service price for not showing up.'),
+            child: Text(getIt.get<AppGlobals>().isRTL?'يمكنك الإلغاء مجانًا في أي وقت مقدمًا ، وإلا فسيتم تحصيل 10٪ من سعر الخدمة مقابل عدم الحضور':'Cancel for free anytime in advance, otherwise you can be charged with 10% of the service price for not showing up.'),
           ),
       ],
     );

@@ -73,17 +73,17 @@ class _OrdersScreenState extends State<OrdersScreen> {
     searchGroupTypes = <dynamic>[
       <String, dynamic>{
         'code': 'All',
-        'label': 'All',
+        'label': getIt.get<AppGlobals>().isRTL?'الكل':'All',
         'icon': Icons.calendar_today,
       },
       <String, dynamic>{
         'code': 'Delivered',
-        'label': 'Delivered',
+        'label': getIt.get<AppGlobals>().isRTL?'تم التوصيل':'Delivered',
         'icon': Icons.calendar_today,
       },
       <String, dynamic>{
         'code': 'Canceled',
-        'label': 'Canceled',
+        'label': getIt.get<AppGlobals>().isRTL?'ملغي':'Canceled',
         'icon': Icons.calendar_today,
       },
     ].map((dynamic item) => ToolbarOptionModel.fromJson(item as Map<String, dynamic>)).toList();

@@ -169,7 +169,7 @@ class SingleReview {
     userName = json['user_name'].toString();
     avatar = json['avatar'].toString();
     rating = double.parse(json['rating'].toString());
-    comment = json['comment'].toString();
+    comment = (json['comment']as String )??'';
     time = json['time'].toString();
   }
 

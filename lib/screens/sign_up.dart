@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/screens/verify.dart';
@@ -13,6 +14,8 @@ import 'package:salon/widgets/form_label.dart';
 import 'package:salon/widgets/link_button.dart';
 import 'package:salon/widgets/theme_button.dart';
 import 'package:salon/widgets/theme_text_input.dart';
+
+import '../main.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key key}) : super(key: key);
@@ -96,10 +99,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   },
                   validator: FormValidator.isRequired(L10n.of(context).formValidatorRequired),
                 ),
-                FormLabel(text: 'Phone number'),
+                FormLabel(text: getIt.get<AppGlobals>().isRTL?'رقم الجوال':'Phone number'),
                 ThemeTextInput(
                   key: keyEmailInput,
-                  hintText: 'enter phone number',
+                  hintText: getIt.get<AppGlobals>().isRTL?'ادخل رقم الجوال':'enter phone number',
                   focusNode: _focusEmail,
                   onTapIcon: () async {
                     await Future<dynamic>.delayed(const Duration(milliseconds: 100));

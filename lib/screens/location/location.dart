@@ -65,7 +65,7 @@ class _LocationScreenState extends State<LocationScreen> {
   void initState() {
     super.initState();
 
-
+    getIt.get<AppGlobals>().serviceIndex=0;
 
     _loadData();
   }
@@ -221,6 +221,8 @@ class _LocationScreenState extends State<LocationScreen> {
                               onTap: (i){
                                 setState(() {
                                   selected = i;
+
+                                  selected==1?getIt.get<AppGlobals>().serviceIndex=1:getIt.get<AppGlobals>().serviceIndex=0;
                                 });
                               },
                             ),
@@ -294,8 +296,9 @@ class _LocationScreenState extends State<LocationScreen> {
                 ],
               ),
             ),
+
             AppButton(
-              text: L10n.of(context).locationBtnBook,
+              text: getIt.get<AppGlobals>().serviceIndex==1?(getIt.get<AppGlobals>().isRTL?'السلة':'cart'):L10n.of(context).locationBtnBook,
               onPressed: () {
     if (!getIt.get<AppGlobals>().isUser){
 
@@ -308,8 +311,14 @@ class _LocationScreenState extends State<LocationScreen> {
 
     return;}
 
+    if(getIt.get<AppGlobals>().serviceIndex==1){
+      (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
+          .onTap(2);
+      Navigator.of(context, rootNavigator: true).pop();
+    }else{
+      Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': _location.id,'staff': staffModel,'location':widget.locationId,'services':services});}
 
-                Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': _location.id,'staff': staffModel,'location':widget.locationId,'services':services});},
+              }
             ),
           ],
         ),

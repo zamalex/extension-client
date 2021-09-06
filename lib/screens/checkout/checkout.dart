@@ -78,25 +78,8 @@ class _CheckoutState extends State<Checkout> {
             ExpandDate(setTime,selectedTime),
             ExpandCopon(coupon,addCopon),
             if( Provider.of<CartProvider>(context).balance>0)
-              Row(
-                children: [
-                  CupertinoSwitch(
-                    value: Provider.of<CartProvider>(context).payWithBalance,
-                    onChanged: (value) {
-                      Provider.of<CartProvider>(context,listen: false).setPayWithBalance(value);
-                    },
-                  ),
-
-                  Column(children: [
-                    Text(getIt.get<AppGlobals>().isRTL?'الرصيد':'Balance'),
-                    Text(Provider.of<CartProvider>(context).balance.toString())
-                  ],)
-                ],
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              )
-            else
-              AbsorbPointer(
-                absorbing: true,
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
                     CupertinoSwitch(
@@ -113,8 +96,34 @@ class _CheckoutState extends State<Checkout> {
                   ],
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 ),
+              )
+            else
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: AbsorbPointer(
+                  absorbing: true,
+                  child: Row(
+                    children: [
+                      CupertinoSwitch(
+                        value: Provider.of<CartProvider>(context).payWithBalance,
+                        onChanged: (value) {
+                          Provider.of<CartProvider>(context,listen: false).setPayWithBalance(value);
+                        },
+                      ),
+
+                      Column(children: [
+                        Text(getIt.get<AppGlobals>().isRTL?'الرصيد':'Balance'),
+                        Text(Provider.of<CartProvider>(context).balance.toString())
+                      ],)
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ),
+                ),
               ),
-            ListTitle(title: L10n.of(context).bookingSubtitleCheckout),
+            Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+
+                child: ListTitle(title: L10n.of(context).bookingSubtitleCheckout)),
 
             ListItem(
               title: L10n.of(context).bookingPayInStore,

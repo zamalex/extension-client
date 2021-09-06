@@ -74,10 +74,10 @@ class _VerifyCodeState extends State<VerifyCode> {
             SizedBox(height: 30,),
 
             BoldTitle(
-              title: 'Verification Code',
+              title: getIt.get<AppGlobals>().isRTL?'رمز التحقق':'Verification Code',
               padding: const EdgeInsets.only(bottom: kPaddingM),
             ),
-            Row(children: [Text('Enter the verification code here.',style: TextStyle(color: Colors.black,fontSize: 15,),),],),
+            Row(children: [Text(getIt.get<AppGlobals>().isRTL?'ادخل رمز التحقق':'Enter the verification code here.',style: TextStyle(color: Colors.black,fontSize: 15,),),],),
             SizedBox(height: 30,),
             Row(mainAxisAlignment:MainAxisAlignment.spaceEvenly,children: [
               CodeEntry(focusNode: firstNode,nextNode: secNode,controller: controller1,),
@@ -88,7 +88,7 @@ class _VerifyCodeState extends State<VerifyCode> {
             SizedBox(height: 30,),
             ThemeButton(
               onPressed: (){verify();},
-              text: 'Done',
+              text: getIt.get<AppGlobals>().isRTL?'تم':'Done',
               showLoading: loading,
               disableTouchWhenLoading: true,
             ),

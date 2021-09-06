@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/data/models/location_model.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/main.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/utils/string.dart';
 import 'package:salon/widgets/strut_text.dart';
@@ -82,7 +84,7 @@ class LocationListItem extends StatelessWidget {
                           onPressed: onFavoriteButtonPressed ?? () {},
                         )
                       else
-                       location.offer? Container(margin:EdgeInsets.all(5),color:kPrimaryColor,padding: EdgeInsets.symmetric(vertical: 5,horizontal: 15),child: Text('Offer',style: TextStyle(color: kWhite),),):Container(),
+                       location.offer? Container(margin:EdgeInsets.all(5),color:kPrimaryColor,padding: EdgeInsets.symmetric(vertical: 5,horizontal: 15),child: Text(getIt.get<AppGlobals>().isRTL?'عرض':'Offer',style: TextStyle(color: kWhite),),):Container(),
                     ],
                   ),
                   Padding(
@@ -174,7 +176,7 @@ class LocationListItem extends StatelessWidget {
                             ),
                           ),
                         ),
-                       location.offer? Container(margin:EdgeInsets.all(5),color:kPrimaryColor,padding: EdgeInsets.symmetric(vertical: 5,horizontal: 15),child: Text('Offer',style: TextStyle(color: kWhite),),):Container(),
+                       location.offer? Container(margin:EdgeInsets.all(5),color:kPrimaryColor,padding: EdgeInsets.symmetric(vertical: 5,horizontal: 15),child: Text(getIt.get<AppGlobals>().isRTL?'عرض':'Offer',style: TextStyle(color: kWhite),),):Container(),
 
                       ],
 
