@@ -47,7 +47,7 @@ class _CartItemState extends State<CartItem> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(height:100,child: Card(color:Colors.white,child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-      Expanded(flex: 2,child: Image.asset('assets/images/onboarding/welcome.png',height: 100,fit: BoxFit.cover,)),
+      Expanded(flex: 2,child: widget.cartModel.logo!=null&&widget.cartModel.logo.isNotEmpty?Image.network(widget.cartModel.logo,height: 100,fit: BoxFit.cover,):Image.asset('assets/images/onboarding/welcome.png',height: 100,fit: BoxFit.cover,)),
       SizedBox(width: 5,),
       Expanded(flex:2,child: Container(height: 100,child: Column(children: [
         Text(widget.cartModel.salon,overflow: TextOverflow.ellipsis,style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
@@ -57,7 +57,7 @@ class _CartItemState extends State<CartItem> {
       ],crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.spaceEvenly,),)),
       Expanded(flex:3,child: Column(children: [
         _quantityButtons(),
-        Text(getIt.get<AppGlobals>().isRTL?'الاجمالي ${widget.cartModel.quantity*widget.cartModel.price} ${kCurrency}':'Total ${widget.cartModel.quantity*widget.cartModel.price} ${kCurrency}',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
+        Text(getIt.get<AppGlobals>().isRTL?'الاجمالي ${widget.cartModel.quantity*widget.cartModel.price} ${kCurrency}':'Total ${(widget.cartModel.quantity*widget.cartModel.price).toStringAsFixed(2)} ${kCurrency}',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
       ],mainAxisAlignment: MainAxisAlignment.spaceEvenly,mainAxisSize: MainAxisSize.max,crossAxisAlignment: CrossAxisAlignment.end,),),
     SizedBox(width: 5,)],)
 

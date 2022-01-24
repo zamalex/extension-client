@@ -31,7 +31,7 @@ const double kBadgeRadius = 16.0;
 const double kTimelineDateSize = 88.0;
 
 // Colors
-const Color kPrimaryColor = Color.fromRGBO(118, 123, 128, 1);
+const Color kPrimaryColor = Color.fromRGBO(174, 117, 106, 1);
 const Color kWhite = Color(0xFFFFFFFF);
 const Color kBlack = Color(0xFF000000);
 const Color kGold = Color(0xFFF3C952);

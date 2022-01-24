@@ -3,6 +3,8 @@ import 'package:salon/generated/l10n.dart';
 import 'package:salon/widgets/success_dialog.dart';
 
 class BookingSuccessDialog extends StatelessWidget {
+  String id;
+  BookingSuccessDialog(this.id);
   @override
   Widget build(BuildContext context) {
     return SuccessDialog(
@@ -11,6 +13,7 @@ class BookingSuccessDialog extends StatelessWidget {
       btnLabel: L10n.of(context).bookingBtnClose,
       startIcon: Icons.calendar_today,
       endIcon: Icons.event_available,
+      id:id ,
     );
   }
 }

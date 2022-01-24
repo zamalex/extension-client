@@ -10,10 +10,12 @@ import 'package:salon/model/products_data.dart';
 import 'package:salon/screens/cart/cart_item.dart';
 import 'package:salon/screens/profile/profile.dart';
 import 'package:salon/screens/sign_in.dart';
+import 'package:salon/utils/ui.dart';
 import 'package:salon/widgets/bottom_navigation.dart';
 
 class ProdcutItem extends StatefulWidget {
   Product cartModel;
+
   ProdcutItem(this.cartModel);
 
   @override
@@ -32,12 +34,23 @@ class _ProdcutItemState extends State<ProdcutItem> {
       builder: (c,b,a){
        return b.isLoading? Text('loading'):  Row(children: [GestureDetector(child: CircleAvatar(child: Text('-',style: TextStyle(color: Colors.white),),radius: 15,backgroundColor: Theme.of(context).accentColor,)
           ,onTap:(){
-            Provider.of<CartProvider>(context,listen: false).removeItem(CartModel(logo: widget.cartModel.thumbnailImage,
+            Provider.of<CartProvider>(context,listen: false).removeItem(CartModel(salon_id:widget.cartModel.salon_id,logo: widget.cartModel.thumbnailImage,
                 id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
             ));
           } ,),Container(child: Text(Provider.of<CartProvider>(context).itemCount(widget.cartModel.id).toString(),style: TextStyle(color: Theme.of(context).accentColor),),margin: EdgeInsets.symmetric(horizontal: 5),)
           ,GestureDetector(child: CircleAvatar(child: Text('+',style: TextStyle(color: Colors.white),),radius: 15,backgroundColor: Theme.of(context).accentColor,)
-              ,onTap:(){Provider.of<CartProvider>(context,listen: false).addItem(CartModel(logo: widget.cartModel.thumbnailImage
+              ,onTap:(){
+               if(!Provider.of<CartProvider>(context,listen: false).canAdd(widget.cartModel.salon_id)){
+                 UI.confirmationDialogBox(context,title: 'info',message: 'cant add from different salons',onConfirmation: (){
+                   Provider.of<CartProvider>(context,listen: false).deleteCart().then((value){
+                     Provider.of<CartProvider>(context,listen: false).addItem(CartModel(salon_id: widget.cartModel.salon_id,logo: widget.cartModel.thumbnailImage
+                         ,id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
+                     ),context);
+                   });
+                 });
+                 return;
+               }
+            Provider.of<CartProvider>(context,listen: false).addItem(CartModel(salon_id:widget.cartModel.salon_id,logo: widget.cartModel.thumbnailImage
                   ,id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
               ),context);} )],mainAxisSize: MainAxisSize.min,);
       },
@@ -55,7 +68,7 @@ class _ProdcutItemState extends State<ProdcutItem> {
         mainAxisSize: MainAxisSize.max,
 
         children: [
-          Expanded(child: Padding(padding: EdgeInsets.all(5),child: FittedBox(fit: BoxFit.scaleDown,alignment: Alignment.centerLeft,child: Text('${widget.cartModel.base_discounted_price.toString()}',style: TextStyle(color: Colors.black,),),),)),
+          Expanded(child: Padding(padding: EdgeInsets.all(5),child: FittedBox(fit: BoxFit.scaleDown,alignment: Alignment.centerLeft,child: Text('${widget.cartModel.base_discounted_price.toStringAsFixed(2)}',style: TextStyle(color: Colors.black,),),),)),
           Provider.of<CartProvider>(context).itemCount(widget.cartModel.id)==0?GestureDetector(child: CircleAvatar(radius: 15,backgroundColor: Theme.of(context).accentColor,child: Icon(Icons.shopping_cart,color: Colors.white,size: 15,),)
             ,onTap:(){
             if (!getIt.get<AppGlobals>().isUser){
@@ -64,7 +77,21 @@ class _ProdcutItemState extends State<ProdcutItem> {
                    Navigator.of(context, rootNavigator: true).pop();
 
             return;}
+
+            if(!Provider.of<CartProvider>(context,listen: false).canAdd(widget.cartModel.salon_id)){
+              UI.confirmationDialogBox(context,title: 'info',message: 'cant add from different salons',onConfirmation: (){
+                Provider.of<CartProvider>(context,listen: false).deleteCart().then((value){
             Provider.of<CartProvider>(context,listen: false).addItem(CartModel(
+              salon_id: widget.cartModel.salon_id,
+              logo: widget.cartModel.thumbnailImage,
+                id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
+                 ),context);
+                });
+              });
+              return;
+            }
+            Provider.of<CartProvider>(context,listen: false).addItem(CartModel(
+salon_id: widget.cartModel.salon_id,
               logo: widget.cartModel.thumbnailImage,
                 id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
                  ),context);} ,):FittedBox(child: _quantityButtons(),),

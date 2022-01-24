@@ -6,8 +6,11 @@ import 'package:salon/model/cart_provider.dart';
 import 'package:salon/screens/cart/cart_item.dart';
 import 'package:salon/screens/checkout/checkout.dart';
 import 'package:salon/widgets/app_button.dart';
+import 'package:salon/widgets/list_item.dart';
+import 'package:salon/widgets/list_title.dart';
 import 'package:salon/widgets/strut_text.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:sprintf/sprintf.dart';
 
 
 class CartList extends StatefulWidget {
@@ -78,6 +81,7 @@ class _CartListState extends State<CartList> {
 
     //Provider.of<CartProvider>(context,listen: false).init();
     return Scaffold(
+      backgroundColor:Colors.grey.shade200 ,
         appBar: AppBar(title: Text(L10n.of(context).Cartt),centerTitle: true,),
 
         body: Column(children: [
@@ -86,6 +90,43 @@ class _CartListState extends State<CartList> {
               return CartItem(Provider.of<CartProvider>(context).items[i]);
             },itemCount: Provider.of<CartProvider>(context).items.length,),
           ),),
+          if(Provider.of<CartProvider>(context).hasAppointments())
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ListTitle(
+                title: L10n.of(context).bookingSubtitleAppointment
+            ),
+          ),
+          Divider(),
+          Consumer<CartProvider>(
+           builder: (context, value, child) {
+             return  !value.hasAppointments()?Container():Padding(
+               padding: const EdgeInsets.all(10.0),
+               child: ListItem(
+                 title: value.appointments['services'].toString()??'',
+                 subtitle: '',
+                 trailing: Column(
+                   crossAxisAlignment: CrossAxisAlignment.end,
+                   children: <Widget>[
+                     InkWell(
+                         child: Icon(Icons.delete),
+                     onTap: (){
+                       Provider.of<CartProvider>(context,listen: false).clearPrefs();
+                     },
+                     ),
+                     Text(
+                       L10n.of(context).commonCurrencyFormat(sprintf('%.2f', <double>[double.parse(value.appointments['total'].toString())])),
+                     ),
+                     Text(
+                       L10n.of(context).commonDurationFormat(value.appointments['duration']??0),
+                     ),
+                   ],
+                 ),
+                 showBorder: false,
+               ),
+             );
+           },
+          ),
           Provider.of<CartProvider>(context,listen: true).items.isNotEmpty?_bottomBar(context):Container()
         ],)
     );

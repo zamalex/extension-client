@@ -298,8 +298,27 @@ class L10n {
   /// `Top Services`
   String get locationTitleTopServices {
     return Intl.message(
-      'Top Services',
+      'Top Products',
       name: 'locationTitleTopServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+
+  String get continueShopping {
+    return Intl.message(
+      'continue shopping',
+      name: 'continueShopping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get locationTitleTopProducts {
+    return Intl.message(
+      'Recent Products',
+      name: 'locationTitleTopProducts',
       desc: '',
       args: [],
     );

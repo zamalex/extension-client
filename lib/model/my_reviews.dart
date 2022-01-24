@@ -104,6 +104,75 @@ class MyReviews {
       return false;
     }
   }
+  Future<bool> checkReview(int staff) async {
+
+    Map<String, String> headers = {
+      'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Content-Type': 'application/json',
+      'Current-Locale':Intl.getCurrentLocale()
+    };
+
+
+    try {
+      var response = await http.post(
+        Uri.parse('${Globals.BASE}staff/checkreview?staff_id=$staff&user_id=${getIt.get<AppGlobals>().ID}'),
+         headers: headers,
+      );
+
+      print('${Globals.BASE}staff/checkreview?staff_id=$staff&user_id=${getIt.get<AppGlobals>().ID}');
+      print('response  is '+response.body);
+
+      var body = jsonDecode(response.body);
+
+      return body['data']as bool??false;
+
+    return false;
+
+    } catch (error) {
+      print(error);
+      return false;
+    }
+  }
+
+
+
+  Future submitWorkerReview(String id,String comment,double rating) async {
+
+    Map<String, String> headers = {
+      'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Content-Type': 'application/json',
+      'Current-Locale':Intl.getCurrentLocale()
+    };
+
+    Map<String,dynamic> body = {
+      'user_id':'${getIt.get<AppGlobals>().ID}',
+      'staff_id':id,
+      'rating':rating,
+      'comment':comment,
+
+    };
+
+
+    try {
+      var response = await http.post(
+        Uri.parse('${Globals.BASE}staff/review/submit'),
+         headers: headers,
+        body:jsonEncode(body)
+      );
+
+      print('request  is '+'${Globals.BASE}staff/review/submit');
+      print('response  is '+response.body);
+      print('body  is '+body.toString());
+      final responseJson = json.decode(response.body);
+
+
+    return true;
+
+    } catch (error) {
+      print(error);
+      return false;
+    }
+  }
 
 
   Future<List<SingleReview>> getMyReviews(String id) async {

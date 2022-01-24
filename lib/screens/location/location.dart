@@ -51,7 +51,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   /// The GlobalKey needed to access Scaffold widget.
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final mGrey = const Color.fromRGBO(118 ,123 ,128, 1);
+  final mGrey = kPrimaryColor;
   var locationBlock;
 
   LocationModel _location;
@@ -209,13 +209,14 @@ class _LocationScreenState extends State<LocationScreen> {
                               ),
                             ),
                             SizedBox(height: 15,),
-                            DefaultTabController(length: 2, child: TabBar(tabs: [
+                            DefaultTabController(length: 2,child: TabBar(tabs: [
 
                               Container(child: Text(getIt.get<AppGlobals>().isRTL?'التفاصيل':'Details',style: TextStyle(color: selected==0?kWhite:kPrimaryColor),)
-                                ,height: 40,alignment: Alignment.center,color: selected==1?kTransparent:mGrey),
+                                ,height: 40,alignment: Alignment.center,color: selected==1?mGrey.withOpacity(.3):mGrey),
                               Container(child: Text(getIt.get<AppGlobals>().isRTL?'المنتجات':'Products',style: TextStyle(color: selected==0?kPrimaryColor:kWhite),)
-                                ,height: 40,alignment: Alignment.center,color: selected==0?kTransparent:mGrey,),
+                                ,height: 40,alignment: Alignment.center,color: selected==0?mGrey.withOpacity(.3):mGrey,),
                             ],
+
                               labelColor: kPrimaryColor,
                               indicatorColor: kTransparent,
                               onTap: (i){

@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/my_reviews.dart';
 import 'package:salon/widgets/strut_text.dart';
 import 'package:salon/widgets/theme_button.dart';
 import 'package:salon/utils/text_style.dart';
@@ -23,9 +25,10 @@ class SuccessDialog extends StatefulWidget {
     this.subtitle,
     this.btnLabel,
     this.startIcon,
+    this.id,
     this.endIcon,
   }) : super(key: key);
-
+final String id;
   /// Duration of the main icon fade in process.
   final Duration iconVisibilityDuration;
 
@@ -94,6 +97,30 @@ class _BookingSuccessDialogState extends State<SuccessDialog> with TickerProvide
     });
 
     asyncInitState();
+
+    final _dialog = RatingDialog(
+      // your app's name?
+      title: 'Rate Salon',
+      // encourage your user to leave a high rating?
+      message:
+      'Tap a star to set your rating. Add more description here if you want.',
+      // your app's logo?
+      image:Image.asset('assets/images/onboarding/welcome.png',width: 100,height: 100,),
+      submitButton: 'Submit',
+      onCancelled: () => print('cancelled'),
+      onSubmitted: (response) {
+        MyReviews().submitReview(widget.id.toString(), response.comment, double.parse(response.rating.toString()));
+
+      },
+    );
+
+    Future.delayed(Duration.zero).then((value) {
+
+      showDialog(
+        context: context,
+        builder: (context) => _dialog,
+      );
+    });
   }
 
   @override

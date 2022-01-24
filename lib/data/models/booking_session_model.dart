@@ -13,7 +13,7 @@ class BookingSessionModel {
     this.timetables,
     this.totalPrice = 0.0,
     this.totalDuration = 0,
-    this.selectedDateRange = 0,
+    this.selectedDateRange = -1,
     this.selectedTimestamp = 0,
     this.isSubmitting = false,
     this.notes = '',
@@ -64,7 +64,7 @@ class BookingSessionModel {
 
   final List<int> selectedServiceIds;
   final StaffModel selectedStaff;
-  final int selectedDateRange;
+   int selectedDateRange;
   final int selectedTimestamp;
   final bool isSubmitting;
   List<int> times = [];
@@ -77,6 +77,8 @@ class BookingSessionModel {
   final int appointmentId;
 
   final PaymentMethod paymentMethod;
+
+
 
   @override
   String toString() {

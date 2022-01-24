@@ -35,7 +35,7 @@ class ProfileInfo extends StatelessWidget {
                   StrutText(
                     getIt.get<AppGlobals>().user.fullName,
                     maxLines: 1,
-                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),
+                    style: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold,fontSize: 20),
                     overflow: TextOverflow.ellipsis,
                   ),
                   const Padding(padding: EdgeInsets.only(top: 4)),

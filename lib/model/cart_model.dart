@@ -16,6 +16,7 @@ class CartModel{
   factory CartModel.fromJson(Map<String, dynamic> jsonData) {
     return CartModel(
       id: jsonData['id'] as int,
+      salon_id: jsonData['salon_id'] as int,
       name: jsonData['name'] as String,
       salon: jsonData['salon']as String,
       quantity: jsonData['quantity'] as int,
@@ -26,6 +27,7 @@ class CartModel{
   static Map<String, dynamic> toMap(CartModel item) => {
     'id': item.id,
     'name': item.name,
+    'salon_id': item.salon_id,
     'salon': item.salon,
     'quantity': item.quantity,
     'price': item.price,

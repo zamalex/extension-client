@@ -101,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "Addresss" : MessageLookupByLibrary.simpleMessage("Address"),
     "Cartt" : MessageLookupByLibrary.simpleMessage("Cart"),
+    "continueShopping" : MessageLookupByLibrary.simpleMessage("continue shopping"),
     "Checkoutt" : MessageLookupByLibrary.simpleMessage("Checkout"),
     "Productss" : MessageLookupByLibrary.simpleMessage("Products"),
     "SAR" : MessageLookupByLibrary.simpleMessage("SAR"),
@@ -271,7 +272,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "locationTitleRatings" : MessageLookupByLibrary.simpleMessage("Ratings"),
     "locationTitleReviews" : MessageLookupByLibrary.simpleMessage("Reviews"),
     "locationTitleStaff" : MessageLookupByLibrary.simpleMessage("Our Staff"),
-    "locationTitleTopServices" : MessageLookupByLibrary.simpleMessage("Top Services"),
+    "locationTitleTopServices" : MessageLookupByLibrary.simpleMessage("Recent Services"),
+    "locationTitleTopProducts" : MessageLookupByLibrary.simpleMessage("Recent Products"),
     "locationTotalReviews" : m30,
     "locationWebConfirmation" : MessageLookupByLibrary.simpleMessage("Open web page?"),
     "myOrders" : MessageLookupByLibrary.simpleMessage("My Orders"),

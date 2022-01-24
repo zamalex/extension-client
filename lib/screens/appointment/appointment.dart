@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 import 'package:salon/blocs/appointment/appointment_bloc.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
@@ -9,6 +10,7 @@ import 'package:salon/data/models/service_model.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/main.dart';
 import 'package:salon/model/appointments_data.dart';
+import 'package:salon/model/my_reviews.dart';
 import 'package:salon/screens/appointment/widgets/appointment_header.dart';
 import 'package:salon/screens/appointment/widgets/appointment_tabbar.dart';
 import 'package:salon/utils/ui.dart';
@@ -52,7 +54,43 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
 
     _appointment = widget.appointment;
     _bloc = BlocProvider.of<AppointmentBloc>(context);
+
+    final _dialog = RatingDialog(
+      // your app's name?
+      title: 'Rate ${widget.appointment.booking_staff_name??''}',
+      // encourage your user to leave a high rating?
+      message:
+      'Tap a star to set your rating. Add more description here if you want.',
+      // your app's logo?
+      image:Image.asset('assets/images/onboarding/welcome.png',width: 100,height: 100,),
+      submitButton: 'Submit',
+      onCancelled: () => print('cancelled'),
+      onSubmitted: (response) {
+        MyReviews().submitWorkerReview(widget.appointment.booking_staff_id.toString()??'0', response.comment, double.parse(response.rating.toString()));
+
+      },
+    );
+
+
+
+    Future.delayed(Duration.zero).then((value) {
+
+      if(/*widget.appointment.deliveryStatus=='delivered'&&*/widget.appointment.booking_staff_id!=null&&widget.appointment.booking_staff_id!=0)
+
+        MyReviews().checkReview(widget.appointment.booking_staff_id).then((value){
+
+          if(value){
+            showDialog(
+              context: context,
+              builder: (context) => _dialog,
+            );
+          }
+        });
+
+    });
   }
+
+
 
   void cancelReservation() {
     if(!widget.appointment.canCancel){
@@ -66,7 +104,9 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
       onConfirmation: () {
         setState(() => _isLoading = true);
         _bloc.add(CanceledAppointmentEvent(id: widget.appointment.id));
-      },
+
+        }
+      ,
     );
   }
 

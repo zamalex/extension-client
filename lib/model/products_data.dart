@@ -122,6 +122,38 @@ class ProductModel {
       return [];
     }
   }
+  Future<List<Product>> getTopProducts() async {
+    try {
+      Map<String,String> header = {
+        'Current-Locale':Intl.getCurrentLocale()
+      };
+
+      var response = await http.get(
+        Uri.parse('${Globals.BASE}products?type=product&page=1'),
+        headers: header
+      );
+      print('response  is '+response.body);
+
+      if(response.statusCode>=400){
+        return [];
+
+      }else{
+        final responseJson = json.decode(response.body);
+        if(responseJson['success'] as bool==false){
+          return [];
+        }else{
+
+          return ProductModel.fromJson(responseJson as Map<String,dynamic>).products;
+        }
+      }
+
+
+
+    } catch (error) {
+      print(error);
+      return [];
+    }
+  }
 
 
 
@@ -137,19 +169,23 @@ class Product {
   int service_duration;
   String name;
   String thumbnailImage;
+  String salonImage;
   String basePrice;
+  String shop_name;
   double base_discounted_price;
 
 
   Product(
       {this.id,
         this.shop_id,
+        this.shop_name,
         this.salon_id,
         this.seller_id,
         this.service_duration,
         this.name,
         this.thumbnailImage,
         this.basePrice,
+        this.salonImage,
         this.base_discounted_price
       });
 
@@ -159,7 +195,9 @@ class Product {
     seller_id = json['seller_id']as int;
     service_duration = json['service_duration']as int;
     name = json['name']as String;
+    shop_name = json['shop_name']as String;
     thumbnailImage = ((json['thumbnail_image'] as  String)==null|| (json['thumbnail_image']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['thumbnail_image']as String;
+    salonImage = ((json['shop_logo'] as  String)==null|| (json['shop_logo']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['shop_logo']as String;
 
    // thumbnailImage = json['thumbnail_image']as String;
     basePrice = json['base_price']as String;

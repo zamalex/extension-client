@@ -43,7 +43,7 @@ class ServiceListItem extends StatelessWidget {
                       topRight: Radius.circular(kBoxDecorationRadius),
                     ),
                     image: DecorationImage(
-                      image: category.thumbnailImage!='assets/images/onboarding/welcome.png'?NetworkImage(category.thumbnailImage):AssetImage('assets/images/onboarding/welcome.png')as ImageProvider,
+                      image: category.thumbnailImage!='assets/images/onboarding/welcome.png'?NetworkImage(category.thumbnailImage,):category.salonImage!='assets/images/onboarding/welcome.png'?NetworkImage(category.salonImage,):AssetImage('assets/images/onboarding/welcome.png')as ImageProvider,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -54,6 +54,16 @@ class ServiceListItem extends StatelessWidget {
                     category.name,
                     maxLines: 1,
                     style: TextStyle(color: Colors.black,fontSize: 18),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: kPaddingS, left: kPaddingS, right: kPaddingS),
+                  child: StrutText(
+
+                    category.shop_name??'',
+                    textAlign: TextAlign.start,
+                    maxLines: 1,
+                    style: TextStyle(color: Colors.black,fontSize: 14),
                   ),
                 ),
               ],

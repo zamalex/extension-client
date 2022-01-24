@@ -106,6 +106,8 @@ class Data {
   int id;
   String orderType;
   String bookingDateTime;
+  String booking_staff_name;
+  int booking_staff_id;
   String code;
   int userId;
   String paymentType;
@@ -128,6 +130,8 @@ class Data {
         this.code,
         this.userId,
         this.paymentType,
+        this.booking_staff_name,
+        this.booking_staff_id,
         this.shippingTypeString,
         this.paymentStatus,
         this.paymentStatusString,
@@ -146,6 +150,8 @@ class Data {
     bookingDateTime = json['delivery_date_time']as String;
     code = json['code']as String;
     userId = json['user_id']as int;
+    booking_staff_id = json['booking_staff_id']as int??0;
+    booking_staff_name = json['booking_staff_name']as String??'';
     paymentStatus = json['payment_status']as String;
     paymentStatusString = json['payment_status_string']as String;
     deliveryStatus = json['delivery_status']as String;

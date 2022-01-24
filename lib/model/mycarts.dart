@@ -13,13 +13,15 @@ import '../main.dart';
 class MyCarts {
   String name;
   int ownerId;
+  int salonId;
   List<CartItems> cartItems;
 
-  MyCarts({this.name, this.ownerId, this.cartItems});
+  MyCarts({this.name, this.ownerId, this.cartItems,this.salonId});
 
   MyCarts.fromJson(Map<String, dynamic> json) {
     name = json['name']as String;
     ownerId = json['owner_id']as int;
+    salonId = json['id']as int;
     if (json['cart_items'] != null) {
       cartItems = [];
       json['cart_items'].forEach((v) {
@@ -155,6 +157,31 @@ class MyCarts {
       return [];
     }
   }
+  Future<bool> deleteCart() async {
+
+    try {
+      Map<String, String> headers = {
+        'Authorization': 'Bearer ${Globals.TOKEN}',
+        'Content-Type':'application/json'
+      };
+      print('${Globals.TOKEN}');
+
+      var response = await http.delete(
+          Uri.parse('${Globals.BASE}carts/${getIt.get<AppGlobals>().ID}'),
+          headers: headers,
+      );
+      print('${Globals.BASE}carts/${getIt.get<AppGlobals>().ID}');
+      print('response  is '+response.body);
+
+
+
+      return true;
+
+    } catch (error) {
+      print(error);
+      return false;
+    }
+  }
 
   Future<Map> checkCopon(int owner,String coupon_code) async {
     Map<String,dynamic> body ={
@@ -259,6 +286,48 @@ class MyCarts {
       return false;
     }
   }
+  Future<bool> createOrderWithAppointment(int owner,String payment,String date,String time,String address,bool points,String copon,Map appointment) async {
+    Map<String,dynamic> body ={
+      'owner_id':owner,
+      //'variant':'',
+      'user_id':getIt.get<AppGlobals>().ID,
+      'payment_type':payment,
+      'date':date,
+      'time':time,
+      'services_ids':appointment['services_ids'],
+      'staff_id':appointment['staff_id']??0,
+      'address_text':address,
+      'pay_with_points':points,
+      'coupon_text':copon,
+
+    } ;
+    try {
+      Map<String, String> headers = {
+        'Authorization': 'Bearer ${Globals.TOKEN}',
+        'Content-Type':'application/json',
+        'Current-Locale':Intl.getCurrentLocale()
+      };
+      print('${Globals.TOKEN}');
+      print('body ${body.toString()}');
+
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}orderprocess/store'),
+          headers: headers,
+          body: jsonEncode(body)
+      );
+      print('${Globals.BASE}orderprocess/store');
+      print('response  is '+response.body);
+      final responseJson = json.decode(response.body);
+
+      if(responseJson['result']as bool)
+        return true;
+
+      return false;
+    } catch (error) {
+      print(error);
+      return false;
+    }
+  }
 
 
 
@@ -272,9 +341,9 @@ class CartItems {
   int productId;
   String productName;
   String productThumbnailImage;
-  int price;
-  int tax;
-  int shippingCost;
+  double price;
+  double tax;
+  double shippingCost;
   int quantity;
 
   CartItems(
@@ -296,9 +365,9 @@ class CartItems {
     productId = json['product_id']as int;
     productName = json['product_name']as String;
     productThumbnailImage = json['product_thumbnail_image']as String;
-    price = json['price']as int;
-    tax = json['tax']as int;
-    shippingCost = json['shipping_cost']as int;
+    price = double.parse(json['price'].toString()??'0');
+    tax = double.parse(json['tax'].toString()??'0');
+    shippingCost = double.parse(json['shipping_cost'].toString()??'0');
     quantity = json['quantity']as int;
   }
 

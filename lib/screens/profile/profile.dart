@@ -69,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: ListView(
                         children: <Widget>[
                           ListItem(
-                            titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                            titleTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),
                             title: L10n.of(context).profileListAppointments,
                             leading: const Icon(Icons.calendar_today,color: kPrimaryColor),
                             trailing: Row(
@@ -92,7 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
 
                           ListItem(
-                            titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                            titleTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),
                             title: L10n.of(context).myOrders,//L10n.of(context).profileListVouchers,
                             leading: const Icon(Icons.shopping_cart_outlined,color: kPrimaryColor),
                             trailing: Row(
@@ -111,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onPressed: () => Navigator.pushNamed(context, Routes.vouchers),
                           ),
                           ListItem(
-                                                        titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                                                        titleTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),
 
                             title: L10n.of(context).profileListFavorites,
                             leading: const Icon(Icons.favorite_border,color: kPrimaryColor),
@@ -119,7 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onPressed: () => Navigator.pushNamed(context, Routes.favorites),
                           ),
                           ListItem(
-                                                        titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                                                        titleTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),
 
 
                             title: L10n.of(context).profileListReviews,
@@ -129,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
 
                           ListItem(
-                                                        titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                                                        titleTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),
 
 
                             title: L10n.of(context).profileListEdit,
@@ -143,7 +143,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
 
                           ListItem(
-                                                        titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                                                        titleTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),
 
 
                             title: L10n.of(context).profileListSettings,
@@ -152,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onPressed: () => Navigator.pushNamed(context, Routes.settings),
                           ),
                           ListItem(
-                            titleTextStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                            titleTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),
 
 
                             title: L10n.of(context).profileListLogout,

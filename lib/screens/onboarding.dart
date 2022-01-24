@@ -6,6 +6,7 @@ import 'package:salon/configs/constants.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/strut_text.dart';
+import 'package:shimmer/shimmer.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -50,10 +51,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
 
     /// Styles for the onbarding screen elements
     final PageDecoration pageDecoration = PageDecoration(
-      titleTextStyle: Theme.of(context).textTheme.headline5.white.bold,
-      bodyTextStyle: Theme.of(context).textTheme.subtitle1.white.copyWith(height: 1.8),
+
+      titleTextStyle: Theme.of(context).textTheme.headline5.primaryColor.bold,
+      bodyTextStyle: Theme.of(context).textTheme.subtitle1.primaryColor.copyWith(height: 1.8),
       descriptionPadding: const EdgeInsets.fromLTRB(kPaddingM, 0, kPaddingM, kPaddingM),
       imagePadding: const EdgeInsets.all(kPaddingL),
+
       boxDecoration: BoxDecoration(
         // Linear gradient background
         gradient: LinearGradient(
@@ -61,27 +64,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
           end: Alignment.topCenter,
           stops: const <double>[0.1, 0.9],
           colors: <Color>[
-            kPrimaryColor.withOpacity(.9),
-            kPrimaryColor,
+            Colors.white.withOpacity(.9),
+            Colors.white,
           ],
         ),
       ),
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xff20242b),
+      backgroundColor: Colors.white,
       body: Stack(
         children: <Widget>[
           IntroductionScreen(
-            globalBackgroundColor: kPrimaryColor,
+            globalBackgroundColor: Colors.white,
             showSkipButton: true,
             skipFlex: 0,
             nextFlex: 0,
             dotsDecorator: DotsDecorator(
               size: const Size(10.0, 10.0), // size of dots
-              color: kWhite.withAlpha(128), // color of dots
+              color: kPrimaryColor.withAlpha(128), // color of dots
               activeSize: const Size(22.0, 10.0),
-              activeColor: kWhite, // color of the active dot
+              activeColor: kPrimaryColor, // color of the active dot
               activeShape: const RoundedRectangleBorder(
                 // Shape of the active dot.
                 borderRadius: BorderRadius.all(Radius.circular(25.0)),
@@ -89,20 +92,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
             ),
             skip: StrutText(
               L10n.of(context).onboardingBtnSkip,
-              style: const TextStyle(color: kWhite),
+              style: const TextStyle(color: kPrimaryColor),
             ),
             next: const Icon(
               Icons.arrow_forward,
-              color: kWhite,
+              color: kPrimaryColor,
             ),
             done: StrutText(
               L10n.of(context).onboardingBtnGetStarted,
-              style: const TextStyle(fontWeight: FontWeight.w600, color: kWhite),
+              style: const TextStyle(fontWeight: FontWeight.w600, color: kPrimaryColor),
             ),
             pages: <PageViewModel>[
               PageViewModel(
                 title: L10n.of(context).onboardingPage1Title,
-                body: L10n.of(context).onboardingPage1Body,
+                body: L10n.of(context).onboardingPage1Title,
                 image: introImage(AssetsImages.onboardingWelcome),
                 decoration: pageDecoration,
               ),
@@ -138,8 +141,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
 
   /// Show the OnboardingScreen image widget.
   Widget introImage(String assetName) {
-    return Card(elevation:8,color:Theme.of(context).accentColor,child: Align(
-      child: Image.asset('$assetName', ),
+    return Card(elevation:8,color:Colors.white,child: Align(
+      child: Stack(
+        children: [
+          Image.asset('$assetName', ),
+          Shimmer.fromColors(child: Opacity(
+            opacity: .0,
+            child: Container(
+              color: Colors.white,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ),
+            baseColor: Colors.white,
+            highlightColor: Colors.white,)
+        ],
+      ),
       alignment: Alignment.bottomCenter,
     ),);
   }
@@ -155,7 +172,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
         height: 2 * radius,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: kWhite,
+          color: Colors.white,
         ),
       ),
     );

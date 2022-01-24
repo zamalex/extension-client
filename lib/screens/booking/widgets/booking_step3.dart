@@ -23,13 +23,13 @@ class BookingStep3 extends StatefulWidget {
 
 class _BookingStep3State extends State<BookingStep3> {
 
-  List<Slot> slots = [];
+  List<Slot> slots;
 
   final ScrollController _controller = ScrollController();
 List<int> i=[10,20,30,40];
 
-getSlots(String id,String date){
-  BookingDayTimes().getDayTimes(id, date).then((value){
+getSlots(int day,String id,String date){
+  BookingDayTimes().getDayTimes(day,id, date).then((value){
     setState(() {
       slots = value??[];
     });
@@ -42,14 +42,14 @@ getSlots(String id,String date){
     // TODO: implement initState
     super.initState();
     final now = DateTime.now();
-    getSlots(widget.id.toString(), '${now.year}-${now.month}-${now.day}');
+    //getSlots(widget.id.toString(), '${now.year}-${now.month}-${now.day}');
   }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookingBloc, BookingState>(
-      builder: (BuildContext context, BookingState state) {
-        final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
 
+      builder: (BuildContext context, BookingState state) {
+        final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session..selectedDateRange;
         final DateTime selectedDate = DateTime.now().add(Duration(days: session.selectedDateRange));
         final TimetableModel timetableModel = session.timetables != null
             ? session.timetables.firstWhere((TimetableModel t) {
@@ -82,8 +82,9 @@ getSlots(String id,String date){
                         isSelected: session.selectedDateRange == index,
                         onTap: () {
                           if (session.selectedDateRange != index) {
-                            final now = DateTime.now().add(Duration(days: session.selectedDateRange));
-                            getSlots(session.location.id.toString(), '${now.year}-${now.month}-${now.day}');
+                            final now = DateTime.now().add(Duration(days: index));
+                            print(now.toLocalDateString);
+                            getSlots(now.weekday,session.selectedStaff.id.toString(), '${now.year}-${now.month}-${now.day}');
                             context.read<BookingBloc>().add(DateRangeSetBookingEvent(index));
                           }
                         },
@@ -99,7 +100,7 @@ getSlots(String id,String date){
                   style: Theme.of(context).textTheme.headline6.w600,
                 ),
               ),
-              if (timetableModel != null && timetableModel.timestamps.isNotEmpty)
+              if (slots!=null&&/*timetableModel != null && timetableModel.timestamps.isNotEmpty*/slots.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: kPaddingM),
                   child: Column(
@@ -112,7 +113,7 @@ getSlots(String id,String date){
                     }),
                   ),
                 )
-              else
+              else if(slots!=null&&slots.isEmpty)
                 Center(
                   child: Jumbotron(
                     title: session.selectedStaff == null || session.selectedStaff.id == 0
@@ -121,7 +122,8 @@ getSlots(String id,String date){
                     icon: Icons.access_time,
                     padding: const EdgeInsets.only(top: kPaddingM),
                   ),
-                ),
+                )
+              else Container()
             ],
           ),
         );

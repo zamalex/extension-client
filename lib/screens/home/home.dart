@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   List<CategoryModel> categories=[];
   List<bann.Banner> banners=[];
   List<Product> services=[];
+  List<Product> products=[];
   List<LocationModel> _topLocations;
 
   final LocationRepository locationRepository = const LocationRepository();
@@ -63,6 +64,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
     ProductModel().getTopServices(0).then((value){setState(() {
       services = value ?? [];
+    });});
+
+    ProductModel().getTopProducts().then((value){setState(() {
+      products = value ?? [];
     });});
 
     CategoryData().getCategories().then((value){
@@ -164,19 +169,58 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   Widget _showTopServices() {
     return Container(
-      height: 220,
+      height: 270,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           BoldTitle(title: L10n.of(context).locationTitleTopServices),
           Container(
-            height: 130,
+            height: 170,
             child: _isDataLoaded
                 ? ListView(
               padding: const EdgeInsetsDirectional.only(start: kPaddingM),
               scrollDirection: Axis.horizontal,
               children: services.map((Product category) {
+                return Container(
+                  width: 160,
+                  margin: const EdgeInsets.only(bottom: 1), // for card shadow
+                  padding: const EdgeInsetsDirectional.only(end: kPaddingS),
+                  child: ServiceListItem(
+                    category: category,
+                  ),
+                );
+              }).toList(),
+            )
+                : ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsetsDirectional.only(start: kPaddingM),
+              itemBuilder: (BuildContext context, int index) => const ShimmerBox(width: 160, height: 130),
+              itemCount: List<int>.generate(3, (int index) => index).length,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
+  Widget _showTopProducts() {
+    return Container(
+      height: 270,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          BoldTitle(title: L10n.of(context).locationTitleTopProducts),
+          Container(
+            height: 170,
+            child: _isDataLoaded
+                ? ListView(
+              padding: const EdgeInsetsDirectional.only(start: kPaddingM),
+              scrollDirection: Axis.horizontal,
+              children: products.map((Product category) {
                 return Container(
                   width: 160,
                   margin: const EdgeInsets.only(bottom: 1), // for card shadow
@@ -226,6 +270,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   _showCategories(),
                   _showRecentlyViewed(),
                  _showTopServices(),
+                 _showTopProducts(),
                  // _showTopRatedSalons(),
                   const Padding(padding: EdgeInsets.only(bottom: kPaddingL)),
                 ],

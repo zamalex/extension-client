@@ -52,7 +52,7 @@ class CustomDialog extends StatelessWidget {
                 ),
                 const SizedBox(height: kPaddingM),
                 ButtonBar(
-                  buttonMinWidth: 100,
+                 // buttonMinWidth: 200,
                   alignment: MainAxisAlignment.spaceEvenly,
                   children: actions,
                 ),

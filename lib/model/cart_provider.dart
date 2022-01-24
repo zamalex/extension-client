@@ -11,12 +11,37 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CartProvider extends ChangeNotifier {
   List<CartModel> items = [];
   List<MyCarts> allCarts = [];
+
   OrderSummary orderSummary;
   bool loading = false;
   bool isLoading = false;
+  bool receivFromSalon = false;
+  SharedPreferences prefs;
+  Map appointments = {};
 
   double balance=0;
   bool payWithBalance = false;
+
+  checkReceiveFromSalon(bool v){
+    receivFromSalon=v;
+    notifyListeners();
+  }
+
+  bool canAdd(int salon){
+    if(appointments.isNotEmpty){
+      print('appointment id from cart is ${appointments['shop_id']}');
+      return int.parse(appointments['shop_id'].toString())==salon;
+
+    }
+    if(items.isNotEmpty) {
+      print('product id from cart is ${items.first.salon_id} and salon is ${salon}');
+      return items.first.salon_id == salon;
+    }
+    return true;
+  }
+  bool hasAppointments(){
+    return items.isNotEmpty&&appointments.isNotEmpty;
+  }
 
   setPayWithBalance(bool p){
     payWithBalance = p;
@@ -42,15 +67,39 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  clearPrefs()async{
+    prefs ??= await SharedPreferences.getInstance();
+    prefs.remove('previous');
+    appointments.clear();
+    notifyListeners();
+
+  }
+  void addAppointments(Map map)async{
+    prefs ??= await SharedPreferences.getInstance();
+    prefs.setString("previous", jsonEncode(map));
+
+    appointments=map;
+
+    notifyListeners();
+  }
+
   void init()async{
+    receivFromSalon = false;
     items = [];
+    appointments={};
+    prefs ??= await SharedPreferences.getInstance();
+    String previous = prefs.getString('previous');
+    if(previous!=null){
+      appointments=jsonDecode(prefs.getString('previous'))as Map;
+    }
+
     clear();
     await MyCarts().getCartList().then((value){
       print('size is ${value.length}');
       allCarts = value;
       value.forEach((element) {
         element.cartItems.forEach((inner) {
-            items.add(CartModel(id: inner.productId,name: inner.productName,quantity: inner.quantity,salon: element.name,price: inner.price+0.0));
+            items.add(CartModel(logo:inner.productThumbnailImage,salon_id: element.salonId,id: inner.productId,name: inner.productName,quantity: inner.quantity,salon: element.name,price: inner.price+0.0));
         });
       });
 
@@ -74,6 +123,9 @@ class CartProvider extends ChangeNotifier {
     items.forEach((element) {
       total+=(element.price*element.quantity);
     });
+    if(appointments.isNotEmpty){
+      total+=double.parse(appointments['total'].toString());
+    }
     return total;
   }
 
@@ -112,7 +164,7 @@ class CartProvider extends ChangeNotifier {
 
       value.forEach((element) {
         element.cartItems.forEach((inner) {
-          items.add(CartModel(id: inner.productId,name: inner.productName,quantity: inner.quantity,salon: element.name,price: inner.price+0.0));
+          items.add(CartModel(logo: inner.productThumbnailImage,salon_id:item.salon_id,id: inner.productId,name: inner.productName,quantity: inner.quantity,salon: element.name,price: inner.price+0.0));
         });
       });
 
@@ -171,7 +223,8 @@ class CartProvider extends ChangeNotifier {
 
       value.forEach((element) {
         element.cartItems.forEach((inner) {
-          items.add(CartModel(id: inner.productId,name: inner.productName,quantity: inner.quantity,salon: element.name,price: inner.price+0.0));
+
+          items.add(CartModel(salon_id: item.salon_id,logo: inner.productThumbnailImage,id: inner.productId,name: inner.productName,quantity: inner.quantity,salon: element.name,price: inner.price+0.0));
         });
       });
 
@@ -180,10 +233,29 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future deleteCart()async{
+    isLoading = true;
+    notifyListeners();
+    await MyCarts().deleteCart().then((value){
+      if(value){
+        items.clear();
+        appointments.clear();
+        clearPrefs();
+      }
+    });
+
+    isLoading = false;
+notifyListeners();
+    return true;
+  }
+
 
   getOrdersummary(){
     OrderSummary().getOrderSummary(allCarts[0].ownerId).then((value){
-          orderSummary = value;
+      if(appointments.isNotEmpty){
+        value.grandTotal=(double.parse(value.grandTotal)+double.parse(appointments['total'].toString())).toString();
+      }
+      orderSummary = value;
           notifyListeners();
     });
   }

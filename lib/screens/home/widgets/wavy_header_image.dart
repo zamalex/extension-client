@@ -19,7 +19,7 @@ class WavyHeaderImage extends StatelessWidget {
           ),
         ),
       ),
-      clipper: BottomWaveClipper(shrinkOffsetPercentage < 0.5 ? 24 - 24 * 2 * shrinkOffsetPercentage : 0),
+      clipper: BottomWaveClipper(/*shrinkOffsetPercentage < 0.5 ? 24 - 24 * 2 * shrinkOffsetPercentage : */0),
     );
   }
 }

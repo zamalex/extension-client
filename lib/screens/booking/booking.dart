@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:salon/blocs/booking/booking_bloc.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
@@ -10,6 +13,7 @@ import 'package:salon/data/models/service_group_model.dart';
 import 'package:salon/data/models/service_model.dart';
 import 'package:salon/data/models/staff_model.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/cart_provider.dart';
 import 'package:salon/model/confirm_order.dart';
 import 'package:salon/screens/booking/widgets/booking_step1.dart';
 import 'package:salon/screens/booking/widgets/booking_step2.dart';
@@ -24,6 +28,7 @@ import 'package:salon/widgets/sliver_app_title.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/strut_text.dart';
 import 'package:salon/widgets/theme_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sprintf/sprintf.dart';
 
 import '../../main.dart';
@@ -61,6 +66,14 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
     super.dispose();
   }
 
+  checkPrevious() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map map = jsonDecode(prefs.getString('previous'))as Map;
+
+    if(map!=null){
+      print('previous is '+map['total'].toString());
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -70,6 +83,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
     services = widget.params['services'] as List<ServiceModel> ?? [];
     staff = widget.params['staff'] as List<StaffModel> ?? [];
     _preselectedService = widget.params['preselectedService'] as ServiceModel;
+
 
     BlocProvider.of<BookingBloc>(context).add(LocationLoadedBookingEvent(locationId: _locationId));
 
@@ -110,9 +124,93 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
 
         return;
       }
+      checkPrevious();
     } else if (_currentStep == 4) {
 
-      BlocProvider.of<BookingBloc>(context).add(SubmittedBookingEvent(context: context));
+      UI.confirmationDialogBox(context,message: '',title:L10n.of(context).bookingBtnConfirm , onConfirmation: (){
+        BlocProvider.of<BookingBloc>(context).add(SubmittedBookingEvent(context: context));
+
+      },
+      onCancel: ()async{
+        final DateTime now = DateTime.fromMillisecondsSinceEpoch(session.selectedTimestamp);
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        String servicesTxt='';
+        for (final ServiceGroupModel serviceGroupModel in session.location.serviceGroups) {
+          for (final ServiceModel serviceModel in serviceGroupModel.services) {
+            if (session.selectedServiceIds.contains(serviceModel.id)) {
+                servicesTxt=servicesTxt+serviceModel.name+'\n';
+            }
+          }
+        }
+
+
+        var map = {
+          'booked_shift_id':1.toString(),
+          'shop_id':session.location.serviceGroups.first.services.first.shop_id.toString(),
+          'seller_id':session.location.serviceGroups.first.services.first.seller_id.toString(),
+          'services_ids':session.selectedServiceIds,
+          if(session.selectedStaff.id!=0)'staff_id':session.selectedStaff.id.toString(),
+          'date':'${now.year}-${now.month}-${now.day}',
+          'time':'${now.hour}:${now.minute}',
+          'payment_type':'cash_on_delivery',
+          'pay_with_points':false,
+          'services':servicesTxt,
+          'duration':session.totalDuration,
+          'total':session.totalPrice
+
+        };
+
+        if(!Provider.of<CartProvider>(context,listen: false).canAdd(session.location.serviceGroups.first.services.first.shop_id)){
+          UI.confirmationDialogBox(context,title: 'info',message: 'cant add from different salons',onConfirmation: (){
+            Provider.of<CartProvider>(context,listen: false).deleteCart().then((value){
+              Provider.of<CartProvider>(context,listen: false).addAppointments(map);
+              Navigator.pop(context);
+            });
+          });
+          return;
+        }
+        Provider.of<CartProvider>(context,listen: false).addAppointments(map);
+        Navigator.pop(context);
+        //prefs.setString("previous", jsonEncode(map));
+
+      },
+        okButtonText: L10n.of(context).bookingBtnConfirm,
+        cancelButtonText: L10n.of(context).continueShopping
+      );
+     /* UI.showCustomDialog(context, message: '',actions: [
+        InkWell(
+          onTap: (){
+
+            BlocProvider.of<BookingBloc>(context).add(SubmittedBookingEvent(context: context));
+
+          },
+
+            child: Text(L10n.of(context).bookingBtnConfirm)),
+        InkWell(
+            onTap: ()async{
+              final DateTime now = DateTime.fromMillisecondsSinceEpoch(session.selectedTimestamp);
+
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+
+              var map = {
+                'booked_shift_id':1.toString(),
+                'shop_id':session.location.serviceGroups.first.services.first.shop_id.toString(),
+                'seller_id':session.location.serviceGroups.first.services.first.seller_id.toString(),
+                'services_ids':session.selectedServiceIds,
+                if(session.selectedStaff.id!=0)'staff_id':session.selectedStaff.id.toString(),
+                'date':'${now.year}-${now.month}-${now.day}',
+                'time':'${now.hour}:${now.minute}',
+                'payment_type':'cash_on_delivery',
+                'pay_with_points':false
+
+              };
+
+              prefs.setString("previous", jsonEncode(map));
+              Navigator.pop(context);
+            },
+            child: Text(L10n.of(context).continueShopping)),
+      ],title: L10n.of(context).bookingBtnConfirm,);*/
     }
 
     if (_currentStep < totalSteps) {
@@ -157,10 +255,11 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
         session.location.name = locationModel.name;
         session.location.address = locationModel.address;
         session.location.mainPhoto = locationModel.mainPhoto;
+        //session.selectedDateRange=-1;
 
         session.location.serviceGroups.add(ServiceGroupModel('Top Services', '', services));
         if (session.appointmentId > 0) {
-          return BookingSuccessDialog();
+          return BookingSuccessDialog(_locationId.toString());
         }
 
 

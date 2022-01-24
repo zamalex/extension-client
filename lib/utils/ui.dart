@@ -68,6 +68,7 @@ class UI {
     String message,
     String okButtonText,
     String cancelButtonText,
+        void Function() onCancel,
     @required void Function() onConfirmation,
   }) async {
     return showCustomDialog(
@@ -79,7 +80,11 @@ class UI {
         FlatButton(
           textColor: Theme.of(context).buttonColor,
           child: Text(cancelButtonText ?? L10n.of(context).commonBtnCancel),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: (){
+            if(onCancel!=null)
+            onCancel();
+            Navigator.of(context).pop();
+          } ,
         ),
         FlatButton(
           color: Theme.of(context).buttonColor,

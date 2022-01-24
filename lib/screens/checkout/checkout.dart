@@ -74,7 +74,16 @@ class _CheckoutState extends State<Checkout> {
         body: Column(children: [
           Expanded(child: SingleChildScrollView(child: Container(child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             ExpandProducts(),
-            ExpandAddress(address,setAddress),
+            !Provider.of<CartProvider>(context).receivFromSalon?
+            ExpandAddress(address,setAddress):AbsorbPointer(
+              child: Opacity(
+                  opacity: .5,
+                  child: ExpandAddress(address,setAddress)),
+            ),
+            CheckboxListTile(value: Provider.of<CartProvider>(context).receivFromSalon, onChanged:(v){
+              Provider.of<CartProvider>(context,listen: false).checkReceiveFromSalon(v);
+
+            },title: Text('receive from salon'),),
             ExpandDate(setTime,selectedTime),
             ExpandCopon(coupon,addCopon),
             if( Provider.of<CartProvider>(context).balance>0)
@@ -231,6 +240,10 @@ class _CheckoutState extends State<Checkout> {
   }
 
   void checkout(CartProvider p) {
+    if(Provider.of<CartProvider>(context,listen: false).receivFromSalon){
+      address='الاستلام من الصالون';
+    }
+
     if(Provider.of<CartProvider>(context,listen: false).allCarts.isNotEmpty){
       if(address.isEmpty){
         UI.showErrorDialog(context, message: L10n.of(context).enteraddress);
@@ -246,14 +259,29 @@ class _CheckoutState extends State<Checkout> {
       String time = '${selectedTime.hour}:${selectedTime.minute}:${selectedTime.second}';
 
       p.startLoading();
-      MyCarts().createOrder(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, payment,date,time,address,points,coupon).then((value){
-        p.done();
-        UI.showMessage(context, message: 'order placed successfully',buttonText: 'ok',onPressed:(){
-          Navigator.of(context).pop();
+
+      if(Provider.of<CartProvider>(context,listen: false).appointments.isNotEmpty){
+        MyCarts().createOrderWithAppointment(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, payment,date,time,address,points,coupon,Provider.of<CartProvider>(context,listen: false).appointments).then((value){
+          p.done();
+          UI.showMessage(context, message: 'order placed successfully',buttonText: 'ok',onPressed:(){
+            Navigator.of(context).pop();
+          });
+          Provider.of<CartProvider>(context,listen: false).init();
+          Provider.of<CartProvider>(context,listen: false).clearPrefs();
+          Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
         });
-        Provider.of<CartProvider>(context,listen: false).init();
-        Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
-      });
+      }else{
+        MyCarts().createOrder(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, payment,date,time,address,points,coupon).then((value){
+          p.done();
+          UI.showMessage(context, message: 'order placed successfully',buttonText: 'ok',onPressed:(){
+            Navigator.of(context).pop();
+          });
+          Provider.of<CartProvider>(context,listen: false).init();
+          Provider.of<CartProvider>(context,listen: false).clearPrefs();
+          Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
+        });
+      }
+
     }
   }
 }
