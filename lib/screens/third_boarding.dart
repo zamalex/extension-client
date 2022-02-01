@@ -9,13 +9,13 @@ class WithPages extends StatefulWidget {
   static final style = TextStyle(
     fontSize: 30,
     color: kWhite,
-    fontFamily: 'Poppins',
+    fontFamily: 'Expo',
     fontWeight: FontWeight.w600,
   );
   static final style2 = TextStyle(
     fontSize: 20,
     color: kWhite,
-    fontFamily: 'Poppins',
+    fontFamily: 'Expo',
 
     fontWeight: FontWeight.w400,
   );

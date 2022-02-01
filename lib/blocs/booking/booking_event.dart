@@ -69,3 +69,4 @@ class SubmittedBookingEvent extends BookingEvent {
   SubmittedBookingEvent({this.context});
 }
 class GetBookingTimes extends BookingEvent {}
+class CardDoneEvent extends BookingEvent {}

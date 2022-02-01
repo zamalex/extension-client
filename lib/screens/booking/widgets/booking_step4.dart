@@ -33,7 +33,7 @@ class _BookingStep4State extends State<BookingStep4> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    print('from step 4');
     Future.delayed(Duration.zero).then((value){
       Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
 
@@ -218,7 +218,7 @@ class _BookingStep4State extends State<BookingStep4> {
                               ),
                               onPressed: () => selectPaymentmethodEvent(PaymentMethod.inStore),
                             ),
-                            if (Provider.of<CartProvider>(context).balance==-2) ListItem(
+                            /*if (Provider.of<CartProvider>(context).balance==-2)*/ ListItem(
                                 title: L10n.of(context).bookingPayWithCard,
                                 showBorder: false,
                                 leading: Radio<PaymentMethod>(

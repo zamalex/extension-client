@@ -53,7 +53,7 @@ class MyReviews {
       if(responseJson['success']as bool){
         return MyReviews.fromJson(responseJson as Map<String,dynamic>).data.map((e) {
           return ReviewModel(photo: 'assets/images/data/categories/barber-shop.jpg',salonAddress: 'Utah park',salonName: 'The Barber',rate: e.rating,dateString:
-          e.time,comment: e.comment,userName: e.userName,userPhoto: e.avatar??'');
+          e.time,comment: e.comment,userName: e.userName??'',userPhoto: e.avatar??'');
         }).toList();
       }else{
         return [];

@@ -26,7 +26,7 @@ class ProdcutItem extends StatefulWidget {
 class _ProdcutItemState extends State<ProdcutItem> {
   int count = 0;
  // CartProvider cartProvider;
-
+    String txt = getIt.get<AppGlobals>().isRTL?'سيتم حذف عربة التسوق الخاصة بك':'Your cart will be deleted';
 
 
   Widget _quantityButtons(){
@@ -41,7 +41,7 @@ class _ProdcutItemState extends State<ProdcutItem> {
           ,GestureDetector(child: CircleAvatar(child: Text('+',style: TextStyle(color: Colors.white),),radius: 15,backgroundColor: Theme.of(context).accentColor,)
               ,onTap:(){
                if(!Provider.of<CartProvider>(context,listen: false).canAdd(widget.cartModel.salon_id)){
-                 UI.confirmationDialogBox(context,title: 'info',message: 'cant add from different salons',onConfirmation: (){
+                 UI.confirmationDialogBox(context,title: 'info',message: txt,onConfirmation: (){
                    Provider.of<CartProvider>(context,listen: false).deleteCart().then((value){
                      Provider.of<CartProvider>(context,listen: false).addItem(CartModel(salon_id: widget.cartModel.salon_id,logo: widget.cartModel.thumbnailImage
                          ,id:widget.cartModel.id,name: widget.cartModel.name,salon: 'Barber',quantity: 1,price:200
@@ -79,7 +79,7 @@ class _ProdcutItemState extends State<ProdcutItem> {
             return;}
 
             if(!Provider.of<CartProvider>(context,listen: false).canAdd(widget.cartModel.salon_id)){
-              UI.confirmationDialogBox(context,title: 'info',message: 'cant add from different salons',onConfirmation: (){
+              UI.confirmationDialogBox(context,title: 'info',message: txt,onConfirmation: (){
                 Provider.of<CartProvider>(context,listen: false).deleteCart().then((value){
             Provider.of<CartProvider>(context,listen: false).addItem(CartModel(
               salon_id: widget.cartModel.salon_id,

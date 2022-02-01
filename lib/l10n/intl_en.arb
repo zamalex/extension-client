@@ -250,7 +250,7 @@
     "bookingSuccessSubtitle": "You don't need to do anything else. We will send you a reminder before the appointment.",
     "bookingCallConfirmation": "Call number {number}?",
     "bookingAddNotes": "Add booking notes",
-    "bookingPayWithCard": "Pay with points",
+    "bookingPayWithCard": "Pay with card",
     "bookingPayInStore": "Pay in store",
     "bookingNoteslabel": "Special requests about your booking",
     "bookingStaffNoPreferenceName": "No preference",

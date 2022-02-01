@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:salon/blocs/appointment/appointment_bloc.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
 import 'package:salon/blocs/booking/booking_bloc.dart';
@@ -15,6 +18,7 @@ import 'package:salon/blocs/theme/theme_bloc.dart';
 import 'package:salon/configs/app_theme.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/routes.dart';
+import 'package:salon/screens/gosell_test.dart';
 import 'package:salon/screens/onboarding.dart';
 import 'package:salon/screens/splash.dart';
 import 'package:salon/screens/third_boarding.dart';
@@ -53,6 +57,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   void initState() {
     /// The glue between the widgets layer and the Flutter engine.
     WidgetsBinding.instance.addObserver(this);
+    GoSellSdkFlutter.configureApp(
+        bundleId: Platform.isAndroid ? "com.badee.salon" : "com.creativitySol.salon",
+        productionSecreteKey: Platform.isAndroid ? "pk_test_s9uF4wrkjvf82gJ1ipHnTVEL" : "pk_test_s9uF4wrkjvf82gJ1ipHnTVEL",
+        sandBoxsecretKey: Platform.isAndroid ? "sk_test_u2EgVnvBw78NZSUCFHQIyX5z" : "sk_test_6HqM9b2hSKJRjsAlT7CEOgyr",
+        lang: "ar");
 
     _initGlobalKeys();
     _initBlocs();

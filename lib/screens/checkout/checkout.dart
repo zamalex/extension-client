@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
+import 'package:go_sell_sdk_flutter/model/models.dart';
 import 'package:provider/provider.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
@@ -27,6 +30,13 @@ class _CheckoutState extends State<Checkout> {
   String address = '';
   String coupon = '';
   DateTime selectedTime;
+
+  Map<dynamic, dynamic> tapSDKResult;
+  String responseID = "";
+  String sdkStatus = "";
+  String sdkErrorCode;
+  String sdkErrorMessage;
+  String sdkErrorDescription;
 
   void setTime(DateTime date){
     setState(() {
@@ -63,6 +73,205 @@ class _CheckoutState extends State<Checkout> {
 
   }
 
+
+  Future<void> configureSDK(double amount) async {
+    // configure app
+    configureApp();
+    // sdk session configurations
+    setupSDKSession(amount);
+  }
+
+  // configure app key and bundle-id (You must get those keys from tap)
+  Future<void> configureApp() async {
+    /* GoSellSdkFlutter.configureApp(
+        bundleId: Platform.isAndroid ? "com.badee.salon" : "com.creativitySol.salon",
+        productionSecreteKey: Platform.isAndroid ? "pk_test_s9uF4wrkjvf82gJ1ipHnTVEL" : "pk_test_s9uF4wrkjvf82gJ1ipHnTVEL",
+        sandBoxsecretKey: Platform.isAndroid ? "sk_test_u2EgVnvBw78NZSUCFHQIyX5z" : "sk_test_6HqM9b2hSKJRjsAlT7CEOgyr",
+        lang: "ar");*/
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> setupSDKSession(double amount) async {
+    try {
+      await GoSellSdkFlutter.terminateSession();
+      GoSellSdkFlutter.sessionConfigurations(
+          trxMode: TransactionMode.PURCHASE,
+          transactionCurrency: "sar",
+          amount: amount.toString(),
+          customer: Customer(
+              customerId: "", // customer id is important to retrieve cards saved for this customer
+              email: "",
+              isdNumber: getIt.get<AppGlobals>().user.phone,
+              number: getIt.get<AppGlobals>().user.phone,
+              firstName: "test",
+              middleName: "test",
+              lastName: "test",
+              metaData: null),
+          /*paymentItems: <PaymentItem>[
+            PaymentItem(
+                name: "item1",
+                amountPerUnit: 1,
+                quantity: Quantity(value: 1),
+                discount: {"type": "F", "value": 10, "maximum_fee": 10, "minimum_fee": 1},
+                description: "Item 1 Apple",
+                taxes: [Tax(amount: Amount(type: "F", value: 10, minimumFee: 1, maximumFee: 10), name: "tax1", description: "tax describtion")],
+                totalAmount: 100),
+          ],
+          // List of taxes
+          taxes: [
+            Tax(amount: Amount(type: "F", value: 10, minimumFee: 1, maximumFee: 10), name: "tax1", description: "tax describtion"),
+            Tax(amount: Amount(type: "F", value: 10, minimumFee: 1, maximumFee: 10), name: "tax1", description: "tax describtion")
+          ],
+          // List of shippnig
+          shippings: [
+            Shipping(name: "shipping 1", amount: 100, description: "shiping description 1"),
+            Shipping(name: "shipping 2", amount: 150, description: "shiping description 2")
+          ],*/
+          // Post URL
+          postURL: "https://tap.company",
+          // Payment description
+          paymentDescription: "paymentDescription",
+          // Payment Metadata
+          paymentMetaData: {
+            "a": "a meta",
+            "b": "b meta",
+          },
+          // Payment Reference
+          paymentReference: Reference(
+              acquirer: "acquirer", gateway: "gateway", payment: "payment", track: "track", transaction: "trans_910101", order: "order_262625"),
+          // payment Descriptor
+          paymentStatementDescriptor: "paymentStatementDescriptor",
+          // Save Card Switch
+          isUserAllowedToSaveCard: false,
+          // Enable/Disable 3DSecure
+          isRequires3DSecure: true,
+          // Receipt SMS/Email
+          receipt: Receipt(true, false),
+          // Authorize Action [Capture - Void]
+          authorizeAction: AuthorizeAction(type: AuthorizeActionType.CAPTURE, timeInHours: 10),
+          // Destinations
+          destinations: null,
+          // merchant id
+          merchantID: "",
+          // Allowed cards
+          allowedCadTypes: CardType.ALL,
+          applePayMerchantID: "",
+          allowsToSaveSameCardMoreThanOnce: false,
+          // pass the card holder name to the SDK
+          cardHolderName: "",
+          // disable changing the card holder name by the user
+          allowsToEditCardHolderName: true,
+          // select payments you need to show [Default is all, and you can choose between WEB-CARD-APPLEPAY ]
+          paymentType: PaymentType.CARD,
+          // Transaction mode
+          sdkMode: SDKMode.Sandbox);
+    } on PlatformException {
+      // platformVersion = 'Failed to get platform version.';
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      tapSDKResult = {};
+    });
+  }
+
+  Future<void> startSDK(double amount) async {
+
+    await configureSDK(amount);
+
+    tapSDKResult = await GoSellSdkFlutter.startPaymentSDK as Map;
+
+    print('>>>> ${tapSDKResult['sdk_result']}');
+
+    switch (tapSDKResult['sdk_result'].toString()) {
+      case "CANCELLED":
+
+        break;
+      case "SUCCESS":
+        sdkStatus = "SUCCESS";
+
+        handleSDKResult();
+        UI.showMessage(context, message: 'order placed successfully',buttonText: 'ok',onPressed:(){
+          Navigator.of(context).pop();
+        });
+        Provider.of<CartProvider>(context,listen: false).init();
+        Provider.of<CartProvider>(context,listen: false).clearPrefs();
+        Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
+
+
+        break;
+      case "FAILED":
+        sdkStatus = "FAILED";
+        handleSDKResult();
+        break;
+      case "SDK_ERROR":
+        print('sdk error............');
+        print(tapSDKResult['sdk_error_code']);
+        print(tapSDKResult['sdk_error_message']);
+        print(tapSDKResult['sdk_error_description']);
+        print('sdk error............');
+        sdkErrorCode = tapSDKResult['sdk_error_code'].toString();
+        sdkErrorMessage = tapSDKResult['sdk_error_message'].toString();
+        sdkErrorDescription = tapSDKResult['sdk_error_description'].toString();
+        break;
+
+      case "NOT_IMPLEMENTED":
+        sdkStatus = "NOT_IMPLEMENTED";
+        break;
+    }
+
+  }
+
+  void handleSDKResult() {
+    switch (tapSDKResult['trx_mode'].toString()) {
+      case "CHARGE":
+        printSDKResult('Charge');
+        break;
+
+      case "AUTHORIZE":
+        printSDKResult('Authorize');
+        break;
+
+      case "SAVE_CARD":
+        printSDKResult('Save Card');
+        break;
+
+      case "TOKENIZE":
+        print('TOKENIZE token : ${tapSDKResult['token']}');
+        print('TOKENIZE token_currency  : ${tapSDKResult['token_currency']}');
+        print('TOKENIZE card_first_six : ${tapSDKResult['card_first_six']}');
+        print('TOKENIZE card_last_four : ${tapSDKResult['card_last_four']}');
+        print('TOKENIZE card_object  : ${tapSDKResult['card_object']}');
+        print('TOKENIZE card_exp_month : ${tapSDKResult['card_exp_month']}');
+        print('TOKENIZE card_exp_year    : ${tapSDKResult['card_exp_year']}');
+
+        responseID = tapSDKResult['token'].toString();
+        break;
+    }
+  }
+
+  void printSDKResult(String trx_mode) {
+    print('$trx_mode status                : ${tapSDKResult['status']}');
+    print('$trx_mode id               : ${tapSDKResult['charge_id']}');
+    print('$trx_mode  description        : ${tapSDKResult['description']}');
+    print('$trx_mode  message           : ${tapSDKResult['message']}');
+    print('$trx_mode  card_first_six : ${tapSDKResult['card_first_six']}');
+    print('$trx_mode  card_last_four   : ${tapSDKResult['card_last_four']}');
+    print('$trx_mode  card_object         : ${tapSDKResult['card_object']}');
+    print('$trx_mode  card_brand          : ${tapSDKResult['card_brand']}');
+    print('$trx_mode  card_exp_month  : ${tapSDKResult['card_exp_month']}');
+    print('$trx_mode  card_exp_year: ${tapSDKResult['card_exp_year']}');
+    print('$trx_mode  acquirer_id  : ${tapSDKResult['acquirer_id']}');
+    print('$trx_mode  acquirer_response_code : ${tapSDKResult['acquirer_response_code']}');
+    print('$trx_mode  acquirer_response_message: ${tapSDKResult['acquirer_response_message']}');
+    print('$trx_mode  source_id: ${tapSDKResult['source_id']}');
+    print('$trx_mode  source_channel     : ${tapSDKResult['source_channel']}');
+    print('$trx_mode  source_object      : ${tapSDKResult['source_object']}');
+    print('$trx_mode source_payment_type : ${tapSDKResult['source_payment_type']}');
+    responseID = tapSDKResult['charge_id'].toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     final TextDirection currentDirection = Directionality.of(context);
@@ -83,7 +292,7 @@ class _CheckoutState extends State<Checkout> {
             CheckboxListTile(value: Provider.of<CartProvider>(context).receivFromSalon, onChanged:(v){
               Provider.of<CartProvider>(context,listen: false).checkReceiveFromSalon(v);
 
-            },title: Text('receive from salon'),),
+            },title: Text(getIt.get<AppGlobals>().isRTL?'الاستلام من الصالون':'receive from salon'),),
             ExpandDate(setTime,selectedTime),
             ExpandCopon(coupon,addCopon),
             if( Provider.of<CartProvider>(context).balance>0)
@@ -154,8 +363,8 @@ class _CheckoutState extends State<Checkout> {
               },
             ),
 
-              if(Provider.of<CartProvider>(context).balance==-2) ListItem(
-                title: isRTL?L10n.of(context).bookingPayWithCard+' لديك ${Provider.of<CartProvider>(context).balance} ريال ':L10n.of(context).bookingPayWithCard+' you have ${Provider.of<CartProvider>(context).balance} SAR',
+              /*if(Provider.of<CartProvider>(context).balance==-2)*/ ListItem(
+                title: L10n.of(context).bookingPayWithCard,
 
                 showBorder: false,
                 leading: Radio<int>(
@@ -253,10 +462,33 @@ class _CheckoutState extends State<Checkout> {
         UI.showErrorDialog(context, message: L10n.of(context).selectdeliverytime);
         return;
       }
-      String payment = paymentMethod==0?'cash_on_delivery':'cash_on_delivery';
+      String payment = paymentMethod==0?'cash_on_delivery':'online';
       bool points = Provider.of<CartProvider>(context,listen: false).payWithBalance;//paymentMethod==0?false:true;
       String date = '${selectedTime.year}-${selectedTime.month}-${selectedTime.day}';
       String time = '${selectedTime.hour}:${selectedTime.minute}:${selectedTime.second}';
+
+      if(paymentMethod==1){
+
+        Provider.of<CartProvider>(context,listen: false).futureOrdersummary().then((summary){
+          if(summary!=null){
+            if(Provider.of<CartProvider>(context,listen: false).appointments.isNotEmpty){
+              MyCarts().createOrderWithAppointment(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, payment,date,time,address,points,coupon,Provider.of<CartProvider>(context,listen: false).appointments).then((value){
+                startSDK((summary as OrderSummary).grandTotalValue);
+
+              });
+            }else{
+              MyCarts().createOrder(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, payment,date,time,address,points,coupon).then((value){
+                startSDK((summary as OrderSummary).grandTotalValue);
+
+              });
+            }
+
+
+          }
+        });
+
+        return;
+      }
 
       p.startLoading();
 

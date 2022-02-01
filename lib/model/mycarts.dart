@@ -157,20 +157,29 @@ class MyCarts {
       return [];
     }
   }
-  Future<bool> deleteCart() async {
+  Future<bool> deleteCart(int owner) async {
 
     try {
       Map<String, String> headers = {
         'Authorization': 'Bearer ${Globals.TOKEN}',
         'Content-Type':'application/json'
       };
+
+
+      Map<String,dynamic> body ={
+        'owner_id':owner,
+        'user_id':getIt.get<AppGlobals>().ID,
+
+      } ;
+
       print('${Globals.TOKEN}');
 
-      var response = await http.delete(
-          Uri.parse('${Globals.BASE}carts/${getIt.get<AppGlobals>().ID}'),
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}removefromcart'),
           headers: headers,
+        body: jsonEncode(body)
       );
-      print('${Globals.BASE}carts/${getIt.get<AppGlobals>().ID}');
+      //print('${Globals.BASE}carts/${getIt.get<AppGlobals>().ID}');
       print('response  is '+response.body);
 
 
@@ -414,20 +423,30 @@ class OrderSummary {
   );
 
 
-  Future<OrderSummary> getOrderSummary(int owner) async {
+  Future<OrderSummary> getOrderSummary(int owner,Map appointment) async {
 
     Map<String, String> headers = {
       'Authorization': 'Bearer ${Globals.TOKEN}'
+      ,'Content-Type':'application/json'
     };
 
+    Map<String,dynamic> body ={
+      'services_ids':appointment['services_ids']??[],
+
+    } ;
+
     try {
-      var response = await http.get(
-        Uri.parse('${Globals.BASE}cart-summary/${getIt.get<AppGlobals>().ID}/$owner'),
-         headers: headers
-      );
 
       print('request  is '+'${Globals.BASE}cart-summary/${getIt.get<AppGlobals>().user.id}/$owner');
+      print('body  is '+'${body.toString()}');
+
+      var response = await http.post(
+        Uri.parse('${Globals.BASE}cart-summary/${getIt.get<AppGlobals>().ID}/$owner'),
+         headers: headers,
+        body: jsonEncode(body)
+      );
       print('response  is '+response.body);
+
       final responseJson = json.decode(response.body);
 
       return OrderSummary.fromJson(responseJson as Map<String,dynamic>);

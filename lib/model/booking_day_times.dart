@@ -20,20 +20,32 @@ class BookingDayTimes {
     result = json['result']as bool;
     message = json['message'].toString();
   }
-  Future<List<Slot>> getDayTimes(int day,String id,String date) async {
+  Future<List<Slot>> getDayTimes(int day,String id,int salon,String date) async {
 
     Map<String, String> headers = {
       'Authorization': 'Bearer ${Globals.TOKEN}',
-      'Current-Locale':Intl.getCurrentLocale()
+      'Current-Locale':Intl.getCurrentLocale(),
+    'Content-Type':'application/json'
+
     };
     // print('${Globals.TOKEN}');
 
+    Map body = id=='0'?{'staff_id':id,
+      'shop_id':salon,
+      'day':day,}:{
+      'staff_id':id,
+      //'shop_id':salon,
+      'day':day,
+
+    };
     try {
-      var response = await http.get(
-          Uri.parse('${Globals.BASE}booking/$day/$id/available-slots?date=$date'),
-          headers: headers
+      print('body is ${body.toString()}');
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}booking/available-slots'),
+          headers: headers,
+        body: jsonEncode(body)
       );
-      print('request is ${Globals.BASE}booking/$day/$id/available-slots?date=$date');
+      print('request is ${Globals.BASE}booking/available-slots');
       if(response.statusCode>=400){
 
       }else{

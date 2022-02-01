@@ -126,6 +126,8 @@ class CartProvider extends ChangeNotifier {
     if(appointments.isNotEmpty){
       total+=double.parse(appointments['total'].toString());
     }
+
+
     return total;
   }
 
@@ -236,7 +238,7 @@ class CartProvider extends ChangeNotifier {
   Future deleteCart()async{
     isLoading = true;
     notifyListeners();
-    await MyCarts().deleteCart().then((value){
+    await MyCarts().deleteCart(allCarts[0].ownerId).then((value){
       if(value){
         items.clear();
         appointments.clear();
@@ -251,13 +253,17 @@ notifyListeners();
 
 
   getOrdersummary(){
-    OrderSummary().getOrderSummary(allCarts[0].ownerId).then((value){
-      if(appointments.isNotEmpty){
+    OrderSummary().getOrderSummary(allCarts[0].ownerId,appointments).then((value){
+      /*if(appointments.isNotEmpty){
         value.grandTotal=(double.parse(value.grandTotal)+double.parse(appointments['total'].toString())).toString();
-      }
+      }*/
       orderSummary = value;
           notifyListeners();
     });
+  }
+
+  Future futureOrdersummary(){
+    return OrderSummary().getOrderSummary(allCarts[0].ownerId,appointments);
   }
 
 

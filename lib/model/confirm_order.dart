@@ -46,6 +46,7 @@ class ConfirmOrder {
         };
       }else{
         return {
+          'booking_id':responseJson['booking_id'],
           'result':true,
           'message':responseJson['message']
         };

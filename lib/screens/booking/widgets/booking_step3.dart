@@ -28,8 +28,8 @@ class _BookingStep3State extends State<BookingStep3> {
   final ScrollController _controller = ScrollController();
 List<int> i=[10,20,30,40];
 
-getSlots(int day,String id,String date){
-  BookingDayTimes().getDayTimes(day,id, date).then((value){
+getSlots(int day,String id,int salon,String date){
+  BookingDayTimes().getDayTimes(day,id, salon,date).then((value){
     setState(() {
       slots = value??[];
     });
@@ -84,7 +84,7 @@ getSlots(int day,String id,String date){
                           if (session.selectedDateRange != index) {
                             final now = DateTime.now().add(Duration(days: index));
                             print(now.toLocalDateString);
-                            getSlots(now.weekday,session.selectedStaff.id.toString(), '${now.year}-${now.month}-${now.day}');
+                            getSlots(now.weekday,session.selectedStaff.id.toString(), widget.id,'${now.year}-${now.month}-${now.day}');
                             context.read<BookingBloc>().add(DateRangeSetBookingEvent(index));
                           }
                         },

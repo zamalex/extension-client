@@ -48,6 +48,10 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
     } else if (event is SubmittedBookingEvent) {
       yield* _mapSubmitBookingEventToState(event.context);
     }
+
+    else if (event is CardDoneEvent) {
+      yield* _mapCardDoneEventToState();
+    }
   }
 
   Stream<BookingState> _mapLoadLocationBookingEventToState(LocationLoadedBookingEvent event) async* {
@@ -64,6 +68,9 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       ));
     }
   }
+
+
+
 
   Stream<BookingState> _mapSelectServiceBookingEventToState(ServiceSelectedBookingEvent event) async* {
     if (state is SessionRefreshSuccessBookingState) {
@@ -198,7 +205,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
         if(session.selectedStaff.id!=0)'staff_id':session.selectedStaff.id.toString(),
         'date':'${now.year}-${now.month}-${now.day}',
         'time':'${now.hour}:${now.minute}',
-        'payment_type':'cash_on_delivery',
+        'payment_type':session.paymentMethod==PaymentMethod.cc?'online':'cash_on_delivery',
         'pay_with_points':points
 
       };
@@ -211,12 +218,27 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       });
 
 
-      if(result['result']as bool){
-        yield SessionRefreshSuccessBookingState(session.rebuild(
-          isSubmitting: false,
-          appointmentId: 1,
+      if(result['result']as bool??true){
 
-        ),);
+        if(session.paymentMethod==PaymentMethod.inStore){
+          yield SessionRefreshSuccessBookingState(session.rebuild(
+            isSubmitting: false,
+            appointmentId: 1,
+            paymentMethod: session.paymentMethod,
+            booking_id: result['booking_id']as int??0
+
+          ),);
+        }else{
+          yield SessionRefreshSuccessBookingState(session.rebuild(
+            isSubmitting: false,
+            appointmentId: 2,
+            paymentMethod: session.paymentMethod,
+              booking_id: result['booking_id']as int??0
+
+          ),);
+        }
+
+
       }else{
         yield SessionRefreshSuccessBookingState(session.rebuild(
           isSubmitting: false,
@@ -225,6 +247,23 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
         ),message:result['message'].toString());
       }
 
+    }
+  }
+
+  Stream<BookingState> _mapCardDoneEventToState() async* {
+    if (state is SessionRefreshSuccessBookingState) {
+      final BookingSessionModel session = (state as SessionRefreshSuccessBookingState)
+          .session;
+
+      print('booking id is ${session.booking_id}');
+
+      yield SessionRefreshSuccessBookingState(session.rebuild(
+        isSubmitting: false,
+        appointmentId: 1,
+        paymentMethod: session.paymentMethod,
+
+
+      ),);
     }
   }
 }

@@ -250,7 +250,7 @@
     "bookingSuccessSubtitle": "لا تحتاج إلى فعل أي شيء آخر. سنرسل لك تذكيرًا قبل الموعد",
     "bookingCallConfirmation": "بـ {number}?",
     "bookingAddNotes": "اضافة ملاحظات",
-    "bookingPayWithCard": "الدفع بالنقاط",
+    "bookingPayWithCard": "الدفع بالكارت",
     "bookingPayInStore": "الدفع في الصالون",
     "bookingNoteslabel": "ملاحظات خاصة",
     "bookingStaffNoPreferenceName": "غير محدد",

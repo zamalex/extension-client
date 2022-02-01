@@ -6,6 +6,7 @@ import 'package:salon/data/models/timetable_model.dart';
 
 class BookingSessionModel {
   BookingSessionModel({
+    this.booking_id=0,
     this.location,
     this.services,
     this.selectedServiceIds,
@@ -23,6 +24,7 @@ class BookingSessionModel {
   });
 
   BookingSessionModel rebuild({
+    int booking_id,
     LocationModel location,
     List<ServiceModel> services,
     List<TimetableModel> timetables,
@@ -41,6 +43,7 @@ class BookingSessionModel {
     PaymentMethod paymentMethod,
   }) {
     return BookingSessionModel(
+      booking_id: booking_id??0,
       location: location ?? this.location,
       services: services ?? this.services,
       selectedServiceIds: selectedServiceIds ?? this.selectedServiceIds,
@@ -74,11 +77,10 @@ class BookingSessionModel {
   final int totalDuration;
 
    String apiError;
-  final int appointmentId;
+   int appointmentId;
 
   final PaymentMethod paymentMethod;
-
-
+  int booking_id;
 
   @override
   String toString() {
