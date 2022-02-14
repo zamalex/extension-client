@@ -227,6 +227,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   padding: const EdgeInsetsDirectional.only(end: kPaddingS),
                   child: ServiceListItem(
                     category: category,
+                    tab: 1,
                   ),
                 );
               }).toList(),

@@ -38,10 +38,11 @@ class LocationScreen extends StatefulWidget {
     Key key,
     this.namedLocation,
     this.locationId ,
+    this.tab=0
   }) : super(key: key);
   final namedLocation;
   final LocationModel locationId;
-
+  final int tab;
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
@@ -68,6 +69,9 @@ class _LocationScreenState extends State<LocationScreen> {
     getIt.get<AppGlobals>().serviceIndex=0;
 
     _loadData();
+
+    if(widget.tab!=0)
+    selected=widget.tab;
   }
 
   Future<void> _loadData() async {

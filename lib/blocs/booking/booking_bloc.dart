@@ -12,8 +12,10 @@ import 'package:salon/data/models/staff_model.dart';
 import 'package:salon/data/models/timetable_model.dart';
 import 'package:salon/data/repositories/appointment_repository.dart';
 import 'package:salon/data/repositories/location_repository.dart';
+import 'package:salon/model/appointments_data.dart';
 import 'package:salon/model/cart_provider.dart';
 import 'package:salon/model/confirm_order.dart';
+import 'package:salon/model/mycarts.dart';
 
 part 'booking_event.dart';
 part 'booking_state.dart';
@@ -24,6 +26,8 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
   BookingBloc({@required this.authBloc}) : super(InitialBookingState());
 
   final AuthBloc authBloc;
+
+  String notes = '';
 
   @override
   Stream<BookingState> mapEventToState(BookingEvent event) async* {
@@ -50,7 +54,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
     }
 
     else if (event is CardDoneEvent) {
-      yield* _mapCardDoneEventToState();
+      yield* _mapCardDoneEventToState(event);
     }
   }
 
@@ -180,6 +184,13 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
       final BookingSessionModel newSession = session.rebuild(notes: event.notes);
 
+      if(event.order!=null&&event.order!=0){
+        ApointmentsData().sendNotes(event.order, event.notes);
+
+        notes='';
+
+      }
+
       yield SessionRefreshSuccessBookingState(newSession);
     }
   }
@@ -221,6 +232,11 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       if(result['result']as bool??true){
 
         if(session.paymentMethod==PaymentMethod.inStore){
+          if(notes.isNotEmpty){
+            print('notess');
+            ApointmentsData().sendNotes(result['booking_id']as int??0, notes);
+            notes='';
+          }
           yield SessionRefreshSuccessBookingState(session.rebuild(
             isSubmitting: false,
             appointmentId: 1,
@@ -229,6 +245,11 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
 
           ),);
         }else{
+
+          if(notes.isNotEmpty){
+            ApointmentsData().sendNotes(result['booking_id']as int??0, notes);
+            notes='';
+          }
           yield SessionRefreshSuccessBookingState(session.rebuild(
             isSubmitting: false,
             appointmentId: 2,
@@ -250,20 +271,31 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
     }
   }
 
-  Stream<BookingState> _mapCardDoneEventToState() async* {
+  Stream<BookingState> _mapCardDoneEventToState(CardDoneEvent event) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState)
           .session;
 
       print('booking id is ${session.booking_id}');
 
-      yield SessionRefreshSuccessBookingState(session.rebuild(
-        isSubmitting: false,
-        appointmentId: 1,
-        paymentMethod: session.paymentMethod,
+     bool result =  await MyCarts().sendTransactionId(session.booking_id, event.transaction);
+
+     if(result){
+       yield SessionRefreshSuccessBookingState(session.rebuild(
+         isSubmitting: false,
+         appointmentId: 1,
+         paymentMethod: session.paymentMethod,
 
 
-      ),);
+       ),);
+     }else{
+       yield SessionRefreshSuccessBookingState(session.rebuild(
+         isSubmitting: false,
+         apiError:'payment failed please try again later',
+         appointmentId: -1,
+       ),message:'payment failed please try again later');
+     }
+
     }
   }
 }

@@ -101,7 +101,7 @@ class ThemeTextInputState extends State<ThemeTextInput> {
         widget.helpText,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: kPrimaryColor,fontFamily: 'Raleway'),
+        style: TextStyle(color: kPrimaryColor,fontFamily: 'Expo'),
       ),
     );
   }

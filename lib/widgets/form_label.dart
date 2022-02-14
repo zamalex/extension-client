@@ -23,7 +23,7 @@ class FormLabel extends StatelessWidget {
       padding: padding ?? const EdgeInsets.only(bottom: kPaddingS, top: kPaddingM),
       child: StrutText(
         text,
-        style:TextStyle(color: Colors.black,fontFamily:'Raleway' ) //Theme.of(context).inputDecorationTheme.labelStyle.w600,
+        style:TextStyle(color: Colors.black,fontFamily:'Expo' ) //Theme.of(context).inputDecorationTheme.labelStyle.w600,
       ),
     );
   }

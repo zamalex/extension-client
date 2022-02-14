@@ -60,14 +60,14 @@ class _SearchMapScreenState extends State<SearchMapScreen> {
 
     _loadData();
 
-    if (_locations != null) {
+    if (_locations != null&&_locations.isNotEmpty) {
       _currentRegion = _getBounds();
       final double zoomLevel = _getZoomLevel(_currentRegion);
 
       _initialCameraPosition = CameraPosition(
         target: LatLng(
-          (_currentRegion.southwest.latitude + _currentRegion.northeast.latitude) / 2,
-          (_currentRegion.southwest.longitude + _currentRegion.northeast.longitude) / 2,
+          /*(_currentRegion.southwest.latitude + _currentRegion.northeast.latitude) / 2*/_locations.first.coordinates.latitude,
+          /*(_currentRegion.southwest.longitude + _currentRegion.northeast.longitude) / 2*/_locations.first.coordinates.latitude,
         ),
         zoom: zoomLevel,
         bearing: 30,

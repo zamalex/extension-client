@@ -18,6 +18,35 @@ class AppGlobals {
   /// Singleton instance.
   static final AppGlobals instance = AppGlobals._();
 
+
+  String getStatus(String status){
+
+    if(isRTL??false){
+      switch (status) {
+        case 'picked_up':
+        case 'confirmed':
+          return 'تم التأكيد';
+          break;
+        case 'delivered':
+        case 'finished':
+          return 'مكتمل';
+          break;
+        case 'canceled':
+          return 'ملغي';
+          break;
+        case 'on_the_way':
+          return 'في الطريق';
+          break;
+        default:
+          return 'قيد الانتظار';
+      }
+    }
+
+    return status.replaceAll('_', ' ');
+
+
+  }
+
   /// List of available cameras on device.
   List<CameraDescription> cameras;
 
@@ -43,7 +72,7 @@ class AppGlobals {
   List<CategoryModel> categories;
 
   /// Logged in user data.
-  UserModel user=UserModel(0, 'Mohamed El-Katteb', 'profilePhoto', 'mkhatteb@badee.com', 'phone', 'city', 'zip', 'address', 0, 0);
+  UserModel user=UserModel(0, 'Mohamed El-Katteb', 'profilePhoto', 'mkhatteb@badee.com', 'phone', 'city', 'zip', '', 0, 0);
   int ID;
   bool isUser=false;
   /// Currently selected [Locale].

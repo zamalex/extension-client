@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/data/models/appointment_model.dart';
@@ -8,7 +9,8 @@ import 'package:salon/widgets/appointment_status_badge.dart';
 import 'package:salon/utils/datetime.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/strut_text.dart';
-import 'package:sprintf/sprintf.dart';
+
+import '../../../main.dart';
 
 class AppointmentHeader extends StatefulWidget {
   const AppointmentHeader(this.appointment);
@@ -54,7 +56,7 @@ class _AppointmentHeaderState extends State<AppointmentHeader> {
               child: Row(
                 children: <Widget>[
                   AppointmentStatusBadge(
-                    status: widget.appointment.deliveryStatus,
+                    status: getIt.get<AppGlobals>().getStatus(widget.appointment.deliveryStatus),
                     inverse: kPrimaryColor == Theme.of(context).appBarTheme.color,
                   ),
                 ],

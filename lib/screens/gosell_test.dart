@@ -232,7 +232,7 @@ class _MyAppState extends State<MyApp> {
                     right: 18,
                     child: Text("Status: [$sdkStatus $responseID ]",
                         style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w400, fontFamily: "Roboto", fontStyle: FontStyle.normal, fontSize: 15.0),
+                            color: Colors.black, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, fontSize: 15.0),
                         textAlign: TextAlign.center),
                   ),
                   Positioned(

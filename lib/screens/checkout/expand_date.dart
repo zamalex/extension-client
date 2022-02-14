@@ -27,12 +27,12 @@ class _ExpandDateState extends State<ExpandDate> {
               onTap: (){
                 DatePicker.showDateTimePicker(context,
                   showTitleActions: true,
-                  minTime: DateTime.now(),
+                  minTime: DateTime.now().add(const Duration(days: 1)),
                   maxTime: DateTime.now().add(const Duration(days: 7)), onChanged: (date) {
 
                   }, onConfirm: (date) {
                     widget.setDate(date);
-                  }, currentTime: DateTime.now(), locale: LocaleType.en);},
+                  }, currentTime: DateTime.now().add(Duration(days: 1)), locale: LocaleType.en);},
               leading: Icon(Icons.alarm,color: kPrimaryColor,),
               title: Text(L10n.of(context).deliverydatetime,style: TextStyle(color: kPrimaryColor)),
               trailing: Container(

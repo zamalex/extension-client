@@ -12,9 +12,9 @@ import 'package:salon/widgets/strut_text.dart';
 
 class PolicyScreen extends StatefulWidget {
 
-  String type;
+  String type,title;
 
-PolicyScreen(this.type);
+PolicyScreen(this.type,this.title);
 
   @override
   _PolicyScreenState createState() => _PolicyScreenState();
@@ -45,7 +45,7 @@ class _PolicyScreenState extends State<PolicyScreen> {
 
 
     return Scaffold(
-        appBar: AppBar(title: Text(widget.type),centerTitle: true,),
+        appBar: AppBar(title: Text(widget.title),centerTitle: true,),
       body: SingleChildScrollView(child: Text(content),),
     );
   }

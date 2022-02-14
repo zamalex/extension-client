@@ -62,6 +62,41 @@ class MyCarts {
     }
   }
 
+  Future<bool> sendTransactionId(int order,String transaction) async {
+
+    Map<String, String> headers = {
+      'Authorization': 'Bearer ${Globals.TOKEN}'
+      ,'Content-Type':'application/json'
+    };
+
+    Map<String,dynamic> body ={
+      'order_id':order,
+      'transaction_id':transaction
+
+    } ;
+
+    try {
+
+      print('request  is '+'${Globals.BASE}updatepayment');
+      print('body  is '+'${body.toString()}');
+
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}updatepayment'),
+          headers: headers,
+          body: jsonEncode(body)
+      );
+      print('response  is '+response.body);
+
+      final responseJson = json.decode(response.body);
+
+      return responseJson['result']as bool??false;
+
+    } catch (error) {
+      print(error);
+      return false;
+    }
+  }
+
   Future<List<MyCarts>> addTocart(CartModel cartModel,BuildContext context) async {
     List<MyCarts> list = [];
     String resul;
@@ -255,7 +290,7 @@ class MyCarts {
     }
   }
 
-  Future<bool> createOrder(int owner,String payment,String date,String time,String address,bool points,String copon) async {
+  Future<Map> createOrder(int owner,String payment,String date,String time,String address,bool points,String copon) async {
     Map<String,dynamic> body ={
       'owner_id':owner,
       //'variant':'',
@@ -287,15 +322,15 @@ class MyCarts {
       final responseJson = json.decode(response.body);
 
       if(responseJson['result']as bool)
-        return true;
+         return {'result':true,'order_id':responseJson['order_id']};
 
-      return false;
+      return  {'result':false};
     } catch (error) {
       print(error);
-      return false;
+      return  {'result':false};
     }
   }
-  Future<bool> createOrderWithAppointment(int owner,String payment,String date,String time,String address,bool points,String copon,Map appointment) async {
+  Future<Map> createOrderWithAppointment(int owner,String payment,String date,String time,String address,bool points,String copon,Map appointment) async {
     Map<String,dynamic> body ={
       'owner_id':owner,
       //'variant':'',
@@ -329,12 +364,12 @@ class MyCarts {
       final responseJson = json.decode(response.body);
 
       if(responseJson['result']as bool)
-        return true;
+        return {'result':true,'order_id':responseJson['order_id']};
 
-      return false;
+      return {'result':false};
     } catch (error) {
       print(error);
-      return false;
+      return {'result':false};
     }
   }
 
@@ -456,4 +491,5 @@ class OrderSummary {
       return null;
     }
   }
+
 }

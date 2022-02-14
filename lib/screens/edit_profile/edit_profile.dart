@@ -94,7 +94,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         getIt.get<AppGlobals>().user.id = loginModel.user.id;
         getIt.get<AppGlobals>().user.phone= loginModel.user.phone;
         getIt.get<AppGlobals>().user.email= loginModel.user.email??'';
-        getIt.get<AppGlobals>().user.address= address??'';
+        getIt.get<AppGlobals>().user.address= loginModel.user.address??'';
 
         getIt.get<AppGlobals>().ID = loginModel.user.id;
         Globals.TOKEN = loginModel.accessToken;
@@ -139,6 +139,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         loginModel.user.email =  _textMailController.text??'';
         loginModel.user.name =  _textNameController.text;
         loginModel.user.phone =  _textPhoneController.text;
+        loginModel.user.address =  _textAddressController.text;
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         
         prefs.setString('me', jsonEncode(loginModel.toJson()));

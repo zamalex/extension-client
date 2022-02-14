@@ -57,7 +57,7 @@ class _LocationMapPreviewState extends State<LocationMapPreview> {
       height: 160,
       margin: const EdgeInsets.only(top: kPaddingL),
       child: Stack(
-        alignment: AlignmentDirectional.bottomEnd,
+        alignment: AlignmentDirectional.topStart,
         children: <Widget>[
           GoogleMap(
             onMapCreated: (GoogleMapController controller) {

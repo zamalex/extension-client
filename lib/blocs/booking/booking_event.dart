@@ -59,9 +59,10 @@ class PaymentMethodSelectedBookingEvent extends BookingEvent {
 }
 
 class NotesUpdatedBookingEvent extends BookingEvent {
-  NotesUpdatedBookingEvent(this.notes);
+  NotesUpdatedBookingEvent(this.notes,this.order);
 
   final String notes;
+  int order;
 }
 
 class SubmittedBookingEvent extends BookingEvent {
@@ -69,4 +70,7 @@ class SubmittedBookingEvent extends BookingEvent {
   SubmittedBookingEvent({this.context});
 }
 class GetBookingTimes extends BookingEvent {}
-class CardDoneEvent extends BookingEvent {}
+class CardDoneEvent extends BookingEvent {
+  String transaction;
+  CardDoneEvent({this.transaction});
+}

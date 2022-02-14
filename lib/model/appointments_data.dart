@@ -100,12 +100,56 @@ class ApointmentsData {
   }
 
 
+
+  Future<bool> sendNotes(int id,String note) async {
+
+    Map<String, String> headers = {
+      'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Content-Type': 'application/json',
+      'Current-Locale':Intl.getCurrentLocale()
+    };
+
+    Map body = {
+      'order_id':id,
+      'notes':note,
+    };
+
+    try {
+      var response = await http.post(
+        Uri.parse('${Globals.BASE}updateorder'),
+        headers: headers,
+        body: jsonEncode(body)
+      );
+      print('response  is '+response.body);
+
+      if(response.statusCode>=400){
+        return false;
+
+      }else{
+        final responseJson = json.decode(response.body);
+        if(responseJson['result'] as bool==false){
+          return false;
+        }else{
+          return true;
+        }
+      }
+
+
+
+    } catch (error) {
+      print(error);
+      return false;
+    }
+  }
+
+
 }
 
 class Data {
   int id;
   String orderType;
   String bookingDateTime;
+  String notes;
   String booking_staff_name;
   int booking_staff_id;
   String code;
@@ -128,6 +172,7 @@ class Data {
         this.orderType,
         this.bookingDateTime,
         this.code,
+        this.notes,
         this.userId,
         this.paymentType,
         this.booking_staff_name,
@@ -148,6 +193,7 @@ class Data {
     id = json['id'] as int;
     orderType = json['order_type']as String;
     bookingDateTime = json['delivery_date_time']as String;
+    notes = json['notes']as String;
     code = json['code']as String;
     userId = json['user_id']as int;
     booking_staff_id = json['booking_staff_id']as int??0;

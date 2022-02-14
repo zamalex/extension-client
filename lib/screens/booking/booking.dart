@@ -371,7 +371,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
 
           handleSDKResult();
 
-          BlocProvider.of<BookingBloc>(context).add(CardDoneEvent());
+          BlocProvider.of<BookingBloc>(context).add(CardDoneEvent(transaction: tapSDKResult['charge_id'].toString()));
 
           break;
         case "FAILED":

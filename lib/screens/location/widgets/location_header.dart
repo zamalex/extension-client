@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rating_dialog/rating_dialog.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/data/models/location_model.dart';
@@ -8,6 +9,8 @@ import 'package:salon/model/my_reviews.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/strut_text.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../main.dart';
 
 class LocationHeader extends StatelessWidget {
   LocationHeader({Key key, this.location}) : super(key: key);
@@ -70,6 +73,7 @@ class LocationHeader extends StatelessWidget {
         if (location.ratings > 0)
           InkWell(
             onTap: () {
+              if(getIt.get<AppGlobals>().isUser)
               showDialog(
                 context: context,
                 builder: (context) => _dialog,

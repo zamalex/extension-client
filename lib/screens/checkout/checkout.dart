@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/model/cart_provider.dart';
+import 'package:salon/model/loginmodel.dart';
 import 'package:salon/model/mycarts.dart';
 import 'package:salon/screens/checkout/expand_address.dart';
 import 'package:salon/screens/checkout/expand_copon.dart';
@@ -16,6 +19,7 @@ import 'package:salon/utils/ui.dart';
 import 'package:salon/widgets/list_item.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/widgets/list_title.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
 
@@ -30,7 +34,7 @@ class _CheckoutState extends State<Checkout> {
   String address = '';
   String coupon = '';
   DateTime selectedTime;
-
+  int order_id=0;
   Map<dynamic, dynamic> tapSDKResult;
   String responseID = "";
   String sdkStatus = "";
@@ -58,11 +62,28 @@ class _CheckoutState extends State<Checkout> {
   }
 
   int paymentMethod = 0;
+
+  getUser()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final json = jsonDecode(prefs.getString('me')??null);
+    if(json!=null){
+      LoginModel loginModel = LoginModel.fromJson(json as Map<String,dynamic>);
+
+      if(loginModel!=null){
+
+        getIt.get<AppGlobals>().user.address= loginModel.user.address??'';
+        setAddress(getIt.get<AppGlobals>().user.address);
+      }
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    order_id=0;
+    getUser();
     Future.delayed(Duration.zero).then((value){
       Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
 
@@ -183,27 +204,40 @@ class _CheckoutState extends State<Checkout> {
     tapSDKResult = await GoSellSdkFlutter.startPaymentSDK as Map;
 
     print('>>>> ${tapSDKResult['sdk_result']}');
-
+    Provider.of<CartProvider>(context,listen: false).done();
     switch (tapSDKResult['sdk_result'].toString()) {
       case "CANCELLED":
-
+        Provider.of<CartProvider>(context,listen: false).deleteCart();
+        UI.showErrorDialog(context,message: 'Payment failed please try again later',onPressed: (){
+          (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
+              .onTap(0);
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        });
         break;
       case "SUCCESS":
         sdkStatus = "SUCCESS";
 
+        bool result = await MyCarts().sendTransactionId(order_id, tapSDKResult['charge_id'].toString());
         handleSDKResult();
-        UI.showMessage(context, message: 'order placed successfully',buttonText: 'ok',onPressed:(){
-          Navigator.of(context).pop();
-        });
-        Provider.of<CartProvider>(context,listen: false).init();
-        Provider.of<CartProvider>(context,listen: false).clearPrefs();
-        Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
+        if(result){
+          UI.showMessage(context, message: 'order placed successfully',buttonText: 'ok',onPressed:(){
+            Navigator.of(context).pop();
+          });
+          Provider.of<CartProvider>(context,listen: false).init();
+          Provider.of<CartProvider>(context,listen: false).clearPrefs();
+          Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
+
+        }else{
+          UI.showErrorDialog(context, message: 'payment failed please try again later');
+
+        }
 
 
         break;
       case "FAILED":
         sdkStatus = "FAILED";
         handleSDKResult();
+        sdkNotComplete();
         break;
       case "SDK_ERROR":
         print('sdk error............');
@@ -214,15 +248,25 @@ class _CheckoutState extends State<Checkout> {
         sdkErrorCode = tapSDKResult['sdk_error_code'].toString();
         sdkErrorMessage = tapSDKResult['sdk_error_message'].toString();
         sdkErrorDescription = tapSDKResult['sdk_error_description'].toString();
+        sdkNotComplete();
         break;
 
       case "NOT_IMPLEMENTED":
         sdkStatus = "NOT_IMPLEMENTED";
+        sdkNotComplete();
         break;
     }
 
   }
 
+  sdkNotComplete(){
+    Provider.of<CartProvider>(context,listen: false).deleteCart();
+    UI.showErrorDialog(context,message: 'Payment failed please try again later',onPressed: (){
+      (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
+          .onTap(0);
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    });
+  }
   void handleSDKResult() {
     switch (tapSDKResult['trx_mode'].toString()) {
       case "CHARGE":
@@ -291,6 +335,9 @@ class _CheckoutState extends State<Checkout> {
             ),
             CheckboxListTile(value: Provider.of<CartProvider>(context).receivFromSalon, onChanged:(v){
               Provider.of<CartProvider>(context,listen: false).checkReceiveFromSalon(v);
+              if(!v){
+                setAddress(getIt.get<AppGlobals>().user.address);
+              }
 
             },title: Text(getIt.get<AppGlobals>().isRTL?'الاستلام من الصالون':'receive from salon'),),
             ExpandDate(setTime,selectedTime),
@@ -468,17 +515,23 @@ class _CheckoutState extends State<Checkout> {
       String time = '${selectedTime.hour}:${selectedTime.minute}:${selectedTime.second}';
 
       if(paymentMethod==1){
-
+        p.startLoading();
         Provider.of<CartProvider>(context,listen: false).futureOrdersummary().then((summary){
           if(summary!=null){
             if(Provider.of<CartProvider>(context,listen: false).appointments.isNotEmpty){
               MyCarts().createOrderWithAppointment(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, payment,date,time,address,points,coupon,Provider.of<CartProvider>(context,listen: false).appointments).then((value){
-                startSDK((summary as OrderSummary).grandTotalValue);
+                if(value['result']as bool){
+                  order_id = value['order_id']as int;
+                  startSDK((summary as OrderSummary).grandTotalValue);
+                }
 
               });
             }else{
               MyCarts().createOrder(Provider.of<CartProvider>(context,listen: false).allCarts[0].ownerId, payment,date,time,address,points,coupon).then((value){
-                startSDK((summary as OrderSummary).grandTotalValue);
+                if(value['result']as bool){
+                  order_id = value['order_id']as int;
+                  startSDK((summary as OrderSummary).grandTotalValue);
+                }
 
               });
             }

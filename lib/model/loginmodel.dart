@@ -287,6 +287,7 @@ class User {
     this.avatar,
 this.email,
     this.phone,
+    this.address
   });
 
   int id;
@@ -295,6 +296,7 @@ this.email,
 
   String phone;
   String email;
+  String address;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
     id: int.parse(json['id'].toString()),
@@ -303,6 +305,7 @@ this.email,
     email: json['email'].toString(),
 
     phone: json['phone'].toString(),
+    address:json['address'].toString()
   );
 
 
@@ -313,6 +316,7 @@ this.email,
     data['avatar'] = this.avatar;
     data['phone'] = this.phone;
     data['email'] = this.email;
+    data['address'] = this.address;
     return data;
   }
 

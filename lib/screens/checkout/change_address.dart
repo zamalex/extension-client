@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/generated/l10n.dart';
 import 'package:salon/utils/form_utils.dart';
@@ -6,6 +7,8 @@ import 'package:salon/widgets/form_label.dart';
 import 'package:salon/widgets/theme_button.dart';
 import 'package:salon/widgets/theme_text_input.dart';
 import 'package:salon/generated/l10n.dart';
+
+import '../../main.dart';
 
 class ChangeAddress extends StatefulWidget {
   const ChangeAddress({
@@ -21,7 +24,7 @@ class ChangeAddress extends StatefulWidget {
 
 class _ChangeAddressState extends State<ChangeAddress> {
   final FocusNode focusNode = FocusNode();
-  final TextEditingController textEditingController = TextEditingController();
+  final TextEditingController textEditingController = TextEditingController(text: getIt.get<AppGlobals>().user.address.toString());
 
   void updateNotes() {
     FormUtils.hideKeyboard(context);

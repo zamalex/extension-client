@@ -42,7 +42,7 @@ class _AppointmentTabBarState extends State<AppointmentTabBar> {
           UI.confirmationDialogBox(
             context,
             message: L10n.of(context).bookingCallConfirmation(widget.appointment.shop.data.first.phone),
-            onConfirmation: () => Async.launchUrl(widget.appointment.shop.data.first.phone),
+            onConfirmation: () => Async.launchUrl('tel://${widget.appointment.shop.data.first.phone}'),
           );
           else
             UI.showErrorDialog(context,message: 'no available phone number');

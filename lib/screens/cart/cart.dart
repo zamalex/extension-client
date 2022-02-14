@@ -45,7 +45,7 @@ class _CartListState extends State<CartList> {
                   const Padding(padding: EdgeInsets.only(top: 4)),
                   Consumer<CartProvider>(builder: (c,cart,child){
                     return StrutText(
-                      '${cart.getPrice} ${L10n.of(context).SAR}',
+                      '${cart.getPrice.toStringAsFixed(2)} ${L10n.of(context).SAR}',
                       style: TextStyle(color: Colors.black),
 
                     );

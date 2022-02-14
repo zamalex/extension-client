@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/data/models/appointment_model.dart';
@@ -12,6 +13,8 @@ import 'package:salon/widgets/card_divider.dart';
 
 import 'package:salon/widgets/strut_text.dart';
 import 'package:sprintf/sprintf.dart';
+
+import '../../main.dart';
 
 class OrdersListItem extends StatelessWidget {
   const OrdersListItem({
@@ -184,7 +187,7 @@ class OrdersListItem extends StatelessWidget {
          'Total ${appointment.grandTotal} SAR',
           style: Theme.of(context).textTheme.bodyText2.w500.primaryColor,
         ),
-        AppointmentStatusBadge(status: appointment.deliveryStatus,),
+        AppointmentStatusBadge(status: getIt.get<AppGlobals>().getStatus(appointment.deliveryStatus),),
       ],
     );
 

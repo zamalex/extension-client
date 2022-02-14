@@ -82,12 +82,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ListItem(
                     title: L10n.of(context).settingsListTerms,
                     trailing: const ArrowRightIcon(),
-                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder:(m)=>PolicyScreen('support'))),
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder:(m)=>PolicyScreen('support',getIt.get<AppGlobals>().isRTL?'الشروط والأحكام':'terms and conditions'))),
                   ),
                   ListItem(
                     title: L10n.of(context).settingsListPrivacy,
                     trailing: const ArrowRightIcon(),
-                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder:(m)=>PolicyScreen('return'))),
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder:(m)=>PolicyScreen('return',getIt.get<AppGlobals>().isRTL?'سياسة الخصوصية':'privacy policy'))),
 
                     // onPressed: () => Async.launchUrl(kPrivacyPolicyURL),
                   ),

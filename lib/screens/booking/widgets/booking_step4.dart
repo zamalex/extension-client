@@ -252,7 +252,8 @@ class _BookingStep4State extends State<BookingStep4> {
   Future<void> showNotesEditor(String notes) async {
     final String editedNotes = await Navigator.pushNamed(context, Routes.bookingNotes, arguments: notes);
     if (editedNotes != null) {
-      BlocProvider.of<BookingBloc>(context).add(NotesUpdatedBookingEvent(editedNotes));
+      //BlocProvider.of<BookingBloc>(context).add(NotesUpdatedBookingEvent(editedNotes,0));
+      BlocProvider.of<BookingBloc>(context).notes=editedNotes;
     }
   }
 

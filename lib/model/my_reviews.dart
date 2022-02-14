@@ -155,12 +155,12 @@ class MyReviews {
 
     try {
       var response = await http.post(
-        Uri.parse('${Globals.BASE}staff/review/submit'),
+        Uri.parse('${Globals.BASE}staff/review'),
          headers: headers,
         body:jsonEncode(body)
       );
 
-      print('request  is '+'${Globals.BASE}staff/review/submit');
+      print('request  is '+'${Globals.BASE}staff/review');
       print('response  is '+response.body);
       print('body  is '+body.toString());
       final responseJson = json.decode(response.body);
@@ -235,7 +235,7 @@ class SingleReview {
     userId = json['user_id'] as int;
     moduleName = json['module_name'].toString();
     moduleId = json['module_id']as int;
-    userName = json['user_name'].toString();
+    userName = json['user_name']==null?'':json['user_name'].toString();
     avatar = json['avatar'].toString();
     rating = double.parse(json['rating'].toString());
     comment = (json['comment']as String )??'';

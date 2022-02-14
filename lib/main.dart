@@ -6,7 +6,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_is_emulator/flutter_is_emulator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:location/location.dart';
@@ -42,7 +41,6 @@ Future<void> main() async {
   createLogger();
 
   /// Running on emulator or real device?
-  getIt.get<AppGlobals>().isEmulator = await FlutterIsEmulator.isDeviceAnEmulatorOrASimulator;
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   getIt.get<AppGlobals>().isUser = prefs.getBool('logged')??false;
   // Obtain a list of the available cameras on the device.

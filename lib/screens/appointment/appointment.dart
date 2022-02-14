@@ -13,6 +13,9 @@ import 'package:salon/model/appointments_data.dart';
 import 'package:salon/model/my_reviews.dart';
 import 'package:salon/screens/appointment/widgets/appointment_header.dart';
 import 'package:salon/screens/appointment/widgets/appointment_tabbar.dart';
+import 'package:salon/screens/appointments/appointments.dart';
+import 'package:salon/screens/booking/widgets/booking_notes.dart';
+import 'package:salon/screens/orders/orders.dart';
 import 'package:salon/utils/ui.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:salon/widgets/card_divider.dart';
@@ -110,97 +113,106 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
     );
   }
 
+  setNotes(String n){
+
+      _appointment.notes=n;
+
+  }
+
   Future<void> showNotesEditor() async {
-    final String editedNotes = await Navigator.pushNamed(context, Routes.bookingNotes, arguments: '');
+    /*final String editedNotes = await Navigator.pushNamed(context, Routes.bookingNotes, arguments: '');
     if (editedNotes != null) {
       _bloc.add(NotesUpdatedAppointmentEvent(editedNotes));
-    }
+    }*/
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>BookingNotes(appointment: _appointment.id,setNotes: setNotes,notes: _appointment.notes,),));
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    return BlocBuilder<AppointmentBloc, AppointmentState>(
-      builder: (BuildContext context, AppointmentState apiState) {
-        return BlocListener<AppointmentBloc, AppointmentState>(
-          listener: (BuildContext context, AppointmentState apiListener) {
-            if (apiListener is UpdateNotesInProgressAppointmentState) {
-             // _appointment = _appointment.rebuild(notes: apiListener.notes);
-            }
-            if (apiListener is CancelSuccessAppointmentState) {
-            //  _appointment = _appointment.rebuild(status: AppointmentStatus.canceled);
-              setState(() => _isLoading = false);
-              Navigator.pop(context,true);
-            }
-          },
-          child: Scaffold(
-            backgroundColor: Theme.of(context).cardColor,
-            body: NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverAppBar(
-                    pinned: true,
-                    expandedHeight: 302,
-                    backgroundColor:
-                        getIt.get<AppGlobals>().isPlatformBrightnessDark ? Theme.of(context).accentColor : Theme.of(context).accentColor,
-                    flexibleSpace: FlexibleSpaceBar(
-                      collapseMode: CollapseMode.parallax,
-                      background: AppointmentHeader(_appointment),
-                    ),
-                    title: _appointment != null ? SliverAppTitle(child: Text(_appointment.code)) : Container(),
-                  ),
-                ];
-              },
-              body: LoadingOverlay(
-                isLoading: _isLoading,
-                child: ListView(
-                  padding: const EdgeInsets.all(kPaddingM),
-                  children: <Widget>[
-                    AppointmentTabBar(
-                      _appointment,
-                      onCancelTap: cancelReservation,
-                      onNotesTap: showNotesEditor,
-                    ),
-                    _serviceList(),
-                    SizedBox(height: 10,),
-                    const CardDivider(),
-                    SizedBox(height: 10,),
-                    Column(children: List.generate(_appointment.items.data.length, (index){
-                      return  Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).cardColor,
-                          borderRadius: const BorderRadiusDirectional.only(
-                            topStart: Radius.circular(kBoxDecorationRadius),
-                            topEnd: Radius.circular(kBoxDecorationRadius),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Expanded(child:  StrutText(
-                              _appointment.items.data[index].productName,
-                              style: Theme.of(context).textTheme.subtitle1.w500.fs18,
-                              overflow: TextOverflow.ellipsis,
-                            ),),
-                            StrutText(
-                              '${_appointment.items.data[index].price} ${kCurrency}',
-                              style: Theme.of(context).textTheme.subtitle1.w500.fs18,
-                            ),
-                          ],
-                        ),
-                      );
-                    }),),
-                    _totalPrice(),
-                    const CardDivider(),
-                   if(widget.appointment.orderType!='purchase') _footer(),
-                  ],
+    return BlocConsumer<AppointmentBloc, AppointmentState>(
+      listener: (BuildContext context, AppointmentState apiListener) {
+        if (apiListener is UpdateNotesInProgressAppointmentState) {
+          // _appointment = _appointment.rebuild(notes: apiListener.notes);
+        }
+        if (apiListener is CancelSuccessAppointmentState) {
+          //  _appointment = _appointment.rebuild(status: AppointmentStatus.canceled);
+          setState(() => _isLoading = false);
+          _appointment.canCancel=false;
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => _appointment.orderType=='booking'?AppointmentsScreen():OrdersScreen()),
+                  (Route<dynamic> route) => route.isFirst
+          );
+        }
+      },
+      builder: (context, state) => Scaffold(
+        backgroundColor: Theme.of(context).cardColor,
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                pinned: true,
+                expandedHeight: 302,
+                backgroundColor:
+                getIt.get<AppGlobals>().isPlatformBrightnessDark ? Theme.of(context).accentColor : Theme.of(context).accentColor,
+                flexibleSpace: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.parallax,
+                  background: AppointmentHeader(_appointment),
                 ),
+                title: _appointment != null ? SliverAppTitle(child: Text(_appointment.code)) : Container(),
               ),
+            ];
+          },
+          body: LoadingOverlay(
+            isLoading: _isLoading,
+            child: ListView(
+              padding: const EdgeInsets.all(kPaddingM),
+              children: <Widget>[
+                AppointmentTabBar(
+                  _appointment,
+                  onCancelTap: cancelReservation,
+                  onNotesTap: showNotesEditor,
+                ),
+                _serviceList(),
+                SizedBox(height: 10,),
+                const CardDivider(),
+                SizedBox(height: 10,),
+                Column(children: List.generate(_appointment.items.data.length, (index){
+                  return  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).cardColor,
+                      borderRadius: const BorderRadiusDirectional.only(
+                        topStart: Radius.circular(kBoxDecorationRadius),
+                        topEnd: Radius.circular(kBoxDecorationRadius),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(child:  StrutText(
+                          _appointment.items.data[index].productName,
+                          style: Theme.of(context).textTheme.subtitle1.w500.fs18,
+                          overflow: TextOverflow.ellipsis,
+                        ),),
+                        StrutText(
+                          '${_appointment.items.data[index].price} ${kCurrency}',
+                          style: Theme.of(context).textTheme.subtitle1.w500.fs18,
+                        ),
+                      ],
+                    ),
+                  );
+                }),),
+                _totalPrice(),
+                const CardDivider(),
+                if(widget.appointment.orderType!='purchase') _footer(),
+              ],
             ),
           ),
-        );
-      },
+        ),
+      ),
+
     );
   }
 

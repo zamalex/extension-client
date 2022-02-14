@@ -12,9 +12,13 @@ class BookingNotes extends StatefulWidget {
   const BookingNotes({
     Key key,
     this.notes,
+    this.setNotes,
+    @required this.appointment
   }) : super(key: key);
 
   final String notes;
+  final int appointment;
+ final Function setNotes;
 
   @override
   _BookingNotesState createState() => _BookingNotesState();
@@ -27,8 +31,12 @@ class _BookingNotesState extends State<BookingNotes> {
   void updateNotes() {
     FormUtils.hideKeyboard(context);
 
-    BlocProvider.of<BookingBloc>(context).add(NotesUpdatedBookingEvent(textEditingController.text));
-
+    if(widget.appointment!=0)
+    BlocProvider.of<BookingBloc>(context).add(NotesUpdatedBookingEvent(textEditingController.text,widget.appointment));
+    else{
+      BlocProvider.of<BookingBloc>(context).notes=textEditingController.text;
+    }
+    widget.setNotes(textEditingController.text);
     Navigator.pop(context, textEditingController.text);
   }
 
