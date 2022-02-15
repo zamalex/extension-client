@@ -22,9 +22,10 @@ class AppGlobals {
   String getStatus(String status){
 
     if(isRTL??false){
-      switch (status) {
+      switch (status.toLowerCase()) {
         case 'picked_up':
         case 'confirmed':
+        case 'approved':
           return 'تم التأكيد';
           break;
         case 'delivered':
@@ -33,6 +34,9 @@ class AppGlobals {
           break;
         case 'canceled':
           return 'ملغي';
+          break;
+        case 'rejected':
+          return 'مرفوض';
           break;
         case 'on_the_way':
           return 'في الطريق';
