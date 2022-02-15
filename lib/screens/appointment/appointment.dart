@@ -60,13 +60,13 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
 
     final _dialog = RatingDialog(
       // your app's name?
-      title: 'Rate ${widget.appointment.booking_staff_name??''}',
+      title: Text('Rate ${widget.appointment.booking_staff_name??''}'),
       // encourage your user to leave a high rating?
       message:
-      'Tap a star to set your rating. Add more description here if you want.',
+      Text('Tap a star to set your rating. Add more description here if you want.'),
       // your app's logo?
       image:Image.asset('assets/images/onboarding/welcome.png',width: 100,height: 100,),
-      submitButton: 'Submit',
+      submitButtonText: 'Submit',
       onCancelled: () => print('cancelled'),
       onSubmitted: (response) {
         MyReviews().submitWorkerReview(widget.appointment.booking_staff_id.toString()??'0', response.comment, double.parse(response.rating.toString()));

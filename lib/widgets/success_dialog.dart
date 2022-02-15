@@ -100,13 +100,13 @@ class _BookingSuccessDialogState extends State<SuccessDialog> with TickerProvide
 
     final _dialog = RatingDialog(
       // your app's name?
-      title: 'Rate Salon',
+      title: Text('Rate Salon'),
       // encourage your user to leave a high rating?
       message:
-      'Tap a star to set your rating. Add more description here if you want.',
+      Text('Tap a star to set your rating. Add more description here if you want.'),
       // your app's logo?
       image:Image.asset('assets/images/onboarding/welcome.png',width: 100,height: 100,),
-      submitButton: 'Submit',
+      submitButtonText: 'Submit',
       onCancelled: () => print('cancelled'),
       onSubmitted: (response) {
         MyReviews().submitReview(widget.id.toString(), response.comment, double.parse(response.rating.toString()));
