@@ -66,12 +66,13 @@ class _LocationScreenState extends State<LocationScreen> {
   void initState() {
     super.initState();
 
-    getIt.get<AppGlobals>().serviceIndex=0;
 
     _loadData();
 
     if(widget.tab!=0)
     selected=widget.tab;
+    getIt.get<AppGlobals>().serviceIndex=selected;
+
   }
 
   Future<void> _loadData() async {
