@@ -450,6 +450,13 @@ class _CheckoutState extends State<Checkout> {
 
                 ],),
 
+                SizedBox(height: 15,),
+                Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
+                  Text(getIt.get<AppGlobals>().isRTL?'الخصم':'Discount',style: TextStyle(color: Colors.black),),
+                  Text(provider.orderSummary.discount,style: TextStyle(color: Colors.black),),
+
+                ],),
+
 
                 SizedBox(height: 15,),
                 Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:salon/configs/constants.dart';
 
 class ThemeButton extends StatelessWidget {
   const ThemeButton({
@@ -31,7 +32,7 @@ class ThemeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(height: 48,child: ElevatedButton(
-      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color.fromRGBO(118 ,123 ,128, 1))),
+      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(kPrimaryColor)),
       onPressed: disableTouchWhenLoading && showLoading ? null : onPressed,
       child: Row(
 

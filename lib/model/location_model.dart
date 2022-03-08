@@ -202,7 +202,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int;
-    name = json['name'] as String??'unnamed';
+    name = json['name'] as String??'';
     latitude = (json['latitude'] as String).isEmpty?'0':(json['latitude'] as String);
     longitude = (json['longitude'] as String).isEmpty?'0':(json['longitude'] as String);
     logo = ((json['logo'] as  String)==null|| (json['logo']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['logo']as String;

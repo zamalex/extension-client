@@ -104,7 +104,7 @@ class _LocationScreenState extends State<LocationScreen> {
     ProductModel().getServices(widget.locationId.id).then((value){
       setState(() {
         services = value.map((e){
-          return ServiceModel.all(e.id,e.seller_id,e.shop_id,double.parse(e.basePrice.replaceAll(RegExp(','), '')),e.service_duration,e.name,'');
+          return ServiceModel.all(e.id,e.seller_id,e.shop_id,double.parse(e.base_discounted_price.toString().replaceAll(RegExp(','), '')),e.service_duration,e.name,'',base_price: double.parse(e.basePrice),has_discount: e.has_discount);
         }).toList();
 
         _location.serviceGroups=[];
@@ -188,7 +188,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       collapseMode: CollapseMode.parallax,
                       background: LocationHeader(location: _location),
                     ),
-                    title: _location != null ? SliverAppTitle(child: Text(_location.name??'unnamed')) : Container(),
+                    title: _location != null ? SliverAppTitle(child: Text(_location.name)) : Container(),
                   ),
                   SliverToBoxAdapter(
                     child: SafeArea(
@@ -200,7 +200,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Padding(padding: EdgeInsets.symmetric(horizontal: 10),child: StrutText(
-                              widget.locationId.name??'unnamed',
+                              _location==null?'':_location.name??'',
                               maxLines: 2,
                               style: Theme.of(context).textTheme.headline5.w800.black,
                               overflow: TextOverflow.ellipsis,
@@ -208,7 +208,7 @@ class _LocationScreenState extends State<LocationScreen> {
                             Padding(
                               padding: const EdgeInsets.only(left:10,right:10,top: kPaddingS),
                               child: StrutText(
-                                widget.locationId.address??'undefined',
+                                _location==null?'':_location.address??'',
                                 maxLines: 2,
                                 style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor),
                               ),

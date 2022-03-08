@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:salon/blocs/booking/booking_bloc.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/booking_session_model.dart';
@@ -143,7 +144,7 @@ getSlots(int day,String id,int salon,String date){
           onChanged: (int selected) => selectTimestampEvent(timestamp),
         ),
       ),
-      title: date.toLocalTimeString,
+      title: DateFormat('hh:mm a',Intl.systemLocale).format(date),//date.toLocalTimeString,
       onPressed: () => selectTimestampEvent(timestamp),
     );
   }

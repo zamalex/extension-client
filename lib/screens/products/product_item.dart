@@ -63,6 +63,7 @@ class _ProdcutItemState extends State<ProdcutItem> {
     return Card(color: Colors.white,child: Column(children: [
       widget.cartModel.thumbnailImage=='assets/images/onboarding/welcome.png'?Image.asset(widget.cartModel.thumbnailImage,height: 120,fit: BoxFit.cover,width: MediaQuery.of(context).size.width,):Image.network(widget.cartModel.thumbnailImage,height: 120,fit: BoxFit.cover,width: MediaQuery.of(context).size.width,)
       ,Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: SingleChildScrollView(scrollDirection: Axis.horizontal,child: Text(widget.cartModel.name,maxLines: 1,style: TextStyle(color: Colors.grey)),),)
+      ,Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: Text(!widget.cartModel.has_discount?'':widget.cartModel.basePrice.toString(),style:TextStyle(decoration: TextDecoration.lineThrough,fontSize: 12,color: Colors.red),))
       ,Expanded(child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,

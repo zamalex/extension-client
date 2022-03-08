@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
@@ -82,7 +83,8 @@ class AppointmentsListItem extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline5.bold.copyWith(color: _dateTimeColor),
                   ),
                   StrutText(
-                    appointment.bookingDateTime!=null?DateTime.parse(appointment.bookingDateTime.replaceAll('  ',' ')).toLocalTimeString:'',
+                    appointment.bookingDateTime!=null?DateFormat('hh:mm a').format(DateTime.parse(appointment.bookingDateTime.replaceAll('  ',' '))).toString()
+                    :'',
                     style: Theme.of(context).textTheme.headline5.bold.copyWith(color: _dateTimeColor),
                   ),
                 ],

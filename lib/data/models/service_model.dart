@@ -5,6 +5,9 @@ class ServiceModel {
     this.duration,
     this.name,
     this.description,
+      {this.base_price,
+        this.has_discount,
+      }
   );
 
   ServiceModel.all(
@@ -15,6 +18,9 @@ class ServiceModel {
       this.duration,
       this.name,
       this.description,
+  {this.base_price,
+    this.has_discount,
+  }
       );
 
 
@@ -31,7 +37,9 @@ class ServiceModel {
   final int id;
   int shop_id;
   int seller_id;
+  bool has_discount;
   final double price;
+  final double base_price;
   final int duration;
   final String name;
   final String description;

@@ -62,6 +62,7 @@ class LocationServices extends StatelessWidget {
                       L10n.of(context).commonCurrencyFormat(sprintf('%.2f', <double>[service.price])),
                       style: Theme.of(context).textTheme.subtitle1.fs18.w500.black,
                     ),
+                    Text(!service.has_discount?'':service.base_price.toStringAsFixed(2),style:TextStyle(decoration: TextDecoration.lineThrough,fontSize: 12,color: Colors.red),),
                     StrutText(
                       L10n.of(context).commonDurationFormat(service.duration.toString()),
                       style: Theme.of(context).textTheme.bodyText1.w300.copyWith(color: kPrimaryColor),

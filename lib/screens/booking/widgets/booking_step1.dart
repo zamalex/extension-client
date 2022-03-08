@@ -128,6 +128,7 @@ class _BookingStep1State extends State<BookingStep1> {
             L10n.of(context).commonCurrencyFormat(sprintf('%.2f', <double>[serviceModel.price])),
             style: Theme.of(context).textTheme.subtitle1.fs18.w500,
           ),
+          Text(!serviceModel.has_discount?'':serviceModel.base_price.toStringAsFixed(2),style:TextStyle(decoration: TextDecoration.lineThrough,fontSize: 12,color: Colors.red),),
           StrutText(
             L10n.of(context).commonDurationFormat(serviceModel.duration.toString()),
             style: Theme.of(context).textTheme.bodyText1.w300.copyWith(color: Theme.of(context).hintColor),

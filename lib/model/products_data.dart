@@ -173,7 +173,7 @@ class Product {
   String basePrice;
   String shop_name;
   double base_discounted_price;
-
+  bool has_discount;
 
   Product(
       {this.id,
@@ -185,12 +185,14 @@ class Product {
         this.name,
         this.thumbnailImage,
         this.basePrice,
+        this.has_discount,
         this.salonImage,
         this.base_discounted_price
       });
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id']as int;
+    has_discount = json['has_discount']as bool;
     shop_id = json['shop_id']as int;
     seller_id = json['seller_id']as int;
     service_duration = json['service_duration']as int;

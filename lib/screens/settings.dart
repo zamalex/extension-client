@@ -27,17 +27,11 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  String _version;
-  String _buildNumber;
+
 
   @override
   Widget build(BuildContext context) {
-    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-      setState(() {
-        _version = packageInfo.version;
-        _buildNumber = packageInfo.buildNumber;
-      });
-    });
+
 
     return Scaffold(
       appBar: AppBar(
