@@ -156,6 +156,46 @@ class LoginModel {
     }
   }
 
+  Future<Map<String,dynamic>> verifyPassword(String phone,String code) async {
+    var param = {
+      'email_or_code':phone,
+      'verify_by': code,
+
+    };
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'X-Requested-With':'XMLHttpRequest',
+    'Current-Locale':Intl.getCurrentLocale()
+    };
+
+    try {
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}auth/password/forget_request'),
+          body: jsonEncode(param),
+          headers: headers
+      );
+
+      print(param.toString());
+      print('response  is '+response.body);
+      final responseJson = json.decode(response.body);
+
+
+      if(response.statusCode>=400){
+        return {'status':false,'message':responseJson['message']};
+      }
+      if(responseJson['result']as bool){
+        return {'status':true,'message':responseJson['message']};
+      }else{
+        return {'status':false,'message':responseJson['message']};
+
+      }
+
+    } catch (error) {
+      print(error);
+      return {'status':false,'message':'error occured'};
+    }
+  }
+
   Future<String> getProfileImage()async{
     var param = {
 

@@ -66,6 +66,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     _initGlobalKeys();
     _initBlocs();
 
+
     super.initState();
   }
 

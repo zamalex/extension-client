@@ -439,7 +439,7 @@ class _CheckoutState extends State<Checkout> {
                 ,SizedBox(height: 15,),
                 Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
                   Text(L10n.of(context).totalammount,style: TextStyle(color: Colors.black),),
-                  Text(provider.orderSummary.grandTotal,style: TextStyle(color: Colors.black),),
+                  Text((provider.orderSummary.grandTotalValue+double.parse(provider.orderSummary.discount)).toString(),style: TextStyle(color: Colors.black),),
 
                 ],),
 

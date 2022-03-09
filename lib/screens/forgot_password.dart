@@ -34,7 +34,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
       LoginModel().forgotPassword(_textEmailController.text).then((value){
           if(value['status']as bool){
-              Navigator.push(context, MaterialPageRoute(builder: (b)=>VerifyCode()));
+              Navigator.push(context, MaterialPageRoute(builder: (b)=>VerifyCode(phone: _textEmailController.text,)));
           }else{
             UI.showErrorDialog(
               context,

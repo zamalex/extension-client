@@ -25,6 +25,8 @@ class BookingWeekTimes {
 
     Map<String, String> headers = {
       'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Content-Type': 'application/json',
+
       'Current-Locale':Intl.getCurrentLocale()
     };
 
@@ -32,11 +34,12 @@ class BookingWeekTimes {
 
 
     try {
-      var response = await http.get(
-          Uri.parse('${Globals.BASE}shop/workingHours/$id'),
-          headers: headers
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}shop/workingHours'),
+          headers: headers,
+          body: jsonEncode({'shop_id':id})
       );
-      print('request is ${Globals.BASE}shop/workingHours/$id');
+      print('request is ${Globals.BASE}shop/workingHours');
       if(response.statusCode>=400){
 
       }else{
@@ -69,9 +72,9 @@ class Data {
   Data({this.slots});
 
   Data.fromJson(Map<String, dynamic> json) {
-    if (json['hours'] != null) {
+    if (json['slots'] != null) {
       slots = [];
-      json['hours'].forEach((v) {
+      json['slots'].forEach((v) {
         slots.add( Slots.fromJson(v as Map<String,dynamic>));
       });
     }
@@ -93,7 +96,7 @@ class Slots {
   Slots.fromJson(Map<String, dynamic> json) {
     id = json['id']as int??0;
     day = json['day']as int;
-    startTime = json['start_time'].toString();
+    startTime = json['time'].toString();
     endTime = json['end_time'].toString();
   }
 

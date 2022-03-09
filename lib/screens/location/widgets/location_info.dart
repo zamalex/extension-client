@@ -106,12 +106,12 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
       /// End time for today.
       final DateTime endTime = DateTime.tryParse(DateFormat('yyyy-MM-dd', 'en').format(now) + ' ' + businessHoursForToday.endTime);
 
-      if (startTime.millisecondsSinceEpoch <= now.millisecondsSinceEpoch && endTime.millisecondsSinceEpoch > now.millisecondsSinceEpoch) {
+     /* if (startTime.millisecondsSinceEpoch <= now.millisecondsSinceEpoch && endTime.millisecondsSinceEpoch > now.millisecondsSinceEpoch) {
 
         setState(() {
           isClosed = false;
         });
-      }
+      }*/
     }
 
     return Container(
@@ -123,9 +123,9 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
           LocationContactInfo(
             icon: Icons.access_time,
             label: L10n.of(context).locationLabelWorkingHours,
-            text: isClosed
+            text: /*isClosed
                 ? L10n.of(context).locationCurrentlyClosed
-                : sprintf('%s - %s', <String>[businessHoursForToday.startTime, businessHoursForToday.endTime]),
+                :*/ businessHoursForToday==null?'':sprintf('%s - %s', <String>[businessHoursForToday.startTime, businessHoursForToday.endTime]),
             onTap: () {
               setState(() => _isBusinessHoursExpanded = !_isBusinessHoursExpanded);
             },
@@ -145,9 +145,11 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List<Widget>.generate(7, (int index) {
+
                   final BusinessHoursModel businessHour = widget.location.getBusinessHoursFor(weekday: index + 1);
                   final String hours =
-                      businessHour != null ? sprintf('%s - %s', <String>[businessHour.startTime, businessHour.endTime]) : L10n.of(context).locationClosed;
+                    //  businessHour != null ? sprintf('%s - %s', <String>[DateFormat('hh:mm a',Intl.systemLocale).format(DateTime(now.year, now.month, now.day, int.tryParse(businessHour.startTime.split(':')[0]), int.tryParse(businessHour.startTime.split(':')[1]))), DateFormat('hh:mm a',Intl.systemLocale).format(DateTime(now.year, now.month, now.day, int.tryParse(businessHour.endTime.split(':')[0]), int.tryParse(businessHour.endTime.split(':')[1])))]) : L10n.of(context).locationClosed;
+                      businessHour != null ? sprintf('%s - %s', <String>[businessHour.startTime,businessHour.endTime]) : L10n.of(context).locationClosed;
                   return Container(
                     decoration: index == 6
                         ? BoxDecoration(
@@ -188,7 +190,9 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
               UI.confirmationDialogBox(
                 context,
                 message: L10n.of(context).locationCallConfirmation(widget.location.phone),
-                onConfirmation: () => Async.launchUrl(widget.location.phone),
+                onConfirmation: (){
+                  if(widget.location.phone.isNotNullOrEmpty||widget.location.phone!='undefined')
+                  Async.launchUrl('tel://${widget.location.phone}');},
               );
             },
           ),

@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
-import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +33,9 @@ Future<void> main() async {
   // can be called before `runApp()`
   WidgetsFlutterBinding.ensureInitialized();
 
+
+  await Firebase.initializeApp();
+ // FirebaseCrashlytics.instance.crash();
 
 
   // Init service locator singletons.
@@ -82,10 +86,10 @@ Future<void> main() async {
 /// Completes with a list of available cameras.
 Future<void> initCameras() async {
   /// Obtain a list of the available cameras on the device.
-  final List<CameraDescription> cameras = await availableCameras();
+  //final List<CameraDescription> cameras = await availableCameras();
 
   /// Save the list of available cameras.
-  getIt.get<AppGlobals>().cameras = cameras;
+ // getIt.get<AppGlobals>().cameras = cameras;
 }
 
 /// Registers all the singletons we need by passing a factory function.

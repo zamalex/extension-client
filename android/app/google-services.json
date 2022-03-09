@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "923766598429",
+    "project_id": "salon-customer-6c286",
+    "storage_bucket": "salon-customer-6c286.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923766598429:android:8c89238bc6d4b52a3e4ff4",
+        "android_client_info": {
+          "package_name": "com.badee.salon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923766598429-hsgucd67f7b238kah6h546aomjb237ju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbRf1nJQT9QfluPJ7GQhJy4Sz_fuw9UWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "923766598429-hsgucd67f7b238kah6h546aomjb237ju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

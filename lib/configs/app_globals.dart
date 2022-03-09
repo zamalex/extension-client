@@ -1,4 +1,3 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:location/location.dart';
@@ -52,7 +51,7 @@ class AppGlobals {
   }
 
   /// List of available cameras on device.
-  List<CameraDescription> cameras;
+ // List<CameraDescription> cameras;
 
   /// [GlobalKey] for our bottom bar.
   GlobalKey globalKeyBottomBar;

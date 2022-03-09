@@ -178,12 +178,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       value: PhotoSource.gallery,
     ));
 
-    if (getIt.get<AppGlobals>().cameras.isNotEmpty) {
+    /*if (getIt.get<AppGlobals>().cameras.isNotEmpty) {
       _options.add(ModalBottomSheetItem<PhotoSource>(
         text: L10n.of(context).commonPhotoSources(PhotoSource.camera),
         value: PhotoSource.camera,
       ));
-    }
+    }*/
 
     showModalBottomSheet<PhotoSource>(
       backgroundColor: Colors.transparent,

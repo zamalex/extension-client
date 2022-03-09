@@ -14,7 +14,8 @@ class VerifyCode extends StatefulWidget {
 
   int user_id;
   bool register;
-  VerifyCode({this.user_id,this.register=false});
+  String phone;
+  VerifyCode({this.user_id,this.register=false,this.phone});
   @override
   _VerifyCodeState createState() => _VerifyCodeState();
 }
@@ -37,29 +38,55 @@ class _VerifyCodeState extends State<VerifyCode> {
     setState(() {
       loading = true;
     });
-    LoginModel().verifyRegister(widget.user_id.toString(), controller1.text+controller2.text+controller3.text+controller4.text).then((value){
-      if(widget.register&&value['status']!=null&&value['status']as bool){
-        (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
-            .onTap(3);
-        Navigator.of(context).popUntil((route) => route.isFirst);
-       // Navigator.of(context, rootNavigator: true).pop();
-      }else  if(!widget.register&&value['status']!=null&&value['status']as bool){
+    if(widget.register){
+      LoginModel().verifyRegister(widget.user_id.toString(), controller1.text+controller2.text+controller3.text+controller4.text).then((value){
+        if(widget.register&&value['status']!=null&&value['status']as bool){
+          (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
+              .onTap(3);
+          Navigator.of(context).popUntil((route) => route.isFirst);
+          // Navigator.of(context, rootNavigator: true).pop();
+        }else  if(!widget.register&&value['status']!=null&&value['status']as bool){
 
-        Navigator.of(context).push(MaterialPageRoute(builder: (c){
-          return ChangePasswordScreen(controller1.text+controller2.text+controller3.text+controller4.text);
-        }));
+          Navigator.of(context).push(MaterialPageRoute(builder: (c){
+            return ChangePasswordScreen(controller1.text+controller2.text+controller3.text+controller4.text);
+          }));
+          // Navigator.of(context, rootNavigator: true).pop();
+        }
+        else
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value['message'].toString())));
+
+
         // Navigator.of(context, rootNavigator: true).pop();
-      }
-      else
-
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value['message'].toString())));
-
-
-     // Navigator.of(context, rootNavigator: true).pop();
-      setState(() {
-        loading=false;
+        setState(() {
+          loading=false;
+        });
       });
-    });
+    }else{
+      LoginModel().verifyPassword(widget.phone, controller1.text+controller2.text+controller3.text+controller4.text).then((value){
+        if(widget.register&&value['status']!=null&&value['status']as bool){
+          (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
+              .onTap(3);
+          Navigator.of(context).popUntil((route) => route.isFirst);
+          // Navigator.of(context, rootNavigator: true).pop();
+        }else  if(!widget.register&&value['status']!=null&&value['status']as bool){
+
+          Navigator.of(context).push(MaterialPageRoute(builder: (c){
+            return ChangePasswordScreen(controller1.text+controller2.text+controller3.text+controller4.text);
+          }));
+          // Navigator.of(context, rootNavigator: true).pop();
+        }
+        else
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value['message'].toString())));
+
+
+        // Navigator.of(context, rootNavigator: true).pop();
+        setState(() {
+          loading=false;
+        });
+      });
+    }
   }
 
   @override
