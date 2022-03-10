@@ -76,11 +76,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
         'label': getIt.get<AppGlobals>().isRTL?'الكل':'All',
         'icon': Icons.calendar_today,
       },
-      <String, dynamic>{
+      /*<String, dynamic>{
         'code': 'Delivered',
         'label': getIt.get<AppGlobals>().isRTL?'تم التوصيل':'Delivered',
         'icon': Icons.calendar_today,
-      },
+      },*/
       <String, dynamic>{
         'code': 'Canceled',
         'label': getIt.get<AppGlobals>().isRTL?'ملغي':'Canceled',

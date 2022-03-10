@@ -182,10 +182,10 @@ class _LocationScreenState extends State<LocationScreen> {
                     pinned: true,
                     actions: _location != null
                         ? <Widget>[
-                            IconButton(
+                            /*IconButton(
                               icon: const Icon(Icons.share),
                               onPressed: () => Share.share(_location.website, subject: _location.name),
-                            ),
+                            ),*/
                             IconButton(
                               icon: Icon(_isFavorited ? Icons.favorite : Icons.favorite_border),
                               onPressed: () {

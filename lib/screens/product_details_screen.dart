@@ -61,7 +61,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           InkWell(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return LocationScreen(tab: shareData.type,locationId: LocationModel(false, productDetailsResponse.data.first.shopId, 'unnamed', 0, 0, '', '','','', '','', '','', [],GeoPoint(longitude: 0,latitude: 0),[], [], [], [], [], ''),);
+                  return LocationScreen(tab: shareData.type,locationId: LocationModel(false, productDetailsResponse.data.first.shopId, '', 0, 0, '', '','','', '','', '','', [],GeoPoint(longitude: 0,latitude: 0),[], [], [], [], [], ''),);
                 },));
               },
               child: Text(productDetailsResponse==null?'':productDetailsResponse.data.first.shopName,style: TextStyle(fontWeight: FontWeight.bold,decoration: TextDecoration.underline),)),

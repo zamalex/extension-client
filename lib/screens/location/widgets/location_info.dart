@@ -125,7 +125,7 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
             label: L10n.of(context).locationLabelWorkingHours,
             text: /*isClosed
                 ? L10n.of(context).locationCurrentlyClosed
-                :*/ businessHoursForToday==null?'':sprintf('%s - %s', <String>[businessHoursForToday.startTime, businessHoursForToday.endTime]),
+                :*/ businessHoursForToday==null?L10n.of(context).locationCurrentlyClosed:sprintf('%s - %s', <String>[businessHoursForToday.startTime, businessHoursForToday.endTime]),
             onTap: () {
               setState(() => _isBusinessHoursExpanded = !_isBusinessHoursExpanded);
             },

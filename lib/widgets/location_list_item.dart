@@ -90,7 +90,7 @@ class LocationListItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: kPaddingS, right: kPaddingS, top: kPaddingS, bottom: kPaddingS / 2),
                     child: StrutText(
-                      location.name??'unnamed',
+                      location.name??'',
                       maxLines: 1,
                       style: Theme.of(context).textTheme.subtitle1.fs18.w600.black,
                       overflow: TextOverflow.ellipsis,
@@ -270,7 +270,7 @@ class LocationListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           StrutText(
-                            location.name??'unnamed',
+                            location.name??'',
                             maxLines: 1,
                             style: Theme.of(context).textTheme.subtitle1.w600.copyWith(color: kBlack),
                           ),

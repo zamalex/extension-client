@@ -158,8 +158,8 @@ class LoginModel {
 
   Future<Map<String,dynamic>> verifyPassword(String phone,String code) async {
     var param = {
-      'email_or_code':phone,
-      'verify_by': code,
+      'phone':phone,
+      'code': code,
 
     };
     Map<String, String> headers = {
@@ -170,7 +170,7 @@ class LoginModel {
 
     try {
       var response = await http.post(
-          Uri.parse('${Globals.BASE}auth/password/forget_request'),
+          Uri.parse('${Globals.BASE}password/verify_code'),
           body: jsonEncode(param),
           headers: headers
       );

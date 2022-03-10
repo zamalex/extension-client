@@ -109,8 +109,13 @@ getSlots(int day,String id,int salon,String date){
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: List<ListItem>.generate(slots.length/*timetableModel.timestamps.length*/, (int index) {
                       final now = DateTime.now().add(Duration(days: session.selectedDateRange));
-                      final splitTime= slots[index].time.split(':');
-                      return _timetableItem(DateTime(now.year, now.month, now.day, int.tryParse(splitTime[0]), int.tryParse(splitTime[1])).millisecondsSinceEpoch, session.selectedTimestamp);
+                      var splitTime= slots[index].time.split(':');
+                      final am = splitTime[1].contains('AM');
+                      splitTime = slots[index].time.replaceAll(' AM', '').replaceAll(' PM', '').split(':');
+                      if(am&&splitTime[0]=='12'){
+                          splitTime[0]='00';
+                      }
+                      return _timetableItem(DateTime(now.year, now.month, now.day, int.tryParse(splitTime[0])+(am?0:12), int.tryParse(splitTime[1])).millisecondsSinceEpoch, session.selectedTimestamp);
                     }),
                   ),
                 )

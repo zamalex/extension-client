@@ -75,11 +75,11 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
         'label':getIt.get<AppGlobals>().isRTL?'الكل': 'All',
         'icon': Icons.calendar_today,
       },
-      <String, dynamic>{
+      /*<String, dynamic>{
         'code': 'Active',
         'label': getIt.get<AppGlobals>().isRTL?'جاري':'Active',
         'icon': Icons.calendar_today,
-      },
+      },*/
       <String, dynamic>{
         'code': 'Canceled',
         'label': getIt.get<AppGlobals>().isRTL?'ملغي':'Canceled',
