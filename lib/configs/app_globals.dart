@@ -4,6 +4,7 @@ import 'package:location/location.dart';
 import 'package:salon/configs/app_theme.dart';
 import 'package:salon/data/models/category_model.dart';
 import 'package:salon/data/models/user_model.dart';
+import 'package:salon/model/share_data.dart';
 
 /// Class to store runtime global settings.
 class AppGlobals {

@@ -191,7 +191,7 @@ class _LocationInfoState extends State<LocationInfo> with TickerProviderStateMix
                 context,
                 message: L10n.of(context).locationCallConfirmation(widget.location.phone),
                 onConfirmation: (){
-                  if(widget.location.phone.isNotNullOrEmpty||widget.location.phone!='undefined')
+                  if(widget.location.phone.isNotNullOrEmpty||widget.location.phone!='')
                   Async.launchUrl('tel://${widget.location.phone}');},
               );
             },

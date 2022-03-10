@@ -4,6 +4,7 @@ import 'package:salon/configs/routes.dart';
 import 'package:salon/data/models/location_model.dart';
 import 'package:salon/data/models/service_model.dart';
 import 'package:salon/generated/l10n.dart';
+import 'package:salon/model/share_data.dart';
 import 'package:salon/widgets/link_text.dart';
 import 'package:salon/widgets/list_item.dart';
 import 'package:salon/widgets/strut_text.dart';
@@ -11,6 +12,8 @@ import 'package:salon/widgets/uppercase_title.dart';
 import 'package:salon/utils/text_style.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:salon/utils/list.dart';
+
+import '../../product_details_screen.dart';
 
 class LocationServices extends StatelessWidget {
   const LocationServices({
@@ -51,6 +54,11 @@ class LocationServices extends StatelessWidget {
             padding: const EdgeInsets.only(top: kPaddingS),
             children: _services.map((ServiceModel service) {
               return ListItem(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                    return ProductDetails(shareData: ShareData(salon: service.shop_id,product: service.id,type: 0));
+                  },));
+                },
                 title: service.name,
                 titleTextStyle: Theme.of(context).textTheme.subtitle1.fs18.w500.black,
                 subtitle: service.description,

@@ -1,3 +1,4 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:salon/configs/app_globals.dart';
@@ -15,9 +16,12 @@ import 'package:salon/model/products_data.dart';
 import 'package:salon/screens/home/widgets/category_list_item.dart';
 import 'package:salon/screens/home/widgets/home_header.dart';
 import 'package:salon/screens/home/widgets/service_list_item.dart';
+import 'package:salon/screens/location/location.dart';
+import 'package:salon/screens/product_details_screen.dart';
 import 'package:salon/screens/search/search.dart';
 import 'package:salon/screens/search/widgets/search_tabs.dart';
 import 'package:salon/utils/bottom_bar_items.dart';
+import 'package:salon/utils/geo.dart';
 import 'package:salon/widgets/bold_title.dart';
 import 'package:salon/widgets/locations_carousel.dart';
 import 'package:salon/widgets/shimmer_box.dart';
@@ -46,7 +50,35 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     super.initState();
     _controller = AnimationController(vsync: this);
 
+    checkLink();
+
     _loadData();
+  }
+
+  checkLink()async{
+    final PendingDynamicLinkData initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
+    // FirebaseCrashlytics.instance.crash();
+
+    if (initialLink != null) {
+      final Uri deepLink = initialLink.link;
+      // Example of using the dynamic link to push the user to a different screen
+      print('dynamic link iss ${deepLink.toString()} and id is ${deepLink.queryParameters['salon']}');
+
+      shareData.product=int.parse(deepLink.queryParameters['id']);
+      shareData.type=int.parse(deepLink.queryParameters['type']);
+      shareData.salon=int.parse(deepLink.queryParameters['salon']);
+      goToSalon();
+    }
+    FirebaseDynamicLinks.instance.onLink(onSuccess: (dynamic)async{
+      print('dynamic link is ${dynamic.link.toString()} and id is ${dynamic.link.queryParameters['salon']}');
+      shareData.product=int.parse(dynamic.link.queryParameters['id']);
+      shareData.type=int.parse(dynamic.link.queryParameters['type']);
+      shareData.salon=int.parse(dynamic.link.queryParameters['salon']);
+
+      goToSalon();
+    },onError: (error)async{});
+
+
   }
 
   @override
@@ -56,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   Future<void> _loadData() async {
+
 
     bann.Banners().getBanners().then((value){setState(() {
       banners = value ?? [];
@@ -86,12 +119,22 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         return LocationModel(e.offer,e.id, e.name, e.rating, 100, e.address, 'city', '545545545', 'email', 'website', 'description', e.logo, 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
       }).toList();
       setState(() {
+print('salon ${shareData.salon}');
 
       });
     });
     if (mounted) {
       setState(() => _isDataLoaded = true);
     }
+
+  }
+
+  goToSalon(){
+    Navigator.push(context, MaterialPageRoute(builder: (context){
+      return ProductDetails(shareData: shareData,);
+    },));
+
+    shareData.salon=0;
   }
 
   Widget _showCategories() {

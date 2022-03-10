@@ -24,6 +24,7 @@ import 'package:salon/model/my_reviews.dart';
 import 'package:salon/model/products_data.dart';
 import 'package:salon/model/staff_data.dart';
 import 'package:salon/screens/location/widgets/widgets.dart';
+import 'package:salon/screens/product_details_screen.dart';
 import 'package:salon/screens/products/products_list.dart';
 import 'package:salon/utils/geo.dart';
 import 'package:salon/widgets/app_button.dart';
@@ -66,7 +67,6 @@ class _LocationScreenState extends State<LocationScreen> {
   void initState() {
     super.initState();
 
-
     _loadData();
 
     if(widget.tab!=0)
@@ -90,6 +90,7 @@ class _LocationScreenState extends State<LocationScreen> {
       }
     });
    // _location = await locationRepository.getLocation(id: widget.locationId.id);
+
     _location.reviews = [];
     _location.businessHours = [];
     _location.staff = [];
@@ -106,6 +107,20 @@ class _LocationScreenState extends State<LocationScreen> {
         services = value.map((e){
           return ServiceModel.all(e.id,e.seller_id,e.shop_id,double.parse(e.base_discounted_price.toString().replaceAll(RegExp(','), '')),e.service_duration,e.name,'',base_price: double.parse(e.basePrice),has_discount: e.has_discount);
         }).toList();
+
+        /*if(shareData!=null){
+          if(shareData.product!=0){
+            if(shareData.type==0){
+              services.forEach((ServiceModel element) {
+                if(element.id==shareData.product){
+                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                    return ProductDetails(serviceModel: element,);
+                  },));
+                }
+              });
+            }
+          }
+        }*/
 
         _location.serviceGroups=[];
         _location.serviceGroups.add(ServiceGroupModel(getIt.get<AppGlobals>().isRTL?'الخدمات':'Top services', '', services));

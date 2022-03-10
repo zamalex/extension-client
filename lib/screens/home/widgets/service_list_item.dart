@@ -26,7 +26,7 @@ class ServiceListItem extends StatelessWidget {
         //Navigator.pushNamed(context, Routes.location, arguments: LocationModel(false, category.shop_id, 'unnamed', 0, 0, 'undefined', '','','', '','', '','', [],GeoPoint(longitude: 0,latitude: 0),[], [], [], [], [], ''));
 
         Navigator.push(context, MaterialPageRoute(builder: (context){
-          return LocationScreen(tab: tab,locationId: LocationModel(false, category.shop_id, 'unnamed', 0, 0, 'undefined', '','','', '','', '','', [],GeoPoint(longitude: 0,latitude: 0),[], [], [], [], [], ''),);
+          return LocationScreen(tab: tab,locationId: LocationModel(false, category.shop_id, 'unnamed', 0, 0, '', '','','', '','', '','', [],GeoPoint(longitude: 0,latitude: 0),[], [], [], [], [], ''),);
         },));
 
       },

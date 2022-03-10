@@ -31,6 +31,7 @@ import 'blocs/application/application_bloc.dart';
 
 import 'generated/l10n.dart';
 import 'main.dart';
+import 'model/share_data.dart';
 
 /// The global RouteObserver.
 final RouteObserver<PageRoute<dynamic>> routeObserver = RouteObserver<PageRoute<dynamic>>();
@@ -48,6 +49,10 @@ RatingsBloc _ratingsBloc;
 ChatBloc _chatBloc;
 
 class MainApp extends StatefulWidget {
+
+  MainApp({this.shareData});
+  ShareData shareData;
+
   @override
   _MainAppState createState() => _MainAppState();
 }

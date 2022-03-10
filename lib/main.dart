@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,10 @@ import 'package:salon/utils/app_preferences.dart';
 import 'package:salon/utils/bottom_bar_items.dart';import 'package:shared_preferences/shared_preferences.dart';
 
 import 'model/loginmodel.dart';
+import 'model/share_data.dart';
 
 GetIt getIt = GetIt.instance;
+ShareData shareData = ShareData(salon: 0,product: 0,type: 0);
 
 Future<void> main() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
@@ -35,9 +38,8 @@ Future<void> main() async {
 
 
   await Firebase.initializeApp();
- // FirebaseCrashlytics.instance.crash();
 
-
+  // Get any initial links
   // Init service locator singletons.
   initServiceLocator();
 
@@ -79,7 +81,7 @@ Future<void> main() async {
   // Inflate the MainApp widget.
   runApp(ChangeNotifierProvider(
     create: (context) => CartProvider(),
-    child: MainApp(),
+    child: MainApp(shareData: shareData,),
   ),);
 }
 
