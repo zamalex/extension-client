@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:go_sell_sdk_flutter/model/models.dart';
 import 'package:provider/provider.dart';
@@ -360,6 +361,9 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
 
     tapSDKResult = await GoSellSdkFlutter.startPaymentSDK as Map;
 
+    setState(() {
+      session.isSubmitting = false;
+    });
     print('>>>> ${tapSDKResult['sdk_result']}');
 
       switch (tapSDKResult['sdk_result'].toString()) {

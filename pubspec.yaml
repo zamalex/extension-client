@@ -1,7 +1,5 @@
 name: salon
-description: Salon-Barber-Spa Flutter UI Template
-author: Zoran Juric
-homepage: http://zj.rs/salon/docs
+
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -44,7 +42,7 @@ dependencies:
   # Flutter plugin for reading and writing simple key-value pairs. Wraps NSUserDefaults on iOS and SharedPreferences on Android.
   shared_preferences: ^0.5.12+4
   # A Flutter plugin to easily handle realtime location in iOS and Android.
-  location:
+  location: any
   # Introduction/Onboarding package for flutter app with some customizations possibilities.
   introduction_screen: ^1.0.9
   # A package provides an easy way to add shimmer effect in Flutter project.
@@ -54,7 +52,7 @@ dependencies:
   # Flutter plugin for launching a URL on Android and iOS. Supports web, phone, SMS, and email schemes.
   url_launcher: ^5.7.10
   # A Flutter plugin for integrating Google Maps in iOS and Android applications.
-  google_maps_flutter: ^1.0.6
+  google_maps_flutter: any
   # A widget provided to the flutter scroll component drop-down refresh and pull up load.
   pull_to_refresh: ^2.0.0
   # An abstract class that helps to implement equality without needing to explicitly override == and hashCode.
@@ -101,10 +99,11 @@ dependencies:
   flutter_overboard: ^3.0.0
   liquid_swipe: ^1.5.0
   go_sell_sdk_flutter: ^2.1.1
-  firebase_crashlytics: ^0.4.0+1
-  firebase_core: ^0.7.0
-  firebase_dynamic_links: ^0.7.0+1
-  onesignal_flutter: ^3.0.0
+  # firebase_crashlytics: any
+  firebase_core: any
+  firebase_dynamic_links: any
+  onesignal_flutter: any
+  #firebase_crashlytics: ^0.4.0+1
 
 dev_dependencies:
   change_app_package_name: ^1.0.0
@@ -118,7 +117,7 @@ flutter_icons:
   image_path: "assets/images/cicon.png"
 
 #dependency_overrides:
-  #intl: ^0.17.0-nullsafety.2
+#intl: ^0.17.0-nullsafety.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.

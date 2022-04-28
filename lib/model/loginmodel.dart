@@ -168,9 +168,10 @@ class LoginModel {
     'Current-Locale':Intl.getCurrentLocale()
     };
 
+    print('${Globals.BASE}auth/password/verify_code');
     try {
       var response = await http.post(
-          Uri.parse('${Globals.BASE}password/verify_code'),
+          Uri.parse('${Globals.BASE}auth/password/verify_code'),
           body: jsonEncode(param),
           headers: headers
       );
@@ -183,7 +184,7 @@ class LoginModel {
       if(response.statusCode>=400){
         return {'status':false,'message':responseJson['message']};
       }
-      if(responseJson['result']as bool){
+      if(responseJson['status_code']as int==200){
         return {'status':true,'message':responseJson['message']};
       }else{
         return {'status':false,'message':responseJson['message']};

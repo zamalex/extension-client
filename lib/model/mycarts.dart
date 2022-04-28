@@ -277,9 +277,11 @@ class MyCarts {
           headers: headers,
       );
 
+      print('${Globals.BASE}wallet/balance/${getIt.get<AppGlobals>().ID}');
 
       final responseJson = json.decode(response.body);
 
+      print(responseJson);
       //if(responseJson['result']as bool)
       return double.parse(responseJson['balance'].toString()??'0');
 
@@ -451,7 +453,7 @@ class OrderSummary {
     tax: json['tax']as String,
     shippingCost: json['shipping_cost']as String,
     discount: json['discount']as String,
-    grandTotal: json['grand_total']as String,
+    grandTotal: (json['grand_total']as String).replaceAll(',', ''),
     grandTotalValue: double.parse(json['grand_total_value'].toString()),
     couponCode: json['coupon_code']as String,
     couponApplied: json['coupon_applied']as bool,

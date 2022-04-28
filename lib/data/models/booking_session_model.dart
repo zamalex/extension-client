@@ -69,7 +69,7 @@ class BookingSessionModel {
   final StaffModel selectedStaff;
    int selectedDateRange;
   final int selectedTimestamp;
-  final bool isSubmitting;
+   bool isSubmitting;
   List<int> times = [];
   final String notes;
 

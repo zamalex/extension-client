@@ -54,10 +54,17 @@ class _ProductDetailsState extends State<ProductDetails> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child:loading?Center(child: CircularProgressIndicator(),): productDetailsResponse==null?Center(child: Text('no available data'),):ListView(children: [
-            Text(productDetailsResponse==null?'':productDetailsResponse.data.first.name),
-            SizedBox(height: 15,),
+
+          productDetailsResponse.data.first.thumbnailImage==null||productDetailsResponse.data.first.thumbnailImage=='null'||productDetailsResponse.data.first.thumbnailImage.isEmpty?Image.asset('assets/images/onboarding/welcome.png',height: 200,width: double.infinity,fit: BoxFit.cover):Image.network(productDetailsResponse.data.first.thumbnailImage,height: 200,width: double.infinity,fit: BoxFit.cover,),
+          SizedBox(height: 15,),
+          Text(productDetailsResponse==null?'':productDetailsResponse.data.first.name),
+        Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: Text(!productDetailsResponse.data.first.hasDiscount?'':productDetailsResponse.data.first.strokedPrice+' ${L10n.of(context).SAR}',style:TextStyle(decoration: TextDecoration.lineThrough,fontSize: 12,color: Colors.red),))
+    ,Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: Text('${productDetailsResponse.data.first.mainPrice} ${L10n.of(context).SAR}',style:TextStyle(fontSize: 12,),))
+
+   , SizedBox(height: 15,),
             Text(productDetailsResponse==null?'':productDetailsResponse.data.first.description=='null'?'':productDetailsResponse.data.first.description),
           SizedBox(height: 15,),
+
           InkWell(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context){
@@ -67,8 +74,6 @@ class _ProductDetailsState extends State<ProductDetails> {
               child: Text(productDetailsResponse==null?'':productDetailsResponse.data.first.shopName,style: TextStyle(fontWeight: FontWeight.bold,decoration: TextDecoration.underline),)),
 
           SizedBox(height: 15,)
-    ,Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: Text(!productDetailsResponse.data.first.hasDiscount?'':productDetailsResponse.data.first.strokedPrice+' ${L10n.of(context).SAR}',style:TextStyle(decoration: TextDecoration.lineThrough,fontSize: 12,color: Colors.red),))
-    ,Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: Text('${productDetailsResponse.data.first.mainPrice} ${L10n.of(context).SAR}',style:TextStyle(fontSize: 12,),))
 
     ],),
       ),

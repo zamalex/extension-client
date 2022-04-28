@@ -251,7 +251,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
             notes='';
           }
           yield SessionRefreshSuccessBookingState(session.rebuild(
-            isSubmitting: false,
+            isSubmitting: true,
             appointmentId: 2,
             paymentMethod: session.paymentMethod,
               booking_id: result['booking_id']as int??0

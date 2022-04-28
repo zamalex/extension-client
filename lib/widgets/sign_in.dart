@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:salon/blocs/auth/auth_bloc.dart';
 import 'package:salon/configs/app_globals.dart';
@@ -95,7 +96,7 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
       setState(() {
         loading=true;
       });
-      LoginModel().loginUser(_textEmailController.text, _textPassController.text).then((value) {
+      LoginModel().loginUser(_textEmailController.text, _textPassController.text).then((value) async {
         setState(() {
           loading=false;
         });
@@ -117,6 +118,12 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
 
               getIt.get<AppGlobals>().user.id = value.user.id;
               getIt.get<AppGlobals>().ID= value.user.id;
+              final status = await OneSignal.shared.getDeviceState();
+              final String osUserID = status.userId;
+
+              print('onesignal id $osUserID');
+              if(osUserID!=null)
+                getIt.get<AppGlobals>().sendPlayerID(osUserID);
              // Provider.of<CartProvider>(context,listen: false).init();
 
             //  Phoenix.rebirth(context);

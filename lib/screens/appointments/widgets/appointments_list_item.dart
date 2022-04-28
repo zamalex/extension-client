@@ -165,10 +165,10 @@ class AppointmentsListItem extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            StrutText(
+            /*StrutText(
               getIt.get<AppGlobals>().getStatus(appointment.deliveryStatusString),
               style: Theme.of(context).textTheme.bodyText2.w500.primaryColor,
-            ),
+            ),*/
             AppointmentStatusBadge(status: getIt.get<AppGlobals>().getStatus(appointment.deliveryStatus),),
           ],
         );

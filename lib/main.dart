@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+//import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 
 import 'package:flutter/foundation.dart';
@@ -13,6 +13,7 @@ import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:location/location.dart';
 import 'package:logging/logging.dart';
 import 'package:logging_appenders/logging_appenders.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:salon/blocs/app_observer.dart';
 import 'package:salon/configs/app_theme.dart';
@@ -41,6 +42,40 @@ Future<void> main() async {
 
   // Get any initial links
   // Init service locator singletons.
+  //Remove this method to stop OneSignal Debugging
+  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+
+  OneSignal.shared.setAppId("a72e072e-86c4-443f-9001-e8a8d82b0d86");
+
+// The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+  OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+    print("Accepted permission: $accepted");
+  });
+
+  OneSignal.shared.setNotificationWillShowInForegroundHandler((OSNotificationReceivedEvent event) {
+    // Will be called whenever a notification is received in foreground
+    // Display Notification, pass null param for not displaying the notification
+    event.complete(event.notification);
+  });
+
+  OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
+    // Will be called whenever a notification is opened/button pressed.
+  });
+
+  OneSignal.shared.setPermissionObserver((OSPermissionStateChanges changes) {
+    // Will be called whenever the permission changes
+    // (ie. user taps Allow on the permission prompt in iOS)
+  });
+
+  OneSignal.shared.setSubscriptionObserver((OSSubscriptionStateChanges changes) {
+    // Will be called whenever the subscription changes
+    // (ie. user gets registered with OneSignal and gets a user ID)
+  });
+
+  OneSignal.shared.setEmailSubscriptionObserver((OSEmailSubscriptionStateChanges emailChanges) {
+    // Will be called whenever then user's email subscription changes
+    // (ie. OneSignal.setEmail(email) is called and the user gets registered
+  });
   initServiceLocator();
 
   // Init remote logging service.
@@ -65,7 +100,12 @@ Future<void> main() async {
          getIt.get<AppGlobals>().ID = loginModel.user.id;
           Globals.TOKEN = loginModel.accessToken;
          print(loginModel.user.name);
+         final status = await OneSignal.shared.getDeviceState();
+         final String osUserID = status.userId;
 
+         print('onesignal id $osUserID');
+          if(osUserID!=null)
+            getIt.get<AppGlobals>().sendPlayerID(osUserID);
        }
      }
    }

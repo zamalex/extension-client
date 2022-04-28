@@ -70,14 +70,14 @@ class _LocationScreenState extends State<LocationScreen> {
     _loadData();
 
     if(widget.tab!=0)
-    selected=widget.tab;
+      selected=widget.tab;
     getIt.get<AppGlobals>().serviceIndex=selected;
 
   }
 
   Future<void> _loadData() async {
     /// Load location data.
-  await  SalonModel().getSalonData(widget.locationId.id.toString()).then((value){
+    await  SalonModel().getSalonData(widget.locationId.id.toString()).then((value){
       if(value.isNotEmpty){
         _location=  LocationModel(value[0].offer,value[0].id, value[0].name, value[0].rating, 100, value[0].address, '', value[0].phone.toString(), 'email', 'website', 'description', value[0].logo, 'genders', [], GeoPoint(latitude: double.parse(value[0].latitude),longitude: double.parse(value[0].longitude)), [], [], [], [], [], 'cancelationPolicy');
         widget.locationId.mainPhoto = _location.mainPhoto;
@@ -89,7 +89,7 @@ class _LocationScreenState extends State<LocationScreen> {
         });
       }
     });
-   // _location = await locationRepository.getLocation(id: widget.locationId.id);
+    // _location = await locationRepository.getLocation(id: widget.locationId.id);
 
     _location.reviews = [];
     _location.businessHours = [];
@@ -99,7 +99,7 @@ class _LocationScreenState extends State<LocationScreen> {
     setState(() {});
 
     BookingWeekTimes().getWeekTimes(widget.locationId.id.toString()).then((value){
-        _location.businessHours = value.map((e) => BusinessHoursModel(e.day, e.startTime, e.endTime)).toList();
+      _location.businessHours = value.map((e) => BusinessHoursModel(e.day, e.startTime, e.endTime)).toList();
     });
 
     ProductModel().getServices(widget.locationId.id).then((value){
@@ -134,14 +134,14 @@ class _LocationScreenState extends State<LocationScreen> {
       setState(() {
         reviews = value;
 
-       // _location.reviews=[];
+        // _location.reviews=[];
         _location.reviews = value;
 
 
       });
 
 
-  });
+    });
 
     SalonStaff().getSalonStaff(widget.locationId.id.toString()).then((value) {
 
@@ -153,7 +153,7 @@ class _LocationScreenState extends State<LocationScreen> {
           return StaffModel(e.id, e.name, e.jobTitle, e.avatar, e.rating, true);
 
         }).toList();
-      staffModel=_location.staff;
+        staffModel=_location.staff;
       });
 
 
@@ -163,7 +163,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-   /* if(Provider.of<CartProvider>(context).error.isNotEmpty){
+    /* if(Provider.of<CartProvider>(context).error.isNotEmpty){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(Provider.of<CartProvider>(context).error)));
     }*/
     if (widget.locationId.id > 0) {
@@ -178,15 +178,29 @@ class _LocationScreenState extends State<LocationScreen> {
                 scrollDirection: Axis.vertical,
                 slivers: <Widget>[
                   SliverAppBar(
+
+                    leading:  Container(
+                      margin: const EdgeInsetsDirectional.only(end: 10,start: 10, bottom: kPaddingS),
+                      decoration: ShapeDecoration(
+                        color: Theme.of(context).accentColor,
+                        shape: const CircleBorder(),
+
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_back_outlined),
+                        color: kWhite,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
                     expandedHeight: 200.0,
                     pinned: true,
-                    actions: _location != null
+                    /*actions: _location != null
                         ? <Widget>[
-                            /*IconButton(
+                      /*IconButton(
                               icon: const Icon(Icons.share),
                               onPressed: () => Share.share(_location.website, subject: _location.name),
                             ),*/
-                            IconButton(
+                       IconButton(
                               icon: Icon(_isFavorited ? Icons.favorite : Icons.favorite_border),
                               onPressed: () {
                                 FavModel().addRemoveFav(widget.locationId.id.toString());
@@ -197,8 +211,8 @@ class _LocationScreenState extends State<LocationScreen> {
                                 ));
                               }, //_onLocation,
                             ),
-                          ]
-                        : null,
+                    ]
+                        : null,*/
                     flexibleSpace: FlexibleSpaceBar(
                       collapseMode: CollapseMode.parallax,
                       background: LocationHeader(location: _location),
@@ -214,12 +228,32 @@ class _LocationScreenState extends State<LocationScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Padding(padding: EdgeInsets.symmetric(horizontal: 10),child: StrutText(
-                              _location==null?'':_location.name??'',
-                              maxLines: 2,
-                              style: Theme.of(context).textTheme.headline5.w800.black,
-                              overflow: TextOverflow.ellipsis,
-                            ),),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Padding(padding: EdgeInsets.symmetric(horizontal: 10),child: StrutText(
+                                    _location==null?'':_location.name??'',
+                                    maxLines: 2,
+                                    style: Theme.of(context).textTheme.headline5.w800.black,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),),
+                                ),
+
+                               IconButton(
+                                  color: kPrimaryColor,
+                                  icon: Icon(_isFavorited ? Icons.favorite : Icons.favorite_border),
+                                  onPressed: () {
+                                    FavModel().addRemoveFav(widget.locationId.id.toString());
+                                    setState(() => _isFavorited = !_isFavorited);
+                                    _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                      content: Text(_isFavorited ? L10n.of(context).commonLocationFavorited : L10n.of(context).commonLocationUnfavorited),
+                                      duration: const Duration(milliseconds: kSnackBarDurationShort),
+                                    ));
+                                  }, //_onLocation,
+                                ),
+                              ],
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(left:10,right:10,top: kPaddingS),
                               child: StrutText(
@@ -232,7 +266,7 @@ class _LocationScreenState extends State<LocationScreen> {
                             DefaultTabController(length: 2,child: TabBar(tabs: [
 
                               Container(child: Text(getIt.get<AppGlobals>().isRTL?'التفاصيل':'Details',style: TextStyle(color: selected==0?kWhite:kPrimaryColor),)
-                                ,height: 40,alignment: Alignment.center,color: selected==1?mGrey.withOpacity(.3):mGrey),
+                                  ,height: 40,alignment: Alignment.center,color: selected==1?mGrey.withOpacity(.3):mGrey),
                               Container(child: Text(getIt.get<AppGlobals>().isRTL?'المنتجات':'Products',style: TextStyle(color: selected==0?kPrimaryColor:kWhite),)
                                 ,height: 40,alignment: Alignment.center,color: selected==0?mGrey.withOpacity(.3):mGrey,),
                             ],
@@ -250,21 +284,21 @@ class _LocationScreenState extends State<LocationScreen> {
                             ),
 
                             if(selected==1)
-                             SingleChildScrollView(child:  ProductsList(widget.locationId.id),)
+                              SingleChildScrollView(child:  ProductsList(widget.locationId.id),)
                             else
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                LocationInfo(location: _location),
+                                  LocationInfo(location: _location),
 
-                                LocationMapPreview(coordinates: _location != null ? _location.coordinates : null),
-                                // LocationDescription(description: _location != null ? _location.description : null),
-                                LocationStaff(location: _location),
-                                LocationServices(location: _location,address: widget.locationId.address,name: widget.locationId.name,),
-                                LocationReviews(location: _location),
-                              ],)
+                                  LocationMapPreview(coordinates: _location != null ? _location.coordinates : null),
+                                  // LocationDescription(description: _location != null ? _location.description : null),
+                                  LocationStaff(location: _location),
+                                  LocationServices(location: _location,address: widget.locationId.address,name: widget.locationId.name,),
+                                  LocationReviews(location: _location),
+                                ],)
 
-                         //   LocationsNearby(nearbyLocations: _location != null ? _location.nearbyLocations : null)
+                            //   LocationsNearby(nearbyLocations: _location != null ? _location.nearbyLocations : null)
                           ],
                         ),
                       ),
@@ -319,27 +353,27 @@ class _LocationScreenState extends State<LocationScreen> {
             ),
 
             AppButton(
-              text: getIt.get<AppGlobals>().serviceIndex==1?(getIt.get<AppGlobals>().isRTL?'السلة':'cart'):L10n.of(context).locationBtnBook,
-              onPressed: () {
-    if (!getIt.get<AppGlobals>().isUser){
+                text: getIt.get<AppGlobals>().serviceIndex==1?(getIt.get<AppGlobals>().isRTL?'السلة':'cart'):L10n.of(context).locationBtnBook,
+                onPressed: () {
+                  if (!getIt.get<AppGlobals>().isUser){
 
 
-        (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
-            .onTap(3);
-        Navigator.of(context, rootNavigator: true).pop();
+                    (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
+                        .onTap(3);
+                    Navigator.of(context, rootNavigator: true).pop();
 
-   // (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar).onTap(2);
+                    // (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar).onTap(2);
 
-    return;}
+                    return;}
 
-    if(getIt.get<AppGlobals>().serviceIndex==1){
-      (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
-          .onTap(2);
-      Navigator.of(context, rootNavigator: true).pop();
-    }else{
-      Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': _location.id,'staff': staffModel,'location':widget.locationId,'services':services});}
+                  if(getIt.get<AppGlobals>().serviceIndex==1){
+                    (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
+                        .onTap(2);
+                    Navigator.of(context, rootNavigator: true).pop();
+                  }else{
+                    Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': _location.id,'staff': staffModel,'location':widget.locationId,'services':services});}
 
-              }
+                }
             ),
           ],
         ),

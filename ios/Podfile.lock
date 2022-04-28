@@ -1,30 +1,109 @@
 PODS:
   - add_2_calendar (0.0.1):
     - Flutter
-  - camera (0.0.1):
+  - CardIODynamic (5.4.1)
+  - EditableTextInsetsTextFieldV2 (0.0.2):
+    - TapAdditionsKitV2
+  - Firebase/CoreOnly (7.3.0):
+    - FirebaseCore (= 7.3.0)
+  - Firebase/Crashlytics (7.3.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 7.3.0)
+  - Firebase/DynamicLinks (7.3.0):
+    - Firebase/CoreOnly
+    - FirebaseDynamicLinks (~> 7.3.0)
+  - firebase_core (0.7.0):
+    - Firebase/CoreOnly (= 7.3.0)
     - Flutter
+  - firebase_crashlytics (0.4.0-1):
+    - Firebase/Crashlytics (= 7.3.0)
+    - firebase_core
+  - firebase_dynamic_links (0.7.0-1):
+    - Firebase/DynamicLinks (= 7.3.0)
+    - firebase_core
+    - Flutter
+  - FirebaseCore (7.3.0):
+    - FirebaseCoreDiagnostics (~> 7.0)
+    - GoogleUtilities/Environment (~> 7.0)
+    - GoogleUtilities/Logger (~> 7.0)
+  - FirebaseCoreDiagnostics (7.3.0):
+    - GoogleDataTransport (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.0)
+    - GoogleUtilities/Logger (~> 7.0)
+    - nanopb (~> 2.30906.0)
+  - FirebaseCrashlytics (7.3.0):
+    - FirebaseCore (~> 7.0)
+    - FirebaseInstallations (~> 7.0)
+    - GoogleDataTransport (~> 8.0)
+    - nanopb (~> 2.30906.0)
+    - PromisesObjC (~> 1.2)
+  - FirebaseDynamicLinks (7.3.1):
+    - FirebaseCore (~> 7.0)
+  - FirebaseInstallations (7.11.0):
+    - FirebaseCore (~> 7.0)
+    - GoogleUtilities/Environment (~> 7.0)
+    - GoogleUtilities/UserDefaults (~> 7.0)
+    - PromisesObjC (~> 1.2)
   - Flutter (1.0.0)
-  - flutter_is_emulator (0.0.1):
-    - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - go_sell_sdk_flutter (0.0.1):
+    - Flutter
+    - goSellSDK (= 2.3.1)
   - google_maps_flutter (0.0.1):
     - Flutter
     - GoogleMaps (< 3.10)
+  - GoogleDataTransport (8.1.0):
+    - nanopb (~> 2.30906.0)
   - GoogleMaps (3.9.0):
     - GoogleMaps/Maps (= 3.9.0)
   - GoogleMaps/Base (3.9.0)
   - GoogleMaps/Maps (3.9.0):
     - GoogleMaps/Base
+  - GoogleUtilities/Environment (7.7.0):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.7.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/UserDefaults (7.7.0):
+    - GoogleUtilities/Logger
+  - goSellSDK (2.3.1):
+    - goSellSDK/Core (= 2.3.1)
+  - goSellSDK/Core (2.3.1):
+    - CardIODynamic
+    - EditableTextInsetsTextFieldV2
+    - SwiftyRSA
+    - TapAdditionsKitV2
+    - TapApplicationV2
+    - TapBundleLocalization
+    - TapCardValidator
+    - TapEditableViewV2
+    - TapFontsKitV2
+    - TapGLKitV2
+    - TapKeychain
+    - TapNetworkManagerV2
+    - TapNibViewV2
+    - TapResponderChainInputViewV2
+    - TapSearchViewV2
+    - TapVisualEffectViewV2
   - image_picker (0.0.1):
     - Flutter
   - location (0.0.1):
     - Flutter
+  - nanopb (2.30906.0):
+    - nanopb/decode (= 2.30906.0)
+    - nanopb/encode (= 2.30906.0)
+  - nanopb/decode (2.30906.0)
+  - nanopb/encode (2.30906.0)
+  - onesignal_flutter (3.2.8):
+    - Flutter
+    - OneSignalXCFramework (= 3.10.0)
+  - OneSignalXCFramework (3.10.0)
   - package_info (0.0.1):
     - Flutter
   - path_provider (0.0.1):
     - Flutter
+  - PromisesObjC (1.2.12)
   - share (0.0.1):
     - Flutter
   - shared_preferences (0.0.1):
@@ -32,17 +111,56 @@ PODS:
   - sqflite (0.0.2):
     - Flutter
     - FMDB (>= 2.7.5)
+  - SwiftyRSA (1.7.0):
+    - SwiftyRSA/ObjC (= 1.7.0)
+  - SwiftyRSA/ObjC (1.7.0)
+  - TapAdditionsKitV2 (0.0.8):
+    - TapSwiftFixesV2
+  - TapApplicationV2 (0.0.2):
+    - TapAdditionsKitV2
+  - TapBundleLocalization (1.0.3)
+  - TapCardValidator (1.2.6)
+  - TapEditableViewV2 (1.0.1):
+    - TapAdditionsKitV2
+  - TapFontsKitV2 (0.0.4):
+    - TapAdditionsKitV2
+  - TapGLKitV2 (0.0.2):
+    - TapAdditionsKitV2
+  - TapKeychain (1.0.5)
+  - TapNetworkManagerV2 (0.0.5):
+    - TapAdditionsKitV2
+  - TapNibViewV2 (0.0.2):
+    - TapAdditionsKitV2
+  - TapResponderChainInputViewV2 (0.0.4):
+    - TapAdditionsKitV2
+    - TapNibViewV2
+  - TapSearchViewV2 (0.0.4):
+    - TapAdditionsKitV2
+    - TapNibViewV2
+  - TapSwiftFixesV2 (1.0.0):
+    - TapSwiftFixesV2/CoreGraphics (= 1.0.0)
+    - TapSwiftFixesV2/Exceptions (= 1.0.0)
+    - TapSwiftFixesV2/Threading (= 1.0.0)
+  - TapSwiftFixesV2/CoreGraphics (1.0.0)
+  - TapSwiftFixesV2/Exceptions (1.0.0)
+  - TapSwiftFixesV2/Threading (1.0.0)
+  - TapVisualEffectViewV2 (0.0.2):
+    - TapAdditionsKitV2
+    - TapNibViewV2
   - url_launcher (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - add_2_calendar (from `.symlinks/plugins/add_2_calendar/ios`)
-  - camera (from `.symlinks/plugins/camera/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
+  - firebase_dynamic_links (from `.symlinks/plugins/firebase_dynamic_links/ios`)
   - Flutter (from `Flutter`)
-  - flutter_is_emulator (from `.symlinks/plugins/flutter_is_emulator/ios`)
+  - go_sell_sdk_flutter (from `.symlinks/plugins/go_sell_sdk_flutter/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - location (from `.symlinks/plugins/location/ios`)
+  - onesignal_flutter (from `.symlinks/plugins/onesignal_flutter/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - share (from `.symlinks/plugins/share/ios`)
@@ -52,24 +170,59 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - CardIODynamic
+    - EditableTextInsetsTextFieldV2
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCrashlytics
+    - FirebaseDynamicLinks
+    - FirebaseInstallations
     - FMDB
+    - GoogleDataTransport
     - GoogleMaps
+    - GoogleUtilities
+    - goSellSDK
+    - nanopb
+    - OneSignalXCFramework
+    - PromisesObjC
+    - SwiftyRSA
+    - TapAdditionsKitV2
+    - TapApplicationV2
+    - TapBundleLocalization
+    - TapCardValidator
+    - TapEditableViewV2
+    - TapFontsKitV2
+    - TapGLKitV2
+    - TapKeychain
+    - TapNetworkManagerV2
+    - TapNibViewV2
+    - TapResponderChainInputViewV2
+    - TapSearchViewV2
+    - TapSwiftFixesV2
+    - TapVisualEffectViewV2
 
 EXTERNAL SOURCES:
   add_2_calendar:
     :path: ".symlinks/plugins/add_2_calendar/ios"
-  camera:
-    :path: ".symlinks/plugins/camera/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_crashlytics:
+    :path: ".symlinks/plugins/firebase_crashlytics/ios"
+  firebase_dynamic_links:
+    :path: ".symlinks/plugins/firebase_dynamic_links/ios"
   Flutter:
     :path: Flutter
-  flutter_is_emulator:
-    :path: ".symlinks/plugins/flutter_is_emulator/ios"
+  go_sell_sdk_flutter:
+    :path: ".symlinks/plugins/go_sell_sdk_flutter/ios"
   google_maps_flutter:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
+  onesignal_flutter:
+    :path: ".symlinks/plugins/onesignal_flutter/ios"
   package_info:
     :path: ".symlinks/plugins/package_info/ios"
   path_provider:
@@ -84,22 +237,54 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
-  add_2_calendar: c201b1c7dc0299280f1b1a8158aa80e15a8f8912
-  camera: a0ca5080336f7af47b88436e5e26da3dee5568f0
-  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
-  flutter_is_emulator: b1d882329a081ea30e0e335f1dbe782f5a34242a
+  add_2_calendar: e9d68636aed37fb18e12f5a3d74c2e0589487af0
+  CardIODynamic: 4a0d2d0e7b82993ceca67491564934c3475fbe79
+  EditableTextInsetsTextFieldV2: 09a945c086dbcef688fe4fbb8302b408c146c391
+  Firebase: 26223c695fe322633274198cb19dca8cb7e54416
+  firebase_core: 91b27774a52f41f8b58484a75edf71197ac01c59
+  firebase_crashlytics: e6ecb908f6249ce3757d18a812819a41495bf1cb
+  firebase_dynamic_links: 14bf04008446c471b5c9f6e6542e14210bf26bd5
+  FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972
+  FirebaseCoreDiagnostics: d50e11039e5984d92c8a512be2395f13df747350
+  FirebaseCrashlytics: d31325312c92e2cb2f0386d589b9aa44e303d99b
+  FirebaseDynamicLinks: a6df95d6dbc746c2bbf7d511343cda1344e2cf70
+  FirebaseInstallations: a58d4f72ec5861840b84df489f2668d970df558a
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  go_sell_sdk_flutter: f1daa866708568660ea68f3288d4cb4e6244dbb9
   google_maps_flutter: c7f9c73576de1fbe152a227bfd6e6c4ae8088619
+  GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
   GoogleMaps: 4b5346bddfe6911bb89155d43c903020170523ac
+  GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
+  goSellSDK: 5e3fe6795b2cf8a2c4abc73a59c736abc75a93f7
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
+  nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
+  onesignal_flutter: 532fddb1b5921fb1145e4baef5177b9bca1c9d36
+  OneSignalXCFramework: 10648e60ff3d335fbffa62d9b44b700b56d49b51
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
+  SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
+  TapAdditionsKitV2: ba369802e9575c3475ce6d5af228cf60c68edfc9
+  TapApplicationV2: aee3d046c4272778431e1535de6cab34e1269f8c
+  TapBundleLocalization: c7d7c14850223b0ef447aca1269d7308f78d54f9
+  TapCardValidator: 8d43b6e8a1a78276c03116a5b625041adeffeb0d
+  TapEditableViewV2: 00370b2b6c967c382fa944be8c04156d584d630b
+  TapFontsKitV2: b05e5ed03fc182c227f0660a0b318f44934d353c
+  TapGLKitV2: d3ef8bc5d1655a1d46e1696cfdcf19ae6e6d4d35
+  TapKeychain: 143aa70bb2d1b094e0298e944660264034c79849
+  TapNetworkManagerV2: 857339ae980c9fb495ec9a4c609beabaeeeb5999
+  TapNibViewV2: 814b18346837d9dab611a211a702b9b0b8369d07
+  TapResponderChainInputViewV2: 2dcd4bda246b0bd8764ee7fe8dbbd092815d063f
+  TapSearchViewV2: a167173db767a2be86d66c319cbb6b8da1541531
+  TapSwiftFixesV2: a8623a7273c6790b9754ec7e272e96fce7d3a800
+  TapVisualEffectViewV2: b612ffee4d05004c449d433fe45aba9563c8a508
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
-PODFILE CHECKSUM: 3efef3e4c4241ddf19165efb8229df7447127bfd
+PODFILE CHECKSUM: cfdd3457b04acef391797c87baba3d291be09dfd
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
