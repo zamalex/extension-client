@@ -79,10 +79,11 @@ class _LocationScreenState extends State<LocationScreen> {
     /// Load location data.
     await  SalonModel().getSalonData(widget.locationId.id.toString()).then((value){
       if(value.isNotEmpty){
-        _location=  LocationModel(value[0].offer,value[0].id, value[0].name, value[0].rating, 100, value[0].address, '', value[0].phone.toString(), 'email', 'website', 'description', value[0].logo, 'genders', [], GeoPoint(latitude: double.parse(value[0].latitude),longitude: double.parse(value[0].longitude)), [], [], [], [], [], 'cancelationPolicy');
+        _location=  LocationModel(value[0].offer,value[0].id, value[0].name, value[0].rating, 100, value[0].address, '', value[0].phone.toString(), 'email', 'website', 'description', value[0].logo, 'genders', [], GeoPoint(latitude: double.parse(value[0].latitude),longitude: double.parse(value[0].longitude)), [], [], [], [], [], 'cancelationPolicy')..setPaymentStatus(value[0].payment_status);
         widget.locationId.mainPhoto = _location.mainPhoto;
         widget.locationId.name = _location.name;
         widget.locationId.address = _location.address;
+        widget.locationId.payment_status = _location.payment_status;
         _isFavorited = value[0].isFavourite;
         setState(() {
 

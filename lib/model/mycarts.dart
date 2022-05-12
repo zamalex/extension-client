@@ -13,15 +13,17 @@ import '../main.dart';
 class MyCarts {
   String name;
   int ownerId;
+  int payment_status;
   int salonId;
   List<CartItems> cartItems;
 
-  MyCarts({this.name, this.ownerId, this.cartItems,this.salonId});
+  MyCarts({this.name,this.payment_status, this.ownerId, this.cartItems,this.salonId});
 
   MyCarts.fromJson(Map<String, dynamic> json) {
     name = json['name']as String;
     ownerId = json['owner_id']as int;
     salonId = json['id']as int;
+    payment_status = int.parse(json['payment_status'].toString()==''?'0':json['payment_status'].toString());
     if (json['cart_items'] != null) {
       cartItems = [];
       json['cart_items'].forEach((v) {

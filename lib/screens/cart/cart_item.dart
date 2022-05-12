@@ -50,7 +50,7 @@ class _CartItemState extends State<CartItem> {
       Expanded(flex: 2,child: widget.cartModel.logo!=null&&widget.cartModel.logo.isNotEmpty?Image.network(widget.cartModel.logo,height: 100,fit: BoxFit.cover,):Image.asset('assets/images/onboarding/welcome.png',height: 100,fit: BoxFit.cover,)),
       SizedBox(width: 5,),
       Expanded(flex:2,child: Container(height: 100,child: Column(children: [
-        Text(widget.cartModel.salon,overflow: TextOverflow.ellipsis,style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+        Text(widget.cartModel.salon??'',overflow: TextOverflow.ellipsis,style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
         Container(child: Text(widget.cartModel.name,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),),),
         Text('${widget.cartModel.price } ${kCurrency}',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
 

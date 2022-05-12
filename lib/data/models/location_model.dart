@@ -91,11 +91,15 @@ class LocationModel {
     return count;
   }
 
+  setPaymentStatus(int s){
+    payment_status=s;
+  }
   final int id;
   bool offer;
   String name;
    double rate;
    int ratings;
+   int payment_status=0;
    String address;
   final String city;
    String phone;

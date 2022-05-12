@@ -20,7 +20,7 @@ class BookingSessionModel {
     this.notes = '',
     this.apiError = '',
     this.appointmentId = 0,
-    this.paymentMethod = PaymentMethod.cc,
+    this.paymentMethod = PaymentMethod.inStore,
   });
 
   BookingSessionModel rebuild({

@@ -23,6 +23,9 @@ import 'package:salon/utils/datetime.dart';
 import 'package:salon/utils/text_style.dart';
 
 class BookingStep4 extends StatefulWidget {
+  int payment_status;
+  BookingStep4(this.payment_status);
+
   @override
   _BookingStep4State createState() => _BookingStep4State();
 }
@@ -33,7 +36,7 @@ class _BookingStep4State extends State<BookingStep4> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('from step 4');
+    print('status ${widget.payment_status}');
     Future.delayed(Duration.zero).then((value){
       Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
 
@@ -218,7 +221,9 @@ class _BookingStep4State extends State<BookingStep4> {
                               ),
                               onPressed: () => selectPaymentmethodEvent(PaymentMethod.inStore),
                             ),
-                            /*if (Provider.of<CartProvider>(context).balance==-2)*/ ListItem(
+                            /*if (Provider.of<CartProvider>(context).balance==-2)*/
+                            if(widget.payment_status==1)
+                            ListItem(
                                 title: L10n.of(context).bookingPayWithCard,
                                 showBorder: false,
                                 leading: Radio<PaymentMethod>(

@@ -6,6 +6,7 @@ import 'package:salon/model/product_details_response.dart';
 import 'package:salon/model/products_data.dart';
 import 'package:salon/model/share_data.dart';
 import 'package:salon/screens/location/location.dart';
+import 'package:salon/screens/products/product_item.dart';
 import 'package:salon/utils/geo.dart';
 import 'package:share/share.dart';
 import 'package:salon/generated/l10n.dart';
@@ -17,12 +18,14 @@ class ProductDetails extends StatefulWidget {
  final ServiceModel serviceModel;
  final ShareData shareData;
 
+
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
 
+  List<Product> products=[];
   bool loading = false;
   ProductDetailsResponse productDetailsResponse;
   @override
@@ -36,6 +39,15 @@ class _ProductDetailsState extends State<ProductDetails> {
       productDetailsResponse = value;
       setState(() {
         loading = false;
+      });
+    });
+
+    ProductModel().getRelatedProducts(widget.shareData.product).then((value){
+      setState(() {
+        value.forEach((element) {
+          element.salon_id = widget.shareData.salon;
+        });
+        products=value??[];
       });
     });
 
@@ -73,7 +85,14 @@ class _ProductDetailsState extends State<ProductDetails> {
               },
               child: Text(productDetailsResponse==null?'':productDetailsResponse.data.first.shopName,style: TextStyle(fontWeight: FontWeight.bold,decoration: TextDecoration.underline),)),
 
-          SizedBox(height: 15,)
+          SizedBox(height: 15,),
+          Container(
+            width: double.infinity,
+            height: 200,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => Container(width:200,height: 200,child: ProdcutItem(products[index])),itemCount: products.length,),
+          )
 
     ],),
       ),

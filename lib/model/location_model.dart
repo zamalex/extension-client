@@ -77,7 +77,7 @@ class SalonModel {
         Uri.parse('${Globals.BASE}shops/details/$id'),
         headers: header
       );
-
+      print(response.body);
       if(response.statusCode>=400){
 
       }else{
@@ -188,6 +188,7 @@ class SalonModel {
 
 class Data {
   int id;
+  int payment_status;
   String name;
   String logo;
   String latitude;
@@ -198,10 +199,11 @@ class Data {
   bool offer;
   bool isFavourite;
 
-  Data({this.id, this.name, this.logo});
+  Data({this.id, this.name, this.logo,this.payment_status});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int;
+    payment_status = int.parse(json['payment_status'].toString()==''?'0':json['payment_status'].toString());
     name = json['name'] as String??'';
     latitude = (json['latitude'] as String).isEmpty?'0':(json['latitude'] as String);
     longitude = (json['longitude'] as String).isEmpty?'0':(json['longitude'] as String);

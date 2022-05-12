@@ -410,7 +410,8 @@ class _CheckoutState extends State<Checkout> {
               },
             ),
 
-              /*if(Provider.of<CartProvider>(context).balance==-2)*/ ListItem(
+              if(Provider.of<CartProvider>(context).allCarts.first.payment_status==1)
+                ListItem(
                 title: L10n.of(context).bookingPayWithCard,
 
                 showBorder: false,

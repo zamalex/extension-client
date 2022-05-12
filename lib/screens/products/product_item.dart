@@ -85,9 +85,11 @@ class _ProdcutItemState extends State<ProdcutItem> {
               if (!getIt.get<AppGlobals>().isUser){
 
                      (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar).onTap(3);
-                     Navigator.of(context, rootNavigator: true).pop();
+Navigator.popUntil(context, ModalRoute.withName('/'));
 
-              return;}
+
+
+                     return;}
 
               if(!Provider.of<CartProvider>(context,listen: false).canAdd(widget.cartModel.salon_id)){
                 UI.confirmationDialogBox(context,title: 'info',message: txt,onConfirmation: (){

@@ -55,6 +55,39 @@ class ProductModel {
       return [];
     }
   }
+  Future<List<Product>> getRelatedProducts(int id) async {
+    try {
+
+      Map<String,String> header = {
+        'Current-Locale':Intl.getCurrentLocale()
+      };
+
+      var response = await http.get(
+        Uri.parse('${Globals.BASE}products/related/$id'),
+        headers: header
+      );
+      print('response  is '+response.body);
+
+      if(response.statusCode>=400){
+        return [];
+
+      }else{
+        final responseJson = json.decode(response.body);
+        if(responseJson['success'] as bool==false){
+          return [];
+        }else{
+
+          return ProductModel.fromJson(responseJson as Map<String,dynamic>).products;
+        }
+      }
+
+
+
+    } catch (error) {
+      print(error);
+      return [];
+    }
+  }
 
   Future<List<Product>> getServices(int id) async {
     try {
