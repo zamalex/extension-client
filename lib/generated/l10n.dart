@@ -35,6 +35,226 @@ class L10n {
     return Localizations.of<L10n>(context, L10n);
   }
 
+  /// `My Orders`
+  String get myOrders {
+    return Intl.message(
+      'My Orders',
+      name: 'myOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Coupon`
+  String get addcopon {
+    return Intl.message(
+      'Add Coupon',
+      name: 'addcopon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Address`
+  String get changeaddress {
+    return Intl.message(
+      'Change Address',
+      name: 'changeaddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Order`
+  String get confirmorder {
+    return Intl.message(
+      'Confirm Order',
+      name: 'confirmorder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order summary`
+  String get ordersummary {
+    return Intl.message(
+      'Order summary',
+      name: 'ordersummary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total amount`
+  String get totalammount {
+    return Intl.message(
+      'Total amount',
+      name: 'totalammount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coupon Code`
+  String get coponcode {
+    return Intl.message(
+      'Coupon Code',
+      name: 'coponcode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivery fees`
+  String get deliveryfees {
+    return Intl.message(
+      'Delivery fees',
+      name: 'deliveryfees',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `enter your address`
+  String get enteraddress {
+    return Intl.message(
+      'enter your address',
+      name: 'enteraddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `select delivery time`
+  String get selectdeliverytime {
+    return Intl.message(
+      'select delivery time',
+      name: 'selectdeliverytime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address`
+  String get Addresss {
+    return Intl.message(
+      'Address',
+      name: 'Addresss',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivery date & time`
+  String get deliverydatetime {
+    return Intl.message(
+      'Delivery date & time',
+      name: 'deliverydatetime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Products`
+  String get Productss {
+    return Intl.message(
+      'Products',
+      name: 'Productss',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Top rated salons`
+  String get topRatedSalonz {
+    return Intl.message(
+      'Top rated salons',
+      name: 'topRatedSalonz',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `home`
+  String get bhome {
+    return Intl.message(
+      'home',
+      name: 'bhome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total`
+  String get totaal {
+    return Intl.message(
+      'Total',
+      name: 'totaal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SAR`
+  String get SAR {
+    return Intl.message(
+      'SAR',
+      name: 'SAR',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Checkout`
+  String get Checkoutt {
+    return Intl.message(
+      'Checkout',
+      name: 'Checkoutt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cart`
+  String get Cartt {
+    return Intl.message(
+      'Cart',
+      name: 'Cartt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `search`
+  String get bsearch {
+    return Intl.message(
+      'search',
+      name: 'bsearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `cart`
+  String get bcart {
+    return Intl.message(
+      'cart',
+      name: 'bcart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `profile`
+  String get bprofile {
+    return Intl.message(
+      'profile',
+      name: 'bprofile',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Hi, {name}!`
   String homeTitleUser(Object name) {
     return Intl.message(
@@ -295,30 +515,31 @@ class L10n {
     );
   }
 
-  /// `Top Services`
+  /// `Recent Services`
   String get locationTitleTopServices {
     return Intl.message(
-      'Top Products',
+      'Recent Services',
       name: 'locationTitleTopServices',
       desc: '',
       args: [],
     );
   }
 
-
-  String get continueShopping {
+  /// `Recent Products`
+  String get locationTitleTopProducts {
     return Intl.message(
-      'continue shopping',
-      name: 'continueShopping',
+      'Recent Products',
+      name: 'locationTitleTopProducts',
       desc: '',
       args: [],
     );
   }
 
-  String get locationTitleTopProducts {
+  /// `continue shopping`
+  String get continueShopping {
     return Intl.message(
-      'Recent Products',
-      name: 'locationTitleTopProducts',
+      'continue shopping',
+      name: 'continueShopping',
       desc: '',
       args: [],
     );
@@ -494,7 +715,7 @@ class L10n {
     );
   }
 
-  /// `Men only`
+  /// `Lowest Rating`
   String get commonLowestRating {
     return Intl.message(
       'Lowest Rating',
@@ -514,7 +735,7 @@ class L10n {
     );
   }
 
-  /// `Unisex`
+  /// `Highest Rating`
   String get commonRating {
     return Intl.message(
       'Highest Rating',
@@ -691,10 +912,10 @@ class L10n {
     );
   }
 
-  /// `${value}`
+  /// `{value} SAR`
   String commonCurrencyFormat(Object value) {
     return Intl.message(
-      '\$$value',
+      '$value SAR',
       name: 'commonCurrencyFormat',
       desc: '',
       args: [value],
@@ -889,10 +1110,10 @@ class L10n {
     );
   }
 
-  /// `Your email address`
+  /// `Your Phone number`
   String get signInHintEmail {
     return Intl.message(
-      'Your phone number',
+      'Your Phone number',
       name: 'signInHintEmail',
       desc: '',
       args: [],
@@ -1299,7 +1520,7 @@ class L10n {
     );
   }
 
-  /// `Email format invalid`
+  /// `Phone format invalid`
   String get formValidatorEmail {
     return Intl.message(
       'Phone format invalid',
@@ -1339,7 +1560,7 @@ class L10n {
     );
   }
 
-  /// `Enter your registered email address and we shall send you a secure link to reset your password.`
+  /// `Enter your registered phone number and we shall send you sms to reset your password.`
   String get forgotPasswordLabel {
     return Intl.message(
       'Enter your registered phone number and we shall send you sms to reset your password.',
@@ -1524,66 +1745,6 @@ class L10n {
     return Intl.message(
       'My vouchers',
       name: 'profileListVouchers',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get myOrders {
-    return Intl.message(
-      'My Orders',
-      name: 'myOrders',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /*
-  *  "","home",
-    "bsearch","",
-    "","cart",
-    "","profile",
-  *
-  * */
-  String get bhome {
-    return Intl.message(
-      'home',
-      name: 'bhome',
-      desc: '',
-      args: [],
-    );
-  }
-  String get bsearch {
-    return Intl.message(
-      'search',
-      name: 'bsearch',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get bcart {
-    return Intl.message(
-      'cart',
-      name: 'bcart',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get bprofile {
-    return Intl.message(
-      'profile',
-      name: 'bprofile',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get topRatedSalonz {
-    return Intl.message(
-      'Top rated salons',
-      name: 'topRatedSalonz',
       desc: '',
       args: [],
     );
@@ -2476,142 +2637,6 @@ class L10n {
     );
   }
 
-  String get totaal {
-    return Intl.message(
-      'Total',
-      name: 'totaal',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get SAR {
-    return Intl.message(
-      'SAR',
-      name: 'SAR',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get Checkoutt {
-    return Intl.message(
-      'Checkout',
-      name: 'Checkoutt',
-      desc: '',
-      args: [],
-    );
-  }
-
-
-  String get Cartt {
-    return Intl.message(
-      'Cart',
-      name: 'Cartt',
-      desc: '',
-      args: [],
-    );
-  }
-/////////////////////////////////////////////////////////////////////////////////
-  String get addcopon {
-    return Intl.message(
-      'Add Coupon',
-      name: 'addcopon',
-      desc: '',
-      args: [],
-    );
-  }
-  String get changeaddress {
-    return Intl.message(
-      'Change Address',
-      name: 'changeaddress',
-      desc: '',
-      args: [],
-    );
-  }
-  String get ordersummary {
-    return Intl.message(
-      'Order summary',
-      name: 'ordersummary',
-      desc: '',
-      args: [],
-    );
-  }
-  String get totalammount {
-    return Intl.message(
-      'Total amount',
-      name: 'totalammount',
-      desc: '',
-      args: [],
-    );
-  }
-  String get coponcode {
-    return Intl.message(
-      'Coupon Code',
-      name: 'coponcode',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get deliveryfees {
-    return Intl.message(
-      'Delivery fees',
-      name: 'deliveryfees',
-      desc: '',
-      args: [],
-    );
-  }
-  String get enteraddress {
-    return Intl.message(
-      'enter your address',
-      name: 'enteraddress',
-      desc: '',
-      args: [],
-    );
-  }
-  String get selectdeliverytime {
-    return Intl.message(
-      'select delivery time',
-      name: 'selectdeliverytime',
-      desc: '',
-      args: [],
-    );
-  }
-  String get Addresss {
-    return Intl.message(
-      'Addresss',
-      name: 'Addresss',
-      desc: '',
-      args: [],
-    );
-  }
-  String get deliverydatetime {
-    return Intl.message(
-      'Delivery date & time',
-      name: 'deliverydatetime',
-      desc: '',
-      args: [],
-    );
-  }
-  String get Productss {
-    return Intl.message(
-      'Products',
-      name: 'Productss',
-      desc: '',
-      args: [],
-    );
-  }
-  String get confirmorder {
-    return Intl.message(
-      'Confirm Order',
-      name: 'confirmorder',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /////////////////////////////////////////////////////////////////////////
   /// `Pay in store`
   String get bookingPayInStore {
     return Intl.message(
@@ -3049,8 +3074,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
-    //  Locale.fromSubtags(languageCode: 'hr'),
       Locale.fromSubtags(languageCode: 'ar'),
+      Locale.fromSubtags(languageCode: 'hr'),
     ];
   }
 
