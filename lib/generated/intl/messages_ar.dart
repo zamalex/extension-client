@@ -211,7 +211,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirmorder" : MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
     "coponcode" : MessageLookupByLibrary.simpleMessage("كود الخصم"),
     "deliverydatetime" : MessageLookupByLibrary.simpleMessage("وقت وتاريخ التوصيل"),
-    "deliveryfees" : MessageLookupByLibrary.simpleMessage("ضريبة التوصيل"),
+    "deliveryfees" : MessageLookupByLibrary.simpleMessage("رسوم الشحن"),
     "editProfileBtnUpdate" : MessageLookupByLibrary.simpleMessage("تعديل"),
     "editProfileLabelAddress" : MessageLookupByLibrary.simpleMessage("العنوان"),
     "editProfileLabelCity" : MessageLookupByLibrary.simpleMessage("المدينة"),
