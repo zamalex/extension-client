@@ -138,7 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "bookingMinutes" : MessageLookupByLibrary.simpleMessage("دقيقة"),
     "bookingNoteslabel" : MessageLookupByLibrary.simpleMessage("ملاحظات خاصة"),
     "bookingPayInStore" : MessageLookupByLibrary.simpleMessage("الدفع في الصالون"),
-    "bookingPayWithCard" : MessageLookupByLibrary.simpleMessage("الدفع بالكارت"),
+    "bookingPayWithCard" : MessageLookupByLibrary.simpleMessage("الدفع بالبطاقة"),
     "bookingSigninTitle" : MessageLookupByLibrary.simpleMessage("Login to continue"),
     "bookingStaffNoPreferenceDescription" : MessageLookupByLibrary.simpleMessage("غير محدد"),
     "bookingStaffNoPreferenceName" : MessageLookupByLibrary.simpleMessage("غير محدد"),

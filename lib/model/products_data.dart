@@ -235,7 +235,7 @@ class Product {
     salonImage = ((json['shop_logo'] as  String)==null|| (json['shop_logo']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['shop_logo']as String;
 
    // thumbnailImage = json['thumbnail_image']as String;
-    basePrice = json['base_price']as String;
+    basePrice = (json['base_price']as String).replaceAll(',', '');
     base_discounted_price = double.parse(json['base_discounted_price'].toString());
 
   }

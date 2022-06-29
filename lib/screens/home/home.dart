@@ -1,6 +1,7 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:new_version/new_version.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/category_model.dart';
@@ -49,7 +50,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+    Future.delayed(Duration.zero).then((value){
+      try{
+        final newVersion = NewVersion(context: context);
 
+        newVersion.showAlertIfNecessary();
+
+        print(newVersion.iOSId??'');
+
+      }catch(e){}
+    });
     checkLink();
 
     _loadData();
