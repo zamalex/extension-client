@@ -15,7 +15,7 @@ import Firebase
           FirebaseApp.configure()
           }
     // TODO: Add your Google Maps API key
-    GMSServices.provideAPIKey("AIzaSyCoSxKxD2ZLwAzehpZ5bWac8KQ7kkR7qqY")
+    GMSServices.provideAPIKey("AIzaSyAq0Cg4zS64Xmz9jtI-OJC1tKFIwiHieWg")
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

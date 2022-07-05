@@ -64,7 +64,7 @@ class _BookingStep2State extends State<BookingStep2> {
             ? InitialsCircleAvatar(initials: staffModel.name.initials)
             : CircleAvatar(
                 radius: kCircleAvatarSizeRadiusSmall,
-                backgroundImage: AssetImage(staffModel.profilePhoto),
+                backgroundImage: staffModel.profilePhoto.contains('assets')?AssetImage(staffModel.profilePhoto) as ImageProvider:NetworkImage(staffModel.profilePhoto),
               ),
       ),
       title: staffModel.name,

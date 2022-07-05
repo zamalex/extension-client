@@ -151,7 +151,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
         // _location.reviews=[];
         _location.staff = value.map((e) {
-          return StaffModel(e.id, e.name, e.jobTitle, e.avatar, e.rating, true);
+          return StaffModel(e.id, e.name, e.jobTitle, e.avatarOriginal, e.rating, true);
 
         }).toList();
         staffModel=_location.staff;

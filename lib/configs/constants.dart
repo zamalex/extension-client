@@ -54,7 +54,7 @@ const Duration kButtonAnimationDuration = Duration(milliseconds: 200);
 const Duration kPaymentCardAnimationDuration = Duration(milliseconds: 500);
 
 /// Reservations date range in days.
-const int kReservationsDateRange = 7;
+const int kReservationsDateRange = 14;
 
 /// Reservations per page.
 const int kReservationsPerPage = 10;
