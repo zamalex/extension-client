@@ -63,7 +63,7 @@ android {
         // We need at least 21 for camera plugin.
         minSdkVersion 21
         // Note: From 2 November 2020, app updates and new apps must target Android 10 (API level 29) or higher.
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true

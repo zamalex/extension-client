@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 //import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 
@@ -38,8 +39,28 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: Platform.isAndroid || Platform.isIOS
+        ? FirebaseOptions(
+      appId: '1:923766598429:android:8c89238bc6d4b52a3e4ff4',
+      apiKey: 'AAAA1xTHqx0:APA91bG00Y1YvTUxeZUo6QKg68FEc2uZxwvZoL3X8l75NBfBoypczfZpL51FGUSKVuFo0TSk68iz5htCDKXYnx9773PF7NDLDd85NEzYXaAMByQZvZTjAivNgqiXFqumLAmkox-V868Y',
+      projectId: 'salon-customer-6c286',
+      messagingSenderId: '923766598429',
+      databaseURL: 'https://salon-customer-6c286-default-rtdb.firebaseio.com',
+    )
+        : FirebaseOptions(
+      appId: '1:923766598429:ios:be1aefc009dae2143e4ff4',
+      apiKey: 'AAAA1xTHqx0:APA91bG00Y1YvTUxeZUo6QKg68FEc2uZxwvZoL3X8l75NBfBoypczfZpL51FGUSKVuFo0TSk68iz5htCDKXYnx9773PF7NDLDd85NEzYXaAMByQZvZTjAivNgqiXFqumLAmkox-V868Y',
+      projectId: 'salon-customer-6c286',
+      messagingSenderId: '923766598429',
+      databaseURL: 'https://salon-customer-6c286-default-rtdb.firebaseio.com',
+    ),
+  );
 
+
+
+
+// Print the data of the snapshot
   // Get any initial links
   // Init service locator singletons.
   //Remove this method to stop OneSignal Debugging

@@ -1,7 +1,11 @@
+import 'dart:io';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:new_version/new_version.dart';
+import 'package:package_info/package_info.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/data/models/category_model.dart';
@@ -23,9 +27,11 @@ import 'package:salon/screens/search/search.dart';
 import 'package:salon/screens/search/widgets/search_tabs.dart';
 import 'package:salon/utils/bottom_bar_items.dart';
 import 'package:salon/utils/geo.dart';
+import 'package:salon/utils/ui.dart';
 import 'package:salon/widgets/bold_title.dart';
 import 'package:salon/widgets/locations_carousel.dart';
 import 'package:salon/widgets/shimmer_box.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -46,17 +52,54 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   final LocationRepository locationRepository = const LocationRepository();
 
+
+  checkUpdate()async{
+
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String packageName = packageInfo.packageName;
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+
+    String ref = 'android';
+    if(Platform.isAndroid)
+      ref='android';
+    else
+      ref='ios';
+    FirebaseDatabase.instance.reference().child(ref).once().then((value){
+      print('newest is ${value.value}');
+      print('current is ${buildNumber}');
+      if(value==null)
+        return;
+      int newest = int.parse(value.value.toString());
+
+      if(newest>int.parse(buildNumber)){
+        UI.showCustomDialog(context,title: 'New version available',message: 'Please Update to the Latest Version', actions: [ElevatedButton(onPressed:(){
+
+          if (Platform.isAndroid) {
+            launch("https://play.google.com/store/apps/details?id=$packageName");
+          } else if (Platform.isIOS) {
+            launch("market://details?id=$packageName");
+          }
+        }, child: Text('Update'))]);
+      }
+
+    });
+
+  }
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
     Future.delayed(Duration.zero).then((value){
       try{
-        final newVersion = NewVersion(context: context);
 
-        newVersion.showAlertIfNecessary();
+        checkUpdate();
+       // final newVersion = NewVersion(context: context);
 
-        print(newVersion.iOSId??'');
+       // newVersion.showAlertIfNecessary();
+
+        //print(newVersion.iOSId??'');
 
       }catch(e){}
     });
