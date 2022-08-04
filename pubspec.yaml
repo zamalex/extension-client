@@ -105,7 +105,6 @@ dependencies:
   firebase_dynamic_links: any
   onesignal_flutter: any
   new_version: ^0.0.6
-  firebase_crashlytics: any
   firebase_analytics: ^7.0.1
   firebase_database: ^6.0.0
 dev_dependencies:
