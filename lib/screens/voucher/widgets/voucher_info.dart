@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:salon/configs/constants.dart';
 import 'package:salon/configs/routes.dart';
 import 'package:salon/data/models/voucher_model.dart';
@@ -182,12 +181,7 @@ class VoucherInfo extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(kPaddingM),
-                child: QrImage(
-                  foregroundColor: kWhite,
-                  data: voucher.code,
-                  version: QrVersions.auto,
-                  size: 240,
-                ),
+                child: Container()
               ),
               CardDivider(
                 lineColor: Theme.of(context).scaffoldBackgroundColor,
