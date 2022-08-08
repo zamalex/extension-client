@@ -63,9 +63,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     /// The glue between the widgets layer and the Flutter engine.
     WidgetsBinding.instance.addObserver(this);
     GoSellSdkFlutter.configureApp(
+
         bundleId: Platform.isAndroid ? "com.badee.salon" : "com.creativitySol.salon",
-        productionSecreteKey: Platform.isAndroid ? "pk_test_s9uF4wrkjvf82gJ1ipHnTVEL" : "pk_test_s9uF4wrkjvf82gJ1ipHnTVEL",
+        productionSecreteKey: Platform.isAndroid ? "sk_live_3jvy6EVL5Skt1UlmOwT9nrzK" : "sk_live_64nHJuATaMrfozScI8lE9Qbx",
         sandBoxsecretKey: Platform.isAndroid ? "sk_test_u2EgVnvBw78NZSUCFHQIyX5z" : "sk_test_6HqM9b2hSKJRjsAlT7CEOgyr",
+
         lang: "ar");
 
     _initGlobalKeys();

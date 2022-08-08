@@ -185,7 +185,7 @@ class _CheckoutState extends State<Checkout> {
           // select payments you need to show [Default is all, and you can choose between WEB-CARD-APPLEPAY ]
           paymentType: PaymentType.CARD,
           // Transaction mode
-          sdkMode: SDKMode.Sandbox);
+          sdkMode: SDKMode.Production);
     } on PlatformException {
       // platformVersion = 'Failed to get platform version.';
     }
