@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +35,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   AuthBloc block;
   String img = '';
+
+  bool show = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -43,6 +47,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     LoginModel().getProfileImage().then((value){
       setState(() {
         img=value;
+      });
+
+      if(Platform.isIOS)
+      LoginModel().getShow().then((bool value){
+        setState(() {
+          show=value;
+        });
       });
     });
   }
@@ -151,6 +162,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             trailing: const ArrowRightIcon(),
                             onPressed: () => Navigator.pushNamed(context, Routes.settings),
                           ),
+
+                          if(show)
+
+                            ListItem(
+                              titleTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),
+
+
+                              title:'Delete Account',
+                              leading: const Icon(Icons.delete_forever,color: kPrimaryColor),
+                              trailing: const ArrowRightIcon(),
+                              onPressed: () async{
+                                LoginModel().deleteAccount();
+                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                prefs.setBool("logged", false);
+                                getIt.get<AppGlobals>().isUser=false;
+                                Provider.of<CartProvider>(context,listen: false).clear();
+                                Phoenix.rebirth(context);
+
+                              },
+                            ),
                           ListItem(
                             titleTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),
 
@@ -159,6 +190,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             leading: const Icon(Icons.logout,color: kPrimaryColor),
                             trailing: const ArrowRightIcon(),
                             onPressed: ()async{
+                              LoginModel().deleteAccount();
                              SharedPreferences prefs = await SharedPreferences.getInstance();
                              prefs.setBool("logged", false);
                               getIt.get<AppGlobals>().isUser=false;
