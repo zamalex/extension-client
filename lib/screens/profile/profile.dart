@@ -49,7 +49,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         img=value;
       });
 
-      if(Platform.isIOS)
       LoginModel().getShow().then((bool value){
         setState(() {
           show=value;
