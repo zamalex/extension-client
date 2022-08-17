@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants.dart';
@@ -235,6 +236,93 @@ class LoginModel {
     } catch (error) {
       print(error);
       return '';
+    }
+  }
+
+
+
+  Future<bool> deleteAccount()async{
+    var param = {
+
+      'access_token': Globals.TOKEN,
+
+    };
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'X-Requested-With':'XMLHttpRequest',
+    'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Current-Locale':Intl.getCurrentLocale()
+    };
+
+    try {
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}deleteuser'),
+          body: jsonEncode(param),
+          headers: headers
+      );
+
+      print('response  is '+response.body);
+      final responseJson = json.decode(response.body);
+
+
+      if(response.statusCode>=400){
+        return false;
+      }
+      if(responseJson['result']as bool){
+        return true;
+      }else{
+        return false;
+
+      }
+
+    } catch (error) {
+      print(error);
+      return false;
+    }
+  }
+
+
+  Future<bool> getShow()async{
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String version = packageInfo.version;
+    var param = {
+
+      'access_token': Globals.TOKEN,
+
+    };
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'X-Requested-With':'XMLHttpRequest',
+    'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Current-Locale':Intl.getCurrentLocale()
+    };
+
+    try {
+      var response = await http.get(
+          Uri.parse('${Globals.BASE}checkversion/$version'),
+          //body: jsonEncode(param),
+          headers: headers
+      );
+
+      print('${Globals.BASE}checkversion/$version');
+      print('response  is '+response.body);
+      final responseJson = json.decode(response.body);
+
+
+      if(response.statusCode>=400){
+        return false;
+      }
+      if(responseJson['result']as bool){
+        return true;
+      }else{
+        return false;
+
+      }
+
+    } catch (error) {
+      print(error);
+      return false;
     }
   }
 
