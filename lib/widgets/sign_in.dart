@@ -103,7 +103,7 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
         if(value==null){
           UI.showErrorDialog(
             context,
-            message: 'server error',
+            message: 'invalid credentials',
           );
         }
           if(value.result)

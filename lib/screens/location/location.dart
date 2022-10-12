@@ -109,19 +109,6 @@ class _LocationScreenState extends State<LocationScreen> {
           return ServiceModel.all(e.id,e.seller_id,e.shop_id,double.parse(e.base_discounted_price.toString().replaceAll(RegExp(','), '')),e.service_duration,e.name,'',base_price: double.parse(e.basePrice),has_discount: e.has_discount);
         }).toList();
 
-        /*if(shareData!=null){
-          if(shareData.product!=0){
-            if(shareData.type==0){
-              services.forEach((ServiceModel element) {
-                if(element.id==shareData.product){
-                  Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return ProductDetails(serviceModel: element,);
-                  },));
-                }
-              });
-            }
-          }
-        }*/
 
         _location.serviceGroups=[];
         _location.serviceGroups.add(ServiceGroupModel(getIt.get<AppGlobals>().isRTL?'الخدمات':'Top services', '', services));

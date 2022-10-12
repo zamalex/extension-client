@@ -16,7 +16,7 @@ class LocationStaff extends StatelessWidget {
   const LocationStaff({
     Key key,
     this.location,
-    this.limit = 5,
+    this.limit = 100,
   }) : super(key: key);
 
   final LocationModel location;
