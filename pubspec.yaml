@@ -99,7 +99,7 @@ dependencies:
   flutter_overboard: ^3.0.0
   liquid_swipe: ^1.5.0
   go_sell_sdk_flutter: ^2.1.1
-  # firebase_crashlytics: any
+  firebase_crashlytics: any
   firebase_core: any
   firebase_dynamic_links: any
   onesignal_flutter: any
