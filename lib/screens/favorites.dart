@@ -181,7 +181,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
     _listKey.currentState.removeItem(removeIndex, builder);
 
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(L10n.of(context).commonLocationUnfavorited),
       duration: const Duration(milliseconds: kSnackBarDurationShort),
     ));

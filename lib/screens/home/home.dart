@@ -73,14 +73,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       int newest = int.parse(value.value.toString());
 
       if(newest>int.parse(buildNumber)){
-        UI.showCustomDialog(context,title: 'New version available',message: 'Please Update to the Latest Version', actions: [ElevatedButton(onPressed:(){
+        UI.showCustomDialog(context,title: 'New version available',message: 'Please Update to the Latest Version', actions: [ElevatedButton(style:  ElevatedButton.styleFrom(
+          primary: kPrimaryColor,
+        ),onPressed:(){
 
           if (Platform.isAndroid) {
             launch("https://play.google.com/store/apps/details?id=$packageName");
           } else if (Platform.isIOS) {
             launch("market://details?id=$packageName");
           }
-        }, child: Text('Update'))]);
+        }, child: Text('Update',style: TextStyle(color: Colors.white),))]);
       }
 
     });
@@ -211,6 +213,7 @@ print('salon ${shareData.salon}');
                         child: CategoryListItem(
                           category: category,
                           onTap: (){
+
                             _scrollToTabItem(category);
                           },
                         ),

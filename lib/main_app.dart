@@ -18,10 +18,8 @@ import 'package:salon/blocs/theme/theme_bloc.dart';
 import 'package:salon/configs/app_theme.dart';
 import 'package:salon/configs/app_globals.dart';
 import 'package:salon/configs/routes.dart';
-import 'package:salon/screens/gosell_test.dart';
 import 'package:salon/screens/onboarding.dart';
 import 'package:salon/screens/splash.dart';
-import 'package:salon/screens/third_boarding.dart';
 
 import 'package:salon/utils/localization.dart';
 import 'package:salon/widgets/bottom_navigation.dart';

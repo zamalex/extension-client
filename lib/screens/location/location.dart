@@ -234,7 +234,7 @@ class _LocationScreenState extends State<LocationScreen> {
                                   onPressed: () {
                                     FavModel().addRemoveFav(widget.locationId.id.toString());
                                     setState(() => _isFavorited = !_isFavorited);
-                                    _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                       content: Text(_isFavorited ? L10n.of(context).commonLocationFavorited : L10n.of(context).commonLocationUnfavorited),
                                       duration: const Duration(milliseconds: kSnackBarDurationShort),
                                     ));

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
@@ -139,7 +140,6 @@ Future<void> main() async {
   /// The App's [BlocObserver].
   Bloc.observer = AppObserver();
 
-  // Inflate the MainApp widget.
   runApp(ChangeNotifierProvider(
     create: (context) => CartProvider(),
     child: MainApp(shareData: shareData,),

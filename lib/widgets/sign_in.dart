@@ -224,7 +224,10 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
                         ),
 
                   const Padding(padding: EdgeInsets.only(top: kPaddingS)),
-                  FlatButton(
+                  ElevatedButton(
+    style:  ElevatedButton.styleFrom(
+    primary: kPrimaryColor,
+    ),
                     onPressed: () => Navigator.pushNamed(context, Routes.forgotPassword),
                     child: Text(L10n.of(context).signInButtonForgot),
                   ),

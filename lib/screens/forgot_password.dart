@@ -117,7 +117,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
                 const Padding(padding: EdgeInsets.only(top: kPaddingS)),
                 Center(
-                  child: FlatButton(
+                  child: ElevatedButton(
+                    style:  ElevatedButton.styleFrom(
+                      primary: kPrimaryColor,
+                    ),
                     onPressed: () => Navigator.pop(context),
                     child: Text(L10n.of(context).forgotPasswordBack),
                   ),

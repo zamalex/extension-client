@@ -106,6 +106,8 @@ dependencies:
   new_version: ^0.0.6
   firebase_analytics: any
   firebase_database: any
+
+
 dev_dependencies:
   change_app_package_name: ^1.0.0
   flutter_test:

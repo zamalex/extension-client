@@ -33,7 +33,10 @@ class ThemeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return ElevatedButton(
+      style:  ElevatedButton.styleFrom(
+        primary: kPrimaryColor,
+      ),
       onPressed: disableTouchWhenLoading && showLoading ? null : onPressed,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

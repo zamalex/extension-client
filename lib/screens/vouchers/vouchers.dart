@@ -62,12 +62,12 @@ class _VouchersScreenState extends State<VouchersScreen> with SingleTickerProvid
               icon: const Icon(Icons.info_outline),
               tooltip: L10n.of(context).commonTooltipInfo,
               onPressed: () {
-                scaffoldKey.currentState.showSnackBar(
+                /*scaffoldKey.currentState.showSnackBar(
                   SnackBar(
                     content: Text(L10n.of(context).vouchersInfo),
                     duration: const Duration(milliseconds: kSnackBarDurationLong),
                   ),
-                );
+                );*/
               },
             ),
             IconButton(

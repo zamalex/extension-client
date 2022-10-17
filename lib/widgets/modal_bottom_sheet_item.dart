@@ -120,10 +120,12 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
             ),
             Padding(
               padding: const EdgeInsetsDirectional.only(start: kPaddingS, end: kPaddingS),
-              child: FlatButton(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                highlightColor: kPrimaryColor,
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(kBoxDecorationRadius))),
+              child: ElevatedButton(
+                style:  ElevatedButton.styleFrom(
+                primary:Theme.of(context).scaffoldBackgroundColor,
+                  shape:const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(kBoxDecorationRadius)))
+                ),
+
                 onPressed: () {
                   if (widget.onClose != null) {
                     widget.onClose();

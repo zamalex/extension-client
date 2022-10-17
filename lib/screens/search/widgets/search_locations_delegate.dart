@@ -82,7 +82,7 @@ class SearchLocationsDelegate extends SearchDelegate<String> {
       primaryIconTheme: theme.primaryIconTheme,
       primaryColorBrightness: Brightness.dark,
       primaryTextTheme: theme.textTheme.copyWith(headline6: theme.textTheme.headline6.white),
-      cursorColor: kWhite,
+      //cursorColor: kWhite,
       textTheme: theme.textTheme.copyWith(headline6: theme.textTheme.headline6.white),
       inputDecorationTheme: theme.inputDecorationTheme.copyWith(
         hintStyle: const TextStyle(color: Colors.white54),

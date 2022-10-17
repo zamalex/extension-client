@@ -239,7 +239,10 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
               icon: Icons.calendar_today,
               padding: const EdgeInsets.all(0),
             ),
-            RaisedButton(
+            ElevatedButton(
+              style:  ElevatedButton.styleFrom(
+                primary: kPrimaryColor,
+              ),
               child: StrutText(
                 L10n.of(context).appointmentsBtnExplore,
                 style: Theme.of(context).textTheme.button.fs16.white.w500,

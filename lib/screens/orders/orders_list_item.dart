@@ -96,12 +96,12 @@ class OrdersListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       StrutText(
-                        appointment.shop.data.isEmpty?'':appointment.shop.data.first.name,
+                        appointment.shop.data.isEmpty?'':appointment.shop.data.first.name??'',
                         style: Theme.of(context).textTheme.subtitle1.w500.fs18,
                       ),
                       const Padding(padding: EdgeInsets.only(top: kPaddingS / 2)),
                       StrutText(
-                        appointment.shop.data.isEmpty?'':appointment.shop.data.first.address,
+                        appointment.shop.data.isEmpty?'':appointment.shop.data.first.address??'',
                         style: Theme.of(context).textTheme.bodyText2.copyWith(
                           color: Theme.of(context).hintColor,
                           fontWeight: FontWeight.normal,

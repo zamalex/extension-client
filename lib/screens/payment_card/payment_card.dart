@@ -59,13 +59,13 @@ class _PaymentCardScreenState extends State<PaymentCardScreen> {
                 textAlign: TextAlign.center,
               ),
               const Padding(padding: EdgeInsets.only(top: kPaddingM)),
-              RaisedButton(
+             /* RaisedButton(
                 child: StrutText(
                   L10n.of(context).paymentCardWarningBtn,
                   style: Theme.of(context).textTheme.button.fs16.white.w500,
                 ),
                 onPressed: () => Navigator.pushNamed(context, Routes.addPaymentCard),
-              ),
+              ),*/
             ],
           ),
         ),

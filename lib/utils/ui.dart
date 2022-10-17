@@ -48,8 +48,9 @@ class UI {
       title: title,
       message: message,
       actions: <Widget>[
-        FlatButton(
-          color: Theme.of(context).buttonColor,
+        ElevatedButton(
+          style:  ElevatedButton.styleFrom(
+    primary: Theme.of(context).buttonColor),
           child: Text(buttonText),
           onPressed: () {
             Navigator.of(context).pop();
@@ -77,8 +78,12 @@ class UI {
       message: message,
       icon: Icons.help,
       actions: <Widget>[
-        FlatButton(
-          textColor: Theme.of(context).buttonColor,
+        ElevatedButton(
+          style:  ElevatedButton.styleFrom(
+      primary: kPrimaryColor,
+      textStyle: TextStyle(
+          color: Theme.of(context).buttonColor)),
+
           child: Text(cancelButtonText ?? L10n.of(context).commonBtnCancel),
           onPressed: (){
             if(onCancel!=null)
@@ -86,8 +91,11 @@ class UI {
             Navigator.of(context).pop();
           } ,
         ),
-        FlatButton(
-          color: Theme.of(context).buttonColor,
+        ElevatedButton(
+          style:  ElevatedButton.styleFrom(
+
+            primary: Theme.of(context).buttonColor,
+   ),
           child: Text(okButtonText ?? L10n.of(context).commonBtnOk),
           onPressed: () {
             Navigator.of(context).pop();
@@ -111,9 +119,13 @@ class UI {
       icon: Icons.error,
       iconBackgroundColor: Colors.red,
       actions: <Widget>[
-        FlatButton(
-          color: Theme.of(context).buttonColor,
+        ElevatedButton(
+          style:  ElevatedButton.styleFrom(
+      primary: Theme.of(context).buttonColor,
+      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+      ),
           child: Text(L10n.of(context).commonBtnClose.toUpperCase()),
+
           onPressed: () {
             Navigator.of(context).pop();
             if (onPressed != null) {

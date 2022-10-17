@@ -36,11 +36,14 @@ class SearchHeader extends SliverPersistentHeaderDelegate {
                 borderRadius: BorderRadius.circular(kBoxDecorationRadius),
               ),
               elevation: 0,
-              child: FlatButton(
-                color: kScaffold,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(kFormFieldsRadius),
-                ),
+              child: ElevatedButton(
+                style:  ElevatedButton.styleFrom(
+                    primary: kScaffold,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(kFormFieldsRadius),
+                    )
+                )
+                ,
                 onPressed: () {
                   if (onPressed != null) {
                     onPressed();
