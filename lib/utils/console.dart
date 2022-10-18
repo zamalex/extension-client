@@ -1,7 +1,6 @@
 import 'dart:developer' as developer;
 
 import 'package:flutter/foundation.dart';
-import 'package:logging/logging.dart';
 import 'package:salon/configs/constants.dart';
 
 /// Console related functions like logging.
@@ -13,9 +12,9 @@ class Console {
       developer.log('$msg', time: DateTime.now(), name: tag, error: error);
     } else if (kLogzioToken.isNotEmpty) {
       if (error != null) {
-        Logger(kAppVersion).severe('$msg');
+       // Logger(kAppVersion).severe('$msg');
       } else {
-        Logger(kAppVersion).info('$msg');
+        //Logger(kAppVersion).info('$msg');
       }
     }
   }

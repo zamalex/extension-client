@@ -66,11 +66,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     else
       ref='ios';
     FirebaseDatabase.instance.reference().child(ref).once().then((value){
-      print('newest is ${value.value}');
+      print('newest is ${value.snapshot.value}');
       print('current is ${buildNumber}');
       if(value==null)
         return;
-      int newest = int.parse(value.value.toString());
+      int newest = int.parse(value.snapshot.value.toString());
 
       if(newest>int.parse(buildNumber)){
         UI.showCustomDialog(context,title: 'New version available',message: 'Please Update to the Latest Version', actions: [ElevatedButton(style:  ElevatedButton.styleFrom(
@@ -123,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       shareData.salon=int.parse(deepLink.queryParameters['salon']);
       goToSalon();
     }
-    FirebaseDynamicLinks.instance.onLink(onSuccess: (dynamic)async{
+    FirebaseDynamicLinks.instance.onLink.listen((dynamic)async{
       print('dynamic link is ${dynamic.link.toString()} and id is ${dynamic.link.queryParameters['salon']}');
       shareData.product=int.parse(dynamic.link.queryParameters['id']);
       shareData.type=int.parse(dynamic.link.queryParameters['type']);

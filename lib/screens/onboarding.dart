@@ -54,7 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
 
       titleTextStyle: Theme.of(context).textTheme.headline5.primaryColor.bold,
       bodyTextStyle: Theme.of(context).textTheme.subtitle1.primaryColor.copyWith(height: 1.8),
-      descriptionPadding: const EdgeInsets.fromLTRB(kPaddingM, 0, kPaddingM, kPaddingM),
+      //descriptionPadding: const EdgeInsets.fromLTRB(kPaddingM, 0, kPaddingM, kPaddingM),
       imagePadding: const EdgeInsets.all(kPaddingL),
 
       boxDecoration: BoxDecoration(
@@ -78,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
           IntroductionScreen(
             globalBackgroundColor: Colors.white,
             showSkipButton: true,
-            skipFlex: 0,
+            //skipFlex: 0,
             nextFlex: 0,
             dotsDecorator: DotsDecorator(
               size: const Size(10.0, 10.0), // size of dots

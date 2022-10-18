@@ -18,7 +18,7 @@ class InboxScreen extends StatefulWidget {
 
 class _InboxScreenState extends State<InboxScreen> {
   final RefreshController _controller = RefreshController(initialRefresh: false);
-  final SlidableController _slideController = SlidableController();
+ // final SlidableController _slideController = SlidableController();
 
   List<InboxModel> _messages;
 
@@ -82,25 +82,7 @@ class _InboxScreenState extends State<InboxScreen> {
     return ListView.builder(
       itemCount: _messages.length,
       itemBuilder: (BuildContext context, int index) {
-        return Slidable(
-          controller: _slideController,
-          actionPane: const SlidableDrawerActionPane(),
-          child: InboxListItem(inbox: _messages[index]),
-          secondaryActions: <Widget>[
-            IconSlideAction(
-              caption: L10n.of(context).inboxSlideButtonArchive,
-              color: Theme.of(context).hintColor,
-              icon: Icons.archive,
-              onTap: () {},
-            ),
-            IconSlideAction(
-              caption: L10n.of(context).inboxSlideButtonDelete,
-              color: Colors.red,
-              icon: Icons.delete,
-              onTap: () {},
-            ),
-          ],
-        );
+        return Container();
       },
     );
   }

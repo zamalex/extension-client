@@ -13,8 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:location/location.dart';
-import 'package:logging/logging.dart';
-import 'package:logging_appenders/logging_appenders.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:salon/blocs/app_observer.dart';
@@ -41,6 +39,7 @@ Future<void> main() async {
 
 
   await Firebase.initializeApp(
+    name: 'salon-customer',
     options: Platform.isAndroid || Platform.isIOS
         ? FirebaseOptions(
       appId: '1:923766598429:android:8c89238bc6d4b52a3e4ff4',
@@ -172,11 +171,11 @@ void createLogger() {
     return;
   }
 
-  Logger.root.level = Level.ALL;
+ /* Logger.root.level = Level.ALL;
 
   LogzIoApiAppender(
     apiToken: kLogzioToken,
     url: kLogzioUrl,
     labels: <String, String>{'version': kAppVersion},
-  ).attachToLogger(Logger.root);
+  ).attachToLogger(Logger.root);*/
 }
