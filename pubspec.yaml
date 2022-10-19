@@ -45,62 +45,62 @@ dependencies:
   # A Flutter plugin to easily handle realtime location in iOS and Android.
   location: any
   # Introduction/Onboarding package for flutter app with some customizations possibilities.
-  introduction_screen: ^3.0.2
+  introduction_screen: any
   # A package provides an easy way to add shimmer effect in Flutter project.
-  shimmer: ^2.0.0
+  shimmer: any
   # A Markdown renderer for Flutter.
-  flutter_markdown: ^0.6.12
+  flutter_markdown: any
   # Flutter plugin for launching a URL on Android and iOS. Supports web, phone, SMS, and email schemes.
-  url_launcher: ^6.1.6
+  url_launcher: any
   # A Flutter plugin for integrating Google Maps in iOS and Android applications.
   google_maps_flutter: any
   # A widget provided to the flutter scroll component drop-down refresh and pull up load.
-  pull_to_refresh: ^2.0.0
+  pull_to_refresh: any
   # An abstract class that helps to implement equality without needing to explicitly override == and hashCode.
-  equatable: ^2.0.5
+  equatable: any
   # Custom Radio Buttons and Grouped Check Box Button.
   custom_radio_grouped_button: any
   # The best swiper(carousel) for flutter, with multiple layouts, infinite loop. Compatible with Android & iOS.
-  flutter_swiper: ^1.1.6
+  flutter_swiper: any
   # Flutter library to load and cache network images. Can also be used with placeholder and error widgets.
-  cached_network_image: ^3.2.2
+  cached_network_image: any
   # Flutter plugin for sharing content via the platform share UI, using the ACTION_SEND intent on Android and UIActivityViewController on iOS.
-  share: ^2.0.4
+  share: any
   # Flutter plugin for querying information about the application package, such as CFBundleVersion on iOS or versionCode on Android.
-  package_info: ^2.0.2
+  package_info: any
   # Flutter plugin for selecting images from the Android and iOS image library, and taking new pictures with the camera.
   # A list with helper methods to programmatically scroll to an item.
-  scrollable_positioned_list: ^0.3.5
+  scrollable_positioned_list: any
   # Flutter library for simple and fast QR code rendering via a Widget or custom painter.
   # A really simple Flutter plugin to add events to each platform's default calendar.
-  add_2_calendar: ^2.1.1
+  add_2_calendar: any
   # Slidable list item with directional slide actions that can be dismissed.
-  flutter_slidable: ^2.0.0
+  flutter_slidable: any
   # Provides APIs for debugging and error logging.
 
   # A simple zoomable image/content widget.
-  photo_view: ^0.14.0
+  photo_view: any
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
-  marquee: ^2.1.0
-  flutter_phoenix: ^1.0.0
-  http: ^0.13.5
-  provider: ^4.3.2+2
-  carousel_slider: ^4.1.1
+  cupertino_icons: any
+  marquee: any
+  flutter_phoenix: any
+  http: any
+  provider: any
+  carousel_slider: any
   #intl_translation: ^0.17.10+1
-  flutter_datetime_picker: ^1.5.1
-  intl: ^0.17.0
-  image_picker: ^0.8.6
-  rating_dialog: ^2.0.1
-  flutter_overboard: ^3.0.0
-  go_sell_sdk_flutter: ^2.1.1
-  firebase_crashlytics: any
+  flutter_datetime_picker: any
+  intl: any
+  image_picker: any
+  rating_dialog: any
+  flutter_overboard: any
+  go_sell_sdk_flutter: any
+  # firebase_crashlytics: any
   firebase_core: any
   firebase_dynamic_links: any
-  onesignal_flutter: ^3.4.1
-  new_version: ^0.3.1
+  onesignal_flutter: any
+  new_version: any
   firebase_analytics: any
   firebase_database: any
 
