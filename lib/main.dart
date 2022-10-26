@@ -26,6 +26,7 @@ import 'package:salon/utils/app_preferences.dart';
 
 import 'package:salon/utils/bottom_bar_items.dart';import 'package:shared_preferences/shared_preferences.dart';
 
+import 'firebase_options.dart';
 import 'model/loginmodel.dart';
 import 'model/share_data.dart';
 
@@ -38,25 +39,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
 
-  await Firebase.initializeApp(
-    name: 'salon-customer',
-    options: Platform.isAndroid || Platform.isIOS
-        ? FirebaseOptions(
-      appId: '1:923766598429:android:8c89238bc6d4b52a3e4ff4',
-      apiKey: 'AAAA1xTHqx0:APA91bG00Y1YvTUxeZUo6QKg68FEc2uZxwvZoL3X8l75NBfBoypczfZpL51FGUSKVuFo0TSk68iz5htCDKXYnx9773PF7NDLDd85NEzYXaAMByQZvZTjAivNgqiXFqumLAmkox-V868Y',
-      projectId: 'salon-customer-6c286',
-      messagingSenderId: '923766598429',
-      databaseURL: 'https://salon-customer-6c286-default-rtdb.firebaseio.com',
-    )
-        : FirebaseOptions(
-      appId: '1:923766598429:ios:be1aefc009dae2143e4ff4',
-      apiKey: 'AAAA1xTHqx0:APA91bG00Y1YvTUxeZUo6QKg68FEc2uZxwvZoL3X8l75NBfBoypczfZpL51FGUSKVuFo0TSk68iz5htCDKXYnx9773PF7NDLDd85NEzYXaAMByQZvZTjAivNgqiXFqumLAmkox-V868Y',
-      projectId: 'salon-customer-6c286',
-      messagingSenderId: '923766598429',
-      databaseURL: 'https://salon-customer-6c286-default-rtdb.firebaseio.com',
-    ),
-  );
 
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform);
+  }catch(e){}
 
 
 
