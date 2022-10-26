@@ -189,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             leading: const Icon(Icons.logout,color: kPrimaryColor),
                             trailing: const ArrowRightIcon(),
                             onPressed: ()async{
-                              LoginModel().deleteAccount();
+                              //LoginModel().deleteAccount();
                              SharedPreferences prefs = await SharedPreferences.getInstance();
                              prefs.setBool("logged", false);
                               getIt.get<AppGlobals>().isUser=false;
