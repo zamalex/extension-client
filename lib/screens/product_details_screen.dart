@@ -60,7 +60,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         actions: [
         productDetailsResponse!=null? IconButton(
           icon: const Icon(Icons.share),
-          onPressed: () => Share.share('https://badee.page.link/?link=https://step.to.salon.com?id%3D${productDetailsResponse.data.first.id}%26type%3D0%26salon%3D${productDetailsResponse.data.first.id}&apn=com.badee.salon&ibi=com.creativitySol.salon', subject: 'check this product from ${productDetailsResponse.data.first.shopName}'),
+          onPressed: () => Share.share('https://extensionclient.page.link/?link=https://extension.client.com?id%3D${productDetailsResponse.data.first.id}%26type%3D0%26salon%3D${productDetailsResponse.data.first.id}&apn=com.badee.extension_client&ibi=com.badee.extensionclient', subject: 'check this product from ${productDetailsResponse.data.first.shopName}'),
         ):Container()
       ],),
       body: Padding(
