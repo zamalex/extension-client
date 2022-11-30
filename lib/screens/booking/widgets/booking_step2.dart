@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salon/blocs/booking/booking_bloc.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/booking_session_model.dart';
-import 'package:salon/data/models/staff_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/widgets/arrow_right_icon.dart';
-import 'package:salon/widgets/initials_circle_avatar.dart';
-import 'package:salon/widgets/list_item.dart';
-import 'package:salon/utils/string.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/blocs/booking/booking_bloc.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/booking_session_model.dart';
+import 'package:extension/data/models/staff_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/widgets/arrow_right_icon.dart';
+import 'package:extension/widgets/initials_circle_avatar.dart';
+import 'package:extension/widgets/list_item.dart';
+import 'package:extension/utils/string.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 class BookingStep2 extends StatefulWidget {
 

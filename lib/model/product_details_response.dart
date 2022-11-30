@@ -23,6 +23,8 @@ class ProductDetailsResponse {
     status = json['status']as int;
   }
 
+
+  /// get product details
   Future<ProductDetailsResponse> getDetails(String id) async {
 
     Map<String, String> headers = {

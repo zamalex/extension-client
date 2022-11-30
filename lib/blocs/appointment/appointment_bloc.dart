@@ -3,9 +3,8 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:salon/data/models/appointment_model.dart';
-import 'package:salon/data/repositories/appointment_repository.dart';
-import 'package:salon/model/appointments_data.dart';
+import 'package:extension/data/models/appointment_model.dart';
+import 'package:extension/model/appointments_data.dart';
 
 part 'appointment_event.dart';
 part 'appointment_state.dart';

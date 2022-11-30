@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:salon/blocs/application/application_bloc.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/blocs/application/application_bloc.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/strut_text.dart';
 import 'package:shimmer/shimmer.dart';
 
+
+///welcome screen when opening the app for the first time
 class OnboardingScreen extends StatefulWidget {
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();

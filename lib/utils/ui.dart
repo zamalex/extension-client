@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/widgets/custom_dialog.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/widgets/custom_dialog.dart';
 
 /// Custom UI dialogs: message, confirmation and error.
 class UI {
@@ -63,6 +63,8 @@ class UI {
     );
   }
 
+
+  ///show confirm dialog
   static Future<void> confirmationDialogBox(
     BuildContext context, {
     String title,
@@ -106,6 +108,8 @@ class UI {
     );
   }
 
+
+  ///show error message
   static Future<void> showErrorDialog(
     BuildContext context, {
     String title,

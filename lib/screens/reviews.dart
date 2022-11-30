@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/review_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/linear_percent_indicator.dart';
-import 'package:salon/widgets/pull_to_refresh.dart';
-import 'package:salon/widgets/review_list_item.dart';
-import 'package:salon/widgets/star_rating.dart';
-import 'package:salon/widgets/strut_text.dart';
-import 'package:salon/widgets/title_with_subtitle.dart';
-import 'package:salon/widgets/uppercase_title.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/review_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/linear_percent_indicator.dart';
+import 'package:extension/widgets/pull_to_refresh.dart';
+import 'package:extension/widgets/review_list_item.dart';
+import 'package:extension/widgets/star_rating.dart';
+import 'package:extension/widgets/strut_text.dart';
+import 'package:extension/widgets/title_with_subtitle.dart';
+import 'package:extension/widgets/uppercase_title.dart';
 import 'package:sprintf/sprintf.dart';
 
 class ReviewsScreen extends StatefulWidget {

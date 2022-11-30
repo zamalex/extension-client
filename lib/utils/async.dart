@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/services.dart';
-import 'package:salon/configs/constants.dart';
+import 'package:extension/configs/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Various async functions.

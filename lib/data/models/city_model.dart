@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:salon/utils/geo.dart';
+import 'package:extension/utils/geo.dart';
 
 @immutable
 class CityModel extends Equatable {

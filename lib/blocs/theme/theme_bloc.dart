@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:salon/configs/app_theme.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/main.dart';
-import 'package:salon/utils/app_preferences.dart';
+import 'package:extension/configs/app_theme.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/main.dart';
+import 'package:extension/utils/app_preferences.dart';
 
 part 'theme_event.dart';
 part 'theme_state.dart';
@@ -21,6 +21,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     }
   }
 
+
+  ///change app theme event
   Stream<ThemeState> _mapChangeThemeEventToState(ChangeRequestedThemeEvent event) async* {
     yield UpdateInProgressThemeState();
 

@@ -1,7 +1,7 @@
 import 'dart:developer' as developer;
 
 import 'package:flutter/foundation.dart';
-import 'package:salon/configs/constants.dart';
+import 'package:extension/configs/constants.dart';
 
 /// Console related functions like logging.
 class Console {

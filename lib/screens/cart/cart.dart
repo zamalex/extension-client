@@ -1,15 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/model/cart_provider.dart';
-import 'package:salon/screens/cart/cart_item.dart';
-import 'package:salon/screens/checkout/checkout.dart';
-import 'package:salon/widgets/app_button.dart';
-import 'package:salon/widgets/list_item.dart';
-import 'package:salon/widgets/list_title.dart';
-import 'package:salon/widgets/strut_text.dart';
-import 'package:salon/generated/l10n.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/model/cart_provider.dart';
+import 'package:extension/screens/cart/cart_item.dart';
+import 'package:extension/screens/checkout/checkout.dart';
+import 'package:extension/widgets/app_button.dart';
+import 'package:extension/widgets/list_item.dart';
+import 'package:extension/widgets/list_title.dart';
+import 'package:extension/widgets/strut_text.dart';
+import 'package:extension/generated/l10n.dart';
 import 'package:sprintf/sprintf.dart';
 
 

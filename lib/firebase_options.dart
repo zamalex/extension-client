@@ -50,22 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAbRf1nJQT9QfluPJ7GQhJy4Sz_fuw9UWI',
-    appId: '1:923766598429:android:8c89238bc6d4b52a3e4ff4',
-    messagingSenderId: '923766598429',
-    projectId: 'salon-customer-6c286',
-    databaseURL: 'https://salon-customer-6c286-default-rtdb.firebaseio.com',
-    storageBucket: 'salon-customer-6c286.appspot.com',
+    apiKey: 'AIzaSyC09h_6Qb-kit0qddoe3phw8ANrjs9Lasw',
+    appId: '1:1008720578476:android:47d5ca77b00e5b519cdc09',
+    messagingSenderId: '1008720578476',
+    projectId: 'extension-client-c931f',
+    databaseURL: 'https://extension-client-c931f-default-rtdb.firebaseio.com',
+    storageBucket: 'extension-client-c931f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAJS8Y-L-L3Pa2sFq37QIUWodBNc0_IvO8',
-    appId: '1:923766598429:ios:be1aefc009dae2143e4ff4',
-    messagingSenderId: '923766598429',
-    projectId: 'salon-customer-6c286',
-    databaseURL: 'https://salon-customer-6c286-default-rtdb.firebaseio.com',
-    storageBucket: 'salon-customer-6c286.appspot.com',
-    iosClientId: '923766598429-cln65h33938l5ipjri55f7grqu9u5avc.apps.googleusercontent.com',
-    iosBundleId: 'com.creativitySol.salon',
+    apiKey: 'AIzaSyAcHmYmxplJv_9D66xigOV7cNeqDgvZ0YQ',
+    appId: '1:1008720578476:ios:53c256a2207138b29cdc09',
+    messagingSenderId: '1008720578476',
+    projectId: 'extension-client-c931f',
+    databaseURL: 'https://extension-client-c931f-default-rtdb.firebaseio.com',
+    storageBucket: 'extension-client-c931f.appspot.com',
+    iosClientId: '1008720578476-4k69j5nqoiorscukpf6dd35kb15dgfod.apps.googleusercontent.com',
+    iosBundleId: 'com.badee.extensionclient',
   );
 }

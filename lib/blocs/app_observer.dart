@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salon/utils/console.dart';
+import 'package:extension/utils/console.dart';
 import 'package:sprintf/sprintf.dart';
 
 /// An interface for observing and logging the behavior of [Bloc].

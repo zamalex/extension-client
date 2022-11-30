@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/main.dart';
-import 'package:salon/widgets/list_item.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/main.dart';
+import 'package:extension/widgets/list_item.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 @immutable
 class ModalBottomSheetItem<T> extends Equatable {

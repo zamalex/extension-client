@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/configs/routes.dart';
-import 'package:salon/data/models/category_model.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/model/products_data.dart';
-import 'package:salon/screens/location/location.dart';
-import 'package:salon/utils/geo.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/configs/routes.dart';
+import 'package:extension/data/models/category_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/model/products_data.dart';
+import 'package:extension/screens/location/location.dart';
+import 'package:extension/utils/geo.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 class ServiceListItem extends StatelessWidget {
   const ServiceListItem({

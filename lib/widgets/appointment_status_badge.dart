@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/appointment_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/widgets/badge.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/appointment_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/widgets/badge.dart';
 
 /// [Badge] to represent appointment statuses.
 class AppointmentStatusBadge extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
+import 'package:extension/configs/constants.dart';
 
 /// [TextStyle] extensions.
 extension TextStyleExtension on TextStyle {

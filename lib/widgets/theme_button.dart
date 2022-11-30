@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 /// General purpose [RaisedButton] using app theme colors.
 class ThemeButton extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/review_reply_model.dart';
-import 'package:salon/data/models/user_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/review_reply_model.dart';
+import 'package:extension/data/models/user_model.dart';
 
 class ReviewModel {
   ReviewModel({

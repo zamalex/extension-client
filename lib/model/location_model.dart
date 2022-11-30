@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/model/constants.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/model/constants.dart';
 
 import '../main.dart';
 
@@ -26,6 +26,8 @@ class SalonModel {
     status = json['status']as int;
   }
 
+
+  /// get home salons
   Future<List<Data>> getSalons() async {
 
 
@@ -63,6 +65,7 @@ class SalonModel {
   }
 
 
+  /// get salon details
   Future<List<Data>> getSalonData(String id) async {
     Map<String,String> header = {
       'Authorization': 'Bearer ${Globals.TOKEN}',
@@ -100,6 +103,8 @@ class SalonModel {
     }
   }
 
+
+  /// filter salons
   Future<List<Data>> filterSalons(String lat,String long,String cat,String city,String name,{int page=1}) async {
 
     Map<String,String> header = {
@@ -143,6 +148,8 @@ class SalonModel {
       return [];
     }
   }
+
+  /// get my fav salons
   Future<List<Data>> getFavSalons() async {
 
     Map<String, String> headers = {

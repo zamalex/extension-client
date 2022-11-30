@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/widgets/locations_carousel.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/widgets/locations_carousel.dart';
 
 class LocationsNearby extends StatelessWidget {
   const LocationsNearby({Key key, this.nearbyLocations}) : super(key: key);

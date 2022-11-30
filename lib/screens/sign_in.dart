@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salon/blocs/auth/auth_bloc.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/widgets/sign_in.dart';
+import 'package:extension/blocs/auth/auth_bloc.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/widgets/sign_in.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key key}) : super(key: key);

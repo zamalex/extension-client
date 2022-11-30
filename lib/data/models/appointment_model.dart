@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/service_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/service_model.dart';
 
 enum AppointmentStatus {
   active,

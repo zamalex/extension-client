@@ -4,11 +4,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/model/constants.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/model/constants.dart';
 
 import '../main.dart';
 
+/// appointments model
 class ApointmentsData {
   List<Data> data;
   bool success;
@@ -27,6 +28,8 @@ class ApointmentsData {
     status = json['status'] as int;
   }
 
+
+  /// get my appointments and orders
   Future<List<Data>> getHistory({int page=1,@required String type}) async {
 
     Map<String,String> header = {
@@ -63,6 +66,8 @@ class ApointmentsData {
   }
 
 
+
+  ///cancel my order
   Future<bool> cancelOrder(int id) async {
 
     Map<String, String> headers = {
@@ -100,7 +105,7 @@ class ApointmentsData {
   }
 
 
-
+///send notes
   Future<bool> sendNotes(int id,String note) async {
 
     Map<String, String> headers = {

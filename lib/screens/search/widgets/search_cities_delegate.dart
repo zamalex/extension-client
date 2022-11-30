@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salon/blocs/cities/cities_bloc.dart';
-import 'package:salon/blocs/search/search_bloc.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/city_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/main.dart';
-import 'package:salon/widgets/jumbotron.dart';
-import 'package:salon/widgets/list_item.dart';
-import 'package:salon/widgets/loading_overlay.dart';
-import 'package:salon/utils/text_style.dart';
+import 'package:extension/blocs/cities/cities_bloc.dart';
+import 'package:extension/blocs/search/search_bloc.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/city_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/main.dart';
+import 'package:extension/widgets/jumbotron.dart';
+import 'package:extension/widgets/list_item.dart';
+import 'package:extension/widgets/loading_overlay.dart';
+import 'package:extension/utils/text_style.dart';
 import 'package:sprintf/sprintf.dart';
 
 class SearchCitiesDelegate extends SearchDelegate<CityModel> {

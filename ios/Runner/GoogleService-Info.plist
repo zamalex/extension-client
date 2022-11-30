@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>923766598429-rklljgfqp5c4cdj67ghjp1rloljif1fe.apps.googleusercontent.com</string>
+	<string>1008720578476-4k69j5nqoiorscukpf6dd35kb15dgfod.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.923766598429-rklljgfqp5c4cdj67ghjp1rloljif1fe</string>
+	<string>com.googleusercontent.apps.1008720578476-4k69j5nqoiorscukpf6dd35kb15dgfod</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAJS8Y-L-L3Pa2sFq37QIUWodBNc0_IvO8</string>
+	<string>AIzaSyAcHmYmxplJv_9D66xigOV7cNeqDgvZ0YQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>923766598429</string>
+	<string>1008720578476</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.creativitySol.salon</string>
+	<string>com.badee.extensionclient</string>
 	<key>PROJECT_ID</key>
-	<string>salon-customer-6c286</string>
+	<string>extension-client-c931f</string>
 	<key>STORAGE_BUCKET</key>
-	<string>salon-customer-6c286.appspot.com</string>
+	<string>extension-client-c931f.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:923766598429:ios:be1aefc009dae2143e4ff4</string>
+	<string>1:1008720578476:ios:53c256a2207138b29cdc09</string>
 </dict>
 </plist>

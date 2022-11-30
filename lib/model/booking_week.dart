@@ -6,8 +6,10 @@ import 'constants.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:salon/model/constants.dart';
+import 'package:extension/model/constants.dart';
 
+
+///working hours model
 class BookingWeekTimes {
   Data data;
   bool result;
@@ -21,6 +23,8 @@ class BookingWeekTimes {
     message = json['message'].toString()??'';
   }
 
+
+  /// get salon working hours
   Future<List<Slots>> getWeekTimes(String id) async {
 
     Map<String, String> headers = {

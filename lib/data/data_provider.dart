@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/services.dart';
-import 'package:salon/data/models/data_response_model.dart';
-import 'package:salon/utils/console.dart';
+import 'package:extension/data/models/data_response_model.dart';
+import 'package:extension/utils/console.dart';
 
 /// Provides a generic mechanism for loading model data from JSON files
 /// (API simulation).

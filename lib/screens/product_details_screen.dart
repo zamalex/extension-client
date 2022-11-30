@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/service_model.dart';
-import 'package:salon/main.dart';
-import 'package:salon/model/product_details_response.dart';
-import 'package:salon/model/products_data.dart';
-import 'package:salon/model/share_data.dart';
-import 'package:salon/screens/location/location.dart';
-import 'package:salon/screens/products/product_item.dart';
-import 'package:salon/utils/geo.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/service_model.dart';
+import 'package:extension/main.dart';
+import 'package:extension/model/product_details_response.dart';
+import 'package:extension/model/products_data.dart';
+import 'package:extension/model/share_data.dart';
+import 'package:extension/screens/location/location.dart';
+import 'package:extension/screens/products/product_item.dart';
+import 'package:extension/utils/geo.dart';
 import 'package:share/share.dart';
-import 'package:salon/generated/l10n.dart';
+import 'package:extension/generated/l10n.dart';
 
 
 class ProductDetails extends StatefulWidget {

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/search_history_model.dart';
-import 'package:salon/main.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/screens/search/widgets/search_locations_delegate_history.dart';
-import 'package:salon/screens/search/widgets/search_locations_delegate_result_list.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/search_history_model.dart';
+import 'package:extension/main.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/screens/search/widgets/search_locations_delegate_history.dart';
+import 'package:extension/screens/search/widgets/search_locations_delegate_result_list.dart';
 
 class SearchLocationsDelegate extends SearchDelegate<String> {
   SearchLocationsDelegate({this.hintText}) : super(searchFieldLabel: hintText);

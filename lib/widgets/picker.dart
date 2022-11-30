@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/utils/form_utils.dart';
-import 'package:salon/widgets/list_item.dart';
-import 'package:salon/widgets/theme_button.dart';
-import 'package:salon/widgets/theme_text_input.dart';
-import 'package:salon/utils/text_style.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/utils/form_utils.dart';
+import 'package:extension/widgets/list_item.dart';
+import 'package:extension/widgets/theme_button.dart';
+import 'package:extension/widgets/theme_text_input.dart';
+import 'package:extension/utils/text_style.dart';
 
 /// A single item for [Picker] dialog box.
 @immutable

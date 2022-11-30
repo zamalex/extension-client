@@ -3,9 +3,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/utils/async.dart';
-import 'package:salon/utils/geo.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/utils/async.dart';
+import 'package:extension/utils/geo.dart';
 import 'package:shimmer/shimmer.dart';
 
 class LocationMapPreview extends StatefulWidget {

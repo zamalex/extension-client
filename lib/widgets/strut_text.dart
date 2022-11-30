@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salon/utils/text.dart';
+import 'package:extension/utils/text.dart';
 
 class StrutText extends StatelessWidget {
   const StrutText(

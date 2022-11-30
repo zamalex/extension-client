@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/main.dart';
-import 'package:salon/utils/bottom_bar_items.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/link_button.dart';
-import 'package:salon/widgets/strut_text.dart';
-import 'package:salon/widgets/theme_button.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/main.dart';
+import 'package:extension/utils/bottom_bar_items.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/link_button.dart';
+import 'package:extension/widgets/strut_text.dart';
+import 'package:extension/widgets/theme_button.dart';
 
 class AppointmentsWelcomeScreen extends StatelessWidget {
   const AppointmentsWelcomeScreen({Key key}) : super(key: key);

@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/configs/routes.dart';
-import 'package:salon/data/models/image_model.dart';
-import 'package:salon/data/models/photo_model.dart';
-import 'package:salon/utils/app_cache_manager.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/configs/routes.dart';
+import 'package:extension/data/models/image_model.dart';
+import 'package:extension/data/models/photo_model.dart';
+import 'package:extension/utils/app_cache_manager.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 class PhotoGalleryScreen extends StatefulWidget {
   const PhotoGalleryScreen({Key key, this.params}) : super(key: key);

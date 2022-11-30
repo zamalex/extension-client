@@ -15,16 +15,16 @@ import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:location/location.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:salon/blocs/app_observer.dart';
-import 'package:salon/configs/app_theme.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/main_app.dart';
-import 'package:salon/model/cart_provider.dart';
-import 'package:salon/model/constants.dart';
-import 'package:salon/utils/app_preferences.dart';
+import 'package:extension/blocs/app_observer.dart';
+import 'package:extension/configs/app_theme.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/main_app.dart';
+import 'package:extension/model/cart_provider.dart';
+import 'package:extension/model/constants.dart';
+import 'package:extension/utils/app_preferences.dart';
 
-import 'package:salon/utils/bottom_bar_items.dart';import 'package:shared_preferences/shared_preferences.dart';
+import 'package:extension/utils/bottom_bar_items.dart';import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'model/loginmodel.dart';
@@ -40,6 +40,7 @@ Future<void> main() async {
 
 
 
+  ///init firebase
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform);
@@ -47,13 +48,14 @@ Future<void> main() async {
 
 
 
+  ///init onesignal notifications
 // Print the data of the snapshot
   // Get any initial links
   // Init service locator singletons.
   //Remove this method to stop OneSignal Debugging
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
-  OneSignal.shared.setAppId("a72e072e-86c4-443f-9001-e8a8d82b0d86");
+  OneSignal.shared.setAppId("da925224-60d5-4ac8-b064-c818400d06fd");
 
 // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
   OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
@@ -92,7 +94,6 @@ Future<void> main() async {
   /// Running on emulator or real device?
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   getIt.get<AppGlobals>().isUser = prefs.getBool('logged')??false;
-  // Obtain a list of the available cameras on the device.
   if(getIt.get<AppGlobals>().isUser){
      final json = jsonDecode(prefs.getString('me')??null);
      if(json!=null){

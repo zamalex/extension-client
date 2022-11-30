@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 /// [AppBar] title with subtitle.
 class TitleWithSubtitle extends StatelessWidget {

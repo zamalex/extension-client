@@ -3,35 +3,34 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:salon/blocs/application/application_bloc.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/configs/routes.dart';
-import 'package:salon/data/models/business_hours_model.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/review_model.dart';
-import 'package:salon/data/models/service_group_model.dart';
-import 'package:salon/data/models/service_model.dart';
-import 'package:salon/data/models/staff_model.dart';
-import 'package:salon/data/repositories/location_repository.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/main.dart';
-import 'package:salon/model/booking_week.dart';
-import 'package:salon/model/cart_provider.dart';
-import 'package:salon/model/fav_model.dart';
-import 'package:salon/model/location_model.dart';
-import 'package:salon/model/my_reviews.dart';
-import 'package:salon/model/products_data.dart';
-import 'package:salon/model/staff_data.dart';
-import 'package:salon/screens/location/widgets/widgets.dart';
-import 'package:salon/screens/product_details_screen.dart';
-import 'package:salon/screens/products/products_list.dart';
-import 'package:salon/utils/geo.dart';
-import 'package:salon/widgets/app_button.dart';
-import 'package:salon/widgets/bottom_navigation.dart';
-import 'package:salon/widgets/sliver_app_title.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/blocs/application/application_bloc.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/configs/routes.dart';
+import 'package:extension/data/models/business_hours_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/review_model.dart';
+import 'package:extension/data/models/service_group_model.dart';
+import 'package:extension/data/models/service_model.dart';
+import 'package:extension/data/models/staff_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/main.dart';
+import 'package:extension/model/booking_week.dart';
+import 'package:extension/model/cart_provider.dart';
+import 'package:extension/model/fav_model.dart';
+import 'package:extension/model/location_model.dart';
+import 'package:extension/model/my_reviews.dart';
+import 'package:extension/model/products_data.dart';
+import 'package:extension/model/staff_data.dart';
+import 'package:extension/screens/location/widgets/widgets.dart';
+import 'package:extension/screens/product_details_screen.dart';
+import 'package:extension/screens/products/products_list.dart';
+import 'package:extension/utils/geo.dart';
+import 'package:extension/widgets/app_button.dart';
+import 'package:extension/widgets/bottom_navigation.dart';
+import 'package:extension/widgets/sliver_app_title.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/strut_text.dart';
 import 'package:share/share.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -49,7 +48,6 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  final LocationRepository locationRepository = const LocationRepository();
 
   /// The GlobalKey needed to access Scaffold widget.
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

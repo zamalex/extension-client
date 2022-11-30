@@ -2,21 +2,22 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:salon/blocs/base_bloc.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/data_response_model.dart';
-import 'package:salon/data/models/user_model.dart';
-import 'package:salon/data/repositories/user_repository.dart';
-import 'package:salon/main.dart';
-import 'package:salon/model/loginmodel.dart';
-import 'package:salon/model/profile_data.dart';
-import 'package:salon/utils/app_cache_manager.dart';
-import 'package:salon/utils/app_preferences.dart';
+import 'package:extension/blocs/base_bloc.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/data_response_model.dart';
+import 'package:extension/data/models/user_model.dart';
+import 'package:extension/main.dart';
+import 'package:extension/model/loginmodel.dart';
+import 'package:extension/model/profile_data.dart';
+import 'package:extension/utils/app_cache_manager.dart';
+import 'package:extension/utils/app_preferences.dart';
 
 import 'package:flutter/material.dart';
-import 'package:salon/data/models/payment_card_model.dart';
+import 'package:extension/data/models/payment_card_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../data/repositories/user_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -112,6 +113,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     }
   }
 
+  /// get user profile
   Stream<AuthState> _mapGetProfileAuthEventToState() async* {
     yield ProcessInProgressAuthState();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -127,6 +129,8 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     }
   }
 
+
+  ///logout user
   Stream<AuthState> _mapLogoutAuthEventToState() async* {
     yield ProcessInProgressAuthState();
 
@@ -141,6 +145,8 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     }
   }
 
+
+  ///clear user data
   Stream<AuthState> _mapClearUserAuthEventToState() async* {
     final bool deletePreferences = await getIt.get<AppPreferences>().remove(PreferenceKey.user);
 
@@ -170,6 +176,8 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
 
     yield ProfileUpdateSuccessAuthState();
   }
+
+
 
   Stream<AuthState> _mapSavePaymentCardAuthEventToState(PaymentCardSavedAuthEvent event) async* {
     yield ProcessInProgressAuthState();

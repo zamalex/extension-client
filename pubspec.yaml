@@ -1,5 +1,5 @@
-name: salon
-description: Salon Flutter project.
+name: extension
+description: Extension Flutter project.
 
 
 # The following line prevents the package from being accidentally published to
@@ -16,7 +16,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 15.0.1+28
+version: 15.0.2+28
 
 environment:
   sdk: ">=2.8.0 <3.0.0"
@@ -98,15 +98,20 @@ dependencies:
   go_sell_sdk_flutter: any
   # firebase_crashlytics: any
   firebase_core: any
+  #firebase dynamic links
   firebase_dynamic_links: any
+
+  #onesignal
   onesignal_flutter: any
+
+#check version of app
   new_version: any
   firebase_analytics: any
   firebase_database: any
 
 
 dev_dependencies:
-  change_app_package_name: ^1.0.0
+  change_app_package_name: ^1.1.0
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.10.0
@@ -114,7 +119,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/cicon.png"
+  image_path: "assets/images/newicon.png"
 
 #dependency_overrides:
 #intl: ^0.17.0-nullsafety.2

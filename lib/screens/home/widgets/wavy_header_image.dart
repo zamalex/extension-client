@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
+import 'package:extension/configs/constants.dart';
 
 class WavyHeaderImage extends StatelessWidget {
   const WavyHeaderImage({this.imageUrl,Key key, this.shrinkOffsetPercentage}) : super(key: key);

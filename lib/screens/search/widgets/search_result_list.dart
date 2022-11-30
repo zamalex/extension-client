@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:salon/blocs/search/search_bloc.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/toolbar_option_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/widgets/jumbotron.dart';
-import 'package:salon/widgets/location_list_item.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/blocs/search/search_bloc.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/toolbar_option_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/widgets/jumbotron.dart';
+import 'package:extension/widgets/location_list_item.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 class SearchResultList extends StatelessWidget {
 

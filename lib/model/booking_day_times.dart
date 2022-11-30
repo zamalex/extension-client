@@ -6,8 +6,10 @@ import 'constants.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:salon/model/constants.dart';
+import 'package:extension/model/constants.dart';
 
+
+///booking model
 class BookingDayTimes {
   Data data;
   bool result;
@@ -20,6 +22,8 @@ class BookingDayTimes {
     result = json['result']as bool;
     message = json['message'].toString();
   }
+
+  /// get booking times of day
   Future<List<Slot>> getDayTimes(int day,String id,int salon,String date) async {
 
     Map<String, String> headers = {

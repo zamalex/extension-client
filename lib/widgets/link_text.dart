@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 /// Text text. Similar to [LinkButton].
 class LinkText extends StatelessWidget {

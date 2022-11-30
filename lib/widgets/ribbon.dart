@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/main.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/main.dart';
 
 /// Ribbon style widget.
 class Ribbon extends StatefulWidget {

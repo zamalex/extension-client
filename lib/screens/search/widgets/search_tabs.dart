@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salon/blocs/search/search_bloc.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/search_tab_model.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/blocs/search/search_bloc.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/search_tab_model.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/strut_text.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class SearchTabs extends StatefulWidget {

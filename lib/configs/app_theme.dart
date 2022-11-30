@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
+import 'package:extension/configs/constants.dart';
 
 enum DarkOption { dynamic, alwaysOn, alwaysOff }
 
 /// Creates light and dark [ThemeData].
-///
+/// to change app theme , fonts and colors
 /// Default values will be derived for arguments that are omitted.
 class AppTheme {
   /// Constructs an [AppTheme].

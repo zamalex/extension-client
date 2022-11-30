@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salon/blocs/auth/auth_bloc.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/bottom_bar_item_model.dart';
-import 'package:salon/main.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/screens/appointments/appointments.dart';
-import 'package:salon/screens/appointments/appointments_welcome.dart';
-import 'package:salon/screens/cart/cart.dart';
-import 'package:salon/screens/home/home.dart';
-import 'package:salon/screens/inbox/inbox.dart';
-import 'package:salon/screens/profile/profile.dart';
-import 'package:salon/screens/search/search.dart';
-import 'package:salon/screens/sign_in.dart';
-import 'package:salon/utils/bottom_bar_items.dart';
+import 'package:extension/blocs/auth/auth_bloc.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/bottom_bar_item_model.dart';
+import 'package:extension/main.dart';
+import 'package:extension/generated/l10n.dart';
+
+import 'package:extension/screens/cart/cart.dart';
+import 'package:extension/screens/home/home.dart';
+import 'package:extension/screens/profile/profile.dart';
+import 'package:extension/screens/search/search.dart';
+import 'package:extension/screens/sign_in.dart';
+import 'package:extension/utils/bottom_bar_items.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({Key key}) : super(key: key);

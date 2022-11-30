@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:salon/model/constants.dart';
+import 'package:extension/model/constants.dart';
 
 class ProductModel {
   List<Product> products;
@@ -22,6 +22,8 @@ class ProductModel {
     status = json['status']as int;
   }
 
+
+  /// get salon products
   Future<List<Product>> getProducts(int id) async {
     try {
 
@@ -55,6 +57,9 @@ class ProductModel {
       return [];
     }
   }
+
+
+  /// get related products
   Future<List<Product>> getRelatedProducts(int id) async {
     try {
 
@@ -89,6 +94,8 @@ class ProductModel {
     }
   }
 
+
+  /// get salon services
   Future<List<Product>> getServices(int id) async {
     try {
       Map<String,String> header = {
@@ -123,6 +130,7 @@ class ProductModel {
   }
 
 
+  ///get top services
   Future<List<Product>> getTopServices(int id) async {
     try {
       Map<String,String> header = {
@@ -155,6 +163,9 @@ class ProductModel {
       return [];
     }
   }
+
+
+  /// get top products
   Future<List<Product>> getTopProducts() async {
     try {
       Map<String,String> header = {

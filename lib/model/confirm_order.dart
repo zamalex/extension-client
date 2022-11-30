@@ -3,16 +3,18 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:salon/utils/ui.dart';
+import 'package:extension/utils/ui.dart';
 
 import 'constants.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:salon/model/constants.dart';
+import 'package:extension/model/constants.dart';
 
 class ConfirmOrder {
 
+
+  /// confirm booking
   Future<Map> confirmBooking(Map<String,dynamic> body,BuildContext context) async {
 
     Map<String, String> headers = {

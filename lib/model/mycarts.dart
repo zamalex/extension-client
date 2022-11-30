@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/model/cart_model.dart';
-import 'package:salon/model/constants.dart';
-import 'package:salon/utils/ui.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/model/cart_model.dart';
+import 'package:extension/model/constants.dart';
+import 'package:extension/utils/ui.dart';
 
 import '../main.dart';
 
@@ -32,6 +32,7 @@ class MyCarts {
     }
   }
 
+  /// get user cart
   Future<List<MyCarts>> getCartList() async {
     List<MyCarts> list = [];
     try {
@@ -64,6 +65,8 @@ class MyCarts {
     }
   }
 
+
+  /// send transaction id of online payment
   Future<bool> sendTransactionId(int order,String transaction) async {
 
     Map<String, String> headers = {
@@ -99,6 +102,8 @@ class MyCarts {
     }
   }
 
+
+  /// add item to cart
   Future<List<MyCarts>> addTocart(CartModel cartModel,BuildContext context) async {
     List<MyCarts> list = [];
     String resul;
@@ -157,6 +162,9 @@ class MyCarts {
     }
   }
 
+
+
+  ///remove item from cart
   Future<List<MyCarts>> removeFromCart(CartModel cartModel) async {
     List<MyCarts> list = [];
     Map<String,dynamic> body ={
@@ -194,6 +202,9 @@ class MyCarts {
       return [];
     }
   }
+
+
+  ///delete cart
   Future<bool> deleteCart(int owner) async {
 
     try {
@@ -229,6 +240,8 @@ class MyCarts {
     }
   }
 
+
+  ///check coupon
   Future<Map> checkCopon(int owner,String coupon_code) async {
     Map<String,dynamic> body ={
       'owner_id':owner,
@@ -264,7 +277,7 @@ class MyCarts {
     }
   }
 
-
+///check user balance
   Future<double> checkBalance() async {
 
     try {
@@ -294,6 +307,9 @@ class MyCarts {
     }
   }
 
+
+
+  ///create order
   Future<Map> createOrder(int owner,String payment,String date,String time,String address,bool points,String copon) async {
     Map<String,dynamic> body ={
       'owner_id':owner,
@@ -334,6 +350,9 @@ class MyCarts {
       return  {'result':false};
     }
   }
+
+
+  /// create order and appointment
   Future<Map> createOrderWithAppointment(int owner,String payment,String date,String time,String address,bool points,String copon,Map appointment) async {
     Map<String,dynamic> body ={
       'owner_id':owner,

@@ -1,4 +1,4 @@
-import 'package:salon/data/models/data_response_error_model.dart';
+import 'package:extension/data/models/data_response_error_model.dart';
 
 /// Data response model.
 ///

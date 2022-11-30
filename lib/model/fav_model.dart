@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:salon/model/constants.dart';
+import 'package:extension/model/constants.dart';
 
 class FavModel{
+
+  /// add or remove slaon from favourites
   Future addRemoveFav(String id) async {
     try {
       Map<String, String> headers = {

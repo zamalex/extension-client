@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
+import 'package:extension/configs/constants.dart';
 
 class ThemeButton extends StatelessWidget {
   const ThemeButton({

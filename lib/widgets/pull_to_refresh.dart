@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:salon/generated/l10n.dart';
+import 'package:extension/generated/l10n.dart';
 
 /// Widget that attaches refresh and load more functions controllers to the list
 /// using the [SmartRefresher] plugin.

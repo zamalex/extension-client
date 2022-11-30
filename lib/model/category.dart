@@ -6,7 +6,7 @@ import 'constants.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:salon/model/constants.dart';
+import 'package:extension/model/constants.dart';
 
 class CategoryData {
   List<SingleCategory> data;
@@ -25,6 +25,8 @@ class CategoryData {
     success = json['success'] as bool;
     status = json['status'] as int;
   }
+
+  ///get all categories
 
   Future<List<SingleCategory>> getCategories() async {
 

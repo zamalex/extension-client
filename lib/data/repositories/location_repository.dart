@@ -1,9 +1,9 @@
-import 'package:salon/data/data_provider.dart';
-import 'package:salon/data/models/category_model.dart';
-import 'package:salon/data/models/city_model.dart';
-import 'package:salon/data/models/data_response_model.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/search_history_model.dart';
+import 'package:extension/data/data_provider.dart';
+import 'package:extension/data/models/category_model.dart';
+import 'package:extension/data/models/city_model.dart';
+import 'package:extension/data/models/data_response_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/search_history_model.dart';
 
 class LocationRepository {
   const LocationRepository({

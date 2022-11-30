@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:salon/blocs/theme/theme_bloc.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/main.dart';
-import 'package:salon/model/cart_model.dart';
-import 'package:salon/model/cart_provider.dart';
-import 'package:salon/model/products_data.dart';
-import 'package:salon/model/share_data.dart';
-import 'package:salon/screens/cart/cart_item.dart';
-import 'package:salon/screens/profile/profile.dart';
-import 'package:salon/screens/sign_in.dart';
-import 'package:salon/utils/ui.dart';
-import 'package:salon/widgets/bottom_navigation.dart';
+import 'package:extension/blocs/theme/theme_bloc.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/main.dart';
+import 'package:extension/model/cart_model.dart';
+import 'package:extension/model/cart_provider.dart';
+import 'package:extension/model/products_data.dart';
+import 'package:extension/model/share_data.dart';
+import 'package:extension/screens/cart/cart_item.dart';
+import 'package:extension/screens/profile/profile.dart';
+import 'package:extension/screens/sign_in.dart';
+import 'package:extension/utils/ui.dart';
+import 'package:extension/widgets/bottom_navigation.dart';
 import 'package:share/share.dart';
 
 import '../product_details_screen.dart';
@@ -80,7 +80,7 @@ class _ProdcutItemState extends State<ProdcutItem> {
 
           children: [
             Expanded(child: Padding(padding: EdgeInsets.all(5),child: FittedBox(fit: BoxFit.scaleDown,alignment: AlignmentDirectional.centerStart,child: Text('${widget.cartModel.base_discounted_price.toStringAsFixed(2)}',style: TextStyle(color: Colors.black,),),),)),
-            Provider.of<CartProvider>(context).itemCount(widget.cartModel.id)==0?GestureDetector(child: CircleAvatar(radius: 15,backgroundColor: Theme.of(context).accentColor,child: Icon(Icons.shopping_cart,color: Colors.white,size: 15,),)
+            Provider.of<CartProvider>(context).itemCount(widget.cartModel.id)==0?GestureDetector(child: CircleAvatar(radius: 20,backgroundColor: Theme.of(context).accentColor,child: Icon(Icons.shopping_cart,color: Colors.white,size: 20,),)
               ,onTap:(){
               if (!getIt.get<AppGlobals>().isUser){
 

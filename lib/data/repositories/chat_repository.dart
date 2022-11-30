@@ -1,7 +1,7 @@
-import 'package:salon/data/data_provider.dart';
-import 'package:salon/data/models/chat_session_model.dart';
-import 'package:salon/data/models/data_response_model.dart';
-import 'package:salon/data/models/inbox_model.dart';
+import 'package:extension/data/data_provider.dart';
+import 'package:extension/data/models/chat_session_model.dart';
+import 'package:extension/data/models/data_response_model.dart';
+import 'package:extension/data/models/inbox_model.dart';
 
 class ChatRepository {
   const ChatRepository({

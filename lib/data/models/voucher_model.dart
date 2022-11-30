@@ -1,4 +1,4 @@
-import 'package:salon/data/models/location_model.dart';
+import 'package:extension/data/models/location_model.dart';
 
 enum VoucherStatus {
   active,

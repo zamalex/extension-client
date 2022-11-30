@@ -1,6 +1,6 @@
-import 'package:salon/data/data_provider.dart';
-import 'package:salon/data/models/data_response_model.dart';
-import 'package:salon/data/models/location_model.dart';
+import 'package:extension/data/data_provider.dart';
+import 'package:extension/data/models/data_response_model.dart';
+import 'package:extension/data/models/location_model.dart';
 
 class FavoritesRepository {
   const FavoritesRepository({

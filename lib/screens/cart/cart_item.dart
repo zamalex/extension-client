@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/model/cart_model.dart';
-import 'package:salon/model/cart_provider.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/model/cart_model.dart';
+import 'package:extension/model/cart_provider.dart';
 
 import '../../main.dart';
 

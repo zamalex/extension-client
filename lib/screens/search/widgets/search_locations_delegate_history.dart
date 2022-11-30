@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/search_history_model.dart';
-import 'package:salon/data/repositories/location_repository.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/utils/list.dart';
-import 'package:salon/widgets/uppercase_title.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/search_history_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/utils/list.dart';
+import 'package:extension/widgets/uppercase_title.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Signature for when a tap on search history query has occurred.
@@ -32,7 +31,6 @@ class _SearchLocationsDelegateHistoryState extends State<SearchLocationsDelegate
   }
 
   Future<void> _loadHistory() async {
-    const LocationRepository locationRepository = LocationRepository();
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String q = prefs.getString('query')??'';

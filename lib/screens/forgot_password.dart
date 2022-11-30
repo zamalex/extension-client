@@ -1,17 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:salon/blocs/auth/auth_bloc.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/model/loginmodel.dart';
-import 'package:salon/screens/verify.dart';
-import 'package:salon/utils/form_validator.dart';
-import 'package:salon/utils/ui.dart';
-import 'package:salon/widgets/bold_title.dart';
-import 'package:salon/widgets/strut_text.dart';
-import 'package:salon/widgets/theme_button.dart';
-import 'package:salon/widgets/theme_text_input.dart';
+import 'package:extension/blocs/auth/auth_bloc.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/model/loginmodel.dart';
+import 'package:extension/screens/verify.dart';
+import 'package:extension/utils/form_validator.dart';
+import 'package:extension/utils/ui.dart';
+import 'package:extension/widgets/bold_title.dart';
+import 'package:extension/widgets/strut_text.dart';
+import 'package:extension/widgets/theme_button.dart';
+import 'package:extension/widgets/theme_text_input.dart';
 
 import '../main.dart';
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/configs/routes.dart';
-import 'package:salon/data/models/review_model.dart';
-import 'package:salon/model/my_reviews.dart';
-import 'package:salon/widgets/list_item.dart';
-import 'package:salon/widgets/star_rating.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/configs/routes.dart';
+import 'package:extension/data/models/review_model.dart';
+import 'package:extension/model/my_reviews.dart';
+import 'package:extension/widgets/list_item.dart';
+import 'package:extension/widgets/star_rating.dart';
+import 'package:extension/widgets/strut_text.dart';
 import 'package:sprintf/sprintf.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/utils/datetime.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/utils/datetime.dart';
 
 class RatingsListItem extends StatelessWidget {
   const RatingsListItem({

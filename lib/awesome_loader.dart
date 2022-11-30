@@ -11,7 +11,7 @@ import 'dart:math';
 ///   - develop a callback when the loader gets to full state
 ///   - develop a controller to assign number of rotates or a duration before a full stop
 ///   - develop the ability to stop on full state
-///
+/// gosell button widget
 class AwesomeLoader extends StatefulWidget {
   const AwesomeLoader(
       {this.outerColor = const Color.fromARGB(255, 66, 62, 60),

@@ -1,4 +1,4 @@
-import 'package:salon/data/models/staff_model.dart';
+import 'package:extension/data/models/staff_model.dart';
 
 class InboxModel {
   InboxModel({

@@ -1,6 +1,6 @@
-import 'package:salon/data/models/city_model.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/toolbar_option_model.dart';
+import 'package:extension/data/models/city_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/toolbar_option_model.dart';
 
 enum SearchType { full, quick, map }
 

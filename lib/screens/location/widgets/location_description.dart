@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/widgets/expandable_text.dart';
-import 'package:salon/widgets/uppercase_title.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/widgets/expandable_text.dart';
+import 'package:extension/widgets/uppercase_title.dart';
 import 'package:shimmer/shimmer.dart';
 
 class LocationDescription extends StatelessWidget {

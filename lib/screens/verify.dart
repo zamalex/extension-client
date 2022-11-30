@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/model/loginmodel.dart';
-import 'package:salon/screens/change_password.dart';
-import 'package:salon/screens/vendor/theme_button.dart';
-import 'package:salon/widgets/bold_title.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/model/loginmodel.dart';
+import 'package:extension/screens/change_password.dart';
+import 'package:extension/screens/vendor/theme_button.dart';
+import 'package:extension/widgets/bold_title.dart';
 
 import '../main.dart';
 

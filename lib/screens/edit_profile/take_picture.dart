@@ -3,10 +3,10 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/main.dart';
-import 'package:salon/utils/console.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/main.dart';
+import 'package:extension/utils/console.dart';
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({Key key}) : super(key: key);

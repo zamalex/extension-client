@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/utils/string.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/utils/string.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 /// General purpose text input field using [CupertinoTextField].
 class ThemeTextInput extends StatefulWidget {

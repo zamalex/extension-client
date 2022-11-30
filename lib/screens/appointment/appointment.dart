@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rating_dialog/rating_dialog.dart';
-import 'package:salon/blocs/appointment/appointment_bloc.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/configs/routes.dart';
-import 'package:salon/data/models/appointment_model.dart';
-import 'package:salon/data/models/service_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/main.dart';
-import 'package:salon/model/appointments_data.dart';
-import 'package:salon/model/my_reviews.dart';
-import 'package:salon/screens/appointment/widgets/appointment_header.dart';
-import 'package:salon/screens/appointment/widgets/appointment_tabbar.dart';
-import 'package:salon/screens/appointments/appointments.dart';
-import 'package:salon/screens/booking/widgets/booking_notes.dart';
-import 'package:salon/screens/orders/orders.dart';
-import 'package:salon/utils/ui.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/card_divider.dart';
-import 'package:salon/widgets/link_button.dart';
-import 'package:salon/widgets/list_item.dart';
-import 'package:salon/widgets/list_title.dart';
-import 'package:salon/widgets/loading_overlay.dart';
-import 'package:salon/widgets/portrait_mode_mixin.dart';
-import 'package:salon/widgets/sliver_app_title.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/blocs/appointment/appointment_bloc.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/configs/routes.dart';
+import 'package:extension/data/models/appointment_model.dart';
+import 'package:extension/data/models/service_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/main.dart';
+import 'package:extension/model/appointments_data.dart';
+import 'package:extension/model/my_reviews.dart';
+import 'package:extension/screens/appointment/widgets/appointment_header.dart';
+import 'package:extension/screens/appointment/widgets/appointment_tabbar.dart';
+import 'package:extension/screens/appointments/appointments.dart';
+import 'package:extension/screens/booking/widgets/booking_notes.dart';
+import 'package:extension/screens/orders/orders.dart';
+import 'package:extension/utils/ui.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/card_divider.dart';
+import 'package:extension/widgets/link_button.dart';
+import 'package:extension/widgets/list_item.dart';
+import 'package:extension/widgets/list_title.dart';
+import 'package:extension/widgets/loading_overlay.dart';
+import 'package:extension/widgets/portrait_mode_mixin.dart';
+import 'package:extension/widgets/sliver_app_title.dart';
+import 'package:extension/widgets/strut_text.dart';
 import 'package:sprintf/sprintf.dart';
 
 class AppointmentScreen extends StatefulWidget {
@@ -80,6 +80,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
 
       if(/*widget.appointment.deliveryStatus=='delivered'&&*/widget.appointment.booking_staff_id!=null&&widget.appointment.booking_staff_id!=0)
 
+        /// check if staff is rated
         MyReviews().checkReview(widget.appointment.booking_staff_id).then((value){
 
           if(value){
@@ -94,7 +95,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
   }
 
 
-
+/// cancel order
   void cancelReservation() {
     if(!widget.appointment.canCancel){
       UI.showErrorDialog(context,title: '',message: getIt.get<AppGlobals>().isRTL?'لا يمكن الغاء الطلب':'you can\'t cancel this appointment');
@@ -119,6 +120,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
 
   }
 
+  /// open editor to add notes
   Future<void> showNotesEditor() async {
     /*final String editedNotes = await Navigator.pushNamed(context, Routes.bookingNotes, arguments: '');
     if (editedNotes != null) {

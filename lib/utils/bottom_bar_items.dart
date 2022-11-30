@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:salon/data/models/bottom_bar_item_model.dart';
+import 'package:extension/data/models/bottom_bar_item_model.dart';
 
 /// [BottomBarItemModel] items for bottom navigation.
 class BottomBarItems {

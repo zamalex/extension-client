@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/model/cart_provider.dart';
-import 'package:salon/model/products_data.dart';
-import 'package:salon/screens/products/product_item.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/model/cart_provider.dart';
+import 'package:extension/model/products_data.dart';
+import 'package:extension/screens/products/product_item.dart';
 
 class ProductsList extends StatelessWidget {
 

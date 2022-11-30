@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salon/data/models/data_response_error_model.dart';
-import 'package:salon/utils/console.dart';
+import 'package:extension/data/models/data_response_error_model.dart';
+import 'package:extension/utils/console.dart';
 
 /// Abstract [Bloc] that contains console logging.
 abstract class BaseBloc<Event, State> extends Bloc<Event, State> {

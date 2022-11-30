@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:salon/data/models/review_model.dart';
-import 'package:salon/data/repositories/ratings_repository.dart';
-import 'package:salon/model/my_reviews.dart';
+import 'package:extension/data/models/review_model.dart';
+import 'package:extension/data/repositories/ratings_repository.dart';
+import 'package:extension/model/my_reviews.dart';
 
 part 'ratings_event.dart';
 part 'ratings_state.dart';
@@ -18,6 +18,8 @@ class RatingsBloc extends Bloc<RatingsEvent, RatingsState> {
     }
   }
 
+
+  /// get rated salons
   Stream<RatingsState> _mapGetRatingsEventToState(ListRequestedRatingsEvent event) async* {
     yield LoadInProgressRatingsState();
 

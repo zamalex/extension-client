@@ -1,4 +1,4 @@
-package com.badee.salon
+package com.badee.extension_client
 
 import io.flutter.embedding.android.FlutterActivity
 

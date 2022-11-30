@@ -1,6 +1,6 @@
-import 'package:salon/data/models/chat_message_model.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/staff_model.dart';
+import 'package:extension/data/models/chat_message_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/staff_model.dart';
 
 class ChatSessionModel {
   ChatSessionModel({

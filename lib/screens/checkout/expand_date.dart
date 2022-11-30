@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/generated/l10n.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/generated/l10n.dart';
 
 class ExpandDate extends StatefulWidget {
 

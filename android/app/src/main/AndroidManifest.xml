@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.badee.salon">
+    package="com.badee.extension_client">
     <queries>
         <!-- If your app checks for SMS support -->
         <intent>
@@ -22,7 +22,7 @@
         <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
         <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <application
-        android:label="Step to Salons"
+        android:label="Extension"
         android:icon="@mipmap/launcher_icon"
         android:roundIcon="@mipmap/launcher_icon">
         
@@ -34,6 +34,7 @@
             android:value="AIzaSyD9E__tL36lc3qo5lutLZTEZL0Cj6TTDVk"/>
         -->
         <activity
+            android:exported="true"
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"

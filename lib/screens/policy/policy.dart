@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/model/cart_provider.dart';
-import 'package:salon/model/policy_model.dart';
-import 'package:salon/screens/cart/cart_item.dart';
-import 'package:salon/screens/checkout/checkout.dart';
-import 'package:salon/widgets/app_button.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/model/cart_provider.dart';
+import 'package:extension/model/policy_model.dart';
+import 'package:extension/screens/cart/cart_item.dart';
+import 'package:extension/screens/checkout/checkout.dart';
+import 'package:extension/widgets/app_button.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 
 class PolicyScreen extends StatefulWidget {

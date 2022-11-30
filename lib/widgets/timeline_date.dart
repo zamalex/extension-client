@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/utils/datetime.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/utils/datetime.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 /// Vertically scrollable timeline date item.
 class TimelineDate extends StatelessWidget {

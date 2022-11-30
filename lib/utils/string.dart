@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:salon/data/models/payment_card_model.dart';
-import 'package:salon/generated/l10n.dart';
+import 'package:extension/data/models/payment_card_model.dart';
+import 'package:extension/generated/l10n.dart';
 
 /// [String] extensions.
 extension StringExtension on String {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
+import 'package:extension/configs/constants.dart';
 import 'package:intl/intl.dart';
-import 'package:salon/generated/l10n.dart';
+import 'package:extension/generated/l10n.dart';
 
 /// Day of week enumeration.
 enum DOW {

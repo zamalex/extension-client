@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/data/models/toolbar_option_model.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/data/models/toolbar_option_model.dart';
 
 import '../main.dart';
 
@@ -30,25 +30,25 @@ const double kCardRadius = 24.0;
 const double kBadgeRadius = 16.0;
 const double kTimelineDateSize = 88.0;
 
-// Colors
-const Color kPrimaryColor = Color.fromRGBO(174, 117, 106, 1);
+/// Colors
+const Color kPrimaryColor = Color.fromRGBO(127, 71, 150, 1);/// the main color of the app
 const Color kWhite = Color(0xFFFFFFFF);
 const Color kBlack = Color(0xFF000000);
 const Color kGold = Color(0xFFF3C952);
 const Color kScaffold =  Color.fromRGBO(248,248,248, 1);
 const Color kTransparent = Colors.transparent;
 
-// Padding
+/// Padding
 const double kPaddingS = 10.0;
 const double kPaddingM = 20.0;
 const double kPaddingL = 40.0;
 
-// Avatar sizes
+/// Avatar sizes
 const double kCircleAvatarSizeRadiusAppBar = 20.0;
 const double kCircleAvatarSizeRadiusSmall = 24.0;
 const double kCircleAvatarSizeRadiusLarge = 48.0;
 
-// Animations
+/// Animations
 const Duration kRippleAnimationDuration = Duration(milliseconds: 600);
 const Duration kButtonAnimationDuration = Duration(milliseconds: 200);
 const Duration kPaymentCardAnimationDuration = Duration(milliseconds: 500);

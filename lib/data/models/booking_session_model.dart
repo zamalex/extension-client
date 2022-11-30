@@ -1,8 +1,8 @@
-import 'package:salon/blocs/booking/booking_bloc.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/service_model.dart';
-import 'package:salon/data/models/staff_model.dart';
-import 'package:salon/data/models/timetable_model.dart';
+import 'package:extension/blocs/booking/booking_bloc.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/service_model.dart';
+import 'package:extension/data/models/staff_model.dart';
+import 'package:extension/data/models/timetable_model.dart';
 
 class BookingSessionModel {
   BookingSessionModel({

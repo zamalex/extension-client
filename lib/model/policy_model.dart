@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:salon/model/constants.dart';
+import 'package:extension/model/constants.dart';
 
 class PolicyModel {
   List<Data> data;
@@ -22,6 +22,8 @@ class PolicyModel {
     status = json['status']as int;
   }
 
+
+  /// get privacy policy
   Future<String> getPolicy(String type) async {
     try {
 

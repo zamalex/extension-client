@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salon/blocs/application/application_bloc.dart';
-import 'package:salon/widgets/full_screen_indicator.dart';
+import 'package:extension/blocs/application/application_bloc.dart';
+import 'package:extension/widgets/full_screen_indicator.dart';
 
 /// Splash screen shown while the app is loading.
 class SplashScreen extends StatefulWidget {

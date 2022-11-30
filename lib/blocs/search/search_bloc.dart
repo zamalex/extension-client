@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:location/location.dart';
 import 'package:meta/meta.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/city_model.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/search_session_model.dart';
-import 'package:salon/data/models/toolbar_option_model.dart';
-import 'package:salon/data/repositories/location_repository.dart';
-import 'package:salon/model/location_model.dart';
-import 'package:salon/utils/geo.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/city_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/search_session_model.dart';
+import 'package:extension/data/models/toolbar_option_model.dart';
+import 'package:extension/data/repositories/location_repository.dart';
+import 'package:extension/model/location_model.dart';
+import 'package:extension/utils/geo.dart';
 
 import '../../main.dart';
 
@@ -67,54 +67,56 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   getLocation() async {
-    getIt.get<Location>().changeSettings(accuracy: LocationAccuracy.low);
+      try{
+        getIt.get<Location>().changeSettings(accuracy: LocationAccuracy.low);
 
-    /// Checks if the location service is enabled.
-    try {
-      bool serviceEnabled = await getIt.get<Location>().serviceEnabled();
-      if (serviceEnabled == null || !serviceEnabled) {
-        /// Request the activation of the location service.
-        final bool serviceRequestedResult = await getIt.get<Location>().requestService();
-        serviceEnabled = serviceRequestedResult;
-      }
+        /// Checks if the location service is enabled.
+        try {
+          bool serviceEnabled = await getIt.get<Location>().serviceEnabled();
+          if (serviceEnabled == null || !serviceEnabled) {
+            /// Request the activation of the location service.
+            final bool serviceRequestedResult = await getIt.get<Location>().requestService();
+            serviceEnabled = serviceRequestedResult;
+          }
 
-      /// Checks if the app has permission to access location.
-      PermissionStatus permissionGranted = await getIt.get<Location>().hasPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        final PermissionStatus permissionRequestedResult = await getIt.get<Location>().requestPermission();
-        permissionGranted = permissionRequestedResult;
-      }
-      if (permissionGranted == PermissionStatus.granted) {
-        /// getLocation() may loop forever on emulators if location is set to 'None'!
-        ///
-        if (true) {
-          try{
-            getIt.get<AppGlobals>().currentPosition = await Future.any([
-              getIt.get<Location>().getLocation(),
-              Future.delayed(Duration(seconds: 5), () => null),
-            ]);
-            //if (getIt.get<AppGlobals>().currentPosition == null) {
-            //getIt.get<AppGlobals>().currentPosition = await getIt.get<Location>().getLocation();          }
+          /// Checks if the app has permission to access location.
+          PermissionStatus permissionGranted = await getIt.get<Location>().hasPermission();
+          if (permissionGranted != PermissionStatus.granted) {
+            final PermissionStatus permissionRequestedResult = await getIt.get<Location>().requestPermission();
+            permissionGranted = permissionRequestedResult;
+          }
+          if (permissionGranted == PermissionStatus.granted) {
+            /// getLocation() may loop forever on emulators if location is set to 'None'!
+            ///
+            if (true) {
+              try{
+                getIt.get<AppGlobals>().currentPosition = await Future.any([
+                  getIt.get<Location>().getLocation(),
+                  Future.delayed(Duration(seconds: 5), () => null),
+                ]);
 
 
-          }catch(ee){}
-        } else {
-          getIt.get<AppGlobals>().currentPosition = LocationData.fromMap(<String, double>{
-            'latitude': kDefaultLat,
-            'longitude': kDefaultLon,
-            'accuracy': 0.0,
-            'altitude': 0.0,
-            'speed': 0.0,
-            'speed_accuracy': 0.0,
-            'heading': 0.0,
-            'time': 0.0,
-          });
+              }catch(ee){}
+            } else {
+              getIt.get<AppGlobals>().currentPosition = LocationData.fromMap(<String, double>{
+                'latitude': kDefaultLat,
+                'longitude': kDefaultLon,
+                'accuracy': 0.0,
+                'altitude': 0.0,
+                'speed': 0.0,
+                'speed_accuracy': 0.0,
+                'heading': 0.0,
+                'time': 0.0,
+              });
+            }
+          }
+        } catch (e) {
+          // Console.log('Location ERROR', e.toString(), error: e);
         }
+
       }
-    } catch (e) {
-     // Console.log('Location ERROR', e.toString(), error: e);
-    }
-  }
+      catch(e){}
+      }
   Stream<SearchState> _mapFilteredSearchEventToState(FilteredListRequestedSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
 
@@ -212,6 +214,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
+
+  ///change order of search results
   Stream<SearchState> _mapSortOrderSearchEventToState(SortOrderChangedSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
@@ -227,6 +231,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
+
+  ///filter search
   Stream<SearchState> _mapGenderFilterSearchEventToState(GenderFilterChangedSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
@@ -272,6 +278,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
+
+  ///search with previous history
   Stream<SearchState> _mapKeywordSearchEventToState(KeywordChangedSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;
@@ -342,6 +350,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
+
+  ///make search event
   Stream<SearchState> _mapMapSearchEventToState(MapSearchEvent event) async* {
     if (state is RefreshSuccessSearchState) {
       final SearchSessionModel session = (state as RefreshSuccessSearchState).session;

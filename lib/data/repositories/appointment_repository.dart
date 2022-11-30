@@ -1,10 +1,10 @@
 import 'dart:math';
 import 'package:intl/intl.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/data_provider.dart';
-import 'package:salon/data/models/appointment_model.dart';
-import 'package:salon/data/models/data_response_model.dart';
-import 'package:salon/data/models/timetable_model.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/data_provider.dart';
+import 'package:extension/data/models/appointment_model.dart';
+import 'package:extension/data/models/data_response_model.dart';
+import 'package:extension/data/models/timetable_model.dart';
 
 class AppointmentRepository {
   const AppointmentRepository({

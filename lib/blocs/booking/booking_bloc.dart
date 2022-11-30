@@ -3,19 +3,19 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:salon/blocs/auth/auth_bloc.dart';
-import 'package:salon/blocs/base_bloc.dart';
-import 'package:salon/data/models/booking_session_model.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/service_model.dart';
-import 'package:salon/data/models/staff_model.dart';
-import 'package:salon/data/models/timetable_model.dart';
-import 'package:salon/data/repositories/appointment_repository.dart';
-import 'package:salon/data/repositories/location_repository.dart';
-import 'package:salon/model/appointments_data.dart';
-import 'package:salon/model/cart_provider.dart';
-import 'package:salon/model/confirm_order.dart';
-import 'package:salon/model/mycarts.dart';
+import 'package:extension/blocs/auth/auth_bloc.dart';
+import 'package:extension/blocs/base_bloc.dart';
+import 'package:extension/data/models/booking_session_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/service_model.dart';
+import 'package:extension/data/models/staff_model.dart';
+import 'package:extension/data/models/timetable_model.dart';
+import 'package:extension/data/repositories/appointment_repository.dart';
+import 'package:extension/data/repositories/location_repository.dart';
+import 'package:extension/model/appointments_data.dart';
+import 'package:extension/model/cart_provider.dart';
+import 'package:extension/model/confirm_order.dart';
+import 'package:extension/model/mycarts.dart';
 
 part 'booking_event.dart';
 part 'booking_state.dart';
@@ -57,7 +57,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       yield* _mapCardDoneEventToState(event);
     }
   }
-
+///load salon data
   Stream<BookingState> _mapLoadLocationBookingEventToState(LocationLoadedBookingEvent event) async* {
     final LocationModel _location = await const LocationRepository().getLocation(id: event.locationId);
 
@@ -75,7 +75,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
 
 
 
-
+///select services
   Stream<BookingState> _mapSelectServiceBookingEventToState(ServiceSelectedBookingEvent event) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
@@ -97,7 +97,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       ));
     }
   }
-
+///unselect services
   Stream<BookingState> _mapUnselectServiceBookingEventToState(ServiceUnselectedBookingEvent event) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
@@ -118,7 +118,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       ));
     }
   }
-
+///sedlect staff
   Stream<BookingState> _mapSelectStaffBookingEventToState(StaffSelectedBookingEvent event) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
@@ -129,7 +129,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       yield SessionRefreshSuccessBookingState(newSession);
     }
   }
-
+///get all available times
   Stream<BookingState> _mapGetTimetablesBookingEventToState(TimetablesRequestedBookingEvent event) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final List<TimetableModel> _timetables = await const AppointmentRepository().getTimetable(
@@ -143,6 +143,8 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
     }
   }
 
+
+  /// select date of booking
   Stream<BookingState> _mapSetDateRangeBookingEventToState(DateRangeSetBookingEvent event) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
@@ -157,6 +159,8 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
     }
   }
 
+
+  ///select booking time
   Stream<BookingState> _mapSelectTimestampBookingEventToState(TimestampSelectedBookingEvent event) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
@@ -168,6 +172,8 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
     }
   }
 
+
+  ///select payment method
   Stream<BookingState> _mapSelectPaymentMethodBookingEventToState(PaymentMethodSelectedBookingEvent event) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
@@ -179,6 +185,8 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
     }
   }
 
+
+  ///update booking notes
   Stream<BookingState> _mapUpdateNotesdBookingEventToState(NotesUpdatedBookingEvent event) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
@@ -195,6 +203,8 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
     }
   }
 
+
+  ///submit booking
   Stream<BookingState> _mapSubmitBookingEventToState(BuildContext context) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState).session;
@@ -271,6 +281,8 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
     }
   }
 
+
+  /// payment with card
   Stream<BookingState> _mapCardDoneEventToState(CardDoneEvent event) async* {
     if (state is SessionRefreshSuccessBookingState) {
       final BookingSessionModel session = (state as SessionRefreshSuccessBookingState)

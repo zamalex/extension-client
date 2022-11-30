@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1008720578476",
+    "firebase_url": "https://extension-client-c931f-default-rtdb.firebaseio.com",
+    "project_id": "extension-client-c931f",
+    "storage_bucket": "extension-client-c931f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008720578476:android:47d5ca77b00e5b519cdc09",
+        "android_client_info": {
+          "package_name": "com.badee.extension_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1008720578476-6us4u940f1l32i8rhgg90rn5gn3komjv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC09h_6Qb-kit0qddoe3phw8ANrjs9Lasw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1008720578476-6us4u940f1l32i8rhgg90rn5gn3komjv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1008720578476-4k69j5nqoiorscukpf6dd35kb15dgfod.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.badee.extensionclient"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rating_dialog/rating_dialog.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/configs/routes.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/model/my_reviews.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/configs/routes.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/model/my_reviews.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/strut_text.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../main.dart';

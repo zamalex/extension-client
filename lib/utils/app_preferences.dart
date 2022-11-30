@@ -1,4 +1,4 @@
-import 'package:salon/utils/console.dart';
+import 'package:extension/utils/console.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Providing a persistent store for simple data via [SharedPreferences].

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 
+
+/// user cart model
 class CartModel{
   int salon_id;
   String logo;

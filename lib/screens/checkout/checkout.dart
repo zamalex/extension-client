@@ -6,19 +6,19 @@ import 'package:flutter/services.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:go_sell_sdk_flutter/model/models.dart';
 import 'package:provider/provider.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/model/cart_provider.dart';
-import 'package:salon/model/loginmodel.dart';
-import 'package:salon/model/mycarts.dart';
-import 'package:salon/screens/checkout/expand_address.dart';
-import 'package:salon/screens/checkout/expand_copon.dart';
-import 'package:salon/screens/checkout/expand_date.dart';
-import 'package:salon/screens/checkout/expand_products.dart';
-import 'package:salon/utils/ui.dart';
-import 'package:salon/widgets/list_item.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/widgets/list_title.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/model/cart_provider.dart';
+import 'package:extension/model/loginmodel.dart';
+import 'package:extension/model/mycarts.dart';
+import 'package:extension/screens/checkout/expand_address.dart';
+import 'package:extension/screens/checkout/expand_copon.dart';
+import 'package:extension/screens/checkout/expand_date.dart';
+import 'package:extension/screens/checkout/expand_products.dart';
+import 'package:extension/utils/ui.dart';
+import 'package:extension/widgets/list_item.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/widgets/list_title.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
@@ -185,7 +185,7 @@ class _CheckoutState extends State<Checkout> {
           // select payments you need to show [Default is all, and you can choose between WEB-CARD-APPLEPAY ]
           paymentType: PaymentType.CARD,
           // Transaction mode
-          sdkMode: SDKMode.Production);
+          sdkMode: SDKMode.Sandbox);
     } on PlatformException {
       // platformVersion = 'Failed to get platform version.';
     }

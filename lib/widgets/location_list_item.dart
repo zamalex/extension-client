@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/configs/routes.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/main.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/utils/string.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/configs/routes.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/main.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/utils/string.dart';
+import 'package:extension/widgets/strut_text.dart';
 import 'package:sprintf/sprintf.dart';
 
 enum LocationListItemViewType { search, list, grid, block, map }

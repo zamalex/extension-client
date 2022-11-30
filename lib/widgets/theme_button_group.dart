@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/button_group_model.dart';
-import 'package:salon/widgets/strut_text.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/button_group_model.dart';
+import 'package:extension/widgets/strut_text.dart';
 
 class ThemeButtonGroup extends StatefulWidget {
   const ThemeButtonGroup({

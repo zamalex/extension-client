@@ -1433,7 +1433,7 @@ class L10n {
   /// `Welcome to Salon`
   String get onboardingPage1Title {
     return Intl.message(
-      'Welcome to Salon',
+      'Welcome to Extension',
       name: 'onboardingPage1Title',
       desc: '',
       args: [],
@@ -1443,7 +1443,7 @@ class L10n {
   /// `Salon lets you easily find and book appointments with local health and beauty professionals.`
   String get onboardingPage1Body {
     return Intl.message(
-      'Salon lets you easily find and book appointments with local health and beauty professionals.',
+      'Extension lets you easily find and book appointments with local health and beauty professionals.',
       name: 'onboardingPage1Body',
       desc: '',
       args: [],

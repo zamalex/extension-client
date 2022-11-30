@@ -2,17 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
-import 'package:salon/blocs/auth/auth_bloc.dart';
-import 'package:salon/blocs/theme/theme_bloc.dart';
-import 'package:salon/configs/app_theme.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/repositories/location_repository.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/main.dart';
-import 'package:salon/utils/app_preferences.dart';
-import 'package:salon/utils/console.dart';
-import 'package:salon/utils/string.dart';
+import 'package:extension/blocs/auth/auth_bloc.dart';
+import 'package:extension/blocs/theme/theme_bloc.dart';
+import 'package:extension/configs/app_theme.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/main.dart';
+import 'package:extension/utils/app_preferences.dart';
+import 'package:extension/utils/console.dart';
+import 'package:extension/utils/string.dart';
 
 part 'application_event.dart';
 part 'application_state.dart';
@@ -104,7 +103,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
   Stream<ApplicationState> _mapLoadSettingsApplicationEventToState() async* {
     yield LoadSettingsInProgressApplicationState();
 
-    getIt.get<AppGlobals>().categories = await const LocationRepository().getCategories();
+    getIt.get<AppGlobals>().categories = [];
 
     yield LoadSettingsSuccessApplicationState();
   }
@@ -113,54 +112,58 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
     // LocationAccuracy.powerSave may cause infinite loops on Android
     // while calling getLocation().
 
-    getIt.get<Location>().changeSettings(accuracy: LocationAccuracy.low);
+    try{
 
-    /// Checks if the location service is enabled.
-    try {
-      bool serviceEnabled = await getIt.get<Location>().serviceEnabled();
-      if (serviceEnabled == null || !serviceEnabled) {
-        /// Request the activation of the location service.
-        final bool serviceRequestedResult = await getIt.get<Location>().requestService();
-        serviceEnabled = serviceRequestedResult;
-      }
+      getIt.get<Location>().changeSettings(accuracy: LocationAccuracy.low);
 
-      /// Checks if the app has permission to access location.
-      PermissionStatus permissionGranted = await getIt.get<Location>().hasPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        final PermissionStatus permissionRequestedResult = await getIt.get<Location>().requestPermission();
-        permissionGranted = permissionRequestedResult;
-      }
-      if (permissionGranted == PermissionStatus.granted) {
-        /// getLocation() may loop forever on emulators if location is set to 'None'!
-        ///
-        if (true) {
-        try{
-          getIt.get<AppGlobals>().currentPosition = await Future.any([
-          getIt.get<Location>().getLocation(),
-          Future.delayed(Duration(seconds: 5), () => null),
-          ]);
-          //if (getIt.get<AppGlobals>().currentPosition == null) {
-            //getIt.get<AppGlobals>().currentPosition = await getIt.get<Location>().getLocation();          }
+      /// Checks if the location service is enabled.
+      try {
 
 
-        }catch(ee){}
-        } else {
-        getIt.get<AppGlobals>().currentPosition = LocationData.fromMap(<String, double>{
-          'latitude': kDefaultLat,
-          'longitude': kDefaultLon,
-          'accuracy': 0.0,
-          'altitude': 0.0,
-          'speed': 0.0,
-          'speed_accuracy': 0.0,
-          'heading': 0.0,
-          'time': 0.0,
-        });
+        /// Checks if the app has permission to access location.
+        PermissionStatus permissionGranted = await getIt.get<Location>().hasPermission();
+        if (permissionGranted != PermissionStatus.granted) {
+          final PermissionStatus permissionRequestedResult = await getIt.get<Location>().requestPermission();
+          permissionGranted = permissionRequestedResult;
         }
-      }
-    } catch (e) {
-      Console.log('Location ERROR', e.toString(), error: e);
-    }
+        if (permissionGranted == PermissionStatus.granted) {
+          /// getLocation() may loop forever on emulators if location is set to 'None'!
+          ///
+          bool serviceEnabled = await getIt.get<Location>().serviceEnabled();
+          if (serviceEnabled == null || !serviceEnabled) {
+            /// Request the activation of the location service.
+            final bool serviceRequestedResult = await getIt.get<Location>().requestService();
+            serviceEnabled = serviceRequestedResult;
+          }
+          if (true) {
+            try{
+              getIt.get<AppGlobals>().currentPosition = await Future.any([
+                getIt.get<Location>().getLocation(),
+                Future.delayed(Duration(seconds: 5), () => null),
+              ]);
+              //if (getIt.get<AppGlobals>().currentPosition == null) {
+              //getIt.get<AppGlobals>().currentPosition = await getIt.get<Location>().getLocation();          }
 
+
+            }catch(ee){}
+          } else {
+            getIt.get<AppGlobals>().currentPosition = LocationData.fromMap(<String, double>{
+              'latitude': kDefaultLat,
+              'longitude': kDefaultLon,
+              'accuracy': 0.0,
+              'altitude': 0.0,
+              'speed': 0.0,
+              'speed_accuracy': 0.0,
+              'heading': 0.0,
+              'time': 0.0,
+            });
+          }
+        }
+      } catch (e) {
+        Console.log('Location ERROR', e.toString(), error: e);
+      }
+
+    }catch(e){}
     // Setup is completed. On the main screen.
     yield SetupSuccessApplicationState();
   }

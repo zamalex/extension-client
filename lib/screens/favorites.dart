@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salon/blocs/favorites/favorites_bloc.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/main.dart';
-import 'package:salon/model/fav_model.dart';
-import 'package:salon/utils/bottom_bar_items.dart';
-import 'package:salon/utils/list.dart';
-import 'package:salon/widgets/jumbotron.dart';
-import 'package:salon/widgets/loading_overlay.dart';
-import 'package:salon/widgets/location_list_item.dart';
-import 'package:salon/widgets/strut_text.dart';
-import 'package:salon/widgets/theme_button.dart';
+import 'package:extension/blocs/favorites/favorites_bloc.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/main.dart';
+import 'package:extension/model/fav_model.dart';
+import 'package:extension/utils/bottom_bar_items.dart';
+import 'package:extension/utils/list.dart';
+import 'package:extension/widgets/jumbotron.dart';
+import 'package:extension/widgets/loading_overlay.dart';
+import 'package:extension/widgets/location_list_item.dart';
+import 'package:extension/widgets/strut_text.dart';
+import 'package:extension/widgets/theme_button.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({Key key}) : super(key: key);

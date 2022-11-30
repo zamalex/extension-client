@@ -59,7 +59,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.badee.salon"
+        applicationId "com.badee.extension_client"
         // We need at least 21 for camera plugin.
         minSdkVersion 21
         // Note: From 2 November 2020, app updates and new apps must target Android 10 (API level 29) or higher.

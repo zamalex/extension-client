@@ -8,31 +8,31 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:go_sell_sdk_flutter/model/models.dart';
 import 'package:provider/provider.dart';
-import 'package:salon/blocs/booking/booking_bloc.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/booking_session_model.dart';
-import 'package:salon/data/models/booking_wizard_page_model.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/service_group_model.dart';
-import 'package:salon/data/models/service_model.dart';
-import 'package:salon/data/models/staff_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/model/cart_provider.dart';
-import 'package:salon/model/confirm_order.dart';
-import 'package:salon/screens/booking/widgets/booking_step1.dart';
-import 'package:salon/screens/booking/widgets/booking_step2.dart';
-import 'package:salon/screens/booking/widgets/booking_step3.dart';
-import 'package:salon/screens/booking/widgets/booking_step4.dart';
-import 'package:salon/screens/booking/widgets/booking_success_dialog.dart';
-import 'package:salon/utils/ui.dart';
-import 'package:salon/widgets/full_screen_indicator.dart';
-import 'package:salon/widgets/loading_overlay.dart';
-import 'package:salon/widgets/portrait_mode_mixin.dart';
-import 'package:salon/widgets/sliver_app_title.dart';
-import 'package:salon/utils/text_style.dart';
-import 'package:salon/widgets/strut_text.dart';
-import 'package:salon/widgets/theme_button.dart';
+import 'package:extension/blocs/booking/booking_bloc.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/booking_session_model.dart';
+import 'package:extension/data/models/booking_wizard_page_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/service_group_model.dart';
+import 'package:extension/data/models/service_model.dart';
+import 'package:extension/data/models/staff_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/model/cart_provider.dart';
+import 'package:extension/model/confirm_order.dart';
+import 'package:extension/screens/booking/widgets/booking_step1.dart';
+import 'package:extension/screens/booking/widgets/booking_step2.dart';
+import 'package:extension/screens/booking/widgets/booking_step3.dart';
+import 'package:extension/screens/booking/widgets/booking_step4.dart';
+import 'package:extension/screens/booking/widgets/booking_success_dialog.dart';
+import 'package:extension/utils/ui.dart';
+import 'package:extension/widgets/full_screen_indicator.dart';
+import 'package:extension/widgets/loading_overlay.dart';
+import 'package:extension/widgets/portrait_mode_mixin.dart';
+import 'package:extension/widgets/sliver_app_title.dart';
+import 'package:extension/utils/text_style.dart';
+import 'package:extension/widgets/strut_text.dart';
+import 'package:extension/widgets/theme_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -100,7 +100,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
 
 
     BlocProvider.of<BookingBloc>(context).add(LocationLoadedBookingEvent(locationId: _locationId));
-
+/// booking steps
     wizardPages.add(BookingWizardPageModel.fromJson(<String, dynamic>{
       'step': 1,
       'body': BookingStep1(preselectedService: _preselectedService),
@@ -286,26 +286,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
               middleName: "test",
               lastName: "test",
               metaData: null),
-          /*paymentItems: <PaymentItem>[
-            PaymentItem(
-                name: "item1",
-                amountPerUnit: 1,
-                quantity: Quantity(value: 1),
-                discount: {"type": "F", "value": 10, "maximum_fee": 10, "minimum_fee": 1},
-                description: "Item 1 Apple",
-                taxes: [Tax(amount: Amount(type: "F", value: 10, minimumFee: 1, maximumFee: 10), name: "tax1", description: "tax describtion")],
-                totalAmount: 100),
-          ],
-          // List of taxes
-          taxes: [
-            Tax(amount: Amount(type: "F", value: 10, minimumFee: 1, maximumFee: 10), name: "tax1", description: "tax describtion"),
-            Tax(amount: Amount(type: "F", value: 10, minimumFee: 1, maximumFee: 10), name: "tax1", description: "tax describtion")
-          ],
-          // List of shippnig
-          shippings: [
-            Shipping(name: "shipping 1", amount: 100, description: "shiping description 1"),
-            Shipping(name: "shipping 2", amount: 150, description: "shiping description 2")
-          ],*/
+
           // Post URL
           postURL: "https://tap.company",
           // Payment description
@@ -343,7 +324,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
           // select payments you need to show [Default is all, and you can choose between WEB-CARD-APPLEPAY ]
           paymentType: PaymentType.CARD,
           // Transaction mode
-          sdkMode: SDKMode.Production);
+          sdkMode: SDKMode.Sandbox);
     } on PlatformException {
       // platformVersion = 'Failed to get platform version.';
     }

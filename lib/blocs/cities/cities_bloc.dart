@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/city_model.dart';
-import 'package:salon/data/repositories/location_repository.dart';
-import 'package:salon/model/cities_data.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/city_model.dart';
+import 'package:extension/data/repositories/location_repository.dart';
+import 'package:extension/model/cities_data.dart';
 
 part 'cities_event.dart';
 part 'cities_state.dart';
@@ -19,6 +19,8 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
     }
   }
 
+
+  /// search cities
   Stream<CitiesState> _mapSearchCitiesEventToState(SearchRequestedCitiesEvent event) async* {
     if (event.q.length >= kMinimalNameQueryLength) {
       yield LoadCitiesInProgressState();

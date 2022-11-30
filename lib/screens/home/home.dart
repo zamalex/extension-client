@@ -5,31 +5,30 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/category_model.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/models/search_tab_model.dart';
-import 'package:salon/data/repositories/location_repository.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/main.dart';
-import 'package:salon/model/banners_model.dart'as bann;
-import 'package:salon/model/category.dart';
-import 'package:salon/model/location_model.dart';
-import 'package:salon/model/products_data.dart';
-import 'package:salon/screens/home/widgets/category_list_item.dart';
-import 'package:salon/screens/home/widgets/home_header.dart';
-import 'package:salon/screens/home/widgets/service_list_item.dart';
-import 'package:salon/screens/location/location.dart';
-import 'package:salon/screens/product_details_screen.dart';
-import 'package:salon/screens/search/search.dart';
-import 'package:salon/screens/search/widgets/search_tabs.dart';
-import 'package:salon/utils/bottom_bar_items.dart';
-import 'package:salon/utils/geo.dart';
-import 'package:salon/utils/ui.dart';
-import 'package:salon/widgets/bold_title.dart';
-import 'package:salon/widgets/locations_carousel.dart';
-import 'package:salon/widgets/shimmer_box.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/category_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/models/search_tab_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/main.dart';
+import 'package:extension/model/banners_model.dart'as bann;
+import 'package:extension/model/category.dart';
+import 'package:extension/model/location_model.dart';
+import 'package:extension/model/products_data.dart';
+import 'package:extension/screens/home/widgets/category_list_item.dart';
+import 'package:extension/screens/home/widgets/home_header.dart';
+import 'package:extension/screens/home/widgets/service_list_item.dart';
+import 'package:extension/screens/location/location.dart';
+import 'package:extension/screens/product_details_screen.dart';
+import 'package:extension/screens/search/search.dart';
+import 'package:extension/screens/search/widgets/search_tabs.dart';
+import 'package:extension/utils/bottom_bar_items.dart';
+import 'package:extension/utils/geo.dart';
+import 'package:extension/utils/ui.dart';
+import 'package:extension/widgets/bold_title.dart';
+import 'package:extension/widgets/locations_carousel.dart';
+import 'package:extension/widgets/shimmer_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -49,9 +48,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   List<Product> products=[];
   List<LocationModel> _topLocations;
 
-  final LocationRepository locationRepository = const LocationRepository();
 
 
+  /// check if there is an update
   checkUpdate()async{
 
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -109,6 +108,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     _loadData();
   }
 
+
+  /// open product details screen if opened from dynamic linkn
   checkLink()async{
     final PendingDynamicLinkData initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
     // FirebaseCrashlytics.instance.crash();
@@ -141,6 +142,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 
+
+  /// load banner , salons, categories and products
   Future<void> _loadData() async {
 
 
@@ -167,7 +170,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
       });
     });
-    //_recentlyViewed = await locationRepository.getRecentlyViewed();
     SalonModel().getSalons().then((value){
       _recentlyViewed=value.map((e){
         return LocationModel(e.offer,e.id, e.name, e.rating, 100, e.address, 'city', '545545545', 'email', 'website', 'description', e.logo, 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');

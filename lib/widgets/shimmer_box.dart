@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
+import 'package:extension/configs/constants.dart';
 import 'package:shimmer/shimmer.dart';
 
 /// A convenient widget to create a [Shimmer] box where needed to present a

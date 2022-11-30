@@ -4,9 +4,9 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/data/models/review_model.dart';
-import 'package:salon/model/constants.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/data/models/review_model.dart';
+import 'package:extension/model/constants.dart';
 
 import '../main.dart';
 
@@ -29,6 +29,8 @@ class MyReviews {
   }
 
 
+
+  ///get reviews of salon
   Future<List<ReviewModel>> getSalonReviews(String id) async {
 
     Map<String, String> headers = {
@@ -67,6 +69,7 @@ class MyReviews {
   }
 
 
+  /// add review for salon
   Future submitReview(String id,String comment,double rating) async {
 
     Map<String, String> headers = {
@@ -104,6 +107,9 @@ class MyReviews {
       return false;
     }
   }
+
+
+  /// check if a staff of salon was previously rated
   Future<bool> checkReview(int staff) async {
 
     Map<String, String> headers = {
@@ -136,6 +142,7 @@ class MyReviews {
 
 
 
+  /// rate salon staff
   Future submitWorkerReview(String id,String comment,double rating) async {
 
     Map<String, String> headers = {
@@ -175,6 +182,8 @@ class MyReviews {
   }
 
 
+
+  ///get my reviews of salons
   Future<List<SingleReview>> getMyReviews(String id) async {
 
     Map<String, String> headers = {

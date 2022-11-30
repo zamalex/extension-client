@@ -6,7 +6,7 @@ import 'constants.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:salon/model/constants.dart';
+import 'package:extension/model/constants.dart';
 
 class SalonStaff {
   List<SingleStaff> data;
@@ -26,6 +26,8 @@ class SalonStaff {
     status = json['status']as int;
   }
 
+
+  /// get salon workers
   Future<List<SingleStaff>> getSalonStaff(String id) async {
 
     Map<String, String> headers = {

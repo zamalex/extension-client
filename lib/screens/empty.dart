@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salon/generated/l10n.dart';
+import 'package:extension/generated/l10n.dart';
 
 /// General purpose empty screen.
 class EmptyScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
-import 'package:salon/data/data_provider.dart';
-import 'package:salon/data/models/data_response_model.dart';
-import 'package:salon/data/models/review_model.dart';
+import 'package:extension/data/data_provider.dart';
+import 'package:extension/data/models/data_response_model.dart';
+import 'package:extension/data/models/review_model.dart';
 
 class RatingsRepository {
   const RatingsRepository({

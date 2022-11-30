@@ -1,11 +1,11 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/material.dart';
-import 'package:salon/data/models/appointment_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/model/appointments_data.dart';
-import 'package:salon/utils/async.dart';
-import 'package:salon/utils/ui.dart';
-import 'package:salon/widgets/labeled_icon_button.dart';
+import 'package:extension/data/models/appointment_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/model/appointments_data.dart';
+import 'package:extension/utils/async.dart';
+import 'package:extension/utils/ui.dart';
+import 'package:extension/widgets/labeled_icon_button.dart';
 import 'package:sprintf/sprintf.dart';
 
 class AppointmentTabBar extends StatefulWidget {

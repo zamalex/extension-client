@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/data/repositories/favorites_repository.dart';
-import 'package:salon/model/location_model.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/data/repositories/favorites_repository.dart';
+import 'package:extension/model/location_model.dart';
 
 part 'favorites_event.dart';
 part 'favorites_state.dart';
@@ -18,6 +18,8 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     }
   }
 
+
+  ///get my favourites salons
   Stream<FavoritesState> _mapLoadFavoritesEventToState(DataLoadedFavoritesEvent event) async* {
     yield LoadInProgressFavoritesState();
 

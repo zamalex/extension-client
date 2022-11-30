@@ -1,10 +1,10 @@
-import 'package:salon/data/models/business_hours_model.dart';
-import 'package:salon/data/models/image_model.dart';
-import 'package:salon/data/models/photo_model.dart';
-import 'package:salon/data/models/review_model.dart';
-import 'package:salon/data/models/service_group_model.dart';
-import 'package:salon/data/models/staff_model.dart';
-import 'package:salon/utils/geo.dart';
+import 'package:extension/data/models/business_hours_model.dart';
+import 'package:extension/data/models/image_model.dart';
+import 'package:extension/data/models/photo_model.dart';
+import 'package:extension/data/models/review_model.dart';
+import 'package:extension/data/models/service_group_model.dart';
+import 'package:extension/data/models/staff_model.dart';
+import 'package:extension/utils/geo.dart';
 
 enum LocationRatingSpecification { Highest, Lowest }
 

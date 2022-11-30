@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
-import 'package:salon/configs/app_theme.dart';
-import 'package:salon/data/models/category_model.dart';
-import 'package:salon/data/models/user_model.dart';
-import 'package:salon/model/constants.dart';
-import 'package:salon/model/share_data.dart';
+import 'package:extension/configs/app_theme.dart';
+import 'package:extension/data/models/category_model.dart';
+import 'package:extension/data/models/user_model.dart';
+import 'package:extension/model/constants.dart';
+import 'package:extension/model/share_data.dart';
 import 'package:http/http.dart' as http;
 
 /// Class to store runtime global settings.

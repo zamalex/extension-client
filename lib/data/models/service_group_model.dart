@@ -1,4 +1,4 @@
-import 'package:salon/data/models/service_model.dart';
+import 'package:extension/data/models/service_model.dart';
 
 class ServiceGroupModel {
   ServiceGroupModel(

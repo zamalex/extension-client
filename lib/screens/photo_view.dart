@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/image_model.dart';
-import 'package:salon/data/models/photo_model.dart';
-import 'package:salon/utils/app_cache_manager.dart';
-import 'package:salon/utils/text_style.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/image_model.dart';
+import 'package:extension/data/models/photo_model.dart';
+import 'package:extension/utils/app_cache_manager.dart';
+import 'package:extension/utils/text_style.dart';
 
 class PhotoViewScreen extends StatefulWidget {
   const PhotoViewScreen({

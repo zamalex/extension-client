@@ -5,24 +5,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
-import 'package:salon/blocs/appointment/appointment_bloc.dart';
-import 'package:salon/blocs/auth/auth_bloc.dart';
-import 'package:salon/blocs/booking/booking_bloc.dart';
-import 'package:salon/blocs/chat/chat_bloc.dart';
-import 'package:salon/blocs/cities/cities_bloc.dart';
-import 'package:salon/blocs/favorites/favorites_bloc.dart';
-import 'package:salon/blocs/loyalty/loyalty_bloc.dart';
-import 'package:salon/blocs/ratings/ratings_bloc.dart';
-import 'package:salon/blocs/search/search_bloc.dart';
-import 'package:salon/blocs/theme/theme_bloc.dart';
-import 'package:salon/configs/app_theme.dart';
-import 'package:salon/configs/app_globals.dart';
-import 'package:salon/configs/routes.dart';
-import 'package:salon/screens/onboarding.dart';
-import 'package:salon/screens/splash.dart';
+import 'package:extension/blocs/appointment/appointment_bloc.dart';
+import 'package:extension/blocs/auth/auth_bloc.dart';
+import 'package:extension/blocs/booking/booking_bloc.dart';
+import 'package:extension/blocs/cities/cities_bloc.dart';
+import 'package:extension/blocs/favorites/favorites_bloc.dart';
+import 'package:extension/blocs/ratings/ratings_bloc.dart';
+import 'package:extension/blocs/search/search_bloc.dart';
+import 'package:extension/blocs/theme/theme_bloc.dart';
+import 'package:extension/configs/app_theme.dart';
+import 'package:extension/configs/app_globals.dart';
+import 'package:extension/configs/routes.dart';
+import 'package:extension/screens/onboarding.dart';
+import 'package:extension/screens/splash.dart';
 
-import 'package:salon/utils/localization.dart';
-import 'package:salon/widgets/bottom_navigation.dart';
+import 'package:extension/utils/localization.dart';
+import 'package:extension/widgets/bottom_navigation.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'blocs/application/application_bloc.dart';
@@ -41,10 +39,8 @@ CitiesBloc _citiesBloc;
 ThemeBloc _themeBloc;
 AppointmentBloc _appointmentBloc;
 FavoritesBloc _favoritesBloc;
-LoyaltyBloc _loyaltyBloc;
 BookingBloc _bookingBloc;
 RatingsBloc _ratingsBloc;
-ChatBloc _chatBloc;
 
 class MainApp extends StatefulWidget {
 
@@ -83,9 +79,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     _themeBloc = ThemeBloc();
     _appointmentBloc = AppointmentBloc();
     _favoritesBloc = FavoritesBloc();
-    _loyaltyBloc = LoyaltyBloc();
     _ratingsBloc = RatingsBloc();
-    _chatBloc = ChatBloc();
 
     _applicationBloc = ApplicationBloc(
       authBloc: _authBloc,
@@ -112,10 +106,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     _applicationBloc.close();
     _appointmentBloc.close();
     _favoritesBloc.close();
-    _loyaltyBloc.close();
     _bookingBloc.close();
     _ratingsBloc.close();
-    _chatBloc.close();
 
     super.dispose();
   }
@@ -143,10 +135,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
         BlocProvider<ThemeBloc>(create: (BuildContext context) => _themeBloc),
         BlocProvider<AppointmentBloc>(create: (BuildContext context) => _appointmentBloc),
         BlocProvider<FavoritesBloc>(create: (BuildContext context) => _favoritesBloc),
-        BlocProvider<LoyaltyBloc>(create: (BuildContext context) => _loyaltyBloc),
         BlocProvider<BookingBloc>(create: (BuildContext context) => _bookingBloc),
         BlocProvider<RatingsBloc>(create: (BuildContext context) => _ratingsBloc),
-        BlocProvider<ChatBloc>(create: (BuildContext context) => _chatBloc),
       ],
       child: BlocBuilder<ApplicationBloc, ApplicationState>(
         buildWhen: (ApplicationState previousState, ApplicationState currentState) =>

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/screens/checkout/add_copon.dart';
-import 'package:salon/generated/l10n.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/screens/checkout/add_copon.dart';
+import 'package:extension/generated/l10n.dart';
 
 class ExpandCopon extends StatefulWidget {
 

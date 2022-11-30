@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salon/blocs/appointment/appointment_bloc.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/configs/routes.dart';
-import 'package:salon/data/models/appointment_model.dart';
-import 'package:salon/generated/l10n.dart';
-import 'package:salon/utils/ui.dart';
-import 'package:salon/widgets/arrow_right_icon.dart';
-import 'package:salon/widgets/list_item.dart';
-import 'package:salon/widgets/star_rating.dart';
-import 'package:salon/widgets/strut_text.dart';
-import 'package:salon/widgets/theme_button.dart';
-import 'package:salon/widgets/theme_text_input.dart';
-import 'package:salon/widgets/uppercase_title.dart';
+import 'package:extension/blocs/appointment/appointment_bloc.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/configs/routes.dart';
+import 'package:extension/data/models/appointment_model.dart';
+import 'package:extension/generated/l10n.dart';
+import 'package:extension/utils/ui.dart';
+import 'package:extension/widgets/arrow_right_icon.dart';
+import 'package:extension/widgets/list_item.dart';
+import 'package:extension/widgets/star_rating.dart';
+import 'package:extension/widgets/strut_text.dart';
+import 'package:extension/widgets/theme_button.dart';
+import 'package:extension/widgets/theme_text_input.dart';
+import 'package:extension/widgets/uppercase_title.dart';
 import 'package:sprintf/sprintf.dart';
-import 'package:salon/utils/text_style.dart';
+import 'package:extension/utils/text_style.dart';
 
 class RatingScreen extends StatefulWidget {
   const RatingScreen({

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:salon/configs/constants.dart';
-import 'package:salon/data/models/location_model.dart';
-import 'package:salon/widgets/bold_title.dart';
-import 'package:salon/widgets/location_list_item.dart';
-import 'package:salon/widgets/shimmer_box.dart';
+import 'package:extension/configs/constants.dart';
+import 'package:extension/data/models/location_model.dart';
+import 'package:extension/widgets/bold_title.dart';
+import 'package:extension/widgets/location_list_item.dart';
+import 'package:extension/widgets/shimmer_box.dart';
 
 /// Carousel style widget for vertical listing of locations.
 class LocationsCarousel extends StatefulWidget {

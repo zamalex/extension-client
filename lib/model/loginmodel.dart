@@ -42,6 +42,9 @@ class LoginModel {
     return data;
   }
 
+
+
+  /// login api
   Future<LoginModel> loginUser(String email, String password) async {
     var param = {
       'phone': email,
@@ -77,6 +80,8 @@ class LoginModel {
     }
   }
 
+
+  ///register api
   Future<Map<String,dynamic>> registerUser(String name,String email, String password) async {
     var param = {
       'name':name,
@@ -116,7 +121,7 @@ class LoginModel {
       return {'status':false,'message':'error occured'};
     }
   }
-
+///verify sms api
   Future<Map<String,dynamic>> verifyRegister(String id,String code) async {
     var param = {
       'user_id':id,
@@ -157,6 +162,8 @@ class LoginModel {
     }
   }
 
+
+  ///verify sms password api
   Future<Map<String,dynamic>> verifyPassword(String phone,String code) async {
     var param = {
       'phone':phone,
@@ -198,6 +205,8 @@ class LoginModel {
     }
   }
 
+
+  /// get user profile pic
   Future<String> getProfileImage()async{
     var param = {
 
@@ -240,6 +249,8 @@ class LoginModel {
   }
 
 
+
+  ///delete account required for ios
 
   Future<bool> deleteAccount()async{
     var param = {
@@ -326,7 +337,7 @@ class LoginModel {
     }
   }
 
-
+///change password api
 
   Future<bool> changePass(String code,String pass)async{
     var param = {
@@ -369,6 +380,7 @@ class LoginModel {
     }
   }
 
+  /// forgot password api
   Future<Map<String,dynamic>> forgotPassword(String phone) async {
     var param = {
       'email_or_phone':phone,

@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:salon/model/cart_model.dart';
-import 'package:salon/model/mycarts.dart';
-import 'package:salon/screens/cart/cart_item.dart';
-import 'package:salon/utils/ui.dart';
+import 'package:extension/model/cart_model.dart';
+import 'package:extension/model/mycarts.dart';
+import 'package:extension/screens/cart/cart_item.dart';
+import 'package:extension/utils/ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartProvider extends ChangeNotifier {
@@ -22,11 +22,16 @@ class CartProvider extends ChangeNotifier {
   double balance=0;
   bool payWithBalance = false;
 
+
+
+  ///select receive from salon option
   checkReceiveFromSalon(bool v){
     receivFromSalon=v;
     notifyListeners();
   }
 
+
+  /// check if there is products from another salon
   bool canAdd(int salon){
     if(appointments.isNotEmpty){
       print('appointment id from cart is ${appointments['shop_id']}');
@@ -43,10 +48,14 @@ class CartProvider extends ChangeNotifier {
     return items.isNotEmpty&&appointments.isNotEmpty;
   }
 
+
+  ///check pay with balance
   setPayWithBalance(bool p){
     payWithBalance = p;
     notifyListeners();
   }
+
+
 
   clear(){
     // items = [];
@@ -74,6 +83,9 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
 
   }
+
+
+
   void addAppointments(Map map)async{
     prefs ??= await SharedPreferences.getInstance();
     prefs.setString("previous", jsonEncode(map));
@@ -82,7 +94,7 @@ class CartProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
+///init cart screen
   void init()async{
     receivFromSalon = false;
     items = [];
@@ -131,6 +143,8 @@ class CartProvider extends ChangeNotifier {
     return total;
   }
 
+
+  ///check coupon
   checkCopon(String code,BuildContext context){
     if(code.isNotEmpty)
     MyCarts().checkCopon(allCarts[0].ownerId, code).then((value){
@@ -142,7 +156,7 @@ class CartProvider extends ChangeNotifier {
     });
   }
 
-
+///get user balance
   checkBalance() async {
    balance = 0;
    notifyListeners();
@@ -153,6 +167,8 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  /// add item to cart
   void addItem(CartModel item,BuildContext context) async{
      isLoading = true;
     notifyListeners();
@@ -175,26 +191,11 @@ class CartProvider extends ChangeNotifier {
      isLoading = false;
 
     notifyListeners();
-   /* if(items==null)
-      items=[];
-    var existing=null;
-    if(items.isNotEmpty)
-     existing = items.firstWhere((element) => element.id==item.id,orElse: ()=>null);
 
-    if(existing==null)
-      items.add(item);
-    else{
-      items[items.indexWhere((element) => element.id==item.id)].quantity++;
-
-    }
-    notifyListeners();
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('cart', CartModel.encode(items));*/
-    
-    
   }
 
+
+  ///get item count
   int itemCount(int id){
 
     CartModel existing=null;
@@ -212,6 +213,8 @@ class CartProvider extends ChangeNotifier {
 
   }
 
+
+  ///remove item from cart
   void removeItem(CartModel item) async{
     isLoading = true;
     notifyListeners();
@@ -235,6 +238,8 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  ///delete cart
   Future deleteCart()async{
     isLoading = true;
     notifyListeners();
@@ -251,7 +256,7 @@ notifyListeners();
     return true;
   }
 
-
+/// get order summary
   getOrdersummary(){
     OrderSummary().getOrderSummary(allCarts[0].ownerId,appointments).then((value){
       /*if(appointments.isNotEmpty){

@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:salon/model/constants.dart';
+import 'package:extension/model/constants.dart';
 
+
+///bsanners model
 class Banners {
   List<Banner> data;
   bool success;
@@ -22,6 +24,9 @@ class Banners {
     status = json['status']as int;
   }
 
+
+
+  ///get home banners
   Future<List<Banner>> getBanners() async {
     try {
 

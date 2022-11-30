@@ -1,4 +1,4 @@
-import 'package:salon/data/models/image_model.dart';
+import 'package:extension/data/models/image_model.dart';
 
 class PhotoModel {
   const PhotoModel(
