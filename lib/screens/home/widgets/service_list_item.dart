@@ -51,7 +51,7 @@ class ServiceListItem extends StatelessWidget {
                       topRight: Radius.circular(kBoxDecorationRadius),
                     ),
                     image: DecorationImage(
-                      image: category.thumbnailImage!='assets/images/onboarding/welcome.png'?NetworkImage(category.thumbnailImage,):category.salonImage!='assets/images/onboarding/welcome.png'?NetworkImage(category.salonImage,):AssetImage('assets/images/onboarding/welcome.png')as ImageProvider,
+                      image: category.thumbnailImage!='assets/images/onboarding/welcome.jpg'?NetworkImage(category.thumbnailImage,):category.salonImage!='assets/images/onboarding/welcome.jpg'?NetworkImage(category.salonImage,):AssetImage('assets/images/onboarding/welcome.jpg')as ImageProvider,
                       fit: BoxFit.cover,
                     ),
                   ),

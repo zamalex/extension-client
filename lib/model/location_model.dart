@@ -214,7 +214,7 @@ class Data {
     name = json['name'] as String??'';
     latitude = (json['latitude'] as String).isEmpty?'0':(json['latitude'] as String);
     longitude = (json['longitude'] as String).isEmpty?'0':(json['longitude'] as String);
-    logo = ((json['logo'] as  String)==null|| (json['logo']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['logo']as String;
+    logo = ((json['logo'] as  String)==null|| (json['logo']as String).isEmpty)?'assets/images/onboarding/welcome.jpg':json['logo']as String;
     address = json['address'] as  String??'';
     phone = json['phone'] as  String??'';
     rating = double.parse(json['rating'].toString())??0;

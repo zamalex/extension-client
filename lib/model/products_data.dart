@@ -242,8 +242,8 @@ class Product {
     service_duration = json['service_duration']as int;
     name = json['name']as String;
     shop_name = json['shop_name']as String;
-    thumbnailImage = ((json['thumbnail_image'] as  String)==null|| (json['thumbnail_image']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['thumbnail_image']as String;
-    salonImage = ((json['shop_logo'] as  String)==null|| (json['shop_logo']as String).isEmpty)?'assets/images/onboarding/welcome.png':json['shop_logo']as String;
+    thumbnailImage = ((json['thumbnail_image'] as  String)==null|| (json['thumbnail_image']as String).isEmpty)?'assets/images/onboarding/welcome.jpg':json['thumbnail_image']as String;
+    salonImage = ((json['shop_logo'] as  String)==null|| (json['shop_logo']as String).isEmpty)?'assets/images/onboarding/welcome.jpg':json['shop_logo']as String;
 
    // thumbnailImage = json['thumbnail_image']as String;
     basePrice = (json['base_price']as String).replaceAll(',', '');

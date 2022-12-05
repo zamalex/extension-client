@@ -21,7 +21,7 @@ class ProfileInfo extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image:img.isNotEmpty?NetworkImage(img): AssetImage('assets/images/onboarding/welcome.png')as ImageProvider,
+                image:img.isNotEmpty?NetworkImage(img): AssetImage('assets/images/onboarding/welcome.jpg')as ImageProvider,
                 fit: BoxFit.cover,
               ),
             ),

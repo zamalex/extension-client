@@ -67,7 +67,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         padding: const EdgeInsets.all(8.0),
         child:loading?Center(child: CircularProgressIndicator(),): productDetailsResponse==null?Center(child: Text('no available data'),):ListView(children: [
 
-          productDetailsResponse.data.first.thumbnailImage==null||productDetailsResponse.data.first.thumbnailImage=='null'||productDetailsResponse.data.first.thumbnailImage.isEmpty?Image.asset('assets/images/onboarding/welcome.png',height: 200,width: double.infinity,fit: BoxFit.cover):Image.network(productDetailsResponse.data.first.thumbnailImage,height: 200,width: double.infinity,fit: BoxFit.cover,),
+          productDetailsResponse.data.first.thumbnailImage==null||productDetailsResponse.data.first.thumbnailImage=='null'||productDetailsResponse.data.first.thumbnailImage.isEmpty?Image.asset('assets/images/onboarding/welcome.jpg',height: 200,width: double.infinity,fit: BoxFit.cover):Image.network(productDetailsResponse.data.first.thumbnailImage,height: 200,width: double.infinity,fit: BoxFit.cover,),
           SizedBox(height: 15,),
           Text(productDetailsResponse==null?'':productDetailsResponse.data.first.name),
         Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: Text(!productDetailsResponse.data.first.hasDiscount?'':productDetailsResponse.data.first.strokedPrice+' ${L10n.of(context).SAR}',style:TextStyle(decoration: TextDecoration.lineThrough,fontSize: 12,color: Colors.red),))

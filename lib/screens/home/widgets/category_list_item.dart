@@ -16,7 +16,7 @@ class CategoryListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var image = category.image.isEmpty?AssetImage('assets/images/onboarding/welcome.png'):NetworkImage(category.image);
+    var image = category.image.isEmpty?AssetImage('assets/images/onboarding/welcome.jpg'):NetworkImage(category.image);
 
     return Card(
       elevation: 1,

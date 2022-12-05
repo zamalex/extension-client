@@ -119,7 +119,7 @@ const String kLogzioUrl = 'https://listener-uk.logz.io:8071/';
 
 /// Assets images
 class AssetsImages {
-  static const String onboardingWelcome = 'assets/images/onboarding/welcome.png';
+  static const String onboardingWelcome = 'assets/images/onboarding/welcome.jpg';
   static const String onboardingFind = 'assets/images/onboarding/find.png';
   static const String onboardingAppointment = 'assets/images/onboarding/appointment.png';
   static const String homeWavyHeader = 'assets/images/makeup.jpg';

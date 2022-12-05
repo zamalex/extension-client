@@ -72,7 +72,7 @@ class SearchScreenState extends State<SearchScreen> {
 
   /*  SalonModel().getSalons().then((value){
      salons =value.map((e){
-        return LocationModel(e.id, e.name, 2.5, 100, 'Askan Building 17, Al Olaya, Riyadh', 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.png', 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
+        return LocationModel(e.id, e.name, 2.5, 100, 'Askan Building 17, Al Olaya, Riyadh', 'city', '545545545', 'email', 'website', 'description', 'assets/images/onboarding/welcome.jpg', 'genders', [], null, [], [], [], [], [], 'cancelationPolicy');
       }).toList();
       setState(() {
 

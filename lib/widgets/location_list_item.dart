@@ -39,7 +39,7 @@ class LocationListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    // location.mainPhoto = 'https://i.picsum.photos/id/556/200/300.jpg?hmac=TLwE28gIMuw2BUTndMuC3hoTlK6FtrE6Mx1UnR2dzu8';
-    var image = location.mainPhoto=='assets/images/onboarding/welcome.png'?AssetImage(location.mainPhoto):NetworkImage(location.mainPhoto);
+    var image = location.mainPhoto=='assets/images/onboarding/welcome.jpg'?AssetImage(location.mainPhoto):NetworkImage(location.mainPhoto);
 
     switch (viewType) {
       case LocationListItemViewType.block:

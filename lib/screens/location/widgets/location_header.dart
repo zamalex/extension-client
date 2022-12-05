@@ -37,7 +37,7 @@ class LocationHeader extends StatelessWidget {
       message:
       Text('Tap a star to set your rating. Add more description here if you want.'),
       // your app's logo?
-      image:Image.asset('assets/images/onboarding/welcome.png',width: 100,height: 100,),
+      image:Image.asset('assets/images/onboarding/welcome.jpg',width: 100,height: 100,),
       submitButtonText: 'Submit',
       onCancelled: () => print('cancelled'),
       onSubmitted: (response) {
@@ -54,7 +54,7 @@ class LocationHeader extends StatelessWidget {
       );
     }
 
-    var image = location.mainPhoto=='assets/images/onboarding/welcome.png'?AssetImage(location.mainPhoto):NetworkImage(location.mainPhoto);
+    var image = location.mainPhoto=='assets/images/onboarding/welcome.jpg'?AssetImage(location.mainPhoto):NetworkImage(location.mainPhoto);
 
     return Stack(
       alignment: AlignmentDirectional.bottomStart,

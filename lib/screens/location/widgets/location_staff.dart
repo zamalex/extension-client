@@ -60,7 +60,7 @@ class LocationStaff extends StatelessWidget {
                       child: staff.profilePhoto.isEmpty
                           ? CircleAvatar(
                         radius: 48,
-                        backgroundImage: AssetImage('assets/images/onboarding/welcome.png'),
+                        backgroundImage: AssetImage('assets/images/onboarding/welcome.jpg'),
                       )
                           : CircleAvatar(
                               radius: 48,
