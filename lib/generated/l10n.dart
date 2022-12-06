@@ -1430,7 +1430,7 @@ class L10n {
     );
   }
 
-  /// `Welcome to Salon`
+  /// `Welcome to Extension`
   String get onboardingPage1Title {
     return Intl.message(
       'Welcome to Extension',
@@ -1440,7 +1440,7 @@ class L10n {
     );
   }
 
-  /// `Salon lets you easily find and book appointments with local health and beauty professionals.`
+  /// `Extension lets you easily find and book appointments with local health and beauty professionals.`
   String get onboardingPage1Body {
     return Intl.message(
       'Extension lets you easily find and book appointments with local health and beauty professionals.',
@@ -3075,7 +3075,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'ar'),
-     // Locale.fromSubtags(languageCode: 'hr'),
+      Locale.fromSubtags(languageCode: 'hr'),
     ];
   }
 
