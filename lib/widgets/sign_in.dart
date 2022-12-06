@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
+//import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:extension/blocs/auth/auth_bloc.dart';
 import 'package:extension/configs/app_globals.dart';
@@ -118,23 +119,23 @@ class _SignInWidgetState extends State<SignInWidget> with SingleTickerProviderSt
 
               getIt.get<AppGlobals>().user.id = value.user.id;
               getIt.get<AppGlobals>().ID= value.user.id;
-              final status = await OneSignal.shared.getDeviceState();
+             /* final status = await OneSignal.shared.getDeviceState();
               final String osUserID = status.userId;
 
               print('onesignal id $osUserID');
               if(osUserID!=null)
                 getIt.get<AppGlobals>().sendPlayerID(osUserID);
-             // Provider.of<CartProvider>(context,listen: false).init();
+           */
 
-            //  Phoenix.rebirth(context);
-             /* Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => BottomNavigation(),
-                ),
-                    (route) => false,
-              );*/
-             // Navigator.of(context, rootNavigator: true).pop();
+              FirebaseMessaging.instance.getToken().then((value) {
+                String token = value;
+
+                if(token!=null){
+                  print('onesignal id $token');
+                  if(token!=null)
+                    getIt.get<AppGlobals>().sendPlayerID(token);
+                }
+              });
 
               (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar).onTap(0);
             }

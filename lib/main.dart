@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 //import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:location/location.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
+//import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:extension/blocs/app_observer.dart';
 import 'package:extension/configs/app_theme.dart';
@@ -33,6 +34,19 @@ import 'model/share_data.dart';
 GetIt getIt = GetIt.instance;
 ShareData shareData = ShareData(salon: 0,product: 0,type: 0);
 
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+
+  print("Handling a background message: ${message.messageId}");
+}
+
+
 Future<void> main() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
   // can be called before `runApp()`
@@ -48,12 +62,37 @@ Future<void> main() async {
 
 
 
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
+
+
+
   ///init onesignal notifications
 // Print the data of the snapshot
   // Get any initial links
   // Init service locator singletons.
   //Remove this method to stop OneSignal Debugging
-  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+  /*OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
   OneSignal.shared.setAppId("da925224-60d5-4ac8-b064-c818400d06fd");
 
@@ -85,7 +124,7 @@ Future<void> main() async {
   OneSignal.shared.setEmailSubscriptionObserver((OSEmailSubscriptionStateChanges emailChanges) {
     // Will be called whenever then user's email subscription changes
     // (ie. OneSignal.setEmail(email) is called and the user gets registered
-  });
+  });*/
   initServiceLocator();
 
   // Init remote logging service.
@@ -109,12 +148,23 @@ Future<void> main() async {
          getIt.get<AppGlobals>().ID = loginModel.user.id;
           Globals.TOKEN = loginModel.accessToken;
          print(loginModel.user.name);
-         final status = await OneSignal.shared.getDeviceState();
+         /*final status = await OneSignal.shared.getDeviceState();
          final String osUserID = status.userId;
 
          print('onesignal id $osUserID');
           if(osUserID!=null)
             getIt.get<AppGlobals>().sendPlayerID(osUserID);
+            */
+
+         FirebaseMessaging.instance.getToken().then((value) {
+           String token = value;
+
+           if(token!=null){
+             print('onesignal id $token');
+             if(token!=null)
+               getIt.get<AppGlobals>().sendPlayerID(token);
+           }
+         });
        }
      }
    }

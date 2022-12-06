@@ -102,12 +102,13 @@ dependencies:
   firebase_dynamic_links: any
 
   #onesignal
-  onesignal_flutter: any
+  #onesignal_flutter: any
 
 #check version of app
   new_version: any
   firebase_analytics: any
   firebase_database: any
+  firebase_messaging: ^14.1.3
 
 
 dev_dependencies:
