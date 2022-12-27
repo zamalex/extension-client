@@ -113,8 +113,62 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
     // while calling getLocation().
 
     try{
+      Location location = new Location();
 
-      getIt.get<Location>().changeSettings(accuracy: LocationAccuracy.low);
+      bool _serviceEnabled;
+      PermissionStatus _permissionGranted;
+      LocationData _locationData;
+
+      _serviceEnabled = await location.serviceEnabled();
+      if (!_serviceEnabled) {
+        _serviceEnabled = await location.requestService();
+        if (!_serviceEnabled) {
+          return;
+        }
+      }
+
+      _permissionGranted = await location.hasPermission();
+      if (_permissionGranted == PermissionStatus.denied) {
+        _permissionGranted = await location.requestPermission();
+        if (_permissionGranted != PermissionStatus.granted) {
+          return;
+        }
+      }
+
+
+      if (_permissionGranted==PermissionStatus.granted) {
+        try{
+          getIt.get<Location>().changeSettings(accuracy: LocationAccuracy.low);
+
+          getIt.get<AppGlobals>().currentPosition = await Future.any([
+             location.getLocation(),
+            Future.delayed(Duration(seconds: 5), () => null),
+          ]);
+
+        }catch(ee){}
+      } else {
+        getIt.get<AppGlobals>().currentPosition = LocationData.fromMap(<String, double>{
+          'latitude': kDefaultLat,
+          'longitude': kDefaultLon,
+          'accuracy': 0.0,
+          'altitude': 0.0,
+          'speed': 0.0,
+          'speed_accuracy': 0.0,
+          'heading': 0.0,
+          'time': 0.0,
+        });
+      }
+
+    }catch(e){}
+    // Setup is completed. On the main screen.
+    yield SetupSuccessApplicationState();
+  }
+  /*Stream<ApplicationState> _mapInitLocationServicesApplicationEventToState() async* {
+    // LocationAccuracy.powerSave may cause infinite loops on Android
+    // while calling getLocation().
+
+    try{
+
 
       /// Checks if the location service is enabled.
       try {
@@ -135,8 +189,10 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
             final bool serviceRequestedResult = await getIt.get<Location>().requestService();
             serviceEnabled = serviceRequestedResult;
           }
-          if (true) {
+          if (serviceEnabled&&permissionGranted==PermissionStatus.granted) {
             try{
+              getIt.get<Location>().changeSettings(accuracy: LocationAccuracy.low);
+
               getIt.get<AppGlobals>().currentPosition = await Future.any([
                 getIt.get<Location>().getLocation(),
                 Future.delayed(Duration(seconds: 5), () => null),
@@ -167,7 +223,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
     // Setup is completed. On the main screen.
     yield SetupSuccessApplicationState();
   }
-
+*/
   Stream<ApplicationState> _mapCompletedOnboardingApplicationEventToState() async* {
     // Save the info about completed onboarding process to shared preferences.
     await getIt.get<AppPreferences>().setBool(PreferenceKey.isOnboarded, true);

@@ -68,52 +68,54 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   getLocation() async {
       try{
-        getIt.get<Location>().changeSettings(accuracy: LocationAccuracy.low);
+        Location location = new Location();
 
-        /// Checks if the location service is enabled.
-        try {
-          bool serviceEnabled = await getIt.get<Location>().serviceEnabled();
-          if (serviceEnabled == null || !serviceEnabled) {
-            /// Request the activation of the location service.
-            final bool serviceRequestedResult = await getIt.get<Location>().requestService();
-            serviceEnabled = serviceRequestedResult;
+        bool _serviceEnabled;
+        PermissionStatus _permissionGranted;
+        LocationData _locationData;
+
+        _serviceEnabled = await location.serviceEnabled();
+        if (!_serviceEnabled) {
+          _serviceEnabled = await location.requestService();
+          if (!_serviceEnabled) {
+            return;
           }
-
-          /// Checks if the app has permission to access location.
-          PermissionStatus permissionGranted = await getIt.get<Location>().hasPermission();
-          if (permissionGranted != PermissionStatus.granted) {
-            final PermissionStatus permissionRequestedResult = await getIt.get<Location>().requestPermission();
-            permissionGranted = permissionRequestedResult;
-          }
-          if (permissionGranted == PermissionStatus.granted) {
-            /// getLocation() may loop forever on emulators if location is set to 'None'!
-            ///
-            if (true) {
-              try{
-                getIt.get<AppGlobals>().currentPosition = await Future.any([
-                  getIt.get<Location>().getLocation(),
-                  Future.delayed(Duration(seconds: 5), () => null),
-                ]);
-
-
-              }catch(ee){}
-            } else {
-              getIt.get<AppGlobals>().currentPosition = LocationData.fromMap(<String, double>{
-                'latitude': kDefaultLat,
-                'longitude': kDefaultLon,
-                'accuracy': 0.0,
-                'altitude': 0.0,
-                'speed': 0.0,
-                'speed_accuracy': 0.0,
-                'heading': 0.0,
-                'time': 0.0,
-              });
-            }
-          }
-        } catch (e) {
-          // Console.log('Location ERROR', e.toString(), error: e);
         }
 
+        _permissionGranted = await location.hasPermission();
+        if (_permissionGranted == PermissionStatus.denied) {
+          _permissionGranted = await location.requestPermission();
+          if (_permissionGranted != PermissionStatus.granted) {
+            return;
+          }
+        }
+
+
+        if (_serviceEnabled&&_permissionGranted==PermissionStatus.granted) {
+          try{
+            getIt.get<Location>().changeSettings(accuracy: LocationAccuracy.low);
+
+            getIt.get<AppGlobals>().currentPosition = await Future.any([
+            location.getLocation(),
+              Future.delayed(Duration(seconds: 5), () => null),
+            ]);
+            //if (getIt.get<AppGlobals>().currentPosition == null) {
+            //getIt.get<AppGlobals>().currentPosition = await getIt.get<Location>().getLocation();          }
+
+
+          }catch(ee){}
+        } else {
+          getIt.get<AppGlobals>().currentPosition = LocationData.fromMap(<String, double>{
+            'latitude': kDefaultLat,
+            'longitude': kDefaultLon,
+            'accuracy': 0.0,
+            'altitude': 0.0,
+            'speed': 0.0,
+            'speed_accuracy': 0.0,
+            'heading': 0.0,
+            'time': 0.0,
+          });
+        }
       }
       catch(e){}
       }

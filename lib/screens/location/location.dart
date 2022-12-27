@@ -251,7 +251,7 @@ class _LocationScreenState extends State<LocationScreen> {
                             SizedBox(height: 15,),
                             DefaultTabController(length: 2,child: TabBar(tabs: [
 
-                              Container(child: Text(getIt.get<AppGlobals>().isRTL?'التفاصيل':'Details',style: TextStyle(color: selected==0?kWhite:kPrimaryColor),)
+                              Container(child: Text(getIt.get<AppGlobals>().isRTL?'الخدمات':'Services',style: TextStyle(color: selected==0?kWhite:kPrimaryColor),)
                                   ,height: 40,alignment: Alignment.center,color: selected==1?mGrey.withOpacity(.3):mGrey),
                               Container(child: Text(getIt.get<AppGlobals>().isRTL?'المنتجات':'Products',style: TextStyle(color: selected==0?kPrimaryColor:kWhite),)
                                 ,height: 40,alignment: Alignment.center,color: selected==0?mGrey.withOpacity(.3):mGrey,),
@@ -275,12 +275,12 @@ class _LocationScreenState extends State<LocationScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  LocationServices(location: _location,address: widget.locationId.address,name: widget.locationId.name,),
+
                                   LocationInfo(location: _location),
 
                                   LocationMapPreview(coordinates: _location != null ? _location.coordinates : null),
-                                  // LocationDescription(description: _location != null ? _location.description : null),
                                   LocationStaff(location: _location),
-                                  LocationServices(location: _location,address: widget.locationId.address,name: widget.locationId.name,),
                                   LocationReviews(location: _location),
                                 ],)
 
