@@ -23,7 +23,6 @@ typedef Future<dynamic> LibraryLoader();
 Map<String, LibraryLoader> _deferredLibraries = {
   'ar': messages_ar.loadLibrary,
   'en': messages_en.loadLibrary,
-  'hr': messages_hr.loadLibrary,
 };
 
 MessageLookupByLibrary _findExact(String localeName) {
@@ -32,8 +31,6 @@ MessageLookupByLibrary _findExact(String localeName) {
       return messages_ar.messages;
     case 'en':
       return messages_en.messages;
-    case 'hr':
-      return messages_hr.messages;
     default:
       return null;
   }

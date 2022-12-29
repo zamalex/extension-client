@@ -33,6 +33,8 @@ import 'package:extension/utils/text_style.dart';
 import 'package:extension/widgets/strut_text.dart';
 import 'package:share/share.dart';
 
+import '../../blocs/booking/booking_bloc.dart';
+
 class LocationScreen extends StatefulWidget {
   const LocationScreen({
     Key key,
@@ -61,6 +63,9 @@ class _LocationScreenState extends State<LocationScreen> {
   List<StaffModel> staffModel = [];
   bool _isFavorited = false;
   int selected = 0;
+
+  List<String> cats = ['one','two','three'];
+  int selectedCat = 0;
   @override
   void initState() {
     super.initState();
@@ -83,6 +88,9 @@ class _LocationScreenState extends State<LocationScreen> {
         widget.locationId.address = _location.address;
         widget.locationId.payment_status = _location.payment_status;
         _isFavorited = value[0].isFavourite;
+
+        BlocProvider.of<BookingBloc>(context).add(LocationLoadedBookingEvent(locationId: _location.id));
+
         setState(() {
 
         });
@@ -275,6 +283,30 @@ class _LocationScreenState extends State<LocationScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  /*SizedBox(height: 5,),
+                                  Container(
+                                    child:ListView.builder(itemBuilder: (context, ii) => InkWell(onTap: (){setState(() {
+                                      selectedCat=ii;
+                                    });
+                                    ProductModel().getServices(widget.locationId.id).then((value){
+                                      setState(() {
+                                        services = value.map((e){
+                                          return ServiceModel.all(e.id,e.seller_id,e.shop_id,double.parse(e.base_discounted_price.toString().replaceAll(RegExp(','), '')),e.service_duration,e.name,'',base_price: double.parse(e.basePrice),has_discount: e.has_discount);
+                                        }).toList();
+
+
+                                        _location.serviceGroups=[];
+                                        _location.serviceGroups.add(ServiceGroupModel(getIt.get<AppGlobals>().isRTL?'الخدمات':'Top services', '', services));
+
+
+                                      });
+                                    });
+
+
+                                      },child: Cat(selected: selectedCat==ii,name: cats[ii],)),scrollDirection: Axis.horizontal,itemCount: cats.length),
+                                    height:50,
+                                    width:double.infinity
+                                  ),*/
                                   LocationServices(location: _location,address: widget.locationId.address,name: widget.locationId.name,),
 
                                   LocationInfo(location: _location),
@@ -300,6 +332,8 @@ class _LocationScreenState extends State<LocationScreen> {
     } else
       return Container();
   }
+
+
 
   Widget _bottomBar() {
     if (_location == null) {
@@ -364,6 +398,24 @@ class _LocationScreenState extends State<LocationScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+class Cat extends StatelessWidget {
+   Cat({Key key,this.selected,this.name,this.id}) : super(key: key);
+  String name;
+  bool selected= false;
+  int id;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: Text(name,style: TextStyle(color: selected?Colors.white:kPrimaryColor),),
+      padding: EdgeInsets.all(8),
+      margin: EdgeInsets.symmetric(horizontal: 4),
+      decoration: BoxDecoration(color: selected?kPrimaryColor:Colors.transparent,borderRadius: BorderRadius.circular(10)),
     );
   }
 }

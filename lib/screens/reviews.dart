@@ -99,10 +99,10 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                                 widget.location.rate.toString(),
                                 style: Theme.of(context).textTheme.headline5.bold.fs28,
                               ),
-                              StrutText(
+                              /*StrutText(
                                 sprintf('(%s)', <String>[L10n.of(context).locationTotalReviews(widget.location.ratings.toString())]),
                                 style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).disabledColor),
-                              ),
+                              ),*/
                             ],
                           ),
                         ),

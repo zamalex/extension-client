@@ -888,7 +888,6 @@ class L10n {
       {
         'ar': 'Arabic',
         'en': 'English',
-        'hr': 'Croatian',
         'other': 'Unknown',
       },
       name: 'commonLocales',
@@ -3075,7 +3074,6 @@ class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'ar'),
-      Locale.fromSubtags(languageCode: 'hr'),
     ];
   }
 

@@ -291,19 +291,19 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-       /* if (_appointment.status == AppointmentStatus.active)*/ ListTitle(title: L10n.of(context).appointmentSubtitleNotes),
+       /* if (_appointment.status == AppointmentStatus.active)*/ //ListTitle(title: L10n.of(context).appointmentSubtitleNotes),
        /* if (_appointment.notes.isNotEmpty) Text(_appointment.notes),*/
         /*if (_appointment.notes.isEmpty && _appointment.status == AppointmentStatus.active)*/
-          LinkButton(
+         /* LinkButton(
             label: L10n.of(context).bookingAddNotes,
             onPressed: showNotesEditor,
-          ),
-        /*if (_appointment.status == AppointmentStatus.active)*/ ListTitle(title: L10n.of(context).bookingSubtitleCancelationPolicy),
+          ),*/
+        /*if (_appointment.status == AppointmentStatus.active)*/ //ListTitle(title: L10n.of(context).bookingSubtitleCancelationPolicy),
         /*if (_appointment.status == AppointmentStatus.active)*/
-          Padding(
+         /* Padding(
             padding: const EdgeInsets.only(bottom: kPaddingM),
             child: Text(getIt.get<AppGlobals>().isRTL?'يمكنك الإلغاء مجانًا في أي وقت مقدمًا ، وإلا فسيتم تحصيل 10٪ من سعر الخدمة مقابل عدم الحضور':'Cancel for free anytime in advance, otherwise you can be charged with 10% of the service price for not showing up.'),
-          ),
+          ),*/
       ],
     );
   }

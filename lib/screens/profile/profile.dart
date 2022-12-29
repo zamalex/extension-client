@@ -162,7 +162,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onPressed: () => Navigator.pushNamed(context, Routes.settings),
                           ),
 
-                          if(show)
+                          if(false)
 
                             ListItem(
                               titleTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),

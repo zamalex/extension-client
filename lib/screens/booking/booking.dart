@@ -99,7 +99,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
     _preselectedService = widget.params['preselectedService'] as ServiceModel;
 
 
-    BlocProvider.of<BookingBloc>(context).add(LocationLoadedBookingEvent(locationId: _locationId));
+ //   BlocProvider.of<BookingBloc>(context).add(LocationLoadedBookingEvent(locationId: _locationId));
 /// booking steps
     wizardPages.add(BookingWizardPageModel.fromJson(<String, dynamic>{
       'step': 1,

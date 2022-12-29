@@ -146,7 +146,7 @@ class OrdersListItem extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: <Widget>[
                   Expanded(child:  StrutText(
-                    appointment.items.data[index].productName,
+                    'x${appointment.items.data[index].quantity} ${appointment.items.data[index].productName}',
                     style: Theme.of(context).textTheme.subtitle1.w500.fs18,
                     overflow: TextOverflow.ellipsis,
                   ),),
