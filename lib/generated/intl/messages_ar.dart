@@ -216,7 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "editProfileLabelAddress" : MessageLookupByLibrary.simpleMessage("العنوان"),
     "editProfileLabelCity" : MessageLookupByLibrary.simpleMessage("المدينة"),
     "editProfileLabelFullname" : MessageLookupByLibrary.simpleMessage("الاسم"),
-    "editProfileLabelPhone" : MessageLookupByLibrary.simpleMessage("ؤقم الجوال"),
+    "editProfileLabelPhone" : MessageLookupByLibrary.simpleMessage("رقم الجوال"),
     "editProfileLabelZIP" : MessageLookupByLibrary.simpleMessage("ZIP"),
     "editProfileListTitleAddress" : MessageLookupByLibrary.simpleMessage("العنوان"),
     "editProfileListTitleContact" : MessageLookupByLibrary.simpleMessage("الاتصال"),

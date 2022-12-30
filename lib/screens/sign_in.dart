@@ -5,6 +5,12 @@ import 'package:extension/configs/constants.dart';
 import 'package:extension/generated/l10n.dart';
 import 'package:extension/widgets/sign_in.dart';
 
+import '../blocs/application/application_bloc.dart';
+import '../configs/app_globals.dart';
+import '../configs/routes.dart';
+import '../main.dart';
+import '../widgets/picker.dart';
+
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key key}) : super(key: key);
 
@@ -42,10 +48,45 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ),
               child: SignInWidget(title: L10n.of(context).signInFormTitle),
-            )
+            ),
+            Positioned(top:kToolbarHeight,right:10,child:InkWell(child:Icon(Icons.language,color: Colors.white,),onTap: (){
+              _showLanguagePicker(context);
+            },))
           ],
         );
       },
     );
+  }
+
+
+  Future<void> _showLanguagePicker(BuildContext context) async {
+    final List<PickerItem<Locale>> _pickerItems = <PickerItem<Locale>>[];
+    final List<PickerItem<Locale>> _selectedItems = <PickerItem<Locale>>[];
+
+    for (final Locale _l in L10n.delegate.supportedLocales) {
+      _pickerItems.add(PickerItem<Locale>(
+        text: L10n.of(context).commonLocales(_l.toString()),
+        value: _l,
+      ));
+    }
+
+    _selectedItems.add(PickerItem<Locale>(
+      text: L10n.of(context).commonLocales(getIt.get<AppGlobals>().selectedLocale.toString()),
+      value: getIt.get<AppGlobals>().selectedLocale,
+    ));
+
+    final dynamic selectedLanguage = await Navigator.pushNamed(
+      context,
+      Routes.picker,
+      arguments: <String, dynamic>{
+        'title': L10n.of(context).pickerTitleLanguages,
+        'items': _pickerItems,
+        'itemsSelected': _selectedItems,
+      },
+    );
+
+    if (selectedLanguage != null) {
+      BlocProvider.of<ApplicationBloc>(context).add(ChangeRequestedLanguageApplicationEvent(selectedLanguage as Locale));
+    }
   }
 }

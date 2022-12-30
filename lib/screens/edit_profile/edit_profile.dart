@@ -25,6 +25,7 @@ import 'package:extension/widgets/theme_button.dart';
 import 'package:extension/widgets/theme_text_input.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 enum PhotoSource { gallery, camera }
 
 class EditProfileScreen extends StatefulWidget {
@@ -265,7 +266,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 padding: const EdgeInsets.only(left: kPaddingM, right: kPaddingM, top: kPaddingM),
                 children: <Widget>[
                   _profilePicture(),
-                  ListTitle(title: L10n.of(context).editProfileListTitleContact),
+                 // ListTitle(title: L10n.of(context).editProfileListTitleContact),
                   FormLabel(text: L10n.of(context).editProfileLabelFullname),
                   ThemeTextInput(
                     key: keyNameInput,
@@ -296,7 +297,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     },
                     controller: _textPhoneController,
                   ),
-                  const FormLabel(text: 'Email'),
+                   FormLabel(text: getIt.get<AppGlobals>().isRTL?'البريد الالكتروني':'Email'),
 
                   ThemeTextInput(
                     key: keyMailInput,
