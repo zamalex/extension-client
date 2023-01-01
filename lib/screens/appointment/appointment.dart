@@ -214,7 +214,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: kPaddingM),
                     child: StrutText(
-                      getIt.get<AppGlobals>().isRTL?'الخصم':'Discount',
+                      getIt.get<AppGlobals>().isRTL?'خصم الكوبون':'Coupon Discount',
                       style: Theme.of(context).textTheme.headline6,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -224,6 +224,29 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
                     padding: const EdgeInsets.symmetric(vertical: kPaddingM),
                     child: StrutText(
                       _appointment.coupon_discount,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                ],
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: kPaddingM),
+                    child: StrutText(
+                      getIt.get<AppGlobals>().isRTL?'خصم الرصيد':'Balance Discount',
+                      style: Theme.of(context).textTheme.headline6,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: kPaddingM),
+                    child: StrutText(
+                      _appointment.balance,
                       style: Theme.of(context).textTheme.headline6,
                     ),
                   ),
