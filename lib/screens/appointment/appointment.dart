@@ -206,8 +206,31 @@ class _AppointmentScreenState extends State<AppointmentScreen> with PortraitStat
                     ),
                   );
                 }),),
+              CardDivider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: kPaddingM),
+                    child: StrutText(
+                      getIt.get<AppGlobals>().isRTL?'الخصم':'Discount',
+                      style: Theme.of(context).textTheme.headline6,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: kPaddingM),
+                    child: StrutText(
+                      _appointment.coupon_discount,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                ],
+              ),
                 _totalPrice(),
-                const CardDivider(),
+               // const CardDivider(),
                 if(widget.appointment.orderType!='purchase') _footer(),
               ],
             ),
