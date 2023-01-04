@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:extension/screens/home/widgets/package_list_item.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ import 'package:extension/widgets/bold_title.dart';
 import 'package:extension/widgets/locations_carousel.dart';
 import 'package:extension/widgets/shimmer_box.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../package_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -234,6 +237,51 @@ print('salon ${shareData.salon}');
     );
   }
 
+  Widget _showPackages() {
+    return Container(
+      height: 220,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          BoldTitle(title: L10n.of(context).homeTitlePopularCategories),
+          Container(
+            height: 130,
+            child: _isDataLoaded
+                ? ListView(
+              padding: const EdgeInsetsDirectional.only(start: kPaddingM),
+              scrollDirection: Axis.horizontal,
+              children: services.map((Product category) {
+                return Container(
+                  width: 160,
+                  margin: const EdgeInsets.only(bottom: 1), // for card shadow
+                  padding: const EdgeInsetsDirectional.only(end: kPaddingS),
+                  child: PackageListItem(
+                    product: category,
+                    onTap: (){
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return PackageDetails(product: category);
+                      },));
+                    },
+                  ),
+                );
+              }).toList(),
+            )
+                : ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsetsDirectional.only(start: kPaddingM),
+              itemBuilder: (BuildContext context, int index) => const ShimmerBox(width: 160, height: 130),
+              itemCount: List<int>.generate(3, (int index) => index).length,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
   Future<void> _scrollToTabItem(CategoryModel category) async {
     // Tap on the explore icon in the bottom bar.
     (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar).onTap(getIt.get<BottomBarItems>().getBottomBarItem('explore'));
@@ -370,6 +418,7 @@ print('salon ${shareData.salon}');
               delegate: SliverChildListDelegate(
                 <Widget>[
                   _showCategories(),
+                  //_showPackages(),
                   _showRecentlyViewed(),
                  _showTopServices(),
                  _showTopProducts(),

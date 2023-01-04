@@ -66,12 +66,12 @@ class _AppointmentTabBarState extends State<AppointmentTabBar> {
       disableTouchWhenLoading: true,
     ));
 
-    _widgets.add(LabeledIconButton(
+    /*_widgets.add(LabeledIconButton(
       icon: Icons.edit,
       text: L10n.of(context).bookingBtnNotes,
       onTap: widget.onNotesTap,
       disableTouchWhenLoading: true,
-    ));
+    ));*/
 
     if (widget.onCancelTap != null) {
       _widgets.add(LabeledIconButton(
