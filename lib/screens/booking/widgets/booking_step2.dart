@@ -31,14 +31,14 @@ class _BookingStep2State extends State<BookingStep2> {
 
         final List<ListItem> _listItems = <ListItem>[];
         session.location.staff = widget.staff;
-        _listItems.add(_staffItem(
+       /* _listItems.add(_staffItem(
             StaffModel.fromJson(<String, dynamic>{
               'id': 0,
               'name': L10n.of(context).bookingStaffNoPreferenceName,
               'description': L10n.of(context).bookingStaffNoPreferenceDescription,
               'profile_photo': 'np.png',
             }),
-            session));
+            session));*/
         for (int i = 0; i < widget.staff.length; i++) {
           _listItems.add(_staffItem(widget.staff[i], session));
         }

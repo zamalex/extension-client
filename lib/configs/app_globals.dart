@@ -35,6 +35,7 @@ class AppGlobals {
           break;
         case 'delivered':
         case 'finished':
+        case 'completed':
           return 'مكتمل';
           break;
         case 'canceled':
@@ -44,15 +45,47 @@ class AppGlobals {
           return 'مرفوض';
           break;
         case 'on_the_way':
-          return 'في الطريق';
+        case 'active':
+        case  'processing':
+          return 'جاري التنفيذ';
+          break;
+        case 'pending':
+          return 'قيد الانتظار';
           break;
         default:
           return 'قيد الانتظار';
       }
     }
-
-    return status.replaceAll('_', ' ');
-
+    else{
+      switch (status.toLowerCase()) {
+        case 'picked_up':
+        case 'confirmed':
+        case 'approved':
+          return 'confirmed';
+          break;
+        case 'delivered':
+        case 'finished':
+        case 'completed':
+          return 'completed';
+          break;
+        case 'canceled':
+          return 'canceled';
+          break;
+        case 'rejected':
+          return 'rejected';
+          break;
+        case 'on_the_way':
+        case 'active':
+        case  'processing':
+          return 'processing';
+          break;
+        case 'pending':
+          return 'pending';
+          break;
+        default:
+          return 'pending';
+      }
+    }
 
   }
 

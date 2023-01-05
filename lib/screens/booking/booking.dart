@@ -176,7 +176,8 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
           'pay_with_points':false,
           'services':servicesTxt,
           'duration':session.totalDuration,
-          'total':session.totalPrice
+          'total':session.totalPrice,
+          'notes':session.notes
 
         };
 

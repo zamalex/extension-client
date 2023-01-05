@@ -36,7 +36,7 @@ class _BookingNotesState extends State<BookingNotes> {
     else{
       BlocProvider.of<BookingBloc>(context).notes=textEditingController.text;
     }
-    widget.setNotes(textEditingController.text);
+    //widget.setNotes(textEditingController.text);
     Navigator.pop(context, textEditingController.text);
   }
 

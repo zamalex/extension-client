@@ -227,7 +227,8 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
         'date':'${now.year}-${now.month}-${now.day}',
         'time':'${now.hour}:${now.minute}',
         'payment_type':session.paymentMethod==PaymentMethod.cc?'online':'cash_on_delivery',
-        'pay_with_points':points
+        'pay_with_points':points,
+          'notes':session.notes
 
       };
 
