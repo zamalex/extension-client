@@ -46,6 +46,7 @@ class AppGlobals {
           break;
         case 'on_the_way':
         case 'active':
+        case 'on_delivery':
         case  'processing':
           return 'جاري التنفيذ';
           break;
@@ -76,6 +77,7 @@ class AppGlobals {
           break;
         case 'on_the_way':
         case 'active':
+        case 'on_delivery':
         case  'processing':
           return 'processing';
           break;
