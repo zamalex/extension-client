@@ -218,6 +218,8 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
       print('time is ${now.hour}:${now.minute}');
       bool points =Provider.of<CartProvider>(context,listen: false).payWithBalance ;//session.paymentMethod.index==0?true:false;
 
+
+
         var map = {
         'booked_shift_id':1.toString(),
         'shop_id':session.location.serviceGroups.first.services.first.shop_id.toString(),
@@ -228,7 +230,9 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
         'time':'${now.hour}:${now.minute}',
         'payment_type':session.paymentMethod==PaymentMethod.cc?'online':'cash_on_delivery',
         'pay_with_points':points,
-          'notes':session.notes
+          'notes':session.notes,
+          'address':Provider.of<CartProvider>(context,listen: false).textEditingController.text,
+          'service_type':Provider.of<CartProvider>(context,listen: false).isHome?'delivery':'onsite'
 
       };
 

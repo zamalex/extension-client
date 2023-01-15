@@ -73,7 +73,7 @@ class BookingSessionModel {
   List<int> times = [];
   final String notes;
 
-  final double totalPrice;
+   double totalPrice;
   final int totalDuration;
 
    String apiError;

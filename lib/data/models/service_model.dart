@@ -1,3 +1,4 @@
+
 class ServiceModel {
   ServiceModel(
     this.id,
@@ -6,6 +7,7 @@ class ServiceModel {
     this.name,
     this.description,
       {this.base_price,
+        this.image,
         this.has_discount,
       }
   );
@@ -20,6 +22,7 @@ class ServiceModel {
       this.description,
   {this.base_price,
     this.has_discount,
+    this.image
   }
       );
 
@@ -31,6 +34,7 @@ class ServiceModel {
       json['duration'] as int ?? 0,
       json['name'] as String ?? '',
       json['description'] as String ?? '',
+
     );
   }
 
@@ -42,6 +46,7 @@ class ServiceModel {
   final double base_price;
   final int duration;
   final String name;
+  final String image;
   final String description;
 
   @override

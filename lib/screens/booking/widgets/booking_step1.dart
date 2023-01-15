@@ -88,7 +88,7 @@ class _BookingStep1State extends State<BookingStep1> {
                   padding: const EdgeInsets.symmetric(horizontal: kPaddingM),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List<ListItem>.generate(session.location.serviceGroups[i].services.length, (int index) {
+                    children: List<Widget>.generate(session.location.serviceGroups[i].services.length, (int index) {
                       return _serviceItem(session.location.serviceGroups[i].services[index], session);
                     }),
                   ),
@@ -103,8 +103,70 @@ class _BookingStep1State extends State<BookingStep1> {
     );
   }
 
-  ListItem _serviceItem(ServiceModel serviceModel, BookingSessionModel session) {
-    return ListItem(
+  Widget _serviceItem(ServiceModel serviceModel, BookingSessionModel session) {
+    return ListTile(
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image(
+          width: 50,
+            height: 50,
+            image: serviceModel.image=='assets/images/onboarding/welcome.jpg'?AssetImage(
+              'assets/images/onboarding/welcome.jpg',) as ImageProvider:NetworkImage(
+                serviceModel.image),
+            fit: BoxFit.cover),
+      ),
+
+      title: Text(
+
+        serviceModel.name,
+        style: TextStyle(fontSize: 20, color: Colors.black,),
+        //overflow: TextOverflow.ellipsis,
+        //maxLines: 1,
+      ),
+
+
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+              children:[
+                StrutText(
+
+                  L10n.of(context).commonCurrencyFormat(sprintf('%.2f', <double>[serviceModel.price])),
+                  style: Theme.of(context).textTheme.subtitle1.fs18.w500.black.copyWith(fontSize: 12),
+                ),
+                Text(!serviceModel.has_discount?'':serviceModel.base_price.toStringAsFixed(2),style:TextStyle(decoration: TextDecoration.lineThrough,fontSize: 12,color: Colors.red),),
+              ]
+          ),
+
+          Text(L10n.of(context).commonDurationFormat(serviceModel.duration.toString()), style: TextStyle(color:kPrimaryColor,fontSize: 12),)
+
+
+        ],
+      ),
+      trailing: Checkbox(
+        value: session.selectedServiceIds.contains(serviceModel.id),
+        onChanged: (bool isChecked) {
+          setState(() {
+            if (isChecked) {
+              context.read<BookingBloc>().add(ServiceSelectedBookingEvent(service: serviceModel));
+            } else {
+              context.read<BookingBloc>().add(ServiceUnselectedBookingEvent(service: serviceModel));
+            }
+          });
+        },
+      ),
+      onTap: (){
+        setState(() {
+          if (session.selectedServiceIds.contains(serviceModel.id)) {
+            context.read<BookingBloc>().add(ServiceUnselectedBookingEvent(service: serviceModel));
+          } else {
+            context.read<BookingBloc>().add(ServiceSelectedBookingEvent(service: serviceModel));
+          }
+        });
+      },
+    );
+    /*return ListItem(
       leading: Checkbox(
         value: session.selectedServiceIds.contains(serviceModel.id),
         onChanged: (bool isChecked) {
@@ -144,6 +206,7 @@ class _BookingStep1State extends State<BookingStep1> {
           }
         });
       },
-    );
+    );*/
+
   }
 }

@@ -58,7 +58,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
   String sdkErrorMessage;
   String sdkErrorDescription;
 
-  final int totalSteps = 4;
+  int totalSteps = 4;
   String txt = getIt.get<AppGlobals>().isRTL?'سيتم حذف عربة التسوق الخاصة بك':'Your cart will be deleted';
 
   int _locationId = 0;
@@ -70,6 +70,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
   BookingSessionModel session;
   LocationModel locationModel;
 
+  ServiceModel selectedPackage;
   List<BookingWizardPageModel> wizardPages = <BookingWizardPageModel>[];
 
   final ScrollController _scrollController = ScrollController();
@@ -94,6 +95,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
 
     _locationId = widget.params['locationId'] as int ?? 0;
     locationModel = widget.params['location'] as LocationModel;
+    selectedPackage = widget.params['package'] as ServiceModel;
     services = widget.params['services'] as List<ServiceModel> ?? [];
     staff = widget.params['staff'] as List<StaffModel> ?? [];
     _preselectedService = widget.params['preselectedService'] as ServiceModel;
@@ -101,10 +103,15 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
 
  //   BlocProvider.of<BookingBloc>(context).add(LocationLoadedBookingEvent(locationId: _locationId));
 /// booking steps
-    wizardPages.add(BookingWizardPageModel.fromJson(<String, dynamic>{
-      'step': 1,
-      'body': BookingStep1(preselectedService: _preselectedService),
-    }));
+    if(selectedPackage==null) {
+      wizardPages.add(BookingWizardPageModel.fromJson(<String, dynamic>{
+        'step': 1,
+        'body': BookingStep1(preselectedService: _preselectedService),
+      }));
+    }else{
+      totalSteps=3;
+    }
+
     wizardPages.add(BookingWizardPageModel.fromJson(<String, dynamic>{
       'step': 2,
       'body': BookingStep2(staff),
@@ -120,6 +127,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
   }
 
   void _nextStep() {
+    print('cur step is $_currentStep');
     if (_currentStep == 1) {
     //  startSDK();
      // return;
@@ -132,7 +140,18 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
 
         return;
       }
-    } else if (_currentStep == 3) {
+    }if((_currentStep == 2&&selectedPackage==null)||(_currentStep == 1&&selectedPackage!=null)){
+      if (session.selectedStaff==null) {
+        UI.showErrorDialog(
+          context,
+          message: getIt.get<AppGlobals>().isRTL?'من فضلك اختر العامل اولا':'Please Select staff',
+        );
+
+        return;
+      }
+    }
+
+    else if ((_currentStep == 3&&selectedPackage==null)||(_currentStep == 2&&selectedPackage!=null)) {
       if (session.selectedTimestamp == 0) {
         UI.showErrorDialog(
           context,
@@ -142,8 +161,13 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
         return;
       }
       checkPrevious();
-    } else if (_currentStep == 4) {
+    } else if (_currentStep == 4||(_currentStep==3&&selectedPackage!=null)) {
 
+      if(Provider.of<CartProvider>(context,listen: false).isHome&&Provider.of<CartProvider>(context,listen: false).textEditingController.text.trim().isEmpty){
+          UI.showErrorDialog(context, message: L10n.of(context).enteraddress);
+          return;
+
+      }
 
 
       UI.confirmationDialogBox(context,message: '',title:L10n.of(context).bookingBtnConfirm , onConfirmation: (){
@@ -453,6 +477,10 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
         session.location.mainPhoto = locationModel.mainPhoto;
         //session.selectedDateRange=-1;
 
+        if(selectedPackage!=null){
+          session.totalPrice=selectedPackage.price;
+        }
+
         session.location.serviceGroups.add(ServiceGroupModel('Top Services', '', services));
         if (session.appointmentId == 1/*&&session.paymentMethod==PaymentMethod.inStore*/) {
           return BookingSuccessDialog(_locationId.toString());
@@ -522,7 +550,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
                                     maxLines: 1,
                                   ),
                                   StrutText(
-                                    L10n.of(context).bookingTitleWizardPage('page' + _currentStep.toString()),
+                                    L10n.of(context).bookingTitleWizardPage('page${selectedPackage!=null?(_currentStep+1).toString():_currentStep.toString()}'),
                                     style: Theme.of(context).textTheme.headline4.white.w600,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,

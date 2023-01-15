@@ -22,6 +22,8 @@ import 'package:sprintf/sprintf.dart';
 import 'package:extension/utils/datetime.dart';
 import 'package:extension/utils/text_style.dart';
 
+import '../../../widgets/theme_text_input.dart';
+
 class BookingStep4 extends StatefulWidget {
   int payment_status;
   BookingStep4(this.payment_status);
@@ -32,6 +34,7 @@ class BookingStep4 extends StatefulWidget {
 
 class _BookingStep4State extends State<BookingStep4> {
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -39,6 +42,7 @@ class _BookingStep4State extends State<BookingStep4> {
     print('status ${widget.payment_status}');
     Future.delayed(Duration.zero).then((value){
       Provider.of<CartProvider>(context,listen: false).setPayWithBalance(false);
+      Provider.of<CartProvider>(context,listen: false).setIsHome(false);
 
       Provider.of<CartProvider>(context,listen: false).checkBalance();
     });
@@ -208,6 +212,28 @@ class _BookingStep4State extends State<BookingStep4> {
                                   ],
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 ),
+                              ),
+                            SizedBox(height: 10,),
+                            Row(
+                              children: [
+                                CupertinoSwitch(
+                                  value: Provider.of<CartProvider>(context).isHome,
+                                  onChanged: (value) {
+                                    Provider.of<CartProvider>(context,listen: false).setIsHome(value);
+
+                                  },
+                                ),
+
+                                Text(getIt.get<AppGlobals>().isRTL?'الحصول على الخدمة من المنزل':'Get service at home'),
+
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            ),
+                            if(Provider.of<CartProvider>(context).isHome)
+                              ThemeTextInput(
+                                hintText: getIt.get<AppGlobals>().isRTL?'العنوان':'address',
+                                maxLines: 5,
+                                controller: Provider.of<CartProvider>(context,listen: false).textEditingController,
                               ),
                             ListTitle(title: L10n.of(context).bookingSubtitleCheckout),
 

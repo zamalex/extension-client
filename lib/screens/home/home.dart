@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:extension/data/models/service_model.dart';
 import 'package:extension/screens/home/widgets/package_list_item.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -49,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   List<bann.Banner> banners=[];
   List<Product> services=[];
   List<Product> products=[];
+  List<Product> packages=[];
   List<LocationModel> _topLocations;
 
 
@@ -163,6 +165,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       products = value ?? [];
     });});
 
+    ProductModel().getPackages().then((value){setState(() {
+      packages = value ?? [];
+    });});
+
     CategoryData().getCategories().then((value){
       setState(() {
         categories=value.map((e){
@@ -239,29 +245,39 @@ print('salon ${shareData.salon}');
 
   Widget _showPackages() {
     return Container(
-      height: 220,
+      height: 250,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          BoldTitle(title: L10n.of(context).homeTitlePopularCategories),
+          BoldTitle(title: getIt.get<AppGlobals>().isRTL?'الباقات والعروض':'Packages'),
           Container(
-            height: 130,
+            height: 160,
             child: _isDataLoaded
                 ? ListView(
               padding: const EdgeInsetsDirectional.only(start: kPaddingM),
               scrollDirection: Axis.horizontal,
-              children: services.map((Product category) {
+              children: packages.map((Product e) {
                 return Container(
-                  width: 160,
+                  width: 190,
                   margin: const EdgeInsets.only(bottom: 1), // for card shadow
                   padding: const EdgeInsetsDirectional.only(end: kPaddingS),
                   child: PackageListItem(
-                    product: category,
+                    product: e,
                     onTap: (){
 
+                     /* if (!getIt.get<AppGlobals>().isUser){
+                        (getIt.get<AppGlobals>().globalKeyBottomBar.currentWidget as BottomNavigationBar)
+                            .onTap(3);
+                        return;
+
+                      }
+
                       Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return PackageDetails(product: category);
+                        return LocationScreen(selectedPackage: ServiceModel.all(e.id,e.seller_id,e.shop_id,double.parse(e.base_discounted_price.toString().replaceAll(RegExp(','), '')),e.service_duration,e.name,'',base_price: double.parse(e.basePrice),has_discount: e.has_discount),tab: 0,locationId: LocationModel(false, e.shop_id, '', 0, 0, '', '','','', '','', '','', [],GeoPoint(longitude: 0,latitude: 0),[], [], [], [], [], ''),);
+                      },));*/
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return PackageDetails(product: e);
                       },));
                     },
                   ),
@@ -418,7 +434,7 @@ print('salon ${shareData.salon}');
               delegate: SliverChildListDelegate(
                 <Widget>[
                   _showCategories(),
-                  //_showPackages(),
+                  _showPackages(),
                   _showRecentlyViewed(),
                  _showTopServices(),
                  _showTopProducts(),

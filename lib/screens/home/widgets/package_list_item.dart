@@ -35,16 +35,20 @@ class PackageListItem extends StatelessWidget {
           onTap: onTap ?? () {},
           child: Column(
             children: <Widget>[
-              Container(
-                height: 90.0,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(kBoxDecorationRadius),
-                    topRight: Radius.circular(kBoxDecorationRadius),
-                  ),
-                  image: DecorationImage(
-                    image: image as ImageProvider,//AssetImage(category.image),
-                    fit: BoxFit.cover,
+              Banner(
+                message: product.has_discount?'${product.base_discounted_price.toStringAsFixed(2)} sar':'${product.basePrice} sar',
+                location: BannerLocation.topStart,
+                child: Container(
+                  height: 90.0,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(kBoxDecorationRadius),
+                      topRight: Radius.circular(kBoxDecorationRadius),
+                    ),
+                    image: DecorationImage(
+                      image: image as ImageProvider,//AssetImage(category.image),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -56,6 +60,18 @@ class PackageListItem extends StatelessWidget {
                   style: TextStyle(color: Colors.black,fontSize: 18),
                 ),
               ),
+              StrutText(
+                product.shop_name??'',
+                maxLines: 1,
+                style: Theme.of(context).textTheme.subtitle1.copyWith(color: Colors.black,fontSize: 14),
+                overflow: TextOverflow.ellipsis,
+              ),
+             /* StrutText(
+                '${product.basePrice} SAR',
+                maxLines: 1,
+                style: Theme.of(context).textTheme.subtitle1.copyWith(color: kPrimaryColor,fontSize: 14),
+                overflow: TextOverflow.ellipsis,
+              )*/
             ],
           ),
         ),

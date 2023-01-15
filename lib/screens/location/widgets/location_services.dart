@@ -13,6 +13,7 @@ import 'package:extension/utils/text_style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:extension/utils/list.dart';
+import 'package:banner_listtile/banner_listtile.dart';
 
 import '../../../blocs/booking/booking_bloc.dart';
 import '../../../data/models/booking_session_model.dart';
@@ -73,13 +74,49 @@ class _LocationServicesState extends State<LocationServices> {
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.only(top: kPaddingS),
                 children: _services.map((ServiceModel service) {
-                  return ListItem(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return ProductDetails(shareData: ShareData(salon: service.shop_id,product: service.id,type: 0));
-                      },));
-                    },
-                    leading: Checkbox(
+                  return ListTile(
+
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image(
+                        width: 50,
+                            height: 50,
+                            image: service.image=='assets/images/onboarding/welcome.jpg'?AssetImage(
+                                'assets/images/onboarding/welcome.jpg',) as ImageProvider:NetworkImage(
+                                service.image),
+                            fit: BoxFit.cover),
+                    ),
+
+                    title: Text(
+
+                      service.name,
+                      style: TextStyle(fontSize: 20, color: Colors.black,),
+                      //overflow: TextOverflow.ellipsis,
+                      //maxLines: 1,
+                    ),
+
+
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children:[
+                            StrutText(
+
+                              L10n.of(context).commonCurrencyFormat(sprintf('%.2f', <double>[service.price])),
+                              style: Theme.of(context).textTheme.subtitle1.fs18.w500.black.copyWith(fontSize: 12),
+                            ),
+                            Text(!service.has_discount?'':service.base_price.toStringAsFixed(2),style:TextStyle(decoration: TextDecoration.lineThrough,fontSize: 12,color: Colors.red),),
+                          ]
+                        ),
+
+                        Text(L10n.of(context).commonDurationFormat(service.duration.toString()), style: TextStyle(color:kPrimaryColor,fontSize: 12),)
+
+
+                      ],
+                    ),
+                    trailing: Checkbox(
+
                       value: session.selectedServiceIds.contains(service.id),
                       onChanged: (bool isChecked) {
                         setState(() {
@@ -91,27 +128,22 @@ class _LocationServicesState extends State<LocationServices> {
                         });
                       },
                     ),
-                    title: service.name,
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return ProductDetails(shareData: ShareData(salon: service.shop_id,product: service.id,type: 0));
+                      },));
+                    },
+                  );
+                 /* return ListItem(
+
+
+
                     titleTextStyle: Theme.of(context).textTheme.subtitle1.fs18.w500.black,
                     subtitle: service.description,
                     subtitleTextStyle: Theme.of(context).textTheme.bodyText1.w300.copyWith(color: kPrimaryColor),
-                    trailing: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        StrutText(
-                          L10n.of(context).commonCurrencyFormat(sprintf('%.2f', <double>[service.price])),
-                          style: Theme.of(context).textTheme.subtitle1.fs18.w500.black,
-                        ),
-                        Text(!service.has_discount?'':service.base_price.toStringAsFixed(2),style:TextStyle(decoration: TextDecoration.lineThrough,fontSize: 12,color: Colors.red),),
-                        StrutText(
-                          L10n.of(context).commonDurationFormat(service.duration.toString()),
-                          style: Theme.of(context).textTheme.bodyText1.w300.copyWith(color: kPrimaryColor),
-                        ),
-                      ],
-                    ),
-                    //  onPressed: () =>
-                    //  Navigator.pushNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': location.id, 'preselectedService': service,'services':_services,'staff':location.staff,'location':location}),
-                  );
+
+                  );*/
+
                 }).toList(),
               ),
               if (widget.limit < widget.location.serviceGroups.first.services.length)

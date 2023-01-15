@@ -40,11 +40,14 @@ class LocationScreen extends StatefulWidget {
     Key key,
     this.namedLocation,
     this.locationId ,
-    this.tab=0
+    this.tab=0,
+    this.selectedPackage
   }) : super(key: key);
   final namedLocation;
   final LocationModel locationId;
   final int tab;
+  final ServiceModel selectedPackage;
+
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
@@ -56,6 +59,7 @@ class _LocationScreenState extends State<LocationScreen> {
   final mGrey = kPrimaryColor;
   var locationBlock;
 
+  bool isLoading=false;
   LocationModel _location;
   List<ServiceModel> services = [];
   List<ReviewModel> reviews = [];
@@ -70,6 +74,11 @@ class _LocationScreenState extends State<LocationScreen> {
   void initState() {
     super.initState();
 
+    if(widget.selectedPackage!=null){
+      setState(() {
+        isLoading=true;
+      });
+    }
     _loadData();
 
     if(widget.tab!=0)
@@ -112,7 +121,8 @@ class _LocationScreenState extends State<LocationScreen> {
     ProductModel().getServices(widget.locationId.id).then((value){
       setState(() {
         services = value.map((e){
-          return ServiceModel.all(e.id,e.seller_id,e.shop_id,double.parse(e.base_discounted_price.toString().replaceAll(RegExp(','), '')),e.service_duration,e.name,'',base_price: double.parse(e.basePrice),has_discount: e.has_discount);
+
+          return ServiceModel.all(e.id,e.seller_id,e.shop_id,double.parse(e.base_discounted_price.toString().replaceAll(RegExp(','), '')),e.service_duration,e.name,'',base_price: double.parse(e.basePrice),has_discount: e.has_discount,image: e.thumbnailImage);
         }).toList();
 
 
@@ -140,6 +150,7 @@ class _LocationScreenState extends State<LocationScreen> {
     SalonStaff().getSalonStaff(widget.locationId.id.toString()).then((value) {
 
       setState(() {
+//        isLoading= false;
         staff = value;
 
         // _location.reviews=[];
@@ -149,6 +160,13 @@ class _LocationScreenState extends State<LocationScreen> {
         }).toList();
         staffModel=_location.staff;
       });
+
+      if(widget.selectedPackage!=null){
+        context.read<BookingBloc>().add(ServiceSelectedBookingEvent(service: widget.selectedPackage));
+
+        Navigator.pushReplacementNamed(context, Routes.booking, arguments: <String, dynamic>{'locationId': _location.id,'staff': staffModel,'location':widget.locationId,'services':services,'package':widget.selectedPackage});
+
+    }
 
 
     });
@@ -164,7 +182,7 @@ class _LocationScreenState extends State<LocationScreen> {
       return Scaffold(
         key: _scaffoldKey,
         backgroundColor: kScaffold,
-        body: Column(
+        body:isLoading?Center(child: CircularProgressIndicator(),):  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Expanded(

@@ -22,6 +22,10 @@ class CartProvider extends ChangeNotifier {
   double balance=0;
   bool payWithBalance = false;
 
+  String address = '';
+  bool isHome = false;
+
+  final TextEditingController textEditingController = TextEditingController();
 
 
   ///select receive from salon option
@@ -52,6 +56,15 @@ class CartProvider extends ChangeNotifier {
   ///check pay with balance
   setPayWithBalance(bool p){
     payWithBalance = p;
+    notifyListeners();
+  }
+
+ setIsHome(bool p){
+    isHome = p;
+    if(!isHome){
+      address='';
+      textEditingController.clear();
+    }
     notifyListeners();
   }
 
