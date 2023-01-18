@@ -53,23 +53,55 @@ class ConfirmOrder {
           'message':responseJson['message']
         };
       }
-      /*if(response.statusCode>=400){
 
+    } catch (error) {
+      print(error);
+      UI.showErrorDialog(context,message:error.toString());
+
+      return {
+        'result':false,
+        'message':error.toString()
+      };
+    }
+  }
+  Future<Map> confirmPackageBooking(Map<String,dynamic> body,BuildContext context) async {
+
+    Map<String, String> headers = {
+      'Authorization': 'Bearer ${Globals.TOKEN}',
+      'Content-Type': 'application/json',
+      'Current-Locale':Intl.getCurrentLocale()
+    };
+    // print('${Globals.TOKEN}');
+
+    try {
+      var response = await http.post(
+          Uri.parse('${Globals.BASE}package/store'),
+          headers: headers,
+        body: jsonEncode(body)
+      );
+      print('request is ${Globals.BASE}package/store');
+      print('body  is ${jsonEncode(body)}');
+      print('respoonse is ${response.body}');
+
+      final responseJson = json.decode(response.body);
+
+      if(responseJson['result']as bool==false){
+
+
+
+            UI.showErrorDialog(context,message:responseJson['message'].toString());
+
+        return {
+          'result':false,
+          'message':responseJson['message']
+        };
       }else{
-        final responseJson = json.decode(response.body);
-        print('respoonse is ${response.body}');
-
-        if(responseJson['result'] as bool==false){
-          return [];
-        }else{
-          return null;//BookingDayTimes.fromJson(responseJson as Map<String,dynamic>).data.slots;
-        }
+        return {
+          'booking_id':responseJson['booking_id'],
+          'result':true,
+          'message':responseJson['message']
+        };
       }
-
-      print('response  is '+response.body);
-
-*/
-      // print(responseJson);
 
     } catch (error) {
       print(error);

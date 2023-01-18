@@ -125,7 +125,7 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
 
       final BookingSessionModel newSession = session.rebuild(selectedStaff: event.staff);
 
-      yield StaffSelectionSuccessBookingState();
+      yield StaffSelectionSuccessBookingState(session: newSession);
       yield SessionRefreshSuccessBookingState(newSession);
     }
   }
@@ -220,28 +220,56 @@ class BookingBloc extends BaseBloc<BookingEvent, BookingState> {
 
 
 
-        var map = {
-        'booked_shift_id':1.toString(),
-        'shop_id':session.location.serviceGroups.first.services.first.shop_id.toString(),
-        'seller_id':session.location.serviceGroups.first.services.first.seller_id.toString(),
-        'services_ids':session.selectedServiceIds,
-        if(session.selectedStaff.id!=0)'staff_id':session.selectedStaff.id.toString(),
-        'date':'${now.year}-${now.month}-${now.day}',
-        'time':'${now.hour}:${now.minute}',
-        'payment_type':session.paymentMethod==PaymentMethod.cc?'online':'cash_on_delivery',
-        'pay_with_points':points,
-          'notes':session.notes,
-          'address':Provider.of<CartProvider>(context,listen: false).textEditingController.text,
-          'service_type':Provider.of<CartProvider>(context,listen: false).isHome?'delivery':'onsite'
+        var map = <String,dynamic>{};
+        if(session.isPackage&&session.package!=null){
+          map={
+            'booked_shift_id':1.toString(),
+            'shop_id':session.package.shop_id.toString(),
+            'seller_id':session.package.seller_id.toString(),
+            'services_ids':session.selectedServiceIds,
+            if(session.selectedStaff.id!=0)'staff_id':session.selectedStaff.id.toString(),
+            'date':'${now.year}-${now.month}-${now.day}',
+            'time':'${now.hour}:${now.minute}',
+            'payment_type':session.paymentMethod==PaymentMethod.cc?'online':'cash_on_delivery',
+            'pay_with_points':points,
+            'notes':session.notes,
+            'address':Provider.of<CartProvider>(context,listen: false).textEditingController.text,
+            'service_type':Provider.of<CartProvider>(context,listen: false).isHome?'delivery':'onsite'
 
-      };
+          };
+        }else{
+          map={
+            'booked_shift_id':1.toString(),
+            'shop_id':session.location.serviceGroups.first.services.first.shop_id.toString(),
+            'seller_id':session.location.serviceGroups.first.services.first.seller_id.toString(),
+            'services_ids':session.selectedServiceIds,
+            if(session.selectedStaff.id!=0)'staff_id':session.selectedStaff.id.toString(),
+            'date':'${now.year}-${now.month}-${now.day}',
+            'time':'${now.hour}:${now.minute}',
+            'payment_type':session.paymentMethod==PaymentMethod.cc?'online':'cash_on_delivery',
+            'pay_with_points':points,
+            'notes':session.notes,
+            'address':Provider.of<CartProvider>(context,listen: false).textEditingController.text,
+            'service_type':Provider.of<CartProvider>(context,listen: false).isHome?'delivery':'onsite'
+
+          };
+        }
 
         print(map.toString());
       // Wait for some random time. Simulate net activity ;)
       var result ={};
-      await ConfirmOrder().confirmBooking(map,context).then((value){
-         result  = value;
-      });
+
+      if(session.isPackage){
+        await ConfirmOrder().confirmPackageBooking(map,context).then((value){
+          result  = value;
+        });
+      }
+      else{
+        await ConfirmOrder().confirmBooking(map,context).then((value){
+          result  = value;
+        });
+      }
+
 
 
       if(result['result']as bool??true){

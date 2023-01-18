@@ -137,10 +137,21 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
           context,
           message: L10n.of(context).bookingWarningServices,
         );
+        return;
+      }
+
+
+    } if((_currentStep == 2&&selectedPackage==null)){
+      if (session.selectedStaff==null) {
+        UI.showErrorDialog(
+          context,
+          message: getIt.get<AppGlobals>().isRTL?'من فضلك اختر العامل اولا':'Please Select staff',
+        );
 
         return;
       }
-    }if((_currentStep == 2&&selectedPackage==null)||(_currentStep == 1&&selectedPackage!=null)){
+    }
+    if((_currentStep == 1&&selectedPackage!=null)){
       if (session.selectedStaff==null) {
         UI.showErrorDialog(
           context,
@@ -151,7 +162,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
       }
     }
 
-    else if ((_currentStep == 3&&selectedPackage==null)||(_currentStep == 2&&selectedPackage!=null)) {
+     if ((_currentStep == 3&&selectedPackage==null)||(_currentStep == 2&&selectedPackage!=null)) {
       if (session.selectedTimestamp == 0) {
         UI.showErrorDialog(
           context,
@@ -161,7 +172,7 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
         return;
       }
       checkPrevious();
-    } else if (_currentStep == 4||(_currentStep==3&&selectedPackage!=null)) {
+    }  if (_currentStep == 4||(_currentStep==3&&selectedPackage!=null)) {
 
       if(Provider.of<CartProvider>(context,listen: false).isHome&&Provider.of<CartProvider>(context,listen: false).textEditingController.text.trim().isEmpty){
           UI.showErrorDialog(context, message: L10n.of(context).enteraddress);
@@ -171,6 +182,8 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
 
 
       UI.confirmationDialogBox(context,message: '',title:L10n.of(context).bookingBtnConfirm , onConfirmation: (){
+        session.isPackage= selectedPackage!=null;
+        session.package = selectedPackage;
         BlocProvider.of<BookingBloc>(context).add(SubmittedBookingEvent(context: context));
 
       },
@@ -494,6 +507,9 @@ class _BookingScreenState extends State<BookingScreen> with PortraitStatefulMode
         return BlocListener<BookingBloc, BookingState>(
           listener: (BuildContext context, BookingState listener) {
             if (listener is StaffSelectionSuccessBookingState) {
+              if(listener.session!=null){
+                session.selectedStaff=listener.session.selectedStaff;
+              }
               _nextStep();
             } else if (listener is SessionRefreshSuccessBookingState) {
               if (listener.session.apiError.isNotEmpty) {

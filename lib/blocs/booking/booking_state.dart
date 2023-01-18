@@ -15,4 +15,9 @@ class SessionRefreshSuccessBookingState extends BookingState {
 
 class LoadFailureBookingState extends BookingState {}
 
-class StaffSelectionSuccessBookingState extends BookingState {}
+class StaffSelectionSuccessBookingState extends BookingState {
+   BookingSessionModel session;
+   StaffSelectionSuccessBookingState({this.session});
+
+
+}

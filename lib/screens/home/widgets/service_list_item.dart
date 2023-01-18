@@ -74,6 +74,16 @@ class ServiceListItem extends StatelessWidget {
                     style: TextStyle(color: Colors.black,fontSize: 14),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(top: kPaddingS, left: kPaddingS, right: kPaddingS),
+                  child: StrutText(
+
+                    category.address??'',
+                    textAlign: TextAlign.start,
+                    maxLines: 1,
+                    style: TextStyle(color: Colors.black,fontSize: 14),
+                  ),
+                ),
               ],
             ),
 

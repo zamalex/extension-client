@@ -9,6 +9,8 @@ class BookingSessionModel {
     this.booking_id=0,
     this.location,
     this.services,
+    this.isPackage=false,
+    this.package,
     this.selectedServiceIds,
     this.selectedStaff,
     this.timetables,
@@ -25,6 +27,7 @@ class BookingSessionModel {
 
   BookingSessionModel rebuild({
     int booking_id,
+    bool isPackage=false,
     LocationModel location,
     List<ServiceModel> services,
     List<TimetableModel> timetables,
@@ -32,6 +35,7 @@ class BookingSessionModel {
     StaffModel selectedStaff,
     double totalPrice,
     int totalDuration,
+    ServiceModel package,
     int selectedDateRange,
     int selectedTimestamp,
     bool isSubmitting,
@@ -43,6 +47,8 @@ class BookingSessionModel {
     PaymentMethod paymentMethod,
   }) {
     return BookingSessionModel(
+      isPackage:false,
+      package: package,
       booking_id: booking_id??0,
       location: location ?? this.location,
       services: services ?? this.services,
@@ -56,6 +62,7 @@ class BookingSessionModel {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       notes: notes ?? this.notes,
       apiError: apiError ?? '',
+
       appointmentId: appointmentId ?? this.appointmentId,
       paymentMethod: paymentMethod ?? this.paymentMethod,
     );
@@ -65,8 +72,10 @@ class BookingSessionModel {
    List<ServiceModel> services;
   final List<TimetableModel> timetables;
 
+  bool isPackage = false;
+
   final List<int> selectedServiceIds;
-  final StaffModel selectedStaff;
+   StaffModel selectedStaff;
    int selectedDateRange;
   final int selectedTimestamp;
    bool isSubmitting;
@@ -79,6 +88,8 @@ class BookingSessionModel {
    String apiError;
    int appointmentId;
 
+   ServiceModel package;
+
   final PaymentMethod paymentMethod;
   int booking_id;
 
@@ -90,6 +101,7 @@ class BookingSessionModel {
     selectedStaff: $selectedStaff
     totalPrice: $totalPrice
     totalDuration: $totalDuration
+    isPackage: $isPackage
     selectedTimestamp: $selectedTimestamp
     appointmentId: $appointmentId
     paymentMethod: $paymentMethod''';

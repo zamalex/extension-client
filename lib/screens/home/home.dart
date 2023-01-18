@@ -333,21 +333,21 @@ print('salon ${shareData.salon}');
 
   Widget _showTopServices() {
     return Container(
-      height: 270,
+      height: 300,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           BoldTitle(title: L10n.of(context).locationTitleTopServices),
           Container(
-            height: 170,
+            height: 200,
             child: _isDataLoaded
                 ? ListView(
               padding: const EdgeInsetsDirectional.only(start: kPaddingM),
               scrollDirection: Axis.horizontal,
               children: services.map((Product category) {
                 return Container(
-                  width: 160,
+                  width: 190,
                   margin: const EdgeInsets.only(bottom: 1), // for card shadow
                   padding: const EdgeInsetsDirectional.only(end: kPaddingS),
                   child: ServiceListItem(
@@ -372,21 +372,21 @@ print('salon ${shareData.salon}');
 
   Widget _showTopProducts() {
     return Container(
-      height: 270,
+      height: 300,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           BoldTitle(title: L10n.of(context).locationTitleTopProducts),
           Container(
-            height: 170,
+            height: 200,
             child: _isDataLoaded
                 ? ListView(
               padding: const EdgeInsetsDirectional.only(start: kPaddingM),
               scrollDirection: Axis.horizontal,
               children: products.map((Product category) {
                 return Container(
-                  width: 160,
+                  width: 190,
                   margin: const EdgeInsets.only(bottom: 1), // for card shadow
                   padding: const EdgeInsetsDirectional.only(end: kPaddingS),
                   child: ServiceListItem(

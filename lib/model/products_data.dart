@@ -287,6 +287,7 @@ class Product {
   String salonImage;
   String basePrice;
   String shop_name;
+  String address;
   double base_discounted_price;
   bool has_discount;
 
@@ -298,6 +299,7 @@ class Product {
         this.seller_id,
         this.service_duration,
         this.name,
+        this.address,
         this.description,
         this.thumbnailImage,
         this.basePrice,
@@ -314,6 +316,7 @@ class Product {
     service_duration =json['service_duration']==null?0: json['service_duration']as int;
     description =json['description']==null?'': json['description']as String;
     name = json['name']as String;
+    address = json['address']==null?'':json['address']as String;
     shop_name = json['shop_name']as String;
     thumbnailImage = ((json['thumbnail_image'] as  String)==null|| (json['thumbnail_image']as String).isEmpty)?'assets/images/onboarding/welcome.jpg':json['thumbnail_image']as String;
     salonImage = ((json['shop_logo'] as  String)==null|| (json['shop_logo']as String).isEmpty)?'assets/images/onboarding/welcome.jpg':json['shop_logo']as String;

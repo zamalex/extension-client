@@ -32,7 +32,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     print(event.type);
     print(event.status);
    await ApointmentsData().getHistory(page:event.page, type: event.type).then((value){
-      _appointments = value.where((element) => element.orderType==event.type&&(event.status=='all'?true:element.deliveryStatus==event.status)).toList();
+      _appointments = value.where((element) => /*element.orderType==event.type&&*/(event.status=='all'?true:element.deliveryStatus==event.status)).toList();
     
     });
 
