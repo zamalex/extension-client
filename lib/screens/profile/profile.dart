@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:extension/screens/contact_us_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -161,6 +162,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             trailing: const ArrowRightIcon(),
                             onPressed: () => Navigator.pushNamed(context, Routes.settings),
                           ),
+
+                          /*ListItem(
+                           titleTextStyle: TextStyle(color: kPrimaryColor,fontWeight: FontWeight.bold),
+                            title: getIt.get<AppGlobals>().isRTL?'تواصل معنا':'Contact us',
+                            leading: const Icon(Icons.message,color: kPrimaryColor),
+                            trailing: const ArrowRightIcon(),
+                            onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => ContactUsScreen(),)),
+                          ),*/
 
                           if(false)
 

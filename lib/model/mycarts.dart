@@ -430,7 +430,7 @@ class CartItems {
     ownerId = json['owner_id']as int;
     userId = json['user_id']as int;
     productId = json['product_id']as int;
-    productName = json['product_name']as String;
+    productName = /*json['product_name']as String;*/getIt.get<AppGlobals>().isRTL&&json['product_name_ar']!=null?json['product_name_ar']as String:json['product_name']as String;
     productThumbnailImage = json['product_thumbnail_image']as String;
     price = double.parse(json['price'].toString()??'0');
     tax = double.parse(json['tax'].toString()??'0');

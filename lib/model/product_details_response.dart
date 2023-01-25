@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
+import '../configs/app_globals.dart';
+import '../main.dart';
 import 'constants.dart';
 
 class ProductDetailsResponse {
@@ -87,9 +89,9 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id']as int;
-    name = json['name'].toString();
+    name = getIt.get<AppGlobals>().isRTL&&json['name_ar']!=null?json['name_ar']as String:json['name']as String;
     shopId = json['shop_id']as int;
-    shopName = json['shop_name'].toString();
+    shopName = getIt.get<AppGlobals>().isRTL&&json['shop_name_ar']!=null?json['shop_name_ar']as String:json['shop_name']as String;
     thumbnailImage = json['thumbnail_image'].toString();
     hasDiscount = json['has_discount']as bool;
     strokedPrice = json['stroked_price'].toString();

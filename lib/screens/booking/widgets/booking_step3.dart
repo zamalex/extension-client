@@ -85,7 +85,7 @@ getSlots(int day,String id,int salon,String date){
                           if (session.selectedDateRange != index) {
                             final now = DateTime.now().add(Duration(days: index));
                             print(now.toLocalDateString);
-                            getSlots(now.weekday,session.selectedStaff.id.toString(), widget.id,'${now.year}-${now.month}-${now.day}');
+                            getSlots(now.weekday,session.selectedStaff.id.toString(), widget.id,'${now.year}-${now.month.toString().padLeft(2,'0')}-${now.day.toString().padLeft(2,'0')}');
                             context.read<BookingBloc>().add(DateRangeSetBookingEvent(index));
                           }
                         },

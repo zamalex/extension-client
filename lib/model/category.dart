@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:intl/intl.dart';
 
+import '../configs/app_globals.dart';
+import '../main.dart';
 import 'constants.dart';
 import 'dart:convert';
 
@@ -76,7 +78,7 @@ class SingleCategory {
 
   SingleCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int;
-    name = json['name']as String;
+    name = getIt.get<AppGlobals>().isRTL&&json['name_ar']!=null?json['name_ar']as String:json['name']as String;
    // banner = json['banner']as String;
     banner = ((json['banner'] as  String)==null|| (json['banner']as String).isEmpty)?'':json['banner']as String;
 

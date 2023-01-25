@@ -81,6 +81,35 @@ class LoginModel {
   }
 
 
+
+  Future<LoginModel> contactUs(String title, String body) async {
+    var param = {
+      'title': title,
+      'body': body,
+    };
+
+    Map<String,String> header = {
+      'Current-Locale':Intl.getCurrentLocale()
+    };
+
+
+    try {
+      var response = await http.post(
+        Uri.parse('${Globals.BASE}auth/contact-us'),
+        body: param,
+        headers: header
+      );
+
+      final responseJson = json.decode(response.body);
+      return LoginModel(result: responseJson['result'] as bool,message:responseJson['message'].toString() );
+
+    } catch (error) {
+      print(error);
+      return LoginModel(result: false,message:'Server error');
+    }
+  }
+
+
   ///register api
   Future<Map<String,dynamic>> registerUser(String name,String email, String password) async {
     var param = {

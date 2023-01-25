@@ -211,7 +211,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int;
     payment_status = int.parse(json['payment_status'].toString()==''?'0':json['payment_status'].toString());
-    name = json['name'] as String??'';
+    name = getIt.get<AppGlobals>().isRTL&&json['name_ar']!=null?json['name_ar']as String:json['name']as String;
     latitude = (json['latitude'] as String).isEmpty?'0':(json['latitude'] as String);
     longitude = (json['longitude'] as String).isEmpty?'0':(json['longitude'] as String);
     logo = ((json['logo'] as  String)==null|| (json['logo']as String).isEmpty)?'assets/images/onboarding/welcome.jpg':json['logo']as String;

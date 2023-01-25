@@ -261,7 +261,7 @@ class SalonData {
 
   SalonData.fromJson(Map<String, dynamic> json) {
     id = json['id']as  int;
-    name = json['name']as String;
+    name = getIt.get<AppGlobals>().isRTL&&json['name_ar']!=null?json['name_ar']as String:json['name']as String;
     address = json['address']as String;
     phone = json['phone']as String;
     longitude = json['longitude']as String;
@@ -304,7 +304,7 @@ class OrderData {
   OrderData.fromJson(Map<String, dynamic> json) {
     orderType = json['order_type']as String;
     productId = json['product_id'].toString()==''?0:json['product_id'] as int;
-    productName = json['product_name']as String;
+    productName = getIt.get<AppGlobals>().isRTL&&json['product_name_ar']!=null?json['product_name_ar']as String:json['product_name']as String;
     price = json['price']as String;
     quantity = json['quantity']as int;
   }

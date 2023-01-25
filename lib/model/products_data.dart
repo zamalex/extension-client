@@ -4,6 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:extension/model/constants.dart';
 
+import '../configs/app_globals.dart';
+import '../main.dart';
+
 class ProductModel {
   List<Product> products;
   bool success;
@@ -315,9 +318,9 @@ class Product {
     seller_id = json['seller_id']as int;
     service_duration =json['service_duration']==null?0: json['service_duration']as int;
     description =json['description']==null?'': json['description']as String;
-    name = json['name']as String;
+    name = getIt.get<AppGlobals>().isRTL&&json['name_ar']!=null?json['name_ar']as String:json['name']as String;
     address = json['address']==null?'':json['address']as String;
-    shop_name = json['shop_name']as String;
+    shop_name = /*json['shop_name']as String;*/getIt.get<AppGlobals>().isRTL&&json['shop_name_ar']!=null?json['shop_name_ar']as String:json['shop_name']as String;
     thumbnailImage = ((json['thumbnail_image'] as  String)==null|| (json['thumbnail_image']as String).isEmpty)?'assets/images/onboarding/welcome.jpg':json['thumbnail_image']as String;
     salonImage = ((json['shop_logo'] as  String)==null|| (json['shop_logo']as String).isEmpty)?'assets/images/onboarding/welcome.jpg':json['shop_logo']as String;
 

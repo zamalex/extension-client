@@ -36,10 +36,10 @@ class BookingDayTimes {
 
     Map body = id=='0'?{'staff_id':id,
       'shop_id':salon,
-      'day':day,}:{
+      'day':day,'date':date,}:{
       'staff_id':id,
       //'shop_id':salon,
-      'day':day,
+      'day':day,'date':date,
 
     };
     try {
